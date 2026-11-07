@@ -42,6 +42,15 @@ Le site tourne sur http://localhost:5173 (Vite redirige `/api` et `/uploads` ver
 
 ## Déploiement sur le VPS (Docker Compose)
 
+### Avec Dokploy
+
+1. Créer une application **Compose** pointant sur ce dépôt (branche `main`, fichier `compose.yaml`).
+2. Onglet **Environment** : coller le contenu de `.env.example` et remplir au minimum `SESSION_SECRET` (`openssl rand -hex 32`), `ADMIN_EMAIL`, `ADMIN_PASSWORD` — le compte admin est créé au premier démarrage seulement.
+3. Onglet **Domains** : ajouter le domaine avec **Service Name = `site`**, **Container Port = `3000`**, HTTPS activé.
+4. Déployer.
+
+### Sans Dokploy
+
 1. Cloner le dépôt sur le VPS puis créer le fichier d'environnement :
 
    ```bash
@@ -49,15 +58,13 @@ Le site tourne sur http://localhost:5173 (Vite redirige `/api` et `/uploads` ver
    openssl rand -hex 32   # à coller dans SESSION_SECRET
    ```
 
-   Renseigner au minimum `SESSION_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` (le compte est créé au premier démarrage seulement).
-
-2. Construire et lancer :
+2. Publier le port pour votre reverse proxy en ajoutant au service `site` de `compose.yaml` : `ports: ["127.0.0.1:3000:3000"]`, puis :
 
    ```bash
    docker compose up -d --build
    ```
 
-3. Le conteneur écoute sur `127.0.0.1:3000` (modifiable via `HOST_PORT`). Placer un reverse proxy HTTPS devant, par exemple avec Caddy :
+3. Reverse proxy HTTPS, par exemple avec Caddy :
 
    ```caddy
    manoirdelachampagne.fr {
@@ -66,7 +73,7 @@ Le site tourne sur http://localhost:5173 (Vite redirige `/api` et `/uploads` ver
    }
    ```
 
-   Les cookies de session sont `Secure` en production : le site doit être servi en HTTPS (sinon `COOKIE_SECURE=false`).
+Les cookies de session sont `Secure` en production : le site doit être servi en HTTPS (sinon `COOKIE_SECURE=false`).
 
 ### Mettre à jour
 

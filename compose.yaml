@@ -1,18 +1,22 @@
 # Manoir de la Champagne — déploiement VPS
-#   cp .env.example .env   # puis remplir les valeurs
-#   docker compose up -d --build
+#
+# Avec Dokploy : rattacher le domaine au service « site », port 3000.
+# Les variables d'environnement se saisissent dans l'onglet Environment (voir .env.example).
+#
+# Sans Dokploy : cp .env.example .env, puis docker compose up -d --build,
+# et ajouter un reverse proxy HTTPS vers le port 3000 du conteneur (voir README).
 services:
   site:
     build: .
-    image: manoir-champagne:latest
-    container_name: manoir-champagne
     restart: unless-stopped
-    env_file: .env
+    env_file:
+      - path: .env
+        required: false
     environment:
       NODE_ENV: production
-    # Exposé uniquement en local : placez un reverse proxy HTTPS devant (Caddy, Traefik, Nginx…).
-    ports:
-      - "127.0.0.1:${HOST_PORT:-3000}:3000"
+    # Port interne joint par le reverse proxy (Traefik/Dokploy). Rien n'est publié sur l'hôte.
+    expose:
+      - "3000"
     volumes:
       # Base SQLite + photos envoyées depuis l'admin. À sauvegarder.
       - manoir-data:/data
