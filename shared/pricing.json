@@ -1,0 +1,25 @@
+{
+  "formulas": [
+    { "id": "semaine", "name": "Semaine", "duration": "Samedi 16h → samedi suivant 10h", "low": 760, "high": 1360 },
+    { "id": "weekend-2", "name": "Week-end · 2 nuits", "duration": "Vendredi 16h → dimanche 18h", "low": 360, "high": 460 },
+    { "id": "weekend-3", "name": "Week-end · 3 nuits", "duration": "Vendredi 16h → lundi (pont)", "low": 540, "high": 960 },
+    { "id": "midweek", "name": "Mid-week · 5 nuits", "duration": "Lundi 16h → vendredi suivant 10h", "low": 600, "high": 700 }
+  ],
+  "seasons": [
+    { "id": "basse", "name": "Basse saison", "periods": "Février, avril, mai, juin, septembre, octobre" },
+    { "id": "moyenne", "name": "Moyenne saison", "periods": "Vacances de la Toussaint (7 nuits min.)" },
+    { "id": "haute", "name": "Haute saison", "periods": "Noël & Jour de l'an (3 nuits min.)" },
+    { "id": "tres-haute", "name": "Très haute saison", "periods": "Vacances scolaires d'été (7 nuits min.)" }
+  ],
+  "extras": [
+    { "id": "menage", "label": "Forfait ménage (obligatoire)", "price": 95, "unit": "" },
+    { "id": "taxe", "label": "Taxe de séjour", "price": 1, "unit": "/ nuit / adulte" },
+    { "id": "personne-sup", "label": "Personne au-delà de 12", "price": 15, "unit": "/ nuit / pers." },
+    { "id": "chauffage-semaine", "label": "Forfait chauffage (semaine)", "price": 85, "unit": "" },
+    { "id": "chauffage-weekend", "label": "Forfait chauffage (week-end)", "price": 40, "unit": "" },
+    { "id": "draps", "label": "Location de draps", "price": 10, "unit": "/ personne" },
+    { "id": "serviettes", "label": "Location de serviettes", "price": 5, "unit": "/ personne" },
+    { "id": "spa", "label": "Spa extérieur (week-end)", "price": 130, "unit": "" },
+    { "id": "borne", "label": "Branchement véhicule électrique", "price": 15, "unit": "" }
+  ]
+}

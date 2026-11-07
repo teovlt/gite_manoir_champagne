@@ -1,0 +1,186 @@
+{
+  "pages": [
+    {
+      "id": "accueil",
+      "label": "Accueil",
+      "path": "/",
+      "sections": [
+        {
+          "title": "Hero",
+          "fields": [
+            { "key": "heroEyebrow", "label": "Éyebrow (petit texte au-dessus du titre)", "type": "text", "value": "Millières, Manche — Normandie" },
+            { "key": "heroTitle", "label": "Titre principal (H1)", "type": "textarea", "value": "Un manoir du XVIIe siècle, pour vos plus belles retrouvailles" },
+            { "key": "heroSubtitle", "label": "Sous-titre", "type": "textarea", "value": "Gîte de charme pour 12 à 14 personnes, posé dans un écrin de verdure à 10 minutes de la mer. Jacuzzi, étang de pêche privé et jardin clos de 1 500 m² vous attendent." }
+          ]
+        },
+        {
+          "title": "Texte de bienvenue",
+          "fields": [
+            { "key": "welcomeTitle", "label": "Titre de section", "type": "text", "value": "Une maison de famille au cœur du Cotentin" },
+            { "key": "welcomeP1", "label": "Paragraphe 1", "type": "textarea", "value": "Au centre de la Manche, à Millières, le Manoir de la Champagne ouvre ses portes dans un cadre verdoyant et paisible. Entre pierres anciennes et confort actuel, la maison accueille cousinades, anniversaires et week-ends entre amis, à deux pas du Mont-Saint-Michel et des plages du Débarquement." },
+            { "key": "welcomeP2", "label": "Paragraphe 2", "type": "textarea", "value": "Ici, on redécouvre le temps de la campagne : la traite, les veaux dans les prés, et les après-midi qui s'étirent au bord de l'étang." }
+          ]
+        },
+        {
+          "title": "Le mot des propriétaires",
+          "fields": [
+            { "key": "ownersTitle", "label": "Titre", "type": "text", "value": "Loïc & Maryline vous accueillent" },
+            { "key": "ownersText", "label": "Texte", "type": "textarea", "value": "Nous avons à cœur de partager ce lieu qui nous est cher : un manoir de famille, son jardin et son étang, pensés pour que vos cousinades, anniversaires et week-ends entre amis restent de vrais moments de retrouvailles. Nous restons disponibles tout au long de votre séjour pour la moindre question." },
+            { "key": "quote", "label": "Citation (extrait d'avis)", "type": "textarea", "value": "[Emplacement réservé — extrait d'un avis vérifié à reprendre depuis Abritel]" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gite",
+      "label": "Le Gîte",
+      "path": "/le-gite",
+      "sections": [
+        {
+          "title": "En-tête",
+          "fields": [
+            { "key": "heroTitle", "label": "Titre principal (H1)", "type": "text", "value": "Le Gîte — 180 m² pour 12 à 14 personnes" },
+            { "key": "intro", "label": "Introduction", "type": "textarea", "value": "Classé meublé de tourisme 3 étoiles, le Manoir de la Champagne se loue en entier, toute l'année, pour un week-end, une mid-week ou une semaine complète. Il peut accueillir jusqu'à 25 personnes assises au salon pour vos fêtes de famille." }
+          ]
+        },
+        {
+          "title": "Espaces de vie",
+          "fields": [
+            { "key": "salonTitle", "label": "Titre — salon", "type": "text", "value": "Un grand salon de 30 m²" },
+            { "key": "salonText", "label": "Texte — salon", "type": "textarea", "value": "Confortable et chaleureux, il s'organise autour d'une cheminée de style Louis-Philippe — le cœur des soirées en famille, bois fourni par les propriétaires." },
+            { "key": "kitchenTitle", "label": "Titre — cuisine", "type": "text", "value": "Une cuisine entièrement équipée" },
+            { "key": "kitchenList", "label": "Équipements cuisine (un par ligne)", "type": "textarea", "value": "Four & plaque vitrocéramique 4 feux\nHotte aspirante\nMicro-ondes\nLave-vaisselle\nLave-linge séchant\nGrand réfrigérateur-congélateur\nGrille-pain & bouilloire\nCafetière\nChaise haute bébé\n2 appareils à raclette\nGrand faitout" }
+          ]
+        },
+        {
+          "title": "Chambres",
+          "fields": [
+            { "key": "roomsIntro", "label": "Introduction", "type": "text", "value": "5 chambres, dont 4 avec sanitaires privatifs — pour dormir à 12, parfois 14." },
+            { "key": "roomsNote", "label": "Note literie", "type": "text", "value": "Literie complémentaire : 2 lits tiroirs 90×190 et un lit bébé parapluie disponibles sur demande." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jardins",
+      "label": "Jardins & Spa",
+      "path": "/jardins-spa",
+      "sections": [
+        {
+          "title": "En-tête",
+          "fields": [
+            { "key": "heroTitle", "label": "Titre principal (H1)", "type": "text", "value": "Jardins & étang" },
+            { "key": "heroSubtitle", "label": "Sous-titre", "type": "textarea", "value": "1 500 m² de nature clôturée, orientée plein sud, avec étang de pêche privé." }
+          ]
+        },
+        {
+          "title": "Jardins",
+          "fields": [
+            { "key": "northTitle", "label": "Titre — jardin nord", "type": "text", "value": "La cour et le jardin nord" },
+            { "key": "northText", "label": "Texte — jardin nord", "type": "textarea", "value": "Côté nord, la cour du manoir et son premier jardin ouvrent sur l'arrivée — calme, ombragé, et bordé par le porche classé du XVIIe siècle." },
+            { "key": "southTitle", "label": "Titre — jardin sud", "type": "text", "value": "Le jardin clos au sud & l'étang" },
+            { "key": "southText", "label": "Texte — jardin sud", "type": "textarea", "value": "Le grand jardin sud profite d'une exposition plein sud : terrasse, salon de jardin, transats et barbecue, avec vue directe sur l'étang de pêche privé — carpes, anguilles et gardons pour les amateurs de pêche tranquille." }
+          ]
+        },
+        {
+          "title": "Spa",
+          "fields": [
+            { "key": "spaTitle", "label": "Titre", "type": "text", "value": "Un spa extérieur de 7 places" },
+            { "key": "spaText", "label": "Texte", "type": "textarea", "value": "104 jets, installé sur la terrasse sud, pour prolonger la soirée sous les étoiles normandes. Disponible en supplément, à réserver avec votre séjour." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tarifs",
+      "label": "Tarifs",
+      "path": "/tarifs",
+      "sections": [
+        {
+          "title": "Conditions",
+          "fields": [
+            { "key": "arrivals", "label": "Arrivée / départ (une ligne par formule)", "type": "textarea", "value": "Semaine : samedi 16h au samedi suivant 10h\nWeek-end : vendredi 16h au dimanche 18h\nMid-week : lundi 16h au vendredi suivant 10h" },
+            { "key": "included", "label": "Inclus dans le tarif", "type": "textarea", "value": "Eau, électricité et bois pour la cheminée, mis à disposition gracieusement pendant tout le séjour." },
+            { "key": "gridNote", "label": "Note sous la grille", "type": "text", "value": "Tarifs pour l'ensemble de la location, jusqu'à 12 personnes. [Calendrier détaillé des saisons à confirmer avec les propriétaires]" },
+            { "key": "terms", "label": "Modalités (une par ligne)", "type": "textarea", "value": "Acompte de 30 % à la réservation, solde 1 mois avant l'arrivée.\nCaution de 350 €, restituée après l'état des lieux.\nChèques-vacances et carte bancaire acceptés.\nLes animaux ne sont pas acceptés.\nAssurance annulation proposée (Mondial Assistance ou Europ Assistance)." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "region",
+      "label": "La Région",
+      "path": "/region",
+      "sections": [
+        {
+          "title": "En-tête",
+          "fields": [
+            { "key": "heroTitle", "label": "Titre principal (H1)", "type": "text", "value": "Le Cotentin, entre terre et mer" },
+            { "key": "heroSubtitle", "label": "Sous-titre", "type": "textarea", "value": "Depuis le manoir, partez à la découverte d'une presqu'île entre plages sauvages, villages de pêcheurs et grande Histoire." },
+            { "key": "intro", "label": "Introduction « À voir »", "type": "textarea", "value": "Entre Barneville-Carteret et Cherbourg, la presqu'île regorge de panoramas et de villages de caractère." },
+            { "key": "islands", "label": "Îles Anglo-Normandes", "type": "textarea", "value": "Au départ de Granville, Portbail ou Barneville-Carteret, embarquez pour Jersey, Guernesey, Aurigny ou Sercq — une escapade insulaire pour une journée." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "avis",
+      "label": "Avis",
+      "path": "/avis",
+      "sections": [
+        {
+          "title": "Introduction",
+          "fields": [
+            { "key": "intro", "label": "Texte d'introduction", "type": "textarea", "value": "Les séjours au Manoir de la Champagne font l'objet d'avis vérifiés sur Abritel. Voici un aperçu de ce que nos hôtes retiennent de leur passage — cousinades, anniversaires et week-ends entre amis." },
+            { "key": "abritelUrl", "label": "Lien vers les avis Abritel", "type": "text", "value": "#" }
+          ]
+        },
+        {
+          "title": "Avis clients",
+          "fields": [
+            { "key": "review1", "label": "Avis 1", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
+            { "key": "author1", "label": "Auteur 1", "type": "text", "value": "[Prénom], séjour en famille" },
+            { "key": "review2", "label": "Avis 2", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
+            { "key": "author2", "label": "Auteur 2", "type": "text", "value": "[Prénom], cousinade" },
+            { "key": "review3", "label": "Avis 3", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
+            { "key": "author3", "label": "Auteur 3", "type": "text", "value": "[Prénom], week-end entre amis" },
+            { "key": "review4", "label": "Avis 4", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
+            { "key": "author4", "label": "Auteur 4", "type": "text", "value": "[Prénom], anniversaire" },
+            { "key": "review5", "label": "Avis 5", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
+            { "key": "author5", "label": "Auteur 5", "type": "text", "value": "[Prénom], retrouvailles familiales" },
+            { "key": "review6", "label": "Avis 6", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
+            { "key": "author6", "label": "Auteur 6", "type": "text", "value": "[Prénom], séjour pêche" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "path": "/contact",
+      "sections": [
+        {
+          "title": "Coordonnées",
+          "fields": [
+            { "key": "intro", "label": "Texte de présentation", "type": "textarea", "value": "Propriétaires du Manoir de la Champagne, nous répondons directement à vos questions sur le séjour, les disponibilités et les options." },
+            { "key": "phone", "label": "Téléphone", "type": "text", "value": "+33 (0)6 65 15 62 71" }
+          ]
+        },
+        {
+          "title": "Comment venir",
+          "fields": [
+            { "key": "byCar", "label": "En voiture", "type": "textarea", "value": "[itinéraire indicatif depuis Paris / Caen / Cherbourg à préciser]" },
+            { "key": "byTrain", "label": "En train", "type": "textarea", "value": "[gare la plus proche à préciser]" },
+            { "key": "bySea", "label": "Depuis la mer", "type": "textarea", "value": "le manoir est situé à 10 minutes des plages du Cotentin." }
+          ]
+        }
+      ]
+    }
+  ],
+  "navLinks": [
+    { "label": "Le Gîte", "href": "/le-gite" },
+    { "label": "Jardins & Spa", "href": "/jardins-spa" },
+    { "label": "La région", "href": "/region" },
+    { "label": "Avis clients", "href": "/avis" }
+  ]
+}

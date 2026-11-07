@@ -1,15 +1,38 @@
 {
-  "pages": {
-    "home": {
-      "home": "Accueil"
-    }
-  },
   "navbar": {
     "home": "Accueil",
-    "language": "Langage",
-    "languageChanged": "Langage changé en français."
+    "gite": "Le Gîte",
+    "jardins": "Jardins & Spa",
+    "tarifs": "Tarifs",
+    "region": "Région",
+    "avis": "Avis",
+    "contact": "Contact",
+    "book": "Réserver",
+    "main": "Navigation principale",
+    "openMenu": "Ouvrir le menu",
+    "language": "Choix de la langue",
+    "soon": "Bientôt disponible"
   },
   "footer": {
-    "rights": "Votre entreprise. Tous droits réservés."
+    "explore": "Explorer",
+    "book": "Réserver",
+    "pricing": "Tarifs & disponibilités",
+    "contact": "Contact",
+    "abritel": "Avis sur Abritel",
+    "practical": "Pratique",
+    "legal": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "sitemap": "Plan du site"
+  },
+  "booking": {
+    "arrival": "Arrivée",
+    "departure": "Départ",
+    "adults": "Adultes",
+    "children": "Enfants",
+    "check": "Vérifier la disponibilité",
+    "sent": "Merci ! Votre demande a bien été envoyée, Loïc et Maryline vous répondent rapidement.",
+    "error": "L'envoi a échoué. Réessayez ou appelez-nous directement.",
+    "datesOrder": "La date de départ doit être postérieure à la date d'arrivée.",
+    "capacity": "Le gîte accueille 14 personnes au maximum."
   }
 }

@@ -1,15 +1,38 @@
 {
-  "pages": {
-    "home": {
-      "home": "Home"
-    }
-  },
   "navbar": {
     "home": "Home",
+    "gite": "The house",
+    "jardins": "Gardens & Spa",
+    "tarifs": "Rates",
+    "region": "Region",
+    "avis": "Reviews",
+    "contact": "Contact",
+    "book": "Book",
+    "main": "Main navigation",
+    "openMenu": "Open menu",
     "language": "Language",
-    "languageChanged": "Language changed to English."
+    "soon": "Coming soon"
   },
   "footer": {
-    "rights": "Your company. All rights reserved."
+    "explore": "Explore",
+    "book": "Book",
+    "pricing": "Rates & availability",
+    "contact": "Contact",
+    "abritel": "Reviews on Abritel",
+    "practical": "Practical",
+    "legal": "Legal notice",
+    "privacy": "Privacy policy",
+    "sitemap": "Sitemap"
+  },
+  "booking": {
+    "arrival": "Arrival",
+    "departure": "Departure",
+    "adults": "Adults",
+    "children": "Children",
+    "check": "Check availability",
+    "sent": "Thank you! Your request has been sent.",
+    "error": "Sending failed. Please try again or call us.",
+    "datesOrder": "Departure must be after arrival.",
+    "capacity": "The house sleeps 14 guests at most."
   }
 }

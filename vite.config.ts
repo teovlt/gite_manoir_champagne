@@ -9,6 +9,14 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@shared": path.resolve(__dirname, "./shared"),
+    },
+  },
+  server: {
+    // The API (server/) runs on :3000 in development — see README.
+    proxy: {
+      "/api": "http://localhost:3000",
+      "/uploads": "http://localhost:3000",
     },
   },
 });

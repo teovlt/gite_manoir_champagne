@@ -1,19 +1,19 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./styles/index.css";
-import { App } from "./App";
-import "./lib/i18n";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "./providers/theme-provider";
+import "./styles/index.css";
+import "./lib/i18n";
+import { App } from "./App";
 import { Toaster } from "./components/ui/sonner";
+import { SiteDataProvider } from "./providers/site-data-provider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-      <BrowserRouter>
+    <BrowserRouter>
+      <SiteDataProvider>
         <App />
-        <Toaster />
-      </BrowserRouter>
-    </ThemeProvider>
+        <Toaster position="top-center" richColors />
+      </SiteDataProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

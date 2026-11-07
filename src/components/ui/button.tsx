@@ -17,12 +17,18 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        clay: "rounded-full bg-clay text-cream uppercase tracking-[1px] font-semibold hover:bg-[#a95b39] hover:text-cream",
+        ghostLight: "rounded-full border border-cream text-cream uppercase tracking-[1px] font-semibold hover:bg-cream/10 hover:text-cream",
+        textClay: "text-clay uppercase tracking-[1px] font-semibold text-[13px] hover:text-[#a95b39] px-0",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
+        pill: "px-[26px] py-3 text-[13px]",
+        pillLg: "px-8 py-4 text-[13px]",
+        pillMd: "px-7 py-3.5 text-[13px]",
       },
     },
     defaultVariants: {
