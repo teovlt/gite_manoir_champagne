@@ -7,6 +7,10 @@ const env = process.env;
 
 const isProd = env.NODE_ENV === "production";
 
+if (!env.MONGODB_URI) {
+  console.error("[config] MONGODB_URI is required (e.g. mongodb+srv://user:pass@cluster/manoir).");
+  process.exit(1);
+}
 if (!env.SESSION_SECRET && isProd) {
   console.warn("[config] SESSION_SECRET is not set: a random one is used, sessions will not survive a restart.");
 }
@@ -14,7 +18,11 @@ if (!env.SESSION_SECRET && isProd) {
 export const config = {
   isProd,
   port: Number(env.PORT ?? 3000),
-  dataDir: path.resolve(env.DATA_DIR ?? path.join(here, "../data")),
+  mongoUri: env.MONGODB_URI,
+  /** Database name when the URI does not contain one. */
+  mongoDb: env.MONGODB_DB || undefined,
+  /** Public address of the site, used in e-mails, sitemap.xml and hreflang. */
+  publicUrl: (env.PUBLIC_URL ?? "http://localhost:5173").replace(/\/$/, ""),
   sharedDir: path.resolve(env.SHARED_DIR ?? path.join(here, "../../shared")),
   /** Built front-end (vite build output). Served when present. */
   staticDir: path.resolve(env.STATIC_DIR ?? path.join(here, "../../dist")),
@@ -22,6 +30,8 @@ export const config = {
   /** Set to "false" only when the site is served over plain HTTP (local tests). */
   cookieSecure: env.COOKIE_SECURE ? env.COOKIE_SECURE === "true" : isProd,
   trustProxy: env.TRUST_PROXY ?? (isProd ? "1" : "0"),
+  /** Minutes between two synchronisations of the iCal calendars (Abritel, Airbnb…). */
+  icalSyncMinutes: Number(env.ICAL_SYNC_MINUTES ?? 30),
   admin: {
     email: env.ADMIN_EMAIL,
     password: env.ADMIN_PASSWORD,
@@ -38,3 +48,5 @@ export const config = {
       }
     : null,
 };
+
+export const LANGS = ["fr", "en", "de"];

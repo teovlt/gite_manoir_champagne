@@ -1,25 +1,81 @@
 {
   "formulas": [
-    { "id": "semaine", "name": "Semaine", "duration": "Samedi 16h → samedi suivant 10h", "low": 760, "high": 1360 },
-    { "id": "weekend-2", "name": "Week-end · 2 nuits", "duration": "Vendredi 16h → dimanche 18h", "low": 360, "high": 460 },
-    { "id": "weekend-3", "name": "Week-end · 3 nuits", "duration": "Vendredi 16h → lundi (pont)", "low": 540, "high": 960 },
-    { "id": "midweek", "name": "Mid-week · 5 nuits", "duration": "Lundi 16h → vendredi suivant 10h", "low": 600, "high": 700 }
+    {
+      "id": "semaine",
+      "name": { "fr": "Semaine", "en": "Week", "de": "Woche" },
+      "duration": { "fr": "Samedi 16h → samedi suivant 10h", "en": "Saturday 4 pm → following Saturday 10 am", "de": "Samstag 16 Uhr → folgender Samstag 10 Uhr" },
+      "low": 760,
+      "high": 1360
+    },
+    {
+      "id": "weekend-2",
+      "name": { "fr": "Week-end · 2 nuits", "en": "Weekend · 2 nights", "de": "Wochenende · 2 Nächte" },
+      "duration": { "fr": "Vendredi 16h → dimanche 18h", "en": "Friday 4 pm → Sunday 6 pm", "de": "Freitag 16 Uhr → Sonntag 18 Uhr" },
+      "low": 360,
+      "high": 460
+    },
+    {
+      "id": "weekend-3",
+      "name": { "fr": "Week-end · 3 nuits", "en": "Weekend · 3 nights", "de": "Wochenende · 3 Nächte" },
+      "duration": { "fr": "Vendredi 16h → lundi (pont)", "en": "Friday 4 pm → Monday (bank holiday)", "de": "Freitag 16 Uhr → Montag (Brückentag)" },
+      "low": 540,
+      "high": 960
+    },
+    {
+      "id": "midweek",
+      "name": { "fr": "Mid-week · 5 nuits", "en": "Midweek · 5 nights", "de": "Unter der Woche · 5 Nächte" },
+      "duration": { "fr": "Lundi 16h → vendredi suivant 10h", "en": "Monday 4 pm → Friday 10 am", "de": "Montag 16 Uhr → Freitag 10 Uhr" },
+      "low": 600,
+      "high": 700
+    }
   ],
   "seasons": [
-    { "id": "basse", "name": "Basse saison", "periods": "Février, avril, mai, juin, septembre, octobre" },
-    { "id": "moyenne", "name": "Moyenne saison", "periods": "Vacances de la Toussaint (7 nuits min.)" },
-    { "id": "haute", "name": "Haute saison", "periods": "Noël & Jour de l'an (3 nuits min.)" },
-    { "id": "tres-haute", "name": "Très haute saison", "periods": "Vacances scolaires d'été (7 nuits min.)" }
+    {
+      "id": "basse",
+      "name": { "fr": "Basse saison", "en": "Low season", "de": "Nebensaison" },
+      "periods": {
+        "fr": "Février, avril, mai, juin, septembre, octobre",
+        "en": "February, April, May, June, September, October",
+        "de": "Februar, April, Mai, Juni, September, Oktober"
+      }
+    },
+    {
+      "id": "moyenne",
+      "name": { "fr": "Moyenne saison", "en": "Mid season", "de": "Zwischensaison" },
+      "periods": {
+        "fr": "Vacances de la Toussaint (7 nuits min.)",
+        "en": "All Saints' school holidays (7 nights min.)",
+        "de": "Herbstferien zu Allerheiligen (mind. 7 Nächte)"
+      }
+    },
+    {
+      "id": "haute",
+      "name": { "fr": "Haute saison", "en": "High season", "de": "Hochsaison" },
+      "periods": {
+        "fr": "Noël & Jour de l'an (3 nuits min.)",
+        "en": "Christmas & New Year (3 nights min.)",
+        "de": "Weihnachten & Neujahr (mind. 3 Nächte)"
+      }
+    },
+    {
+      "id": "tres-haute",
+      "name": { "fr": "Très haute saison", "en": "Peak season", "de": "Hauptsaison" },
+      "periods": {
+        "fr": "Vacances scolaires d'été (7 nuits min.)",
+        "en": "Summer school holidays (7 nights min.)",
+        "de": "Sommerferien (mind. 7 Nächte)"
+      }
+    }
   ],
   "extras": [
-    { "id": "menage", "label": "Forfait ménage (obligatoire)", "price": 95, "unit": "" },
-    { "id": "taxe", "label": "Taxe de séjour", "price": 1, "unit": "/ nuit / adulte" },
-    { "id": "personne-sup", "label": "Personne au-delà de 12", "price": 15, "unit": "/ nuit / pers." },
-    { "id": "chauffage-semaine", "label": "Forfait chauffage (semaine)", "price": 85, "unit": "" },
-    { "id": "chauffage-weekend", "label": "Forfait chauffage (week-end)", "price": 40, "unit": "" },
-    { "id": "draps", "label": "Location de draps", "price": 10, "unit": "/ personne" },
-    { "id": "serviettes", "label": "Location de serviettes", "price": 5, "unit": "/ personne" },
-    { "id": "spa", "label": "Spa extérieur (week-end)", "price": 130, "unit": "" },
-    { "id": "borne", "label": "Branchement véhicule électrique", "price": 15, "unit": "" }
+    { "id": "menage", "label": { "fr": "Forfait ménage (obligatoire)", "en": "Cleaning fee (mandatory)", "de": "Endreinigung (obligatorisch)" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 95 },
+    { "id": "taxe", "label": { "fr": "Taxe de séjour", "en": "Tourist tax", "de": "Kurtaxe" }, "unit": { "fr": "/ nuit / adulte", "en": "/ night / adult", "de": "/ Nacht / Erwachsener" }, "price": 1 },
+    { "id": "personne-sup", "label": { "fr": "Personne au-delà de 12", "en": "Each guest beyond 12", "de": "Jede Person ab der 13." }, "unit": { "fr": "/ nuit / pers.", "en": "/ night / person", "de": "/ Nacht / Person" }, "price": 15 },
+    { "id": "chauffage-semaine", "label": { "fr": "Forfait chauffage (semaine)", "en": "Heating (week)", "de": "Heizpauschale (Woche)" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 85 },
+    { "id": "chauffage-weekend", "label": { "fr": "Forfait chauffage (week-end)", "en": "Heating (weekend)", "de": "Heizpauschale (Wochenende)" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 40 },
+    { "id": "draps", "label": { "fr": "Location de draps", "en": "Bed linen hire", "de": "Bettwäsche" }, "unit": { "fr": "/ personne", "en": "/ person", "de": "/ Person" }, "price": 10 },
+    { "id": "serviettes", "label": { "fr": "Location de serviettes", "en": "Towel hire", "de": "Handtücher" }, "unit": { "fr": "/ personne", "en": "/ person", "de": "/ Person" }, "price": 5 },
+    { "id": "spa", "label": { "fr": "Spa extérieur (week-end)", "en": "Outdoor spa (weekend)", "de": "Außen-Whirlpool (Wochenende)" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 130 },
+    { "id": "borne", "label": { "fr": "Branchement véhicule électrique", "en": "Electric vehicle charging", "de": "Ladeanschluss für Elektroauto" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 15 }
   ]
 }

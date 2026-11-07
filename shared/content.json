@@ -1,4 +1,5 @@
 {
+  "languages": ["fr", "en", "de"],
   "pages": [
     {
       "id": "accueil",
@@ -8,25 +9,98 @@
         {
           "title": "Hero",
           "fields": [
-            { "key": "heroEyebrow", "label": "Éyebrow (petit texte au-dessus du titre)", "type": "text", "value": "Millières, Manche — Normandie" },
-            { "key": "heroTitle", "label": "Titre principal (H1)", "type": "textarea", "value": "Un manoir du XVIIe siècle, pour vos plus belles retrouvailles" },
-            { "key": "heroSubtitle", "label": "Sous-titre", "type": "textarea", "value": "Gîte de charme pour 12 à 14 personnes, posé dans un écrin de verdure à 10 minutes de la mer. Jacuzzi, étang de pêche privé et jardin clos de 1 500 m² vous attendent." }
+            {
+              "key": "heroEyebrow",
+              "label": "Éyebrow (petit texte au-dessus du titre)",
+              "type": "text",
+              "value": { "fr": "Millières, Manche — Normandie", "en": "Millières, Manche — Normandy", "de": "Millières, Manche — Normandie" }
+            },
+            {
+              "key": "heroTitle",
+              "label": "Titre principal (H1)",
+              "type": "textarea",
+              "value": {
+                "fr": "Un manoir du XVIIe siècle, pour vos plus belles retrouvailles",
+                "en": "A 17th-century manor for your most memorable get-togethers",
+                "de": "Ein Herrenhaus aus dem 17. Jahrhundert für Ihre schönsten Wiedersehen"
+              }
+            },
+            {
+              "key": "heroSubtitle",
+              "label": "Sous-titre",
+              "type": "textarea",
+              "value": {
+                "fr": "Gîte de charme pour 12 à 14 personnes, posé dans un écrin de verdure à 10 minutes de la mer. Jacuzzi, étang de pêche privé et jardin clos de 1 500 m² vous attendent.",
+                "en": "A charming holiday home for 12 to 14 guests, set in lush countryside 10 minutes from the sea. A hot tub, a private fishing pond and a 1,500 m² walled garden await you.",
+                "de": "Ein charmantes Ferienhaus für 12 bis 14 Personen, eingebettet ins Grüne und nur 10 Minuten vom Meer entfernt. Whirlpool, privater Angelteich und ein 1.500 m² großer, umfriedeter Garten erwarten Sie."
+              }
+            }
           ]
         },
         {
           "title": "Texte de bienvenue",
           "fields": [
-            { "key": "welcomeTitle", "label": "Titre de section", "type": "text", "value": "Une maison de famille au cœur du Cotentin" },
-            { "key": "welcomeP1", "label": "Paragraphe 1", "type": "textarea", "value": "Au centre de la Manche, à Millières, le Manoir de la Champagne ouvre ses portes dans un cadre verdoyant et paisible. Entre pierres anciennes et confort actuel, la maison accueille cousinades, anniversaires et week-ends entre amis, à deux pas du Mont-Saint-Michel et des plages du Débarquement." },
-            { "key": "welcomeP2", "label": "Paragraphe 2", "type": "textarea", "value": "Ici, on redécouvre le temps de la campagne : la traite, les veaux dans les prés, et les après-midi qui s'étirent au bord de l'étang." }
+            {
+              "key": "welcomeTitle",
+              "label": "Titre de section",
+              "type": "text",
+              "value": {
+                "fr": "Une maison de famille au cœur du Cotentin",
+                "en": "A family home in the heart of the Cotentin",
+                "de": "Ein Familienhaus im Herzen des Cotentin"
+              }
+            },
+            {
+              "key": "welcomeP1",
+              "label": "Paragraphe 1",
+              "type": "textarea",
+              "value": {
+                "fr": "Au centre de la Manche, à Millières, le Manoir de la Champagne ouvre ses portes dans un cadre verdoyant et paisible. Entre pierres anciennes et confort actuel, la maison accueille cousinades, anniversaires et week-ends entre amis, à deux pas du Mont-Saint-Michel et des plages du Débarquement.",
+                "en": "In the heart of the Manche, in Millières, the Manoir de la Champagne welcomes you in green, peaceful surroundings. Combining old stone with modern comfort, the house is ideal for family reunions, birthdays and weekends with friends, within easy reach of Mont-Saint-Michel and the D-Day beaches.",
+                "de": "Mitten im Département Manche, in Millières, öffnet das Manoir de la Champagne seine Türen in einer grünen, ruhigen Umgebung. Zwischen altem Gemäuer und modernem Komfort empfängt das Haus Familientreffen, Geburtstage und Wochenenden mit Freunden – ganz in der Nähe des Mont-Saint-Michel und der Landungsstrände."
+              }
+            },
+            {
+              "key": "welcomeP2",
+              "label": "Paragraphe 2",
+              "type": "textarea",
+              "value": {
+                "fr": "Ici, on redécouvre le temps de la campagne : la traite, les veaux dans les prés, et les après-midi qui s'étirent au bord de l'étang.",
+                "en": "Here you rediscover the pace of the countryside: milking time, calves in the meadows and long afternoons by the pond.",
+                "de": "Hier entdecken Sie den Rhythmus des Landlebens wieder: das Melken, die Kälber auf der Weide und lange Nachmittage am Teich."
+              }
+            }
           ]
         },
         {
           "title": "Le mot des propriétaires",
           "fields": [
-            { "key": "ownersTitle", "label": "Titre", "type": "text", "value": "Loïc & Maryline vous accueillent" },
-            { "key": "ownersText", "label": "Texte", "type": "textarea", "value": "Nous avons à cœur de partager ce lieu qui nous est cher : un manoir de famille, son jardin et son étang, pensés pour que vos cousinades, anniversaires et week-ends entre amis restent de vrais moments de retrouvailles. Nous restons disponibles tout au long de votre séjour pour la moindre question." },
-            { "key": "quote", "label": "Citation (extrait d'avis)", "type": "textarea", "value": "[Emplacement réservé — extrait d'un avis vérifié à reprendre depuis Abritel]" }
+            {
+              "key": "ownersTitle",
+              "label": "Titre",
+              "type": "text",
+              "value": { "fr": "Loïc & Maryline vous accueillent", "en": "Loïc & Maryline welcome you", "de": "Loïc & Maryline heißen Sie willkommen" }
+            },
+            {
+              "key": "ownersText",
+              "label": "Texte",
+              "type": "textarea",
+              "value": {
+                "fr": "Nous avons à cœur de partager ce lieu qui nous est cher : un manoir de famille, son jardin et son étang, pensés pour que vos cousinades, anniversaires et week-ends entre amis restent de vrais moments de retrouvailles. Nous restons disponibles tout au long de votre séjour pour la moindre question.",
+                "en": "We love sharing this place that is so dear to us: a family manor with its garden and pond, designed so that your family reunions, birthdays and weekends with friends become truly special moments. We remain available throughout your stay for any question.",
+                "de": "Wir teilen diesen Ort, der uns so am Herzen liegt, mit großer Freude: ein Familienherrenhaus mit Garten und Teich, wie geschaffen dafür, dass Familientreffen, Geburtstage und Wochenenden mit Freunden zu echten Momenten des Wiedersehens werden. Während Ihres gesamten Aufenthalts sind wir für jede Frage für Sie da."
+              }
+            },
+            {
+              "key": "quote",
+              "label": "Citation (extrait d'avis)",
+              "type": "textarea",
+              "value": {
+                "fr": "[Emplacement réservé — extrait d'un avis vérifié à reprendre depuis Abritel]",
+                "en": "[Placeholder — excerpt from a verified Abritel review]",
+                "de": "[Platzhalter — Auszug aus einer verifizierten Abritel-Bewertung]"
+              }
+            }
           ]
         }
       ]
@@ -39,24 +113,88 @@
         {
           "title": "En-tête",
           "fields": [
-            { "key": "heroTitle", "label": "Titre principal (H1)", "type": "text", "value": "Le Gîte — 180 m² pour 12 à 14 personnes" },
-            { "key": "intro", "label": "Introduction", "type": "textarea", "value": "Classé meublé de tourisme 3 étoiles, le Manoir de la Champagne se loue en entier, toute l'année, pour un week-end, une mid-week ou une semaine complète. Il peut accueillir jusqu'à 25 personnes assises au salon pour vos fêtes de famille." }
+            {
+              "key": "heroTitle",
+              "label": "Titre principal (H1)",
+              "type": "text",
+              "value": {
+                "fr": "Le Gîte — 180 m² pour 12 à 14 personnes",
+                "en": "The house — 180 m² for 12 to 14 guests",
+                "de": "Das Ferienhaus — 180 m² für 12 bis 14 Personen"
+              }
+            },
+            {
+              "key": "intro",
+              "label": "Introduction",
+              "type": "textarea",
+              "value": {
+                "fr": "Classé meublé de tourisme 3 étoiles, le Manoir de la Champagne se loue en entier, toute l'année, pour un week-end, une mid-week ou une semaine complète. Il peut accueillir jusqu'à 25 personnes assises au salon pour vos fêtes de famille.",
+                "en": "Rated a 3-star furnished holiday rental, the Manoir de la Champagne is rented as a whole, all year round, for a weekend, a midweek break or a full week. Up to 25 people can be seated in the living room for family celebrations.",
+                "de": "Das als 3-Sterne-Ferienunterkunft klassifizierte Manoir de la Champagne wird das ganze Jahr über komplett vermietet – für ein Wochenende, unter der Woche oder eine ganze Woche. Für Familienfeiern bietet der Salon Sitzplätze für bis zu 25 Personen."
+              }
+            }
           ]
         },
         {
           "title": "Espaces de vie",
           "fields": [
-            { "key": "salonTitle", "label": "Titre — salon", "type": "text", "value": "Un grand salon de 30 m²" },
-            { "key": "salonText", "label": "Texte — salon", "type": "textarea", "value": "Confortable et chaleureux, il s'organise autour d'une cheminée de style Louis-Philippe — le cœur des soirées en famille, bois fourni par les propriétaires." },
-            { "key": "kitchenTitle", "label": "Titre — cuisine", "type": "text", "value": "Une cuisine entièrement équipée" },
-            { "key": "kitchenList", "label": "Équipements cuisine (un par ligne)", "type": "textarea", "value": "Four & plaque vitrocéramique 4 feux\nHotte aspirante\nMicro-ondes\nLave-vaisselle\nLave-linge séchant\nGrand réfrigérateur-congélateur\nGrille-pain & bouilloire\nCafetière\nChaise haute bébé\n2 appareils à raclette\nGrand faitout" }
+            {
+              "key": "salonTitle",
+              "label": "Titre — salon",
+              "type": "text",
+              "value": { "fr": "Un grand salon de 30 m²", "en": "A large 30 m² living room", "de": "Ein großer Salon mit 30 m²" }
+            },
+            {
+              "key": "salonText",
+              "label": "Texte — salon",
+              "type": "textarea",
+              "value": {
+                "fr": "Confortable et chaleureux, il s'organise autour d'une cheminée de style Louis-Philippe — le cœur des soirées en famille, bois fourni par les propriétaires.",
+                "en": "Comfortable and cosy, it is arranged around a Louis-Philippe style fireplace — the heart of family evenings, with firewood provided by the owners.",
+                "de": "Gemütlich und einladend, rund um einen Kamin im Louis-Philippe-Stil – das Herzstück der Familienabende, Brennholz wird von den Eigentümern gestellt."
+              }
+            },
+            {
+              "key": "kitchenTitle",
+              "label": "Titre — cuisine",
+              "type": "text",
+              "value": { "fr": "Une cuisine entièrement équipée", "en": "A fully equipped kitchen", "de": "Eine voll ausgestattete Küche" }
+            },
+            {
+              "key": "kitchenList",
+              "label": "Équipements cuisine (un par ligne)",
+              "type": "textarea",
+              "value": {
+                "fr": "Four & plaque vitrocéramique 4 feux\nHotte aspirante\nMicro-ondes\nLave-vaisselle\nLave-linge séchant\nGrand réfrigérateur-congélateur\nGrille-pain & bouilloire\nCafetière\nChaise haute bébé\n2 appareils à raclette\nGrand faitout",
+                "en": "Oven & 4-zone ceramic hob\nExtractor hood\nMicrowave\nDishwasher\nWasher-dryer\nLarge fridge-freezer\nToaster & kettle\nCoffee maker\nBaby high chair\n2 raclette sets\nLarge stockpot",
+                "de": "Backofen & 4-Zonen-Glaskeramikkochfeld\nDunstabzugshaube\nMikrowelle\nGeschirrspüler\nWaschtrockner\nGroßer Kühl-Gefrierschrank\nToaster & Wasserkocher\nKaffeemaschine\nBaby-Hochstuhl\n2 Raclette-Geräte\nGroßer Suppentopf"
+              }
+            }
           ]
         },
         {
           "title": "Chambres",
           "fields": [
-            { "key": "roomsIntro", "label": "Introduction", "type": "text", "value": "5 chambres, dont 4 avec sanitaires privatifs — pour dormir à 12, parfois 14." },
-            { "key": "roomsNote", "label": "Note literie", "type": "text", "value": "Literie complémentaire : 2 lits tiroirs 90×190 et un lit bébé parapluie disponibles sur demande." }
+            {
+              "key": "roomsIntro",
+              "label": "Introduction",
+              "type": "text",
+              "value": {
+                "fr": "5 chambres, dont 4 avec sanitaires privatifs — pour dormir à 12, parfois 14.",
+                "en": "5 bedrooms, 4 of them with private bathrooms — sleeping 12, sometimes 14.",
+                "de": "5 Schlafzimmer, davon 4 mit eigenem Bad – Platz für 12, manchmal 14 Personen."
+              }
+            },
+            {
+              "key": "roomsNote",
+              "label": "Note literie",
+              "type": "text",
+              "value": {
+                "fr": "Literie complémentaire : 2 lits tiroirs 90×190 et un lit bébé parapluie disponibles sur demande.",
+                "en": "Extra bedding: 2 pull-out beds (90×190) and a travel cot available on request.",
+                "de": "Zusätzliche Betten: 2 Ausziehbetten (90×190) und ein Reisebett für Babys auf Anfrage."
+              }
+            }
           ]
         }
       ]
@@ -69,24 +207,80 @@
         {
           "title": "En-tête",
           "fields": [
-            { "key": "heroTitle", "label": "Titre principal (H1)", "type": "text", "value": "Jardins & étang" },
-            { "key": "heroSubtitle", "label": "Sous-titre", "type": "textarea", "value": "1 500 m² de nature clôturée, orientée plein sud, avec étang de pêche privé." }
+            {
+              "key": "heroTitle",
+              "label": "Titre principal (H1)",
+              "type": "text",
+              "value": { "fr": "Jardins & étang", "en": "Gardens & pond", "de": "Gärten & Teich" }
+            },
+            {
+              "key": "heroSubtitle",
+              "label": "Sous-titre",
+              "type": "textarea",
+              "value": {
+                "fr": "1 500 m² de nature clôturée, orientée plein sud, avec étang de pêche privé.",
+                "en": "1,500 m² of enclosed, south-facing grounds with a private fishing pond.",
+                "de": "1.500 m² eingezäunte Natur in Südlage mit privatem Angelteich."
+              }
+            }
           ]
         },
         {
           "title": "Jardins",
           "fields": [
-            { "key": "northTitle", "label": "Titre — jardin nord", "type": "text", "value": "La cour et le jardin nord" },
-            { "key": "northText", "label": "Texte — jardin nord", "type": "textarea", "value": "Côté nord, la cour du manoir et son premier jardin ouvrent sur l'arrivée — calme, ombragé, et bordé par le porche classé du XVIIe siècle." },
-            { "key": "southTitle", "label": "Titre — jardin sud", "type": "text", "value": "Le jardin clos au sud & l'étang" },
-            { "key": "southText", "label": "Texte — jardin sud", "type": "textarea", "value": "Le grand jardin sud profite d'une exposition plein sud : terrasse, salon de jardin, transats et barbecue, avec vue directe sur l'étang de pêche privé — carpes, anguilles et gardons pour les amateurs de pêche tranquille." }
+            {
+              "key": "northTitle",
+              "label": "Titre — jardin nord",
+              "type": "text",
+              "value": { "fr": "La cour et le jardin nord", "en": "The courtyard and north garden", "de": "Der Hof und der Nordgarten" }
+            },
+            {
+              "key": "northText",
+              "label": "Texte — jardin nord",
+              "type": "textarea",
+              "value": {
+                "fr": "Côté nord, la cour du manoir et son premier jardin ouvrent sur l'arrivée — calme, ombragé, et bordé par le porche classé du XVIIe siècle.",
+                "en": "On the north side, the manor's courtyard and first garden greet you on arrival — quiet, shady and lined by the listed 17th-century porch.",
+                "de": "Auf der Nordseite empfangen Sie der Hof des Herrenhauses und sein erster Garten – ruhig, schattig und gesäumt vom denkmalgeschützten Portal aus dem 17. Jahrhundert."
+              }
+            },
+            {
+              "key": "southTitle",
+              "label": "Titre — jardin sud",
+              "type": "text",
+              "value": { "fr": "Le jardin clos au sud & l'étang", "en": "The south walled garden & the pond", "de": "Der umfriedete Südgarten & der Teich" }
+            },
+            {
+              "key": "southText",
+              "label": "Texte — jardin sud",
+              "type": "textarea",
+              "value": {
+                "fr": "Le grand jardin sud profite d'une exposition plein sud : terrasse, salon de jardin, transats et barbecue, avec vue directe sur l'étang de pêche privé — carpes, anguilles et gardons pour les amateurs de pêche tranquille.",
+                "en": "The large south garden enjoys full sun: terrace, garden furniture, sun loungers and barbecue, overlooking the private fishing pond — carp, eels and roach for peaceful anglers.",
+                "de": "Der große Südgarten liegt in voller Sonne: Terrasse, Gartenmöbel, Liegestühle und Grill mit direktem Blick auf den privaten Angelteich – Karpfen, Aale und Rotaugen für entspannte Angler."
+              }
+            }
           ]
         },
         {
           "title": "Spa",
           "fields": [
-            { "key": "spaTitle", "label": "Titre", "type": "text", "value": "Un spa extérieur de 7 places" },
-            { "key": "spaText", "label": "Texte", "type": "textarea", "value": "104 jets, installé sur la terrasse sud, pour prolonger la soirée sous les étoiles normandes. Disponible en supplément, à réserver avec votre séjour." }
+            {
+              "key": "spaTitle",
+              "label": "Titre",
+              "type": "text",
+              "value": { "fr": "Un spa extérieur de 7 places", "en": "A 7-seat outdoor spa", "de": "Ein Außen-Whirlpool für 7 Personen" }
+            },
+            {
+              "key": "spaText",
+              "label": "Texte",
+              "type": "textarea",
+              "value": {
+                "fr": "104 jets, installé sur la terrasse sud, pour prolonger la soirée sous les étoiles normandes. Disponible en supplément, à réserver avec votre séjour.",
+                "en": "104 jets on the south terrace, to make the evening last under the Normandy stars. Available as an extra, to be booked with your stay.",
+                "de": "104 Düsen auf der Südterrasse – für lange Abende unter dem normannischen Sternenhimmel. Gegen Aufpreis, bei der Buchung zu reservieren."
+              }
+            }
           ]
         }
       ]
@@ -99,10 +293,46 @@
         {
           "title": "Conditions",
           "fields": [
-            { "key": "arrivals", "label": "Arrivée / départ (une ligne par formule)", "type": "textarea", "value": "Semaine : samedi 16h au samedi suivant 10h\nWeek-end : vendredi 16h au dimanche 18h\nMid-week : lundi 16h au vendredi suivant 10h" },
-            { "key": "included", "label": "Inclus dans le tarif", "type": "textarea", "value": "Eau, électricité et bois pour la cheminée, mis à disposition gracieusement pendant tout le séjour." },
-            { "key": "gridNote", "label": "Note sous la grille", "type": "text", "value": "Tarifs pour l'ensemble de la location, jusqu'à 12 personnes. [Calendrier détaillé des saisons à confirmer avec les propriétaires]" },
-            { "key": "terms", "label": "Modalités (une par ligne)", "type": "textarea", "value": "Acompte de 30 % à la réservation, solde 1 mois avant l'arrivée.\nCaution de 350 €, restituée après l'état des lieux.\nChèques-vacances et carte bancaire acceptés.\nLes animaux ne sont pas acceptés.\nAssurance annulation proposée (Mondial Assistance ou Europ Assistance)." }
+            {
+              "key": "arrivals",
+              "label": "Arrivée / départ (une ligne par formule)",
+              "type": "textarea",
+              "value": {
+                "fr": "Semaine : samedi 16h au samedi suivant 10h\nWeek-end : vendredi 16h au dimanche 18h\nMid-week : lundi 16h au vendredi suivant 10h",
+                "en": "Week: Saturday 4 pm to the following Saturday 10 am\nWeekend: Friday 4 pm to Sunday 6 pm\nMidweek: Monday 4 pm to Friday 10 am",
+                "de": "Woche: Samstag 16 Uhr bis folgenden Samstag 10 Uhr\nWochenende: Freitag 16 Uhr bis Sonntag 18 Uhr\nUnter der Woche: Montag 16 Uhr bis Freitag 10 Uhr"
+              }
+            },
+            {
+              "key": "included",
+              "label": "Inclus dans le tarif",
+              "type": "textarea",
+              "value": {
+                "fr": "Eau, électricité et bois pour la cheminée, mis à disposition gracieusement pendant tout le séjour.",
+                "en": "Water, electricity and firewood are provided free of charge throughout your stay.",
+                "de": "Wasser, Strom und Kaminholz werden während des gesamten Aufenthalts kostenlos zur Verfügung gestellt."
+              }
+            },
+            {
+              "key": "gridNote",
+              "label": "Note sous la grille",
+              "type": "text",
+              "value": {
+                "fr": "Tarifs pour l'ensemble de la location, jusqu'à 12 personnes. [Calendrier détaillé des saisons à confirmer avec les propriétaires]",
+                "en": "Prices for the whole property, up to 12 guests. [Detailed season calendar to be confirmed with the owners]",
+                "de": "Preise für das gesamte Haus, bis zu 12 Personen. [Detaillierter Saisonkalender wird noch bestätigt]"
+              }
+            },
+            {
+              "key": "terms",
+              "label": "Modalités (une par ligne)",
+              "type": "textarea",
+              "value": {
+                "fr": "Acompte de 30 % à la réservation, solde 1 mois avant l'arrivée.\nCaution de 350 €, restituée après l'état des lieux.\nChèques-vacances et carte bancaire acceptés.\nLes animaux ne sont pas acceptés.\nAssurance annulation proposée (Mondial Assistance ou Europ Assistance).",
+                "en": "30% deposit on booking, balance due 1 month before arrival.\n€350 security deposit, returned after the check-out inspection.\nHoliday vouchers (chèques-vacances) and bank cards accepted.\nPets are not allowed.\nCancellation insurance available (Mondial Assistance or Europ Assistance).",
+                "de": "30 % Anzahlung bei Buchung, Restzahlung 1 Monat vor Anreise.\nKaution von 350 €, Rückerstattung nach der Endabnahme.\nUrlaubsschecks (chèques-vacances) und Bankkarten werden akzeptiert.\nHaustiere sind nicht erlaubt.\nReiserücktrittsversicherung möglich (Mondial Assistance oder Europ Assistance)."
+              }
+            }
           ]
         }
       ]
@@ -115,10 +345,42 @@
         {
           "title": "En-tête",
           "fields": [
-            { "key": "heroTitle", "label": "Titre principal (H1)", "type": "text", "value": "Le Cotentin, entre terre et mer" },
-            { "key": "heroSubtitle", "label": "Sous-titre", "type": "textarea", "value": "Depuis le manoir, partez à la découverte d'une presqu'île entre plages sauvages, villages de pêcheurs et grande Histoire." },
-            { "key": "intro", "label": "Introduction « À voir »", "type": "textarea", "value": "Entre Barneville-Carteret et Cherbourg, la presqu'île regorge de panoramas et de villages de caractère." },
-            { "key": "islands", "label": "Îles Anglo-Normandes", "type": "textarea", "value": "Au départ de Granville, Portbail ou Barneville-Carteret, embarquez pour Jersey, Guernesey, Aurigny ou Sercq — une escapade insulaire pour une journée." }
+            {
+              "key": "heroTitle",
+              "label": "Titre principal (H1)",
+              "type": "text",
+              "value": { "fr": "Le Cotentin, entre terre et mer", "en": "The Cotentin, between land and sea", "de": "Das Cotentin zwischen Land und Meer" }
+            },
+            {
+              "key": "heroSubtitle",
+              "label": "Sous-titre",
+              "type": "textarea",
+              "value": {
+                "fr": "Depuis le manoir, partez à la découverte d'une presqu'île entre plages sauvages, villages de pêcheurs et grande Histoire.",
+                "en": "From the manor, set out to explore a peninsula of wild beaches, fishing villages and great history.",
+                "de": "Entdecken Sie vom Herrenhaus aus eine Halbinsel mit wilden Stränden, Fischerdörfern und großer Geschichte."
+              }
+            },
+            {
+              "key": "intro",
+              "label": "Introduction « À voir »",
+              "type": "textarea",
+              "value": {
+                "fr": "Entre Barneville-Carteret et Cherbourg, la presqu'île regorge de panoramas et de villages de caractère.",
+                "en": "Between Barneville-Carteret and Cherbourg, the peninsula is full of viewpoints and characterful villages.",
+                "de": "Zwischen Barneville-Carteret und Cherbourg bietet die Halbinsel zahlreiche Panoramen und charaktervolle Dörfer."
+              }
+            },
+            {
+              "key": "islands",
+              "label": "Îles Anglo-Normandes",
+              "type": "textarea",
+              "value": {
+                "fr": "Au départ de Granville, Portbail ou Barneville-Carteret, embarquez pour Jersey, Guernesey, Aurigny ou Sercq — une escapade insulaire pour une journée.",
+                "en": "From Granville, Portbail or Barneville-Carteret, sail to Jersey, Guernsey, Alderney or Sark — an island getaway for the day.",
+                "de": "Ab Granville, Portbail oder Barneville-Carteret geht es nach Jersey, Guernsey, Alderney oder Sark – ein Inselausflug für einen Tag."
+              }
+            }
           ]
         }
       ]
@@ -131,25 +393,33 @@
         {
           "title": "Introduction",
           "fields": [
-            { "key": "intro", "label": "Texte d'introduction", "type": "textarea", "value": "Les séjours au Manoir de la Champagne font l'objet d'avis vérifiés sur Abritel. Voici un aperçu de ce que nos hôtes retiennent de leur passage — cousinades, anniversaires et week-ends entre amis." },
-            { "key": "abritelUrl", "label": "Lien vers les avis Abritel", "type": "text", "value": "#" }
+            {
+              "key": "intro",
+              "label": "Texte d'introduction",
+              "type": "textarea",
+              "value": {
+                "fr": "Les séjours au Manoir de la Champagne font l'objet d'avis vérifiés sur Abritel. Voici un aperçu de ce que nos hôtes retiennent de leur passage — cousinades, anniversaires et week-ends entre amis.",
+                "en": "Stays at the Manoir de la Champagne receive verified reviews on Abritel. Here is a glimpse of what our guests remember — family reunions, birthdays and weekends with friends.",
+                "de": "Aufenthalte im Manoir de la Champagne werden auf Abritel verifiziert bewertet. Hier ein Eindruck davon, was unsere Gäste in Erinnerung behalten – Familientreffen, Geburtstage und Wochenenden mit Freunden."
+              }
+            }
           ]
         },
         {
           "title": "Avis clients",
           "fields": [
-            { "key": "review1", "label": "Avis 1", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
-            { "key": "author1", "label": "Auteur 1", "type": "text", "value": "[Prénom], séjour en famille" },
-            { "key": "review2", "label": "Avis 2", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
-            { "key": "author2", "label": "Auteur 2", "type": "text", "value": "[Prénom], cousinade" },
-            { "key": "review3", "label": "Avis 3", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
-            { "key": "author3", "label": "Auteur 3", "type": "text", "value": "[Prénom], week-end entre amis" },
-            { "key": "review4", "label": "Avis 4", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
-            { "key": "author4", "label": "Auteur 4", "type": "text", "value": "[Prénom], anniversaire" },
-            { "key": "review5", "label": "Avis 5", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
-            { "key": "author5", "label": "Auteur 5", "type": "text", "value": "[Prénom], retrouvailles familiales" },
-            { "key": "review6", "label": "Avis 6", "type": "textarea", "value": "[Avis vérifié à reprendre depuis Abritel]" },
-            { "key": "author6", "label": "Auteur 6", "type": "text", "value": "[Prénom], séjour pêche" }
+            { "key": "review1", "label": "Avis 1", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
+            { "key": "author1", "label": "Auteur 1", "type": "text", "value": { "fr": "[Prénom], séjour en famille", "en": "[First name], family stay", "de": "[Vorname], Familienurlaub" } },
+            { "key": "review2", "label": "Avis 2", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
+            { "key": "author2", "label": "Auteur 2", "type": "text", "value": { "fr": "[Prénom], cousinade", "en": "[First name], family reunion", "de": "[Vorname], Familientreffen" } },
+            { "key": "review3", "label": "Avis 3", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
+            { "key": "author3", "label": "Auteur 3", "type": "text", "value": { "fr": "[Prénom], week-end entre amis", "en": "[First name], weekend with friends", "de": "[Vorname], Wochenende mit Freunden" } },
+            { "key": "review4", "label": "Avis 4", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
+            { "key": "author4", "label": "Auteur 4", "type": "text", "value": { "fr": "[Prénom], anniversaire", "en": "[First name], birthday", "de": "[Vorname], Geburtstag" } },
+            { "key": "review5", "label": "Avis 5", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
+            { "key": "author5", "label": "Auteur 5", "type": "text", "value": { "fr": "[Prénom], retrouvailles familiales", "en": "[First name], family get-together", "de": "[Vorname], Familienzusammenkunft" } },
+            { "key": "review6", "label": "Avis 6", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
+            { "key": "author6", "label": "Auteur 6", "type": "text", "value": { "fr": "[Prénom], séjour pêche", "en": "[First name], fishing holiday", "de": "[Vorname], Angelurlaub" } }
           ]
         }
       ]
@@ -160,27 +430,108 @@
       "path": "/contact",
       "sections": [
         {
-          "title": "Coordonnées",
+          "title": "Présentation",
           "fields": [
-            { "key": "intro", "label": "Texte de présentation", "type": "textarea", "value": "Propriétaires du Manoir de la Champagne, nous répondons directement à vos questions sur le séjour, les disponibilités et les options." },
-            { "key": "phone", "label": "Téléphone", "type": "text", "value": "+33 (0)6 65 15 62 71" }
+            {
+              "key": "intro",
+              "label": "Texte de présentation",
+              "type": "textarea",
+              "value": {
+                "fr": "Propriétaires du Manoir de la Champagne, nous répondons directement à vos questions sur le séjour, les disponibilités et les options.",
+                "en": "As owners of the Manoir de la Champagne, we answer your questions about your stay, availability and extras personally.",
+                "de": "Als Eigentümer des Manoir de la Champagne beantworten wir Ihre Fragen zu Aufenthalt, Verfügbarkeit und Zusatzleistungen persönlich."
+              }
+            }
           ]
         },
         {
           "title": "Comment venir",
           "fields": [
-            { "key": "byCar", "label": "En voiture", "type": "textarea", "value": "[itinéraire indicatif depuis Paris / Caen / Cherbourg à préciser]" },
-            { "key": "byTrain", "label": "En train", "type": "textarea", "value": "[gare la plus proche à préciser]" },
-            { "key": "bySea", "label": "Depuis la mer", "type": "textarea", "value": "le manoir est situé à 10 minutes des plages du Cotentin." }
+            {
+              "key": "byCar",
+              "label": "En voiture",
+              "type": "textarea",
+              "value": {
+                "fr": "[itinéraire indicatif depuis Paris / Caen / Cherbourg à préciser]",
+                "en": "[directions from Paris / Caen / Cherbourg to be added]",
+                "de": "[Wegbeschreibung ab Paris / Caen / Cherbourg folgt]"
+              }
+            },
+            {
+              "key": "byTrain",
+              "label": "En train",
+              "type": "textarea",
+              "value": { "fr": "[gare la plus proche à préciser]", "en": "[nearest station to be added]", "de": "[nächster Bahnhof folgt]" }
+            },
+            {
+              "key": "bySea",
+              "label": "Depuis la mer",
+              "type": "textarea",
+              "value": {
+                "fr": "le manoir est situé à 10 minutes des plages du Cotentin.",
+                "en": "the manor is 10 minutes from the Cotentin beaches.",
+                "de": "das Herrenhaus liegt 10 Minuten von den Stränden des Cotentin entfernt."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mentions",
+      "label": "Mentions légales",
+      "path": "/mentions-legales",
+      "sections": [
+        {
+          "title": "Contenu",
+          "fields": [
+            {
+              "key": "body",
+              "label": "Texte (« ## » en début de ligne pour un intertitre)",
+              "type": "textarea",
+              "value": {
+                "fr": "## Éditeur du site\nManoir de la Champagne — Loïc et Maryline Courteille, loueurs en meublé de tourisme.\n2 rue La Champagne, 50190 Millières, France.\nTéléphone : +33 (0)6 65 15 62 71.\nSIRET : [à compléter].\nDirecteur de la publication : [à compléter].\n\n## Hébergement\nSite hébergé par [nom de l'hébergeur, adresse, téléphone — à compléter].\n\n## Propriété intellectuelle\nLes textes et photographies de ce site sont la propriété des propriétaires du Manoir de la Champagne, sauf mention contraire. Toute reproduction sans autorisation est interdite.\n\n## Cartographie\nFonds de carte © les contributeurs d'OpenStreetMap, sous licence ODbL.",
+                "en": "## Site publisher\nManoir de la Champagne — Loïc and Maryline Courteille, holiday rental owners.\n2 rue La Champagne, 50190 Millières, France.\nPhone: +33 (0)6 65 15 62 71.\nSIRET: [to be completed].\nPublication director: [to be completed].\n\n## Hosting\nHosted by [hosting provider, address, phone — to be completed].\n\n## Intellectual property\nThe texts and photographs on this site belong to the owners of the Manoir de la Champagne unless stated otherwise. Any reproduction without permission is prohibited.\n\n## Maps\nMap data © OpenStreetMap contributors, ODbL licence.",
+                "de": "## Herausgeber\nManoir de la Champagne — Loïc und Maryline Courteille, Vermieter einer Ferienunterkunft.\n2 rue La Champagne, 50190 Millières, Frankreich.\nTelefon: +33 (0)6 65 15 62 71.\nSIRET: [zu ergänzen].\nVerantwortlich für den Inhalt: [zu ergänzen].\n\n## Hosting\nGehostet von [Hosting-Anbieter, Adresse, Telefon — zu ergänzen].\n\n## Urheberrecht\nTexte und Fotos dieser Website sind, sofern nicht anders angegeben, Eigentum der Eigentümer des Manoir de la Champagne. Jede Vervielfältigung ohne Genehmigung ist untersagt.\n\n## Karten\nKartendaten © OpenStreetMap-Mitwirkende, Lizenz ODbL."
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "confidentialite",
+      "label": "Confidentialité",
+      "path": "/confidentialite",
+      "sections": [
+        {
+          "title": "Contenu",
+          "fields": [
+            {
+              "key": "body",
+              "label": "Texte (« ## » en début de ligne pour un intertitre)",
+              "type": "textarea",
+              "value": {
+                "fr": "## Données collectées\nLorsque vous envoyez une demande via le formulaire de contact, nous enregistrons votre nom, votre adresse e-mail, les dates et le nombre de voyageurs indiqués ainsi que votre message.\n\n## Finalité\nCes informations servent uniquement à répondre à votre demande et, le cas échéant, à organiser votre séjour. Elles ne sont ni vendues ni transmises à des tiers.\n\n## Durée de conservation\nLes demandes sont conservées 3 ans au maximum après notre dernier échange, puis supprimées.\n\n## Cookies\nCe site n'utilise aucun cookie publicitaire ni de mesure d'audience. Seul l'espace propriétaires dépose un cookie technique de session. La carte est affichée via les serveurs d'OpenStreetMap, qui reçoivent votre adresse IP lors du chargement des tuiles.\n\n## Vos droits\nVous pouvez demander l'accès, la rectification ou la suppression de vos données en nous écrivant via le formulaire de contact ou par téléphone. Vous pouvez également saisir la CNIL (www.cnil.fr).",
+                "en": "## Data we collect\nWhen you send a request through the contact form, we store your name, e-mail address, the dates and number of guests you entered and your message.\n\n## Purpose\nThis information is only used to answer your request and, where relevant, to organise your stay. It is never sold or passed on to third parties.\n\n## Retention\nRequests are kept for up to 3 years after our last exchange, then deleted.\n\n## Cookies\nThis site uses no advertising or analytics cookies. Only the owners' area sets a technical session cookie. The map is served by OpenStreetMap, whose servers receive your IP address when map tiles are loaded.\n\n## Your rights\nYou can ask to access, correct or delete your data by contacting us through the contact form or by phone. You may also contact the French data protection authority, the CNIL (www.cnil.fr).",
+                "de": "## Erhobene Daten\nWenn Sie über das Kontaktformular eine Anfrage senden, speichern wir Ihren Namen, Ihre E-Mail-Adresse, die angegebenen Daten und Personenzahl sowie Ihre Nachricht.\n\n## Zweck\nDiese Angaben dienen ausschließlich der Beantwortung Ihrer Anfrage und gegebenenfalls der Organisation Ihres Aufenthalts. Sie werden weder verkauft noch an Dritte weitergegeben.\n\n## Speicherdauer\nAnfragen werden höchstens 3 Jahre nach unserem letzten Austausch aufbewahrt und dann gelöscht.\n\n## Cookies\nDiese Website verwendet keine Werbe- oder Analyse-Cookies. Nur der Eigentümerbereich setzt ein technisch notwendiges Sitzungs-Cookie. Die Karte wird über OpenStreetMap geladen; deren Server erhalten dabei Ihre IP-Adresse.\n\n## Ihre Rechte\nSie können Auskunft, Berichtigung oder Löschung Ihrer Daten verlangen, indem Sie uns über das Kontaktformular oder telefonisch kontaktieren. Außerdem können Sie sich an die französische Datenschutzbehörde CNIL (www.cnil.fr) wenden."
+              }
+            }
           ]
         }
       ]
     }
   ],
   "navLinks": [
-    { "label": "Le Gîte", "href": "/le-gite" },
-    { "label": "Jardins & Spa", "href": "/jardins-spa" },
-    { "label": "La région", "href": "/region" },
-    { "label": "Avis clients", "href": "/avis" }
-  ]
+    { "label": { "fr": "Le Gîte", "en": "The house", "de": "Das Ferienhaus" }, "href": "/le-gite" },
+    { "label": { "fr": "Jardins & Spa", "en": "Gardens & Spa", "de": "Gärten & Spa" }, "href": "/jardins-spa" },
+    { "label": { "fr": "La région", "en": "The region", "de": "Die Region" }, "href": "/region" },
+    { "label": { "fr": "Avis clients", "en": "Guest reviews", "de": "Gästebewertungen" }, "href": "/avis" }
+  ],
+  "settings": {
+    "phone": "+33 (0)6 65 15 62 71",
+    "abritelUrl": "",
+    "address": "2 rue La Champagne, 50190 Millières",
+    "location": { "lat": 49.1713628, "lng": -1.4592864, "zoom": 14 }
+  }
 }

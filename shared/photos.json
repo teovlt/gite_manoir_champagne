@@ -1,38 +1,332 @@
 [
-  { "key": "accueil.hero", "section": "accueil", "alt": "Façade du Manoir de la Champagne", "url": "/photos/facade.jpg" },
-  { "key": "accueil.portrait", "section": "accueil", "alt": "Loïc & Maryline", "url": null },
-
-  { "key": "gite.hero", "section": "gite", "alt": "Le Manoir de la Champagne", "url": "/photos/gite-hero.jpg" },
-  { "key": "gite.salon", "section": "gite", "alt": "Le salon, 30 m²", "url": "/photos/salon.jpg" },
-  { "key": "gite.cuisine", "section": "gite", "alt": "La cuisine équipée", "url": "/photos/cuisine.jpg" },
-  { "key": "gite.serenite", "section": "gite", "alt": "Chambre Sérénité", "url": "/photos/chambre-serenite.jpg" },
-  { "key": "gite.bateau", "section": "gite", "alt": "Chambre Bateau", "url": "/photos/chambre-bateau.jpg" },
-  { "key": "gite.familiale", "section": "gite", "alt": "Chambre Familiale", "url": "/photos/chambre-familiale.jpg" },
-  { "key": "gite.marquise", "section": "gite", "alt": "Chambre La Marquise", "url": "/photos/chambre-marquise.jpg" },
-  { "key": "gite.plan-rdc", "section": "gite", "alt": "Plan du rez-de-chaussée", "url": "/photos/plan-rdc.jpg" },
-  { "key": "gite.plan-etage", "section": "gite", "alt": "Plan de l'étage", "url": "/photos/plan-etage.jpg" },
-
-  { "key": "jardins.hero", "section": "jardins", "alt": "Jardin sud et étang", "url": "/photos/jardins-hero.jpg" },
-  { "key": "jardins.nord-1", "section": "jardins", "alt": "Jardin nord", "url": "/photos/jardin-nord.jpg" },
-  { "key": "jardins.nord-2", "section": "jardins", "alt": "Jardin nord", "url": null },
-  { "key": "jardins.porche", "section": "jardins", "alt": "Porche classé du XVIIe siècle", "url": "/photos/porche.jpg" },
-  { "key": "jardins.nord-3", "section": "jardins", "alt": "Jardin nord", "url": null },
-  { "key": "jardins.sud", "section": "jardins", "alt": "Jardin sud", "url": "/photos/jardin-sud.jpg" },
-  { "key": "jardins.etang", "section": "jardins", "alt": "Étang de pêche", "url": "/photos/etang.jpg" },
-  { "key": "jardins.terrasse", "section": "jardins", "alt": "Terrasse sud", "url": "/photos/terrasse.jpg" },
-  { "key": "jardins.barbecue", "section": "jardins", "alt": "Barbecue et salon de jardin", "url": "/photos/barbecue.jpg" },
-  { "key": "jardins.spa", "section": "jardins", "alt": "Spa extérieur 7 places", "url": null },
-
-  { "key": "region.hero", "section": "region", "alt": "Côte du Cotentin", "url": null },
-  { "key": "region.mont", "section": "region", "alt": "Mont-Saint-Michel", "url": null },
-  { "key": "region.debarquement", "section": "region", "alt": "Plages du Débarquement", "url": null },
-  { "key": "region.barneville", "section": "region", "alt": "Barneville-Carteret", "url": null },
-  { "key": "region.hague", "section": "region", "alt": "La Hague", "url": null },
-  { "key": "region.cherbourg", "section": "region", "alt": "Cherbourg", "url": null },
-  { "key": "region.barfleur", "section": "region", "alt": "Barfleur", "url": null },
-  { "key": "region.gatteville", "section": "region", "alt": "Phare de Gatteville", "url": null },
-  { "key": "region.racine", "section": "region", "alt": "Port Racine", "url": null },
-  { "key": "region.vauban", "section": "region", "alt": "Tours Vauban", "url": null },
-  { "key": "region.saint-vaast", "section": "region", "alt": "Huîtres de Saint-Vaast", "url": null },
-  { "key": "region.saint-malo", "section": "region", "alt": "Saint-Malo", "url": null }
+  {
+    "key": "accueil.hero",
+    "section": "accueil",
+    "alt": {
+      "fr": "Façade du Manoir de la Champagne",
+      "en": "Façade of the Manoir de la Champagne",
+      "de": "Fassade des Manoir de la Champagne"
+    },
+    "url": "/photos/facade.jpg"
+  },
+  {
+    "key": "accueil.portrait",
+    "section": "accueil",
+    "alt": {
+      "fr": "Loïc & Maryline",
+      "en": "Loïc & Maryline",
+      "de": "Loïc & Maryline"
+    },
+    "url": null
+  },
+  {
+    "key": "gite.hero",
+    "section": "gite",
+    "alt": {
+      "fr": "Le Manoir de la Champagne",
+      "en": "The Manoir de la Champagne",
+      "de": "Das Manoir de la Champagne"
+    },
+    "url": "/photos/gite-hero.jpg"
+  },
+  {
+    "key": "gite.salon",
+    "section": "gite",
+    "alt": {
+      "fr": "Le salon, 30 m²",
+      "en": "The 30 m² living room",
+      "de": "Der 30 m² große Salon"
+    },
+    "url": "/photos/salon.jpg"
+  },
+  {
+    "key": "gite.cuisine",
+    "section": "gite",
+    "alt": {
+      "fr": "La cuisine équipée",
+      "en": "The fully equipped kitchen",
+      "de": "Die ausgestattete Küche"
+    },
+    "url": "/photos/cuisine.jpg"
+  },
+  {
+    "key": "gite.serenite",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Sérénité",
+      "en": "Sérénité bedroom",
+      "de": "Zimmer Sérénité"
+    },
+    "url": "/photos/chambre-serenite.jpg"
+  },
+  {
+    "key": "gite.bateau",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Bateau",
+      "en": "Bateau bedroom",
+      "de": "Zimmer Bateau"
+    },
+    "url": "/photos/chambre-bateau.jpg"
+  },
+  {
+    "key": "gite.familiale",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Familiale",
+      "en": "Family bedroom",
+      "de": "Familienzimmer"
+    },
+    "url": "/photos/chambre-familiale.jpg"
+  },
+  {
+    "key": "gite.marquise",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre La Marquise",
+      "en": "La Marquise bedroom",
+      "de": "Zimmer La Marquise"
+    },
+    "url": "/photos/chambre-marquise.jpg"
+  },
+  {
+    "key": "gite.plan-rdc",
+    "section": "gite",
+    "alt": {
+      "fr": "Plan du rez-de-chaussée",
+      "en": "Ground floor plan",
+      "de": "Grundriss Erdgeschoss"
+    },
+    "url": "/photos/plan-rdc.jpg"
+  },
+  {
+    "key": "gite.plan-etage",
+    "section": "gite",
+    "alt": {
+      "fr": "Plan de l'étage",
+      "en": "First floor plan",
+      "de": "Grundriss Obergeschoss"
+    },
+    "url": "/photos/plan-etage.jpg"
+  },
+  {
+    "key": "jardins.hero",
+    "section": "jardins",
+    "alt": {
+      "fr": "Jardin sud et étang",
+      "en": "South garden and pond",
+      "de": "Südgarten und Teich"
+    },
+    "url": "/photos/jardins-hero.jpg"
+  },
+  {
+    "key": "jardins.nord-1",
+    "section": "jardins",
+    "alt": {
+      "fr": "Jardin nord",
+      "en": "North garden",
+      "de": "Nordgarten"
+    },
+    "url": "/photos/jardin-nord.jpg"
+  },
+  {
+    "key": "jardins.nord-2",
+    "section": "jardins",
+    "alt": {
+      "fr": "Jardin nord",
+      "en": "North garden",
+      "de": "Nordgarten"
+    },
+    "url": null
+  },
+  {
+    "key": "jardins.porche",
+    "section": "jardins",
+    "alt": {
+      "fr": "Porche classé du XVIIe siècle",
+      "en": "Listed 17th-century porch",
+      "de": "Denkmalgeschütztes Portal aus dem 17. Jahrhundert"
+    },
+    "url": "/photos/porche.jpg"
+  },
+  {
+    "key": "jardins.nord-3",
+    "section": "jardins",
+    "alt": {
+      "fr": "Jardin nord",
+      "en": "North garden",
+      "de": "Nordgarten"
+    },
+    "url": null
+  },
+  {
+    "key": "jardins.sud",
+    "section": "jardins",
+    "alt": {
+      "fr": "Jardin sud",
+      "en": "South garden",
+      "de": "Südgarten"
+    },
+    "url": "/photos/jardin-sud.jpg"
+  },
+  {
+    "key": "jardins.etang",
+    "section": "jardins",
+    "alt": {
+      "fr": "Étang de pêche",
+      "en": "Fishing pond",
+      "de": "Angelteich"
+    },
+    "url": "/photos/etang.jpg"
+  },
+  {
+    "key": "jardins.terrasse",
+    "section": "jardins",
+    "alt": {
+      "fr": "Terrasse sud",
+      "en": "South terrace",
+      "de": "Südterrasse"
+    },
+    "url": "/photos/terrasse.jpg"
+  },
+  {
+    "key": "jardins.barbecue",
+    "section": "jardins",
+    "alt": {
+      "fr": "Barbecue et salon de jardin",
+      "en": "Barbecue and garden furniture",
+      "de": "Grill und Gartenmöbel"
+    },
+    "url": "/photos/barbecue.jpg"
+  },
+  {
+    "key": "jardins.spa",
+    "section": "jardins",
+    "alt": {
+      "fr": "Spa extérieur 7 places",
+      "en": "7-seat outdoor spa",
+      "de": "Außen-Whirlpool für 7 Personen"
+    },
+    "url": null
+  },
+  {
+    "key": "region.hero",
+    "section": "region",
+    "alt": {
+      "fr": "Côte du Cotentin",
+      "en": "Cotentin coastline",
+      "de": "Küste des Cotentin"
+    },
+    "url": null
+  },
+  {
+    "key": "region.mont",
+    "section": "region",
+    "alt": {
+      "fr": "Mont-Saint-Michel",
+      "en": "Mont-Saint-Michel",
+      "de": "Mont-Saint-Michel"
+    },
+    "url": null
+  },
+  {
+    "key": "region.debarquement",
+    "section": "region",
+    "alt": {
+      "fr": "Plages du Débarquement",
+      "en": "D-Day beaches",
+      "de": "Landungsstrände"
+    },
+    "url": null
+  },
+  {
+    "key": "region.barneville",
+    "section": "region",
+    "alt": {
+      "fr": "Barneville-Carteret",
+      "en": "Barneville-Carteret",
+      "de": "Barneville-Carteret"
+    },
+    "url": null
+  },
+  {
+    "key": "region.hague",
+    "section": "region",
+    "alt": {
+      "fr": "La Hague",
+      "en": "La Hague",
+      "de": "La Hague"
+    },
+    "url": null
+  },
+  {
+    "key": "region.cherbourg",
+    "section": "region",
+    "alt": {
+      "fr": "Cherbourg",
+      "en": "Cherbourg",
+      "de": "Cherbourg"
+    },
+    "url": null
+  },
+  {
+    "key": "region.barfleur",
+    "section": "region",
+    "alt": {
+      "fr": "Barfleur",
+      "en": "Barfleur",
+      "de": "Barfleur"
+    },
+    "url": null
+  },
+  {
+    "key": "region.gatteville",
+    "section": "region",
+    "alt": {
+      "fr": "Phare de Gatteville",
+      "en": "Gatteville lighthouse",
+      "de": "Leuchtturm Gatteville"
+    },
+    "url": null
+  },
+  {
+    "key": "region.racine",
+    "section": "region",
+    "alt": {
+      "fr": "Port Racine",
+      "en": "Port Racine",
+      "de": "Port Racine"
+    },
+    "url": null
+  },
+  {
+    "key": "region.vauban",
+    "section": "region",
+    "alt": {
+      "fr": "Tours Vauban",
+      "en": "Vauban towers",
+      "de": "Vauban-Türme"
+    },
+    "url": null
+  },
+  {
+    "key": "region.saint-vaast",
+    "section": "region",
+    "alt": {
+      "fr": "Huîtres de Saint-Vaast",
+      "en": "Saint-Vaast oysters",
+      "de": "Austern aus Saint-Vaast"
+    },
+    "url": null
+  },
+  {
+    "key": "region.saint-malo",
+    "section": "region",
+    "alt": {
+      "fr": "Saint-Malo",
+      "en": "Saint-Malo",
+      "de": "Saint-Malo"
+    },
+    "url": null
+  }
 ]

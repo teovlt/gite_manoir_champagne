@@ -4,17 +4,24 @@
   "version": "1.0.0",
   "type": "module",
   "engines": {
-    "node": ">=22.13"
+    "node": ">=22.9"
   },
   "scripts": {
-    "dev": "node --disable-warning=ExperimentalWarning --watch src/index.js",
-    "start": "node --disable-warning=ExperimentalWarning src/index.js",
-    "create-user": "node --disable-warning=ExperimentalWarning src/create-user.js"
+    "dev": "node --env-file-if-exists=.env --watch src/index.js",
+    "start": "node src/index.js",
+    "create-user": "node src/create-user.js"
   },
   "dependencies": {
     "express": "^5.1.0",
-    "multer": "^2.0.2",
-    "nodemailer": "^7.0.6"
+    "mongodb": "6",
+    "multer": "2",
+    "nodemailer": "^7.0.6",
+    "sharp": "0.34"
   },
-  "packageManager": "pnpm@10.6.5"
+  "packageManager": "pnpm@10.6.5",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
+  }
 }
