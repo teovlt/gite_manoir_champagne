@@ -15,11 +15,6 @@ services:
         required: false
     environment:
       NODE_ENV: production
-    # Résolveurs publics : certains DNS de VPS/Docker ne répondent pas aux requêtes SRV
-    # des URI mongodb+srv:// (erreur « querySrv ESERVFAIL »).
-    dns:
-      - 1.1.1.1
-      - 8.8.8.8
     # Port interne joint par Traefik. Rien n'est publié sur l'hôte.
     expose:
       - "3000"

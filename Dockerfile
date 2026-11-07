@@ -20,7 +20,6 @@ RUN pnpm install --frozen-lockfile --prod
 # All data (texts, photos, users, bookings…) lives in MongoDB — see MONGODB_URI.
 FROM node:22-alpine
 ENV NODE_ENV=production \
-    DNS_SERVERS=1.1.1.1,8.8.8.8 \
     PORT=3000 \
     STATIC_DIR=/app/dist \
     SHARED_DIR=/app/shared

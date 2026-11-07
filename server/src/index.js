@@ -20,7 +20,7 @@ async function connectWithRetry() {
     } catch (err) {
       const hint =
         err.syscall === "querySrv"
-          ? " — the SRV lookup of the mongodb+srv:// URI failed: check the container DNS (DNS_SERVERS / compose `dns`) or use Atlas' standard mongodb:// connection string"
+          ? " — the DNS of this server cannot resolve mongodb+srv:// URIs: use the standard mongodb://host1,host2,host3/…?ssl=true&replicaSet=…&authSource=admin form instead (see README › Dépannage)"
           : err.name === "MongoServerSelectionError"
             ? " — server unreachable: check the IP access list of the cluster (Atlas › Network Access) and the credentials"
             : "";

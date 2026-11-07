@@ -83,7 +83,9 @@ Au premier démarrage, l'application crée les index MongoDB, insère les textes
 
 **Dépannage**
 
-- `querySrv ESERVFAIL` / `ENOTFOUND` dans les logs : le DNS du conteneur ne résout pas l'URI `mongodb+srv://`. L'image et le compose utilisent déjà 1.1.1.1 et 8.8.8.8 ; si le VPS bloque ces serveurs, mettez ceux de l'hébergeur dans `DNS_SERVERS`, ou utilisez l'URI standard `mongodb://…` donnée par Atlas (Connect › Drivers, ancienne version du driver).
+- `querySrv ESERVFAIL` / `ETIMEOUT` dans les logs : le DNS du VPS ne résout pas les URI `mongodb+srv://`. Utilisez la forme standard, qui liste les serveurs du cluster :
+  `mongodb://utilisateur:motdepasse@hote-00:27017,hote-01:27017,hote-02:27017/manoir?ssl=true&replicaSet=atlas-xxxx-shard-0&authSource=admin&retryWrites=true&w=majority`.
+  Atlas la donne dans *Connect › Drivers* en choisissant une ancienne version du driver Node (2.2.12). Les noms d'hôtes et le `replicaSet` s'obtiennent aussi depuis un poste où le DNS fonctionne : `nslookup -type=SRV _mongodb._tcp.<cluster>.mongodb.net` et `nslookup -type=TXT <cluster>.mongodb.net`. En option, `DNS_SERVERS` force d'autres résolveurs pour les requêtes SRV, si le VPS les autorise.
 - `MongoServerSelectionError` : l'IP du VPS n'est pas autorisée dans Atlas, ou identifiants incorrects.
 - Tant que la base est injoignable, l'application réessaie toutes les 3 à 30 s (le site répond « Bad Gateway » pendant ce temps) au lieu de redémarrer en boucle.
 

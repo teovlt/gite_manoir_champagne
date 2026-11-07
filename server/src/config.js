@@ -9,7 +9,7 @@ const env = process.env;
 const isProd = env.NODE_ENV === "production";
 
 // Some Docker/VPS resolvers cannot answer the SRV queries used by mongodb+srv:// URIs.
-// DNS_SERVERS (comma-separated) makes Node query those servers instead. Default in the image: 1.1.1.1,8.8.8.8.
+// DNS_SERVERS (comma-separated, optional) makes Node query those servers instead.
 if (env.DNS_SERVERS) {
   const servers = env.DNS_SERVERS.split(",").map((s) => s.trim()).filter(Boolean);
   dns.setServers(servers);
