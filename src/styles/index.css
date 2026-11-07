@@ -117,11 +117,72 @@
 }
 
 @layer utilities {
+  /* Scroll reveal (see components/site/reveal.tsx) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  /* Slow zoom on hero photos */
+  .hero-zoom {
+    animation: hero-zoom 18s ease-out both;
+  }
+  /* Image zoom inside a hovered card / tile */
+  .zoom-frame img {
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .zoom-frame:hover img,
+  .zoom-frame:focus-visible img {
+    transform: scale(1.045);
+  }
+  .lift {
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(43, 42, 37, 0.12);
+  }
   .photo-warm {
     filter: saturate(1.12) sepia(0.05) contrast(1.02);
   }
   .px-gutter {
     padding-left: clamp(24px, 6vw, 64px);
     padding-right: clamp(24px, 6vw, 64px);
+  }
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-zoom {
+    animation: none;
+  }
+  .zoom-frame img,
+  .lift {
+    transition: none;
+  }
+  .zoom-frame:hover img,
+  .lift:hover {
+    transform: none;
   }
 }

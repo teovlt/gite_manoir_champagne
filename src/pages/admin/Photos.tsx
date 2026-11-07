@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-import { AdminCard, Icon, PillTabs } from "@/components/admin/admin-ui";
+import { AdminCard, Icon, LangSwitch, PillTabs, type AdminLang } from "@/components/admin/admin-ui";
 import { useSiteData } from "@/providers/site-data-provider";
 import { api } from "@/lib/api";
 import type { Photo, PhotoSection } from "@/lib/types";
@@ -30,10 +30,11 @@ function pickFile(onPick: (file: File) => void) {
   input.click();
 }
 
-function PhotoCard({ photo, onChanged }: { photo: Photo; onChanged: () => void }) {
-  const [alt, setAlt] = useState(photo.alt);
+function PhotoCard({ photo, lang, onChanged }: { photo: Photo; lang: AdminLang; onChanged: () => void }) {
+  const current = photo.alt[lang] ?? "";
+  const [alt, setAlt] = useState(current);
   const [busy, setBusy] = useState(false);
-  useEffect(() => setAlt(photo.alt), [photo.alt]);
+  useEffect(() => setAlt(current), [current]);
 
   const run = async (fn: () => Promise<unknown>, success: string) => {
     setBusy(true);
@@ -57,13 +58,13 @@ function PhotoCard({ photo, onChanged }: { photo: Photo; onChanged: () => void }
 
   const remove = () => {
     const message = photo.key
-      ? `Retirer « ${photo.alt} » ? L'emplacement restera sur la page avec une image d'attente.`
-      : `Supprimer définitivement « ${photo.alt} » ?`;
+      ? `Retirer « ${photo.alt.fr} » ? L'emplacement restera sur la page avec une image d'attente.`
+      : `Supprimer définitivement « ${photo.alt.fr} » ?`;
     if (window.confirm(message)) run(() => api.delete(`/api/admin/photos/${photo.id}`), "Photo retirée.");
   };
 
   const saveAlt = () => {
-    if (alt.trim() !== photo.alt) run(() => api.patch(`/api/admin/photos/${photo.id}`, { alt }), "Légende enregistrée.");
+    if (alt.trim() !== current) run(() => api.patch(`/api/admin/photos/${photo.id}`, { alt: { [lang]: alt } }), "Légende enregistrée.");
   };
 
   const actionClass = "flex size-7 items-center justify-center rounded-lg bg-ink/60 text-cream hover:bg-ink/80";
@@ -72,7 +73,7 @@ function PhotoCard({ photo, onChanged }: { photo: Photo; onChanged: () => void }
     <AdminCard className={cn("overflow-hidden rounded-[14px]", busy && "opacity-60")}>
       <div className="relative aspect-[4/3]">
         {photo.url ? (
-          <img src={photo.url} alt={photo.alt} loading="lazy" className="block h-full w-full object-cover [filter:saturate(1.1)_sepia(0.04)]" />
+          <img src={photo.url} alt={photo.alt.fr} loading="lazy" className="block h-full w-full object-cover [filter:saturate(1.1)_sepia(0.04)]" />
         ) : (
           <button
             type="button"
@@ -85,12 +86,12 @@ function PhotoCard({ photo, onChanged }: { photo: Photo; onChanged: () => void }
         )}
         <div className="absolute right-2 top-2 flex gap-1.5">
           {photo.url && (
-            <button type="button" onClick={replace} className={actionClass} title="Remplacer la photo" aria-label={`Remplacer ${photo.alt}`}>
+            <button type="button" onClick={replace} className={actionClass} title="Remplacer la photo" aria-label={`Remplacer ${photo.alt.fr}`}>
               <Icon name="edit" size={14} strokeWidth={2} />
             </button>
           )}
           {(photo.url || !photo.key) && (
-            <button type="button" onClick={remove} className={actionClass} title="Supprimer" aria-label={`Supprimer ${photo.alt}`}>
+            <button type="button" onClick={remove} className={actionClass} title="Supprimer" aria-label={`Supprimer ${photo.alt.fr}`}>
               <Icon name="trash" size={14} strokeWidth={2} />
             </button>
           )}
@@ -102,8 +103,9 @@ function PhotoCard({ photo, onChanged }: { photo: Photo; onChanged: () => void }
       </div>
       <div className="px-3 py-2.5">
         <input
-          aria-label="Légende / texte alternatif"
+          aria-label={`Légende / texte alternatif (${lang.toUpperCase()})`}
           value={alt}
+          placeholder={photo.alt.fr}
           onChange={(e) => setAlt(e.target.value)}
           onBlur={saveAlt}
           onKeyDown={(e) => e.key === "Enter" && (e.target as HTMLInputElement).blur()}
@@ -118,6 +120,7 @@ export function AdminPhotos() {
   const { refresh } = useSiteData();
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [filter, setFilter] = useState<Filter>("all");
+  const [lang, setLang] = useState<AdminLang>("fr");
   const [uploadSection, setUploadSection] = useState<PhotoSection>("accueil");
   const [dragging, setDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -142,10 +145,10 @@ export function AdminPhotos() {
   const section = filter === "all" ? uploadSection : filter;
 
   const upload = async (files: FileList | File[]) => {
-    const list = Array.from(files).filter((f) => ACCEPT.includes(f.type));
+    const list = Array.from(files).filter((f) => f.type && ACCEPT.includes(f.type));
     if (!list.length) return toast.error("Formats acceptés : JPG, PNG ou WebP.");
-    const tooBig = list.find((f) => f.size > 10 * 1024 * 1024);
-    if (tooBig) return toast.error(`« ${tooBig.name} » dépasse 10 Mo.`);
+    const tooBig = list.find((f) => f.size > 15 * 1024 * 1024);
+    if (tooBig) return toast.error(`« ${tooBig.name} » dépasse 15 Mo.`);
     const form = new FormData();
     form.append("section", section);
     list.forEach((f) => form.append("files", f));
@@ -165,7 +168,13 @@ export function AdminPhotos() {
 
   return (
     <>
-      <PillTabs label="Filtrer par page" items={filters} value={filter} onChange={setFilter} className="mb-6" />
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <PillTabs label="Filtrer par page" items={filters} value={filter} onChange={setFilter} />
+        <div className="flex items-center gap-2 text-[12.5px] text-umber">
+          Légendes en
+          <LangSwitch value={lang} onChange={setLang} />
+        </div>
+      </div>
 
       <div
         onDragOver={(e) => {
@@ -188,7 +197,7 @@ export function AdminPhotos() {
           <span className="mb-1 text-sm font-semibold text-ink">
             {uploading ? "Envoi en cours…" : "Glissez vos photos ici, ou cliquez pour parcourir"}
           </span>
-          <span className="text-[12.5px] text-stone">JPG ou PNG, 10 Mo maximum par fichier — pensez au format 4:3 pour un rendu homogène.</span>
+          <span className="text-[12.5px] text-stone">JPG, PNG ou WebP, 15 Mo maximum — redimensionnées et optimisées automatiquement. Pensez au format 4:3 pour un rendu homogène.</span>
         </button>
         <input ref={inputRef} type="file" accept={ACCEPT} multiple hidden onChange={(e) => e.target.files && upload(e.target.files)} />
         <div className="mt-4 flex items-center justify-center gap-2 text-[12.5px] text-umber">
@@ -216,7 +225,7 @@ export function AdminPhotos() {
 
       <div className="grid grid-cols-[repeat(auto-fill,minmax(min(230px,100%),1fr))] gap-5">
         {visible.map((p) => (
-          <PhotoCard key={p.id} photo={p} onChanged={changed} />
+          <PhotoCard key={p.id} photo={p} lang={lang} onChanged={changed} />
         ))}
       </div>
     </>

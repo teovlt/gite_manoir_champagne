@@ -163,6 +163,31 @@ export const AdminIcon = {
       <path d="M4 21h16" />
     </>
   ),
+  inbox: (
+    <>
+      <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+      <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+    </>
+  ),
+  settings: (
+    <>
+      <circle cx="12" cy="10" r="3" />
+      <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
+    </>
+  ),
+  users: (
+    <>
+      <circle cx="9" cy="8" r="3.5" />
+      <path d="M2.5 20a6.5 6.5 0 0 1 13 0" />
+      <path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6" />
+    </>
+  ),
+  user: (
+    <>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21a8 8 0 0 1 16 0" />
+    </>
+  ),
 };
 
 export const Icon = ({ name, size = 18, strokeWidth = 1.6, className }: { name: keyof typeof AdminIcon; size?: number; strokeWidth?: number; className?: string }) => (
@@ -181,3 +206,32 @@ export const Icon = ({ name, size = 18, strokeWidth = 1.6, className }: { name: 
     {AdminIcon[name]}
   </svg>
 );
+
+const langNames = { fr: "Français", en: "English", de: "Deutsch" } as const;
+export type AdminLang = keyof typeof langNames;
+
+/** FR / EN / DE switch for translatable fields. */
+export function LangSwitch({ value, onChange, className }: { value: AdminLang; onChange: (l: AdminLang) => void; className?: string }) {
+  return (
+    <div role="tablist" aria-label="Langue du contenu" className={cn("inline-flex rounded-full border border-line-strong bg-cream p-1", className)}>
+      {(Object.keys(langNames) as AdminLang[]).map((l) => (
+        <button
+          key={l}
+          type="button"
+          role="tab"
+          aria-selected={value === l}
+          title={langNames[l]}
+          onClick={() => onChange(l)}
+          className={cn(
+            "rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.5px] transition-colors",
+            value === l ? "bg-sage-dark text-cream" : "text-umber hover:text-ink",
+          )}
+        >
+          {l}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+export const LANG_FLAGS: Record<AdminLang, string> = { fr: "FR", en: "EN", de: "DE" };

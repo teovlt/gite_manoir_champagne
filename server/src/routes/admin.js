@@ -205,7 +205,7 @@ adminRoutes.post(
   upload.array("files"),
   h(async (req, res) => {
     const section = SECTIONS.includes(req.body?.section) ? req.body.section : "accueil";
-    if (!req.files?.length) return bad(res, "Aucune image valide (JPG, PNG, WebP ou HEIC, 15 Mo max).");
+    if (!req.files?.length) return bad(res, "Aucune image valide (JPG, PNG ou WebP, 15 Mo max).");
     const last = await col.photos.find().sort({ sort: -1 }).limit(1).next();
     let sort = (last?.sort ?? 0) + 1;
     for (const file of req.files) {
@@ -223,7 +223,7 @@ adminRoutes.put(
   h(async (req, res) => {
     const photo = await col.photos.findOne({ _id: oid(req.params.id) });
     if (!photo) return bad(res, "Photo introuvable.", 404);
-    if (!req.file) return bad(res, "Image invalide (JPG, PNG, WebP ou HEIC, 15 Mo max).");
+    if (!req.file) return bad(res, "Image invalide (JPG, PNG ou WebP, 15 Mo max).");
     const url = await storeImage(req.file);
     await removeImage(photo.url);
     await col.photos.updateOne({ _id: photo._id }, { $set: { url } });
@@ -238,7 +238,10 @@ adminRoutes.patch(
     const photo = await col.photos.findOne({ _id: oid(req.params.id) });
     if (!photo) return bad(res, "Photo introuvable.", 404);
     const update = {};
-    if (req.body?.alt) update.alt = { ...photo.alt, ...translated(req.body.alt, 200) };
+    if (req.body?.alt && typeof req.body.alt === "object") {
+      update.alt = { ...photo.alt };
+      for (const lang of LANGS) if (typeof req.body.alt[lang] === "string") update.alt[lang] = str(req.body.alt[lang], 200);
+    }
     // Slot photos stay in their page; free gallery photos can move between sections.
     if (!photo.key && SECTIONS.includes(req.body?.section)) update.section = req.body.section;
     if (Number.isInteger(req.body?.sort)) update.sort = req.body.sort;

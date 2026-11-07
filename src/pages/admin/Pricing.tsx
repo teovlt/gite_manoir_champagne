@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { AdminCard, AdminH2, adminInputClass } from "@/components/admin/admin-ui";
+import { AdminCard, AdminH2, LangSwitch, adminInputClass, type AdminLang } from "@/components/admin/admin-ui";
 import { useSiteData } from "@/providers/site-data-provider";
 import { api } from "@/lib/api";
 import type { Pricing } from "@/lib/types";
@@ -9,14 +9,14 @@ import { cn } from "@/lib/utils";
 
 /** Pricing form keeps raw strings so owners can type "1 360" or "12,50". */
 type Editable = {
-  formulas: { id: string; name: string; duration: string; low: string; high: string }[];
-  seasons: { id: string; name: string; periods: string }[];
-  extras: { id: string; label: string; unit: string; price: string }[];
+  formulas: (Omit<Pricing["formulas"][number], "low" | "high"> & { low: string; high: string })[];
+  seasons: Pricing["seasons"];
+  extras: (Omit<Pricing["extras"][number], "price"> & { price: string })[];
 };
 
 const toEditable = (p: Pricing): Editable => ({
   formulas: p.formulas.map((f) => ({ ...f, low: String(f.low), high: String(f.high) })),
-  seasons: p.seasons.map((s) => ({ ...s })),
+  seasons: p.seasons.map((s) => ({ ...s, periods: { ...s.periods } })),
   extras: p.extras.map((x) => ({ ...x, price: String(x.price) })),
 });
 
@@ -28,6 +28,7 @@ export function AdminPricing() {
   const [form, setForm] = useState<Editable>(() => toEditable(data.pricing));
   const [dirty, setDirty] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [lang, setLang] = useState<AdminLang>("fr");
 
   useEffect(() => {
     api
@@ -74,12 +75,12 @@ export function AdminPricing() {
           <tbody>
             {form.formulas.map((f) => (
               <tr key={f.id} className="border-t border-line">
-                <td className="px-5 py-3 font-semibold">{f.name}</td>
-                <td className="px-5 py-3 text-ink-soft">{f.duration}</td>
+                <td className="px-5 py-3 font-semibold">{f.name.fr}</td>
+                <td className="px-5 py-3 text-ink-soft">{f.duration.fr}</td>
                 {(["low", "high"] as const).map((k) => (
                   <td key={k} className="px-5 py-3">
                     <input
-                      aria-label={`${f.name} — ${k === "low" ? "prix bas" : "prix haut"}`}
+                      aria-label={`${f.name.fr} — ${k === "low" ? "prix bas" : "prix haut"}`}
                       inputMode="decimal"
                       value={f[k]}
                       onChange={(e) => update("formulas", f.id, { [k]: e.target.value })}
@@ -94,14 +95,23 @@ export function AdminPricing() {
         </table>
       </AdminCard>
 
-      <AdminH2 className="mb-4">Périodes de saison</AdminH2>
+      <div className="mb-4 flex flex-wrap items-center gap-4">
+        <AdminH2>Périodes de saison</AdminH2>
+        <LangSwitch value={lang} onChange={setLang} />
+      </div>
       <div className="mb-8 grid grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-4">
         {form.seasons.map((s) => (
           <AdminCard key={s.id} className="flex flex-col gap-2 p-[18px]">
             <label htmlFor={`season-${s.id}`} className="text-xs font-semibold uppercase tracking-[0.5px] text-clay">
-              {s.name}
+              {s.name[lang] || s.name.fr} ({lang.toUpperCase()})
             </label>
-            <input id={`season-${s.id}`} value={s.periods} onChange={(e) => update("seasons", s.id, { periods: e.target.value })} className={adminInputClass} />
+            <input
+              id={`season-${s.id}`}
+              value={s.periods[lang] ?? ""}
+              placeholder={s.periods.fr}
+              onChange={(e) => update("seasons", s.id, { periods: { ...s.periods, [lang]: e.target.value } })}
+              className={adminInputClass}
+            />
           </AdminCard>
         ))}
       </div>
@@ -111,8 +121,8 @@ export function AdminPricing() {
         {form.extras.map((x, i) => (
           <div key={x.id} className={cn("flex items-center justify-between gap-4 py-3", i < form.extras.length - 1 && "border-b border-line")}>
             <label htmlFor={`extra-${x.id}`} className="text-sm text-ink-soft">
-              {x.label}
-              {x.unit && <span className="text-stone"> ({x.unit.replace(/^\/\s*/, "par ")})</span>}
+              {x.label.fr}
+              {x.unit.fr && <span className="text-stone"> ({x.unit.fr.replace(/^\/\s*/, "par ")})</span>}
             </label>
             <span className="whitespace-nowrap text-sm">
               <input

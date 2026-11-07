@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "siteName": "Manoir de la Champagne",
+    "home": "Gîte de charme en Normandie",
+    "description": "Manoir du XVIIe siècle à Millières (Manche) : gîte de charme pour 12 à 14 personnes, jardin clos, étang de pêche et spa, à 10 minutes de la mer."
+  },
   "navbar": {
     "home": "Accueil",
     "gite": "Le Gîte",
@@ -11,7 +16,7 @@
     "main": "Navigation principale",
     "openMenu": "Ouvrir le menu",
     "language": "Choix de la langue",
-    "soon": "Bientôt disponible"
+    "tagline": "Millières · Manche"
   },
   "footer": {
     "explore": "Explorer",
@@ -22,7 +27,14 @@
     "practical": "Pratique",
     "legal": "Mentions légales",
     "privacy": "Politique de confidentialité",
-    "sitemap": "Plan du site"
+    "sitemap": "Plan du site",
+    "rating": "Meublé de tourisme ★★★",
+    "region": "Normandie"
+  },
+  "banner": {
+    "badge": "Événement",
+    "cta": "En profiter →",
+    "period": "du {{start}} au {{end}}"
   },
   "booking": {
     "arrival": "Arrivée",
@@ -33,6 +45,203 @@
     "sent": "Merci ! Votre demande a bien été envoyée, Loïc et Maryline vous répondent rapidement.",
     "error": "L'envoi a échoué. Réessayez ou appelez-nous directement.",
     "datesOrder": "La date de départ doit être postérieure à la date d'arrivée.",
-    "capacity": "Le gîte accueille 14 personnes au maximum."
+    "datesPast": "La date d'arrivée est déjà passée.",
+    "capacity": "Le gîte accueille 14 personnes au maximum.",
+    "unavailable": "Le manoir est déjà réservé sur une partie de ces dates. Consultez le calendrier des disponibilités.",
+    "invalidContact": "Indiquez votre nom et une adresse e-mail valide.",
+    "available": "Bonne nouvelle : ces dates sont libres.",
+    "datesFrom": "Du {{start}} au {{end}}",
+    "datesStart": "À partir du {{start}}"
+  },
+  "calendar": {
+    "title": "Disponibilités",
+    "subtitle": "Les jours barrés sont déjà réservés. Cliquez sur une date d'arrivée puis de départ pour préparer votre demande.",
+    "prev": "Mois précédent",
+    "next": "Mois suivant",
+    "booked": "Réservé",
+    "free": "Libre",
+    "selected": "Votre séjour",
+    "selectArrival": "Choisissez votre date d'arrivée.",
+    "selectDeparture": "Choisissez votre date de départ.",
+    "nights": "{{count}} nuit",
+    "nights_other": "{{count}} nuits",
+    "request": "Demander ces dates",
+    "clear": "Effacer",
+    "loading": "Chargement du calendrier…"
+  },
+  "map": {
+    "title": "Plan d'accès",
+    "directions": "Itinéraire",
+    "google": "Google Maps",
+    "waze": "Waze",
+    "apple": "Plans (Apple)",
+    "fromHere": "Depuis ma position",
+    "locating": "Localisation…",
+    "distance": "Vous êtes à environ {{km}} km à vol d'oiseau du manoir.",
+    "geoError": "Impossible d'obtenir votre position. Vérifiez l'autorisation de localisation.",
+    "coords": "Coordonnées GPS",
+    "copy": "Copier",
+    "copied": "Coordonnées copiées.",
+    "attribution": "© les contributeurs d'OpenStreetMap",
+    "marker": "Manoir de la Champagne"
+  },
+  "lightbox": {
+    "open": "Agrandir la photo : {{alt}}",
+    "close": "Fermer",
+    "prev": "Photo précédente",
+    "next": "Photo suivante",
+    "counter": "{{index}} / {{total}}"
+  },
+  "home": {
+    "ctaAvailability": "Vérifier les disponibilités",
+    "ctaDiscover": "Découvrir le manoir",
+    "bookingNote": "Vos dates et le nombre de voyageurs sont repris automatiquement sur la page Contact, ou",
+    "bookingPdf": "téléchargez directement le PDF de demande",
+    "welcome": "Bienvenue",
+    "ownersEyebrow": "Le mot des propriétaires",
+    "ownersIllustration": "Illustration — Loïc & Maryline",
+    "essentials": "L'essentiel du séjour",
+    "highlights": [
+      { "title": "5 chambres confortables", "text": "4 chambres avec sanitaires privatifs, dont une de plain-pied accessible aux personnes à mobilité réduite." },
+      { "title": "Jacuzzi 7 places", "text": "104 jets, en extérieur, disponible en option pour prolonger la détente sous les étoiles." },
+      { "title": "Jardin clos de 1 500 m²", "text": "Exposition plein sud, terrasse, transats, barbecue et portique pour les enfants." },
+      { "title": "Étang de pêche privé", "text": "Carpes, anguilles et gardons, à deux pas de la terrasse — canne en main, le temps s'arrête." },
+      { "title": "Cheminée & chauffage au sol", "text": "Bois fourni pour les soirées fraîches, chauffage au sol au rez-de-chaussée." },
+      { "title": "Tout confort", "text": "Wi-Fi gratuit, TV 107 cm, équipement bébé, volets électriques, aspiration centralisée." }
+    ],
+    "gallery": "Un aperçu des lieux",
+    "galleryAll": "Voir toute la galerie →",
+    "readReviews": "Lire les avis vérifiés",
+    "regionTitle": "À deux pas de la Manche historique",
+    "regionText": "Le Mont-Saint-Michel, les plages du Débarquement et les plus beaux villages du Cotentin sont à portée de voiture.",
+    "teasers": [
+      { "title": "Mont-Saint-Michel", "text": "Classé au patrimoine mondial de l'UNESCO." },
+      { "title": "Plages du Débarquement", "text": "Cimetière américain de Colleville, port artificiel d'Arromanches." },
+      { "title": "Barfleur", "text": "L'un des plus beaux villages de France, réputé pour ses moules." }
+    ],
+    "exploreRegion": "Explorer la région →",
+    "findUs": "Nous trouver",
+    "nearSea": "Normandie — à 10 minutes de la mer",
+    "directionsContact": "Itinéraire & contact →"
+  },
+  "gite": {
+    "eyebrow": "Hébergement",
+    "badges": ["Meublé ★★★", "Chèques-vacances acceptés", "Paiement CB"],
+    "living": "Les espaces de vie",
+    "kitchenIntro": "De quoi cuisiner pour un grand groupe sans rien oublier :",
+    "rooms": "Les chambres",
+    "roomList": [
+      { "name": "Chambre Sérénité", "tag": "Rez-de-chaussée · accès PMR", "text": "1 lit 160×200. Salle d'eau avec douche hydromassante grand format à siège intégré, lavabo, WC." },
+      { "name": "Chambre Bateau", "tag": "Étage · thème marin", "text": "2 lits 90×190, 1 lit superposé 90×190, 1 lit tiroir 90×190. Salle de bain avec vasque en verre et douche hydromassante, WC." },
+      { "name": "Chambre Familiale", "tag": "Étage", "text": "2 lits 90×190." },
+      { "name": "Chambre La Marquise", "tag": "Étage", "text": "2 lits 90×200. Armoire de style normand. Salle de bain avec vasque en verre, douche hydromassante grand format, WC." }
+    ],
+    "gallery": "Galerie",
+    "plans": "Plans du gîte"
+  },
+  "jardins": {
+    "eyebrow": "Extérieurs",
+    "option": "En option",
+    "spaPrices": "Voir les tarifs du spa"
+  },
+  "tarifs": {
+    "eyebrow": "Réservation",
+    "title": "Tarifs & conditions",
+    "arrivals": "Arrivée / départ —",
+    "otherDates": "Pour d'autres dates d'arrivée, nous contacter.",
+    "included": "Inclus dans le tarif —",
+    "grid": "Grille tarifaire",
+    "formula": "Formule",
+    "duration": "Durée",
+    "price": "Tarif selon saison",
+    "range": "{{low}} à {{high}}",
+    "extras": "Suppléments & options",
+    "terms": "Modalités",
+    "askTitle": "Demander la disponibilité",
+    "askText": "Indiquez vos dates et le nombre de personnes, Loïc et Maryline vous répondent directement.",
+    "message": "Message (option spa, questions…)",
+    "ask": "Demander la disponibilité"
+  },
+  "region": {
+    "eyebrow": "La Manche, Normandie",
+    "heroPhoto": "Côte du Cotentin",
+    "see": "À voir dans le Cotentin",
+    "sights": [
+      { "title": "Barneville-Carteret", "text": "Station prisée des plaisanciers." },
+      { "title": "La Hague", "text": "Le bout du monde du Cotentin." },
+      { "title": "Cherbourg", "text": "« Port des Amériques », Cité de la Mer et son sous-marin nucléaire." },
+      { "title": "Barfleur", "text": "Classé « plus beau village de France », réputé pour ses moules blanches." },
+      { "title": "Phare de Gatteville", "text": "2e plus grand phare de France." },
+      { "title": "Port Racine", "text": "Le plus petit port de France." },
+      { "title": "Tours Vauban", "text": "Inscrites au patrimoine mondial de l'UNESCO." },
+      { "title": "Saint-Vaast-la-Hougue", "text": "Dégustation des huîtres locales sur le port." }
+    ],
+    "memory": "Mémoire & histoire",
+    "memoryList": [
+      { "title": "Plages du Débarquement", "text": "Cimetière américain de Colleville, port artificiel d'Arromanches, Mémorial de Caen." },
+      { "title": "Sainte-Mère-Église", "text": "Célèbre pour son parachutiste suspendu au clocher." },
+      { "title": "Tapisserie de Bayeux", "text": "La broderie du XIe siècle, à ne pas manquer." },
+      { "title": "Valognes", "text": "Surnommée le « petit Versailles normand »." }
+    ],
+    "mont": { "title": "Mont-Saint-Michel", "text": "Classé au patrimoine mondial de l'UNESCO." },
+    "malo": { "title": "Saint-Malo", "text": "La cité corsaire, en Ille-et-Vilaine." },
+    "illustration": "Illustration",
+    "islands": "Les îles Anglo-Normandes",
+    "activities": "Activités sportives & nature",
+    "activityList": [
+      { "title": "Voile & planche à voile", "text": "École de voile et club nautique à Barneville-Carteret (optimist, catamaran, planche)." },
+      { "title": "Randonnée & VTT", "text": "Sentiers autour de la Lande de Lessay." },
+      { "title": "Vélo & char à voile", "text": "Location de vélos, char à voile à Bretteville-sur-Ay." },
+      { "title": "Karting", "text": "Circuit de karting à Lessay." },
+      { "title": "Parc du Cotentin et du Bessin", "text": "Nature protégée, entre marais et bocage." },
+      { "title": "Zoo de Champrepus", "text": "Une sortie familiale à moins d'une heure." }
+    ]
+  },
+  "avis": {
+    "eyebrow": "Livre d'or",
+    "title": "Ce qu'en disent nos hôtes",
+    "stars": "5 étoiles sur 5",
+    "placeholders": "Ces emplacements sont prévus pour recueillir vos avis réels — à remplacer avant mise en ligne.",
+    "all": "Lire tous les avis sur Abritel ↗"
+  },
+  "contact": {
+    "eyebrow": "Nous écrire",
+    "title": "Contact & accès",
+    "owners": "Loïc & Maryline Courteille",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "E-mail",
+    "emailVia": "transmis via le formulaire",
+    "shareFacebook": "Partager · Facebook",
+    "shareEmail": "Partager · E-mail",
+    "noteDefault": "Vous arrivez depuis le bandeau de réservation de l'accueil ? Vos dates et le nombre de voyageurs sont repris automatiquement ci-dessous.",
+    "notePrefilled": "Vos dates et le nombre de voyageurs ont été repris ci-dessous — il ne reste qu'à compléter vos coordonnées.",
+    "name": "Nom",
+    "datesWanted": "Dates souhaitées",
+    "datesPlaceholder": "Ex. du 12 au 19 juillet",
+    "message": "Votre message",
+    "send": "Envoyer le message",
+    "sending": "Envoi…",
+    "pdf": "ou téléchargez le PDF à nous retourner",
+    "consent": "Vos informations servent uniquement à répondre à votre demande.",
+    "privacyLink": "En savoir plus",
+    "howTo": "Comment venir",
+    "byCar": "En voiture",
+    "byTrain": "En train",
+    "bySea": "Depuis la mer",
+    "planNote": "Un plan d'accès détaillé sera transmis après réservation."
+  },
+  "legal": {
+    "mentions": "Mentions légales",
+    "privacy": "Politique de confidentialité",
+    "sitemap": "Plan du site",
+    "eyebrow": "Informations",
+    "sitemapPages": "Pages du site",
+    "sitemapLanguages": "Autres langues"
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "Cette page n'existe pas ou a été déplacée.",
+    "back": "Retour à l'accueil"
   }
 }

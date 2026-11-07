@@ -1,32 +1,34 @@
+import type { Translated } from "./locale";
+
 export type PhotoSection = "accueil" | "gite" | "jardins" | "region";
 
 export interface Photo {
-  id?: number;
+  id?: string;
   key: string | null;
   section: PhotoSection;
-  alt: string;
+  alt: Translated;
   url: string | null;
 }
 
 export interface Formula {
   id: string;
-  name: string;
-  duration: string;
+  name: Translated;
+  duration: Translated;
   low: number;
   high: number;
 }
 
 export interface Season {
   id: string;
-  name: string;
-  periods: string;
+  name: Translated;
+  periods: Translated;
 }
 
 export interface Extra {
   id: string;
-  label: string;
+  label: Translated;
   price: number;
-  unit: string;
+  unit: Translated;
 }
 
 export interface Pricing {
@@ -36,16 +38,16 @@ export interface Pricing {
 }
 
 export interface NavLink {
-  label: string;
+  label: Translated;
   href: string;
 }
 
 export interface SiteEvent {
-  id: number;
-  title: string;
+  id: string;
+  title: Translated;
   startDate: string;
   endDate: string;
-  text: string;
+  text: Translated;
   link: string;
   active: boolean;
 }
@@ -54,7 +56,7 @@ export interface ContentField {
   key: string;
   label: string;
   type: "text" | "textarea";
-  value: string;
+  value: Translated;
 }
 
 export interface ContentPage {
@@ -64,7 +66,17 @@ export interface ContentPage {
   sections: { title: string; fields: ContentField[] }[];
 }
 
-export type ContentValues = Record<string, Record<string, string>>;
+/** page → key → value, for one language */
+export type PageValues = Record<string, Record<string, string>>;
+/** lang → page → key → value */
+export type ContentValues = Record<string, PageValues>;
+
+export interface SiteSettings {
+  phone: string;
+  address: string;
+  abritelUrl: string;
+  location: { lat: number; lng: number; zoom: number };
+}
 
 export interface SiteData {
   content: ContentValues;
@@ -72,10 +84,13 @@ export interface SiteData {
   photos: Photo[];
   pricing: Pricing;
   banner: SiteEvent | null;
+  settings: SiteSettings;
 }
 
+export type RequestStatus = "nouvelle" | "repondue" | "confirmee" | "refusee";
+
 export interface BookingRequest {
-  id: number;
+  id: string;
   name: string;
   email: string;
   arrival: string | null;
@@ -84,19 +99,35 @@ export interface BookingRequest {
   adults: number | null;
   children: number | null;
   message: string | null;
-  status: "nouvelle" | "repondue";
+  lang: string;
+  note?: string;
+  status: RequestStatus;
+  blockId?: string | null;
   createdAt: string;
 }
 
 export interface ActivityEntry {
-  id: number;
+  id: string;
   userName: string;
   message: string;
   createdAt: string;
 }
 
 export interface AdminUser {
-  id: number;
+  id: string;
   email: string;
   name: string;
+  role: "admin" | "editor";
+  createdAt: string;
+  lastLoginAt: string | null;
+  pending: boolean;
+}
+
+export interface AvailabilityBlock {
+  id?: string;
+  start: string;
+  end: string;
+  label?: string;
+  source?: "manual" | "ical" | "request";
+  feed?: string | null;
 }

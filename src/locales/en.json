@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "siteName": "Manoir de la Champagne",
+    "home": "Charming holiday home in Normandy",
+    "description": "17th-century manor in Millières (Manche, Normandy): a charming holiday home for 12 to 14 guests with a walled garden, fishing pond and spa, 10 minutes from the sea."
+  },
   "navbar": {
     "home": "Home",
     "gite": "The house",
@@ -11,7 +16,7 @@
     "main": "Main navigation",
     "openMenu": "Open menu",
     "language": "Language",
-    "soon": "Coming soon"
+    "tagline": "Millières · Normandy"
   },
   "footer": {
     "explore": "Explore",
@@ -22,7 +27,14 @@
     "practical": "Practical",
     "legal": "Legal notice",
     "privacy": "Privacy policy",
-    "sitemap": "Sitemap"
+    "sitemap": "Sitemap",
+    "rating": "3-star holiday rental ★★★",
+    "region": "Normandy, France"
+  },
+  "banner": {
+    "badge": "Event",
+    "cta": "Find out more →",
+    "period": "from {{start}} to {{end}}"
   },
   "booking": {
     "arrival": "Arrival",
@@ -30,9 +42,206 @@
     "adults": "Adults",
     "children": "Children",
     "check": "Check availability",
-    "sent": "Thank you! Your request has been sent.",
-    "error": "Sending failed. Please try again or call us.",
-    "datesOrder": "Departure must be after arrival.",
-    "capacity": "The house sleeps 14 guests at most."
+    "sent": "Thank you! Your request has been sent — Loïc and Maryline will get back to you shortly.",
+    "error": "Sending failed. Please try again or call us directly.",
+    "datesOrder": "The departure date must be after the arrival date.",
+    "datesPast": "The arrival date is already in the past.",
+    "capacity": "The house sleeps 14 guests at most.",
+    "unavailable": "The manor is already booked for part of these dates. Please check the availability calendar.",
+    "invalidContact": "Please enter your name and a valid e-mail address.",
+    "available": "Good news: these dates are available.",
+    "datesFrom": "From {{start}} to {{end}}",
+    "datesStart": "From {{start}}"
+  },
+  "calendar": {
+    "title": "Availability",
+    "subtitle": "Crossed-out days are already booked. Click an arrival date, then a departure date, to prepare your request.",
+    "prev": "Previous month",
+    "next": "Next month",
+    "booked": "Booked",
+    "free": "Available",
+    "selected": "Your stay",
+    "selectArrival": "Choose your arrival date.",
+    "selectDeparture": "Choose your departure date.",
+    "nights": "{{count}} night",
+    "nights_other": "{{count}} nights",
+    "request": "Request these dates",
+    "clear": "Clear",
+    "loading": "Loading the calendar…"
+  },
+  "map": {
+    "title": "How to find us",
+    "directions": "Directions",
+    "google": "Google Maps",
+    "waze": "Waze",
+    "apple": "Apple Maps",
+    "fromHere": "From my location",
+    "locating": "Locating…",
+    "distance": "You are about {{km}} km from the manor as the crow flies.",
+    "geoError": "Your location could not be determined. Please check location permissions.",
+    "coords": "GPS coordinates",
+    "copy": "Copy",
+    "copied": "Coordinates copied.",
+    "attribution": "© OpenStreetMap contributors",
+    "marker": "Manoir de la Champagne"
+  },
+  "lightbox": {
+    "open": "Enlarge photo: {{alt}}",
+    "close": "Close",
+    "prev": "Previous photo",
+    "next": "Next photo",
+    "counter": "{{index}} / {{total}}"
+  },
+  "home": {
+    "ctaAvailability": "Check availability",
+    "ctaDiscover": "Discover the manor",
+    "bookingNote": "Your dates and number of guests are carried over to the Contact page, or",
+    "bookingPdf": "download the booking request PDF",
+    "welcome": "Welcome",
+    "ownersEyebrow": "A word from the owners",
+    "ownersIllustration": "Illustration — Loïc & Maryline",
+    "essentials": "Your stay at a glance",
+    "highlights": [
+      { "title": "5 comfortable bedrooms", "text": "4 bedrooms with private bathrooms, including a ground-floor room accessible to guests with reduced mobility." },
+      { "title": "7-seat hot tub", "text": "104 jets, outdoors, available as an extra to unwind under the stars." },
+      { "title": "1,500 m² walled garden", "text": "South-facing, with terrace, sun loungers, barbecue and a swing set for the children." },
+      { "title": "Private fishing pond", "text": "Carp, eels and roach just steps from the terrace — rod in hand, time stands still." },
+      { "title": "Fireplace & underfloor heating", "text": "Firewood provided for cool evenings, underfloor heating on the ground floor." },
+      { "title": "Every comfort", "text": "Free Wi-Fi, 107 cm TV, baby equipment, electric shutters, central vacuum." }
+    ],
+    "gallery": "A glimpse of the house",
+    "galleryAll": "See the full gallery →",
+    "readReviews": "Read verified reviews",
+    "regionTitle": "Close to historic Normandy",
+    "regionText": "Mont-Saint-Michel, the D-Day beaches and the loveliest villages of the Cotentin are all within easy driving distance.",
+    "teasers": [
+      { "title": "Mont-Saint-Michel", "text": "A UNESCO World Heritage Site." },
+      { "title": "D-Day beaches", "text": "The American Cemetery at Colleville, the Mulberry harbour at Arromanches." },
+      { "title": "Barfleur", "text": "One of the most beautiful villages in France, famous for its mussels." }
+    ],
+    "exploreRegion": "Explore the region →",
+    "findUs": "Find us",
+    "nearSea": "Normandy — 10 minutes from the sea",
+    "directionsContact": "Directions & contact →"
+  },
+  "gite": {
+    "eyebrow": "Accommodation",
+    "badges": ["3-star rental ★★★", "Holiday vouchers accepted", "Card payment"],
+    "living": "Living spaces",
+    "kitchenIntro": "Everything you need to cook for a large group:",
+    "rooms": "Bedrooms",
+    "roomList": [
+      { "name": "Sérénité bedroom", "tag": "Ground floor · step-free access", "text": "1 bed 160×200. Shower room with a large hydromassage shower with built-in seat, washbasin, WC." },
+      { "name": "Bateau bedroom", "tag": "First floor · seaside theme", "text": "2 beds 90×190, 1 bunk bed 90×190, 1 pull-out bed 90×190. Bathroom with glass basin and hydromassage shower, WC." },
+      { "name": "Family bedroom", "tag": "First floor", "text": "2 beds 90×190." },
+      { "name": "La Marquise bedroom", "tag": "First floor", "text": "2 beds 90×200. Normandy-style wardrobe. Bathroom with glass basin, large hydromassage shower, WC." }
+    ],
+    "gallery": "Gallery",
+    "plans": "Floor plans"
+  },
+  "jardins": {
+    "eyebrow": "Outdoors",
+    "option": "Optional extra",
+    "spaPrices": "See spa prices"
+  },
+  "tarifs": {
+    "eyebrow": "Booking",
+    "title": "Rates & conditions",
+    "arrivals": "Arrival / departure —",
+    "otherDates": "For other arrival days, please contact us.",
+    "included": "Included in the price —",
+    "grid": "Price list",
+    "formula": "Stay",
+    "duration": "Dates",
+    "price": "Price by season",
+    "range": "{{low}} to {{high}}",
+    "extras": "Extras & options",
+    "terms": "Terms",
+    "askTitle": "Request availability",
+    "askText": "Tell us your dates and the number of guests — Loïc and Maryline will reply personally.",
+    "message": "Message (spa option, questions…)",
+    "ask": "Request availability"
+  },
+  "region": {
+    "eyebrow": "La Manche, Normandy",
+    "heroPhoto": "Cotentin coastline",
+    "see": "Things to see in the Cotentin",
+    "sights": [
+      { "title": "Barneville-Carteret", "text": "A seaside resort popular with sailors." },
+      { "title": "La Hague", "text": "The Cotentin's wild land's end." },
+      { "title": "Cherbourg", "text": "The \"Port of the Americas\", the Cité de la Mer and its nuclear submarine." },
+      { "title": "Barfleur", "text": "Listed among the \"most beautiful villages of France\", famous for its blonde mussels." },
+      { "title": "Gatteville lighthouse", "text": "The second tallest lighthouse in France." },
+      { "title": "Port Racine", "text": "The smallest harbour in France." },
+      { "title": "Vauban towers", "text": "Listed as a UNESCO World Heritage Site." },
+      { "title": "Saint-Vaast-la-Hougue", "text": "Taste the local oysters right on the harbour." }
+    ],
+    "memory": "Memory & history",
+    "memoryList": [
+      { "title": "D-Day beaches", "text": "The American Cemetery at Colleville, the Mulberry harbour at Arromanches, the Caen Memorial." },
+      { "title": "Sainte-Mère-Église", "text": "Famous for the paratrooper hanging from its church tower." },
+      { "title": "Bayeux Tapestry", "text": "The 11th-century embroidery not to be missed." },
+      { "title": "Valognes", "text": "Nicknamed the \"little Versailles of Normandy\"." }
+    ],
+    "mont": { "title": "Mont-Saint-Michel", "text": "A UNESCO World Heritage Site." },
+    "malo": { "title": "Saint-Malo", "text": "The walled corsair city in Brittany." },
+    "illustration": "Illustration",
+    "islands": "The Channel Islands",
+    "activities": "Sports & nature",
+    "activityList": [
+      { "title": "Sailing & windsurfing", "text": "Sailing school and watersports club in Barneville-Carteret (dinghy, catamaran, windsurf)." },
+      { "title": "Hiking & mountain biking", "text": "Trails around the Lande de Lessay heathland." },
+      { "title": "Cycling & land yachting", "text": "Bike hire, land yachting at Bretteville-sur-Ay." },
+      { "title": "Go-karting", "text": "Karting track in Lessay." },
+      { "title": "Cotentin & Bessin nature park", "text": "Protected landscapes of marshland and hedgerows." },
+      { "title": "Champrepus zoo", "text": "A family day out less than an hour away." }
+    ]
+  },
+  "avis": {
+    "eyebrow": "Guestbook",
+    "title": "What our guests say",
+    "stars": "5 out of 5 stars",
+    "placeholders": "These slots are reserved for your real reviews — to be replaced before going live.",
+    "all": "Read all reviews on Abritel ↗"
+  },
+  "contact": {
+    "eyebrow": "Write to us",
+    "title": "Contact & directions",
+    "owners": "Loïc & Maryline Courteille",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "E-mail",
+    "emailVia": "sent through the form",
+    "shareFacebook": "Share · Facebook",
+    "shareEmail": "Share · E-mail",
+    "noteDefault": "Coming from the booking bar on the home page? Your dates and number of guests are filled in below automatically.",
+    "notePrefilled": "Your dates and number of guests have been filled in below — just add your contact details.",
+    "name": "Name",
+    "datesWanted": "Preferred dates",
+    "datesPlaceholder": "E.g. 12 to 19 July",
+    "message": "Your message",
+    "send": "Send message",
+    "sending": "Sending…",
+    "pdf": "or download the PDF and send it back to us",
+    "consent": "Your details are only used to answer your request.",
+    "privacyLink": "Learn more",
+    "howTo": "Getting here",
+    "byCar": "By car",
+    "byTrain": "By train",
+    "bySea": "From the coast",
+    "planNote": "Detailed directions will be sent after booking."
+  },
+  "legal": {
+    "mentions": "Legal notice",
+    "privacy": "Privacy policy",
+    "sitemap": "Sitemap",
+    "eyebrow": "Information",
+    "sitemapPages": "Pages",
+    "sitemapLanguages": "Other languages"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page does not exist or has been moved.",
+    "back": "Back to the home page"
   }
 }

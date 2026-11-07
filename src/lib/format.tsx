@@ -1,22 +1,16 @@
 import { Fragment } from "react";
+import { intlLocale, type Lang } from "./locale";
 
-/** Renders roman-numeral centuries ("XVIIe") with a superscript "e", as in the mockups. */
+/** Renders centuries with a superscript: "XVIIe" (fr), "17th" (en), "17." stays as is. */
 export function Typo({ text }: { text: string }) {
-  const parts = text.split(/\b([IVXL]+)e\b/);
-  return (
-    <>
-      {parts.map((part, i) =>
-        i % 2 === 1 ? (
-          <Fragment key={i}>
-            {part}
-            <sup>e</sup>
-          </Fragment>
-        ) : (
-          <Fragment key={i}>{part}</Fragment>
-        ),
-      )}
-    </>
-  );
+  const parts = text.split(/\b([IVXL]+)(e)\b|\b(\d{1,2})(st|nd|rd|th)\b/);
+  const out: React.ReactNode[] = [];
+  for (let i = 0; i < parts.length; i += 5) {
+    out.push(<Fragment key={i}>{parts[i]}</Fragment>);
+    if (parts[i + 1]) out.push(<Fragment key={`${i}r`}>{parts[i + 1]}<sup>{parts[i + 2]}</sup></Fragment>);
+    if (parts[i + 3]) out.push(<Fragment key={`${i}n`}>{parts[i + 3]}<sup>{parts[i + 4]}</sup></Fragment>);
+  }
+  return <>{out}</>;
 }
 
 export const lines = (text: string) =>
@@ -25,31 +19,36 @@ export const lines = (text: string) =>
     .map((l) => l.trim())
     .filter(Boolean);
 
-const euro = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2 });
+export const formatPrice = (value: number, lang: Lang = "fr") =>
+  lang === "en"
+    ? `€${new Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 }).format(value)}`
+    : `${new Intl.NumberFormat(intlLocale[lang], { maximumFractionDigits: 2 }).format(value)} €`;
 
-export const formatPrice = (value: number) => `${euro.format(value)} €`;
+export const parseDate = (iso: string) => new Date(`${iso}T12:00:00`);
 
-const dayMonth = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long" });
-const dayMonthShort = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
-
-const parseDate = (iso: string) => new Date(`${iso}T12:00:00`);
-
-/** "du 14 au 18 mai" / "du 30 avril au 2 mai" */
-export function formatPeriod(start: string, end: string) {
-  const s = parseDate(start);
-  const e = parseDate(end);
-  if (s.getMonth() === e.getMonth()) return `du ${s.getDate()} au ${dayMonth.format(e)}`;
-  return `du ${dayMonth.format(s)} au ${dayMonth.format(e)}`;
-}
+export const formatDay = (iso: string, lang: Lang = "fr", withYear = false) =>
+  parseDate(iso).toLocaleDateString(intlLocale[lang], { day: "numeric", month: "long", ...(withYear ? { year: "numeric" } : {}) });
 
 /** "14 – 18 mai 2026" — compact form used in admin tables. */
 export function formatPeriodShort(start: string, end: string) {
   const s = parseDate(start);
   const e = parseDate(end);
-  const year = e.getFullYear();
-  if (s.getMonth() === e.getMonth()) return `${s.getDate()} – ${dayMonthShort.format(e)} ${year}`;
-  return `${dayMonthShort.format(s)} – ${dayMonthShort.format(e)} ${year}`;
+  const short = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
+  if (s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear()) return `${s.getDate()} – ${short.format(e)} ${e.getFullYear()}`;
+  return `${short.format(s)} – ${short.format(e)} ${e.getFullYear()}`;
 }
+
+export const toISODate = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+export const todayISO = () => toISODate(new Date());
+
+export const addDays = (iso: string, days: number) => {
+  const d = parseDate(iso);
+  d.setDate(d.getDate() + days);
+  return toISODate(d);
+};
+
+export const nightsBetween = (start: string, end: string) => Math.round((parseDate(end).getTime() - parseDate(start).getTime()) / 86400000);
 
 const rtf = new Intl.RelativeTimeFormat("fr-FR", { numeric: "auto" });
 

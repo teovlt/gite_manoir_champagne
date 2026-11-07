@@ -1,35 +1,15 @@
+import { useTranslation } from "react-i18next";
 import { PageHero } from "@/components/site/page-hero";
 import { Accent, SectionTitle } from "@/components/site/ornaments";
-import { SitePhoto } from "@/components/site/site-photo";
+import { PhotoGrid, SitePhoto } from "@/components/site/site-photo";
+import { Reveal } from "@/components/site/reveal";
 import { useExtraPhotos, usePageText, usePhoto } from "@/providers/site-data-provider";
+import { usePageMeta } from "@/lib/use-page-meta";
 import { Typo } from "@/lib/format";
+import { useTr } from "@/lib/locale";
 
-const sights = [
-  { slot: "region.barneville", title: "Barneville-Carteret", text: "Station prisée des plaisanciers." },
-  { slot: "region.hague", title: "La Hague", text: "Le bout du monde du Cotentin." },
-  { slot: "region.cherbourg", title: "Cherbourg", text: "« Port des Amériques », Cité de la Mer et son sous-marin nucléaire." },
-  { slot: "region.barfleur", title: "Barfleur", text: "Classé « plus beau village de France », réputé pour ses moules blanches." },
-  { slot: "region.gatteville", title: "Phare de Gatteville", text: "2e plus grand phare de France." },
-  { slot: "region.racine", title: "Port Racine", text: "Le plus petit port de France." },
-  { slot: "region.vauban", title: "Tours Vauban", text: "Inscrites au patrimoine mondial de l'UNESCO." },
-  { slot: "region.saint-vaast", title: "Saint-Vaast-la-Hougue", text: "Dégustation des huîtres locales sur le port." },
-];
-
-const memory = [
-  { title: "Plages du Débarquement", text: "Cimetière américain de Colleville, port artificiel d'Arromanches, Mémorial de Caen." },
-  { title: "Sainte-Mère-Église", text: "Célèbre pour son parachutiste suspendu au clocher." },
-  { title: "Tapisserie de Bayeux", text: "La broderie du XIe siècle, à ne pas manquer." },
-  { title: "Valognes", text: "Surnommée le « petit Versailles normand »." },
-];
-
-const activities = [
-  { title: "Voile & planche à voile", text: "École de voile et club nautique à Barneville-Carteret (optimist, catamaran, planche)." },
-  { title: "Randonnée & VTT", text: "Sentiers autour de la Lande de Lessay." },
-  { title: "Vélo & char à voile", text: "Location de vélos, char à voile à Bretteville-sur-Ay." },
-  { title: "Karting", text: "Circuit de karting à Lessay." },
-  { title: "Parc du Cotentin et du Bessin", text: "Nature protégée, entre marais et bocage." },
-  { title: "Zoo de Champrepus", text: "Une sortie familiale à moins d'une heure." },
-];
+const sightSlots = ["region.barneville", "region.hague", "region.cherbourg", "region.barfleur", "region.gatteville", "region.racine", "region.vauban", "region.saint-vaast"];
+type Item = { title: string; text: string };
 
 const MontIllustration = () => (
   <svg viewBox="0 0 420 300" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 block h-full w-full" aria-hidden="true">
@@ -57,114 +37,110 @@ const MaloIllustration = () => (
   </svg>
 );
 
-function FeatureTile({ slot, title, text, overlay, illustration }: { slot: string; title: string; text: string; overlay: string; illustration: React.ReactNode }) {
+function FeatureTile({ slot, item, overlay, illustration }: { slot: string; item: Item; overlay: string; illustration: React.ReactNode }) {
+  const { t } = useTranslation();
+  const tr = useTr();
   const photo = usePhoto(slot);
   return (
-    <div className="relative flex min-h-[300px] flex-[1_1_420px] items-center justify-center overflow-hidden text-cream">
-      {photo?.url ? <img src={photo.url} alt={photo.alt} className="photo-warm absolute inset-0 h-full w-full object-cover" /> : illustration}
+    <div className="group relative flex min-h-[300px] flex-[1_1_420px] items-center justify-center overflow-hidden text-cream">
+      {photo?.url ? (
+        <img src={photo.url} alt={tr(photo.alt)} loading="lazy" className="photo-warm absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105" />
+      ) : (
+        illustration
+      )}
       <div className="absolute inset-0" style={{ background: overlay }} />
       {!photo?.url && (
         <span className="absolute right-[18px] top-[18px] z-[2] rounded-[14px] bg-ink/45 px-2.5 py-[5px] text-[11px] uppercase tracking-[1px]">
-          Illustration — {title}
+          {t("region.illustration")} — {item.title}
         </span>
       )}
-      <div className="relative z-[2] p-8 text-center">
-        <h3 className="font-serif text-[22px] font-medium">{title}</h3>
-        <p className="mt-2.5 text-sm text-[#F6EEDC]">{text}</p>
-      </div>
+      <Reveal className="relative z-[2] p-8 text-center">
+        <h3 className="font-serif text-[22px] font-medium">{item.title}</h3>
+        <p className="mt-2.5 text-sm text-[#F6EEDC]">{item.text}</p>
+      </Reveal>
     </div>
   );
 }
 
 export function Region() {
+  const { t } = useTranslation();
   const text = usePageText("region");
   const extras = useExtraPhotos("region");
+  usePageMeta({ title: t("navbar.region"), description: text("heroSubtitle") });
+
+  const sights = t("region.sights") as unknown as Item[];
+  const memory = t("region.memoryList") as unknown as Item[];
+  const activities = t("region.activityList") as unknown as Item[];
 
   return (
     <>
-      <PageHero
-        eyebrow="La Manche, Normandie"
-        title={text("heroTitle")}
-        subtitle={text("heroSubtitle")}
-        photoSlot="region.hero"
-        placeholderLabel="Côte du Cotentin"
-      />
+      <PageHero eyebrow={t("region.eyebrow")} title={text("heroTitle")} subtitle={text("heroSubtitle")} photoSlot="region.hero" placeholderLabel={t("region.heroPhoto")} />
 
       <section className="px-gutter pb-12 pt-20">
         <div className="mx-auto max-w-[1200px]">
-          <SectionTitle className="mb-3">À voir dans le Cotentin</SectionTitle>
-          <Accent className="mb-5" />
-          <p className="mb-10 max-w-[640px] text-umber">{text("intro")}</p>
+          <Reveal>
+            <SectionTitle className="mb-3">{t("region.see")}</SectionTitle>
+            <Accent className="mb-5" />
+            <p className="mb-10 max-w-[640px] text-umber">{text("intro")}</p>
+          </Reveal>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-6">
-            {sights.map((s) => (
-              <div key={s.slot} className="overflow-hidden rounded-2xl bg-sand shadow-[0_2px_10px_rgba(43,42,37,0.06)]">
-                <SitePhoto slot={s.slot} className="aspect-[16/10] border-0" />
+            {sights.map((s, i) => (
+              <Reveal key={s.title} delay={(i % 4) * 70} className="lift overflow-hidden rounded-2xl bg-sand shadow-[0_2px_10px_rgba(43,42,37,0.06)]">
+                <SitePhoto slot={sightSlots[i]} zoomable className="aspect-[16/10] w-full border-0" />
                 <div className="p-[18px]">
                   <h3 className="mb-1.5 text-[15px] font-semibold">{s.title}</h3>
                   <p className="text-[13px] text-umber">
                     <Typo text={s.text} />
                   </p>
                 </div>
-              </div>
-            ))}
-            {extras.map((p) => (
-              <div key={p.id} className="aspect-[16/10] overflow-hidden rounded-2xl">
-                <img src={p.url!} alt={p.alt} loading="lazy" className="photo-warm block h-full w-full object-cover" />
-              </div>
+              </Reveal>
             ))}
           </div>
+          {extras.length > 0 && (
+            <Reveal className="mt-6">
+              <PhotoGrid extras={extras} className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-6" tileClassName="aspect-[16/10] rounded-2xl" />
+            </Reveal>
+          )}
         </div>
       </section>
 
       <section className="px-gutter bg-sand py-16">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="mb-8 font-serif text-[26px] font-medium">Mémoire &amp; histoire</h2>
+          <h2 className="mb-8 font-serif text-[26px] font-medium">{t("region.memory")}</h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-6">
-            {memory.map((m) => (
-              <div key={m.title} className="rounded-[14px] bg-cream p-[22px]">
+            {memory.map((m, i) => (
+              <Reveal key={m.title} delay={i * 70} className="lift rounded-[14px] bg-cream p-[22px]">
                 <h3 className="mb-2 text-[15px] font-semibold">{m.title}</h3>
                 <p className="text-[13px] leading-relaxed text-umber">
                   <Typo text={m.text} />
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       <section className="flex flex-wrap">
-        <FeatureTile
-          slot="region.mont"
-          title="Mont-Saint-Michel"
-          text="Classé au patrimoine mondial de l'UNESCO."
-          overlay="rgba(126,149,116,0.4)"
-          illustration={<MontIllustration />}
-        />
-        <FeatureTile
-          slot="region.saint-malo"
-          title="Saint-Malo"
-          text="La cité corsaire, en Ille-et-Vilaine."
-          overlay="rgba(94,120,83,0.4)"
-          illustration={<MaloIllustration />}
-        />
+        <FeatureTile slot="region.mont" item={t("region.mont") as unknown as Item} overlay="rgba(126,149,116,0.4)" illustration={<MontIllustration />} />
+        <FeatureTile slot="region.saint-malo" item={t("region.malo") as unknown as Item} overlay="rgba(94,120,83,0.4)" illustration={<MaloIllustration />} />
       </section>
 
       <section className="px-gutter py-16">
-        <div className="mx-auto max-w-[1100px]">
-          <h2 className="mb-3 font-serif text-2xl font-medium">Les îles Anglo-Normandes</h2>
+        <Reveal className="mx-auto max-w-[1100px]">
+          <h2 className="mb-3 font-serif text-2xl font-medium">{t("region.islands")}</h2>
           <p className="max-w-[720px] text-[15px] leading-[1.75] text-ink-soft">{text("islands")}</p>
-        </div>
+        </Reveal>
       </section>
 
       <section className="px-gutter bg-sand pb-24 pt-12">
         <div className="mx-auto max-w-[1200px]">
-          <h2 className="mb-8 font-serif text-[26px] font-medium">Activités sportives &amp; nature</h2>
+          <h2 className="mb-8 font-serif text-[26px] font-medium">{t("region.activities")}</h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-5">
-            {activities.map((a) => (
-              <div key={a.title} className="rounded-[14px] bg-cream p-5">
+            {activities.map((a, i) => (
+              <Reveal key={a.title} delay={(i % 3) * 70} className="lift rounded-[14px] bg-cream p-5">
                 <h3 className="mb-1.5 text-sm font-semibold">{a.title}</h3>
                 <p className="text-[13px] text-umber">{a.text}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>

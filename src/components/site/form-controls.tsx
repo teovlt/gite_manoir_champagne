@@ -1,3 +1,7 @@
+import { localize, type Lang } from "@/lib/locale";
+import { todayISO } from "@/lib/format";
+import { isRangeFree } from "@/providers/site-data-provider";
+import type { AvailabilityBlock } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 export const fieldLabelClass = "text-xs uppercase tracking-[0.5px] text-umber";
@@ -33,18 +37,37 @@ export const TextAreaField = ({ id, label, className, ...props }: TextAreaFieldP
   </div>
 );
 
+export interface BookingValues {
+  arrivee?: string;
+  depart?: string;
+  adultes?: string;
+  enfants?: string;
+  message?: string;
+}
+
 /** Builds the /contact URL carrying the booking values, so the contact form is pre-filled. */
-export function contactUrl(values: { arrivee?: string; depart?: string; adultes?: string; enfants?: string; message?: string }) {
+export function contactUrl(values: BookingValues, lang: Lang) {
   const params = new URLSearchParams();
   Object.entries(values).forEach(([k, v]) => v && params.set(k, v));
   const qs = params.toString();
-  return `/contact${qs ? `?${qs}` : ""}#formulaire`;
+  return `${localize("/contact", lang)}${qs ? `?${qs}` : ""}#formulaire`;
 }
 
 /** Shared validation for arrival/departure/guests. Returns an i18n key, or null when valid. */
-export function validateBooking(v: { arrivee?: string; depart?: string; adultes?: string; enfants?: string }) {
+export function validateBooking(v: BookingValues, blocks?: AvailabilityBlock[] | null) {
+  if (v.arrivee && v.arrivee < todayISO()) return "booking.datesPast";
   if (v.arrivee && v.depart && v.depart <= v.arrivee) return "booking.datesOrder";
   const total = Number(v.adultes || 0) + Number(v.enfants || 0);
   if (total > 14) return "booking.capacity";
+  if (v.arrivee && v.depart && !isRangeFree(blocks ?? null, v.arrivee, v.depart)) return "booking.unavailable";
   return null;
 }
+
+/** API error codes → i18n keys. */
+export const apiErrorKey: Record<string, string> = {
+  invalid_contact: "booking.invalidContact",
+  dates_order: "booking.datesOrder",
+  dates_past: "booking.datesPast",
+  capacity: "booking.capacity",
+  unavailable: "booking.unavailable",
+};

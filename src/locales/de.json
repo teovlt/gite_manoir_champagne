@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "siteName": "Manoir de la Champagne",
+    "home": "Charmantes Ferienunterkunft in der Normandie",
+    "description": "Herrenhaus aus dem 17. Jahrhundert in Millières (Manche, Normandie): charmante Ferienunterkunft für 12 bis 14 Personen mit umfriedetem Garten, Angelteich und Whirlpool, 10 Minuten vom Meer."
+  },
+  "navbar": {
+    "home": "Startseite",
+    "gite": "Das Haus",
+    "jardins": "Gärten & Spa",
+    "tarifs": "Preise",
+    "region": "Region",
+    "avis": "Bewertungen",
+    "contact": "Kontakt",
+    "book": "Buchen",
+    "main": "Hauptnavigation",
+    "openMenu": "Menü öffnen",
+    "language": "Sprache",
+    "tagline": "Millières · Normandie"
+  },
+  "footer": {
+    "explore": "Entdecken",
+    "book": "Buchen",
+    "pricing": "Preise & Verfügbarkeit",
+    "contact": "Kontakt",
+    "abritel": "Bewertungen auf Abritel",
+    "practical": "Praktisches",
+    "legal": "Impressum",
+    "privacy": "Datenschutz",
+    "sitemap": "Sitemap",
+    "rating": "3-Sterne-Ferienunterkunft ★★★",
+    "region": "Normandie, Frankreich"
+  },
+  "banner": {
+    "badge": "Veranstaltung",
+    "cta": "Mehr erfahren →",
+    "period": "vom {{start}} bis {{end}}"
+  },
+  "booking": {
+    "arrival": "Anreise",
+    "departure": "Abreise",
+    "adults": "Erwachsene",
+    "children": "Kinder",
+    "check": "Verfügbarkeit prüfen",
+    "sent": "Vielen Dank! Ihre Anfrage wurde gesendet – Loïc und Maryline melden sich in Kürze.",
+    "error": "Senden fehlgeschlagen. Bitte versuchen Sie es erneut oder rufen Sie uns an.",
+    "datesOrder": "Das Abreisedatum muss nach dem Anreisedatum liegen.",
+    "datesPast": "Das Anreisedatum liegt bereits in der Vergangenheit.",
+    "capacity": "Das Haus bietet Platz für höchstens 14 Personen.",
+    "unavailable": "Das Herrenhaus ist für einen Teil dieser Daten bereits belegt. Bitte sehen Sie im Belegungskalender nach.",
+    "invalidContact": "Bitte geben Sie Ihren Namen und eine gültige E-Mail-Adresse an.",
+    "available": "Gute Nachricht: Diese Daten sind frei.",
+    "datesFrom": "Vom {{start}} bis {{end}}",
+    "datesStart": "Ab dem {{start}}"
+  },
+  "calendar": {
+    "title": "Verfügbarkeit",
+    "subtitle": "Durchgestrichene Tage sind bereits belegt. Wählen Sie ein Anreise- und ein Abreisedatum, um Ihre Anfrage vorzubereiten.",
+    "prev": "Vorheriger Monat",
+    "next": "Nächster Monat",
+    "booked": "Belegt",
+    "free": "Frei",
+    "selected": "Ihr Aufenthalt",
+    "selectArrival": "Wählen Sie Ihr Anreisedatum.",
+    "selectDeparture": "Wählen Sie Ihr Abreisedatum.",
+    "nights": "{{count}} Nacht",
+    "nights_other": "{{count}} Nächte",
+    "request": "Diese Daten anfragen",
+    "clear": "Zurücksetzen",
+    "loading": "Kalender wird geladen…"
+  },
+  "map": {
+    "title": "Anfahrt",
+    "directions": "Route",
+    "google": "Google Maps",
+    "waze": "Waze",
+    "apple": "Apple Karten",
+    "fromHere": "Von meinem Standort",
+    "locating": "Standort wird ermittelt…",
+    "distance": "Sie sind etwa {{km}} km Luftlinie vom Herrenhaus entfernt.",
+    "geoError": "Ihr Standort konnte nicht ermittelt werden. Bitte prüfen Sie die Standortfreigabe.",
+    "coords": "GPS-Koordinaten",
+    "copy": "Kopieren",
+    "copied": "Koordinaten kopiert.",
+    "attribution": "© OpenStreetMap-Mitwirkende",
+    "marker": "Manoir de la Champagne"
+  },
+  "lightbox": {
+    "open": "Foto vergrößern: {{alt}}",
+    "close": "Schließen",
+    "prev": "Vorheriges Foto",
+    "next": "Nächstes Foto",
+    "counter": "{{index}} / {{total}}"
+  },
+  "home": {
+    "ctaAvailability": "Verfügbarkeit prüfen",
+    "ctaDiscover": "Das Herrenhaus entdecken",
+    "bookingNote": "Ihre Daten und die Personenzahl werden automatisch auf die Kontaktseite übernommen, oder",
+    "bookingPdf": "laden Sie das Anfrageformular als PDF herunter",
+    "welcome": "Willkommen",
+    "ownersEyebrow": "Ein Wort der Eigentümer",
+    "ownersIllustration": "Illustration — Loïc & Maryline",
+    "essentials": "Ihr Aufenthalt auf einen Blick",
+    "highlights": [
+      { "title": "5 komfortable Schlafzimmer", "text": "4 Zimmer mit eigenem Bad, darunter ein barrierefreies Zimmer im Erdgeschoss." },
+      { "title": "Whirlpool für 7 Personen", "text": "104 Düsen im Freien, gegen Aufpreis – Entspannung unter dem Sternenhimmel." },
+      { "title": "1.500 m² umfriedeter Garten", "text": "Südlage mit Terrasse, Liegestühlen, Grill und Schaukelgerüst für die Kinder." },
+      { "title": "Privater Angelteich", "text": "Karpfen, Aale und Rotaugen direkt an der Terrasse – mit der Angel in der Hand steht die Zeit still." },
+      { "title": "Kamin & Fußbodenheizung", "text": "Brennholz für kühle Abende inklusive, Fußbodenheizung im Erdgeschoss." },
+      { "title": "Rundum komfortabel", "text": "Kostenloses WLAN, 107-cm-Fernseher, Babyausstattung, elektrische Rollläden, Zentralstaubsauger." }
+    ],
+    "gallery": "Ein Blick ins Haus",
+    "galleryAll": "Zur ganzen Galerie →",
+    "readReviews": "Verifizierte Bewertungen lesen",
+    "regionTitle": "Ganz nah an der historischen Normandie",
+    "regionText": "Der Mont-Saint-Michel, die Landungsstrände und die schönsten Dörfer des Cotentin sind bequem mit dem Auto erreichbar.",
+    "teasers": [
+      { "title": "Mont-Saint-Michel", "text": "UNESCO-Welterbe." },
+      { "title": "Landungsstrände", "text": "Amerikanischer Friedhof in Colleville, künstlicher Hafen von Arromanches." },
+      { "title": "Barfleur", "text": "Eines der schönsten Dörfer Frankreichs, bekannt für seine Muscheln." }
+    ],
+    "exploreRegion": "Die Region entdecken →",
+    "findUs": "So finden Sie uns",
+    "nearSea": "Normandie — 10 Minuten vom Meer",
+    "directionsContact": "Anfahrt & Kontakt →"
+  },
+  "gite": {
+    "eyebrow": "Unterkunft",
+    "badges": ["3-Sterne-Unterkunft ★★★", "Urlaubsschecks akzeptiert", "Kartenzahlung"],
+    "living": "Die Wohnräume",
+    "kitchenIntro": "Alles, um für eine große Gruppe zu kochen:",
+    "rooms": "Die Schlafzimmer",
+    "roomList": [
+      { "name": "Zimmer Sérénité", "tag": "Erdgeschoss · barrierefrei", "text": "1 Bett 160×200. Duschbad mit großer Hydromassage-Dusche mit integriertem Sitz, Waschbecken, WC." },
+      { "name": "Zimmer Bateau", "tag": "Obergeschoss · maritimes Thema", "text": "2 Betten 90×190, 1 Etagenbett 90×190, 1 Ausziehbett 90×190. Bad mit Glaswaschbecken und Hydromassage-Dusche, WC." },
+      { "name": "Familienzimmer", "tag": "Obergeschoss", "text": "2 Betten 90×190." },
+      { "name": "Zimmer La Marquise", "tag": "Obergeschoss", "text": "2 Betten 90×200. Normannischer Schrank. Bad mit Glaswaschbecken, großer Hydromassage-Dusche, WC." }
+    ],
+    "gallery": "Galerie",
+    "plans": "Grundrisse"
+  },
+  "jardins": {
+    "eyebrow": "Draußen",
+    "option": "Optional",
+    "spaPrices": "Whirlpool-Preise ansehen"
+  },
+  "tarifs": {
+    "eyebrow": "Buchung",
+    "title": "Preise & Bedingungen",
+    "arrivals": "Anreise / Abreise —",
+    "otherDates": "Für andere Anreisetage kontaktieren Sie uns bitte.",
+    "included": "Im Preis inbegriffen —",
+    "grid": "Preisliste",
+    "formula": "Aufenthalt",
+    "duration": "Zeitraum",
+    "price": "Preis je nach Saison",
+    "range": "{{low}} bis {{high}}",
+    "extras": "Zusatzleistungen & Optionen",
+    "terms": "Bedingungen",
+    "askTitle": "Verfügbarkeit anfragen",
+    "askText": "Nennen Sie uns Ihre Daten und die Personenzahl – Loïc und Maryline antworten Ihnen persönlich.",
+    "message": "Nachricht (Whirlpool, Fragen…)",
+    "ask": "Verfügbarkeit anfragen"
+  },
+  "region": {
+    "eyebrow": "La Manche, Normandie",
+    "heroPhoto": "Küste des Cotentin",
+    "see": "Sehenswertes im Cotentin",
+    "sights": [
+      { "title": "Barneville-Carteret", "text": "Beliebter Badeort bei Seglern." },
+      { "title": "La Hague", "text": "Das wilde „Ende der Welt“ des Cotentin." },
+      { "title": "Cherbourg", "text": "„Hafen der Amerikas“, die Cité de la Mer mit ihrem Atom-U-Boot." },
+      { "title": "Barfleur", "text": "Eines der „schönsten Dörfer Frankreichs“, bekannt für seine blonden Muscheln." },
+      { "title": "Leuchtturm Gatteville", "text": "Der zweithöchste Leuchtturm Frankreichs." },
+      { "title": "Port Racine", "text": "Der kleinste Hafen Frankreichs." },
+      { "title": "Vauban-Türme", "text": "UNESCO-Welterbe." },
+      { "title": "Saint-Vaast-la-Hougue", "text": "Austernverkostung direkt am Hafen." }
+    ],
+    "memory": "Erinnerung & Geschichte",
+    "memoryList": [
+      { "title": "Landungsstrände", "text": "Amerikanischer Friedhof in Colleville, künstlicher Hafen von Arromanches, Mémorial de Caen." },
+      { "title": "Sainte-Mère-Église", "text": "Berühmt für den Fallschirmjäger am Kirchturm." },
+      { "title": "Teppich von Bayeux", "text": "Die Stickerei aus dem 11. Jahrhundert – ein Muss." },
+      { "title": "Valognes", "text": "Genannt das „kleine Versailles der Normandie“." }
+    ],
+    "mont": { "title": "Mont-Saint-Michel", "text": "UNESCO-Welterbe." },
+    "malo": { "title": "Saint-Malo", "text": "Die Korsarenstadt in der Bretagne." },
+    "illustration": "Illustration",
+    "islands": "Die Kanalinseln",
+    "activities": "Sport & Natur",
+    "activityList": [
+      { "title": "Segeln & Windsurfen", "text": "Segelschule und Wassersportclub in Barneville-Carteret (Jolle, Katamaran, Windsurfen)." },
+      { "title": "Wandern & Mountainbike", "text": "Wege rund um die Heide von Lessay." },
+      { "title": "Radfahren & Strandsegeln", "text": "Fahrradverleih, Strandsegeln in Bretteville-sur-Ay." },
+      { "title": "Kartfahren", "text": "Kartbahn in Lessay." },
+      { "title": "Naturpark Cotentin und Bessin", "text": "Geschützte Natur zwischen Sumpf und Heckenlandschaft." },
+      { "title": "Zoo Champrepus", "text": "Ein Familienausflug, weniger als eine Stunde entfernt." }
+    ]
+  },
+  "avis": {
+    "eyebrow": "Gästebuch",
+    "title": "Was unsere Gäste sagen",
+    "stars": "5 von 5 Sternen",
+    "placeholders": "Diese Plätze sind für echte Bewertungen vorgesehen – vor dem Livegang zu ersetzen.",
+    "all": "Alle Bewertungen auf Abritel lesen ↗"
+  },
+  "contact": {
+    "eyebrow": "Schreiben Sie uns",
+    "title": "Kontakt & Anfahrt",
+    "owners": "Loïc & Maryline Courteille",
+    "address": "Adresse",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "emailVia": "über das Formular",
+    "shareFacebook": "Teilen · Facebook",
+    "shareEmail": "Teilen · E-Mail",
+    "noteDefault": "Sie kommen von der Buchungsleiste der Startseite? Ihre Daten und die Personenzahl werden unten automatisch übernommen.",
+    "notePrefilled": "Ihre Daten und die Personenzahl wurden unten übernommen – ergänzen Sie nur noch Ihre Kontaktdaten.",
+    "name": "Name",
+    "datesWanted": "Gewünschte Daten",
+    "datesPlaceholder": "z. B. 12. bis 19. Juli",
+    "message": "Ihre Nachricht",
+    "send": "Nachricht senden",
+    "sending": "Wird gesendet…",
+    "pdf": "oder laden Sie das PDF herunter und senden Sie es uns zurück",
+    "consent": "Ihre Angaben werden nur zur Beantwortung Ihrer Anfrage verwendet.",
+    "privacyLink": "Mehr erfahren",
+    "howTo": "Anreise",
+    "byCar": "Mit dem Auto",
+    "byTrain": "Mit dem Zug",
+    "bySea": "Von der Küste",
+    "planNote": "Eine genaue Wegbeschreibung erhalten Sie nach der Buchung."
+  },
+  "legal": {
+    "mentions": "Impressum",
+    "privacy": "Datenschutzerklärung",
+    "sitemap": "Sitemap",
+    "eyebrow": "Informationen",
+    "sitemapPages": "Seiten",
+    "sitemapLanguages": "Weitere Sprachen"
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Diese Seite existiert nicht oder wurde verschoben.",
+    "back": "Zur Startseite"
+  }
+}

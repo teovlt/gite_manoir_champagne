@@ -1,18 +1,21 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import de from "../locales/de.json";
 import en from "../locales/en.json";
 import fr from "../locales/fr.json";
+import { langFromPath } from "./locale";
 
-// Page content is French-only for now (editable from the admin). EN/DE are shown as
-// "coming soon" in the header until translated content exists.
 i18n.use(initReactI18next).init({
   resources: {
-    en: { translation: en },
     fr: { translation: fr },
+    en: { translation: en },
+    de: { translation: de },
   },
-  lng: "fr",
+  // The language comes from the URL prefix (/, /en, /de) — see LangSync.
+  lng: langFromPath(window.location.pathname),
   fallbackLng: "fr",
   interpolation: { escapeValue: false },
+  returnObjects: true,
 });
 
-export const listOfLocales = ["fr"];
+export default i18n;

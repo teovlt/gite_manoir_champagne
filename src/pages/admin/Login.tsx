@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Accent, Logo } from "@/components/site/ornaments";
 import { AdminLabel } from "@/components/admin/admin-ui";
 import { useAuth } from "@/providers/auth-provider";
-import { ApiError } from "@/lib/api";
+import { ApiError, api } from "@/lib/api";
 
 const inputClass =
   "rounded-[14px] border border-line-strong bg-sand px-[15px] py-[13px] text-sm outline-none placeholder:text-[#B9B199] focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
@@ -22,6 +22,21 @@ export function AdminLogin() {
 
   const from = (location.state as { from?: string } | null)?.from ?? "/admin";
   if (user) return <Navigate to={from} replace />;
+
+  const forgot = async () => {
+    if (!email) {
+      setError("Indiquez d'abord votre adresse e-mail ci-dessus.");
+      return;
+    }
+    setError(null);
+    try {
+      const res = await api.post<{ mailEnabled: boolean }>("/api/auth/forgot", { email });
+      if (res.mailEnabled) toast.success("Si un compte existe pour cette adresse, un lien de réinitialisation vient d'être envoyé.");
+      else toast.info("L'envoi d'e-mails n'est pas configuré : demandez à un administrateur de changer votre mot de passe.");
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Demande impossible.");
+    }
+  };
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,11 +99,7 @@ export function AdminLogin() {
             <label className="flex items-center gap-[7px] text-umber">
               <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="accent-sage-dark" /> Se souvenir de moi
             </label>
-            <button
-              type="button"
-              className="font-semibold text-clay hover:underline"
-              onClick={() => toast.info("Demandez à votre administrateur de réinitialiser votre mot de passe.")}
-            >
+            <button type="button" className="font-semibold text-clay hover:underline" onClick={forgot}>
               Mot de passe oublié ?
             </button>
           </div>

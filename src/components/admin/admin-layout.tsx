@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -8,18 +8,23 @@ import { initials } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { Icon, type AdminIcon } from "./admin-ui";
 
-export const adminNav: { to: string; label: string; icon: keyof typeof AdminIcon }[] = [
+export const adminNav: { to: string; label: string; icon: keyof typeof AdminIcon; adminOnly?: boolean; hidden?: boolean }[] = [
   { to: "/admin", label: "Tableau de bord", icon: "dashboard" },
+  { to: "/admin/demandes", label: "Demandes", icon: "inbox" },
+  { to: "/admin/calendrier", label: "Calendrier", icon: "calendar" },
   { to: "/admin/contenu", label: "Contenu des pages", icon: "content" },
   { to: "/admin/photos", label: "Photos & médias", icon: "photos" },
   { to: "/admin/banniere", label: "Bannière & événements", icon: "banner" },
   { to: "/admin/tarifs", label: "Tarifs", icon: "pricing" },
+  { to: "/admin/parametres", label: "Coordonnées & carte", icon: "settings" },
+  { to: "/admin/utilisateurs", label: "Utilisateurs", icon: "users", adminOnly: true },
+  { to: "/admin/compte", label: "Mon compte", icon: "user", hidden: true },
 ];
 
 const itemClass = "flex items-center gap-3 border-l-[3px] px-[18px] py-[11px] text-[13.5px] font-medium transition-colors";
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
 
   const signOut = async () => {
@@ -37,7 +42,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         </span>
       </div>
       <nav aria-label="Administration" className="flex flex-1 flex-col gap-0.5 py-3.5">
-        {adminNav.map((item) => (
+        {adminNav.filter((item) => !item.hidden && (!item.adminOnly || user?.role === "admin")).map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
@@ -71,6 +76,10 @@ export function AdminLayout() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const current = adminNav.find((n) => n.to === pathname) ?? adminNav[0];
+  useEffect(() => {
+    document.title = `${current.label} — Administration`;
+    document.documentElement.lang = "fr";
+  }, [current.label]);
 
   return (
     <div className="flex min-h-screen w-full items-start bg-parchment text-ink">
@@ -98,13 +107,13 @@ export function AdminLayout() {
             </div>
           </div>
           {user && (
-            <div className="flex items-center gap-2.5">
+            <Link to="/admin/compte" className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-3 text-ink hover:bg-wheat hover:text-ink" title="Mon compte">
               <span className="flex size-9 items-center justify-center rounded-full bg-clay text-[13px] font-semibold text-cream">{initials(user.name)}</span>
               <span className="flex flex-col leading-tight">
                 <span className="text-[13px] font-semibold">{user.name}</span>
-                <span className="text-[11px] text-stone">Propriétaire</span>
+                <span className="text-[11px] text-stone">{user.role === "admin" ? "Administrateur" : "Éditeur"}</span>
               </span>
-            </div>
+            </Link>
           )}
         </header>
         <div className="max-w-[1280px] p-[clamp(16px,3vw,32px)]">
