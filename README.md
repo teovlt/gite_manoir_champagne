@@ -47,7 +47,7 @@ Le site tourne sur http://localhost:5173 (Vite redirige `/api` et `/uploads` ver
 1. Créer une application **Compose** pointant sur ce dépôt (branche `main`, fichier `compose.yaml`).
 2. Onglet **Environment** : coller le contenu de `.env.example` et remplir au minimum `SESSION_SECRET` (`openssl rand -hex 32`), `ADMIN_EMAIL`, `ADMIN_PASSWORD` — le compte admin est créé au premier démarrage seulement.
 3. Onglet **Domains** : ajouter le domaine avec **Service Name = `site`**, **Container Port = `3000`**, HTTPS activé.
-4. Déployer.
+4. Déployer. Le service est branché sur le réseau `dokploy-network` (déclaré dans `compose.yaml`) pour que Traefik puisse le joindre — sans lui, « Bad Gateway ».
 
 ### Sans Dokploy
 
@@ -58,7 +58,7 @@ Le site tourne sur http://localhost:5173 (Vite redirige `/api` et `/uploads` ver
    openssl rand -hex 32   # à coller dans SESSION_SECRET
    ```
 
-2. Publier le port pour votre reverse proxy en ajoutant au service `site` de `compose.yaml` : `ports: ["127.0.0.1:3000:3000"]`, puis :
+2. Dans `compose.yaml`, retirer les sections `networks` (propres à Dokploy) et publier le port pour votre reverse proxy en ajoutant au service `site` : `ports: ["127.0.0.1:3000:3000"]`, puis :
 
    ```bash
    docker compose up -d --build

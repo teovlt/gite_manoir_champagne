@@ -1,10 +1,10 @@
-# Manoir de la Champagne — déploiement VPS
+# Manoir de la Champagne — déploiement VPS (Dokploy)
 #
-# Avec Dokploy : rattacher le domaine au service « site », port 3000.
+# Dokploy : rattacher le domaine au service « site », port 3000.
 # Les variables d'environnement se saisissent dans l'onglet Environment (voir .env.example).
 #
-# Sans Dokploy : cp .env.example .env, puis docker compose up -d --build,
-# et ajouter un reverse proxy HTTPS vers le port 3000 du conteneur (voir README).
+# Sans Dokploy : retirer la section networks ci-dessous (ou créer le réseau :
+# docker network create dokploy-network), puis voir le README.
 services:
   site:
     build: .
@@ -14,12 +14,19 @@ services:
         required: false
     environment:
       NODE_ENV: production
-    # Port interne joint par le reverse proxy (Traefik/Dokploy). Rien n'est publié sur l'hôte.
+    # Port interne joint par Traefik. Rien n'est publié sur l'hôte.
     expose:
       - "3000"
     volumes:
       # Base SQLite + photos envoyées depuis l'admin. À sauvegarder.
       - manoir-data:/data
+    networks:
+      - dokploy-network
+
+networks:
+  # Réseau de Traefik (Dokploy) : sans lui, le proxy répond « Bad Gateway ».
+  dokploy-network:
+    external: true
 
 volumes:
   manoir-data:
