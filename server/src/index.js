@@ -11,7 +11,28 @@ import { authRoutes } from "./routes/auth.js";
 import { adminRoutes } from "./routes/admin.js";
 import { bad } from "./routes/helpers.js";
 
-await connect();
+/** Keeps retrying instead of crashing, so a slow or misconfigured database shows up clearly in the logs. */
+async function connectWithRetry() {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      await connect();
+      return;
+    } catch (err) {
+      const hint =
+        err.syscall === "querySrv"
+          ? " — the SRV lookup of the mongodb+srv:// URI failed: check the container DNS (DNS_SERVERS / compose `dns`) or use Atlas' standard mongodb:// connection string"
+          : err.name === "MongoServerSelectionError"
+            ? " — server unreachable: check the IP access list of the cluster (Atlas › Network Access) and the credentials"
+            : "";
+      const wait = Math.min(30, attempt * 3);
+      console.error(`[db] connection failed (attempt ${attempt}): ${err.message}${hint}. Retrying in ${wait}s…`);
+      await client.close().catch(() => {});
+      await new Promise((r) => setTimeout(r, wait * 1000));
+    }
+  }
+}
+
+await connectWithRetry();
 await seed();
 startIcalSync();
 

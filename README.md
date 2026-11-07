@@ -81,6 +81,12 @@ Au premier démarrage, l'application crée les index MongoDB, insère les textes
 
 > MongoDB hébergé chez Dokploy : créer une base « Mongo » dans le même projet et utiliser son URI interne. MongoDB Atlas : autoriser l'IP du VPS dans *Network Access*.
 
+**Dépannage**
+
+- `querySrv ESERVFAIL` / `ENOTFOUND` dans les logs : le DNS du conteneur ne résout pas l'URI `mongodb+srv://`. L'image et le compose utilisent déjà 1.1.1.1 et 8.8.8.8 ; si le VPS bloque ces serveurs, mettez ceux de l'hébergeur dans `DNS_SERVERS`, ou utilisez l'URI standard `mongodb://…` donnée par Atlas (Connect › Drivers, ancienne version du driver).
+- `MongoServerSelectionError` : l'IP du VPS n'est pas autorisée dans Atlas, ou identifiants incorrects.
+- Tant que la base est injoignable, l'application réessaie toutes les 3 à 30 s (le site répond « Bad Gateway » pendant ce temps) au lieu de redémarrer en boucle.
+
 ### Sans Dokploy
 
 Retirer les sections `networks` de `compose.yaml`, publier le port (`ports: ["127.0.0.1:3000:3000"]` sur le service `site`), créer `.env` à partir de `.env.example`, puis :

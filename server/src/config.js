@@ -1,3 +1,4 @@
+import dns from "node:dns";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
@@ -6,6 +7,14 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const env = process.env;
 
 const isProd = env.NODE_ENV === "production";
+
+// Some Docker/VPS resolvers cannot answer the SRV queries used by mongodb+srv:// URIs.
+// DNS_SERVERS (comma-separated) makes Node query those servers instead. Default in the image: 1.1.1.1,8.8.8.8.
+if (env.DNS_SERVERS) {
+  const servers = env.DNS_SERVERS.split(",").map((s) => s.trim()).filter(Boolean);
+  dns.setServers(servers);
+  dns.promises.setServers(servers);
+}
 
 if (!env.MONGODB_URI) {
   console.error("[config] MONGODB_URI is required (e.g. mongodb+srv://user:pass@cluster/manoir).");
