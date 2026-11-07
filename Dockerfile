@@ -16,11 +16,11 @@ WORKDIR /app/server
 COPY server/package.json server/pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile --prod
 
-# ---- 3. Runtime: one Node process serving the API, the uploads and the built site ----
+# ---- 3. Runtime: one Node process serving the API, the photos (GridFS) and the built site ----
+# All data (texts, photos, users, bookings…) lives in MongoDB — see MONGODB_URI.
 FROM node:22-alpine
 ENV NODE_ENV=production \
     PORT=3000 \
-    DATA_DIR=/data \
     STATIC_DIR=/app/dist \
     SHARED_DIR=/app/shared
 WORKDIR /app/server
@@ -29,10 +29,8 @@ COPY server/package.json ./
 COPY server/src ./src
 COPY shared /app/shared
 COPY --from=web /app/dist /app/dist
-RUN mkdir -p /data && chown -R node:node /data
 USER node
-VOLUME ["/data"]
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s \
   CMD wget -qO- http://127.0.0.1:3000/healthz || exit 1
-CMD ["node", "--disable-warning=ExperimentalWarning", "src/index.js"]
+CMD ["node", "src/index.js"]

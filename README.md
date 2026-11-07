@@ -1,23 +1,41 @@
 # Manoir de la Champagne
 
-Site du gîte **Manoir de la Champagne** (Millières, Manche) : 7 pages publiques et un espace propriétaires pour modifier les textes, les photos, les tarifs et la bannière d'événements, et suivre les demandes de réservation.
+Site du gîte **Manoir de la Champagne** (Millières, Manche), en **français, anglais et allemand**, avec un espace propriétaires pour gérer textes, photos, tarifs, événements, disponibilités, demandes de réservation et comptes.
 
-- **Front** : Vite + React 19 + Tailwind 4 + shadcn/ui (`src/`)
-- **API** : Node 22 + Express 5 + SQLite intégré (`node:sqlite`) (`server/`)
-- **Données par défaut** : `shared/` (textes, photos, tarifs), utilisées au premier démarrage et comme repli côté front
-- **Déploiement** : une seule image Docker qui sert l'API, les photos envoyées et le site construit
+- **Front** : Vite + React 19 + Tailwind 4 + shadcn/ui + react-i18next + Leaflet (`src/`)
+- **API** : Node 22 + Express 5 + **MongoDB** (photos dans GridFS, optimisées en WebP avec sharp) (`server/`)
+- **Données par défaut** : `shared/` (textes FR/EN/DE, photos, tarifs) — utilisées au premier démarrage et comme repli côté front
+- **Déploiement** : une seule image Docker qui sert l'API, les photos et le site ; toutes les données sont dans MongoDB
 
-## Pages
+## Fonctionnalités
 
-| Public | Admin (`/admin`) |
+**Site public** — `/` (français), `/en/…`, `/de/…`
+
+| Page | Ce qui fonctionne |
 | --- | --- |
-| `/` Accueil (bandeau de réservation, bannière d'événement) | `/admin/connexion` Connexion |
-| `/le-gite` Le Gîte | `/admin` Tableau de bord (KPI, activité, demandes) |
-| `/jardins-spa` Jardins & Spa | `/admin/contenu` Contenu des pages |
-| `/tarifs` Tarifs & conditions | `/admin/photos` Photos & médias |
-| `/region` La Région | `/admin/banniere` Bannière & événements |
-| `/avis` Avis clients | `/admin/tarifs` Tarifs |
-| `/contact` Contact & accès (pré-rempli depuis le bandeau) | |
+| Accueil | Bandeau de réservation (vérifie les disponibilités puis pré-remplit Contact), bannière d'événement, galerie en lightbox, carte |
+| Le Gîte, Jardins & Spa, La Région | Textes et photos gérés depuis l'admin, lightbox, apparitions au défilement |
+| Tarifs | Grille, saisons et suppléments depuis l'admin, **calendrier des disponibilités** cliquable |
+| Avis | 6 avis éditables, lien Abritel |
+| Contact | Formulaire (demande enregistrée + e-mails), **carte OpenStreetMap**, itinéraire Google Maps / Waze / Plans, « depuis ma position », coordonnées GPS |
+| Mentions légales, Confidentialité, Plan du site | Textes éditables dans l'admin |
+
+Langue : sélecteur FR / EN / DE dans l'en-tête, détection de la langue du navigateur à la première visite, `hreflang`, `sitemap.xml` multilingue, `robots.txt`.
+
+**Admin** — `/admin`
+
+| Écran | Rôle |
+| --- | --- |
+| Tableau de bord | Demandes à traiter, activité, prochains séjours |
+| Demandes | Répondre, confirmer (bloque les dates), refuser, notes internes |
+| Calendrier | Bloquer des dates, synchronisation iCal Abritel / Airbnb / Booking (toutes les 30 min) |
+| Contenu des pages | Tous les textes, par langue, avec le français en référence |
+| Photos & médias | Glisser-déposer, remplacement, légendes par langue |
+| Bannière & événements | Événements traduits, aperçu dans chaque langue |
+| Tarifs | Prix, saisons (par langue), suppléments, historique des changements |
+| Coordonnées & carte | Téléphone, adresse, lien Abritel, position GPS (recherche d'adresse ou clic sur la carte) |
+| Utilisateurs | Comptes **administrateur** / **éditeur**, invitations par e-mail, réinitialisation |
+| Mon compte | Nom, changement de mot de passe (déconnecte les autres appareils) |
 
 ## Développement
 
@@ -26,97 +44,91 @@ pnpm install
 pnpm --dir server install
 ```
 
-Dans deux terminaux :
+Créer `server/.env` (ignoré par git) :
 
 ```bash
-ADMIN_EMAIL=moi@example.test ADMIN_PASSWORD=un-mot-de-passe pnpm dev:api
+MONGODB_URI=mongodb://127.0.0.1:27017/manoir
+ADMIN_EMAIL=moi@example.test
+ADMIN_PASSWORD=un-mot-de-passe-long
+PUBLIC_URL=http://localhost:5173
+COOKIE_SECURE=false
+```
+
+Puis, dans deux terminaux :
+
+```bash
+pnpm dev:api
 ```
 
 ```bash
 pnpm dev
 ```
 
-Le site tourne sur http://localhost:5173 (Vite redirige `/api` et `/uploads` vers l'API sur le port 3000). La base SQLite et les photos envoyées sont dans `server/data/` (ignoré par git).
+Le site tourne sur http://localhost:5173 (Vite redirige `/api` et `/uploads` vers l'API sur le port 3000).
 
 > Sous Windows, gardez le projet dans un chemin court (par ex. `Documents\…`) : au-delà de 260 caractères, Vite ne trouve plus ses dépendances.
 
-## Déploiement sur le VPS (Docker Compose)
+## Déploiement sur le VPS
 
 ### Avec Dokploy
 
-1. Créer une application **Compose** pointant sur ce dépôt (branche `main`, fichier `compose.yaml`).
-2. Onglet **Environment** : coller le contenu de `.env.example` et remplir au minimum `SESSION_SECRET` (`openssl rand -hex 32`), `ADMIN_EMAIL`, `ADMIN_PASSWORD` — le compte admin est créé au premier démarrage seulement.
-3. Onglet **Domains** : ajouter le domaine avec **Service Name = `site`**, **Container Port = `3000`**, HTTPS activé.
+1. Application **Compose** pointant sur ce dépôt (branche `main`, fichier `compose.yaml`).
+2. Onglet **Environment** : coller le contenu de `.env.example` et remplir au minimum `MONGODB_URI`, `PUBLIC_URL`, `SESSION_SECRET` (`openssl rand -hex 32`), `ADMIN_EMAIL`, `ADMIN_PASSWORD`.
+3. Onglet **Domains** : **Service Name = `site`**, **Container Port = `3000`**, HTTPS activé.
 4. Déployer. Le service est branché sur le réseau `dokploy-network` (déclaré dans `compose.yaml`) pour que Traefik puisse le joindre — sans lui, « Bad Gateway ».
+
+Au premier démarrage, l'application crée les index MongoDB, insère les textes / photos / tarifs par défaut et le premier compte administrateur. Les redémarrages suivants ne modifient jamais ce que les propriétaires ont saisi.
+
+> MongoDB hébergé chez Dokploy : créer une base « Mongo » dans le même projet et utiliser son URI interne. MongoDB Atlas : autoriser l'IP du VPS dans *Network Access*.
 
 ### Sans Dokploy
 
-1. Cloner le dépôt sur le VPS puis créer le fichier d'environnement :
-
-   ```bash
-   cp .env.example .env
-   openssl rand -hex 32   # à coller dans SESSION_SECRET
-   ```
-
-2. Dans `compose.yaml`, retirer les sections `networks` (propres à Dokploy) et publier le port pour votre reverse proxy en ajoutant au service `site` : `ports: ["127.0.0.1:3000:3000"]`, puis :
-
-   ```bash
-   docker compose up -d --build
-   ```
-
-3. Reverse proxy HTTPS, par exemple avec Caddy :
-
-   ```caddy
-   manoirdelachampagne.fr {
-     encode gzip
-     reverse_proxy 127.0.0.1:3000
-   }
-   ```
-
-Les cookies de session sont `Secure` en production : le site doit être servi en HTTPS (sinon `COOKIE_SECURE=false`).
-
-### Mettre à jour
+Retirer les sections `networks` de `compose.yaml`, publier le port (`ports: ["127.0.0.1:3000:3000"]` sur le service `site`), créer `.env` à partir de `.env.example`, puis :
 
 ```bash
-git pull
 docker compose up -d --build
 ```
 
-### Comptes administrateurs
+et placer un reverse proxy HTTPS devant (Caddy : `reverse_proxy 127.0.0.1:3000`). Les cookies de session sont `Secure` en production : le site doit être servi en HTTPS (sinon `COOKIE_SECURE=false`).
 
-Ajouter un compte (ou réinitialiser un mot de passe) :
+### Comptes
+
+Le premier compte vient de `ADMIN_EMAIL` / `ADMIN_PASSWORD`. Les suivants se créent dans **Admin › Utilisateurs**. En secours (mot de passe perdu sans e-mail configuré) :
 
 ```bash
-docker compose exec site node --disable-warning=ExperimentalWarning src/create-user.js loic@example.fr "nouveau-mot-de-passe" "Loïc Courteille"
+docker compose exec site node src/create-user.js maryline@example.fr "nouveau-mot-de-passe" "Maryline Courteille"
 ```
+
+### E-mails
+
+Avec les variables `SMTP_*` :
+
+- les propriétaires (`NOTIFY_EMAIL`) reçoivent chaque demande, avec `Reply-To` sur le visiteur ;
+- le visiteur reçoit un accusé de réception dans sa langue ;
+- « Mot de passe oublié » et les invitations d'utilisateurs fonctionnent.
+
+Sans SMTP, les demandes restent consultables dans l'admin et les comptes se créent avec un mot de passe provisoire.
 
 ### Sauvegardes
 
-Tout l'état du site (base SQLite + photos envoyées) est dans le volume `manoir-data`, monté sur `/data` :
+Tout est dans MongoDB (y compris les photos, collection `uploads.*`) :
 
 ```bash
-docker run --rm -v gite_manoir_champagne_manoir-data:/data -v "$PWD":/backup alpine \
-  tar czf /backup/manoir-$(date +%F).tar.gz -C /data .
+mongodump --uri "$MONGODB_URI" --archive=manoir-$(date +%F).gz --gzip
 ```
 
-(Le nom exact du volume est donné par `docker volume ls`.)
+## Contenus encore à compléter (depuis l'admin)
 
-### Notifications e-mail
-
-Si les variables `SMTP_*` et `NOTIFY_EMAIL` sont renseignées, chaque demande envoyée depuis la page Contact est aussi transmise par e-mail (avec `Reply-To` sur le voyageur). Sans elles, les demandes restent consultables dans le tableau de bord.
-
-## Ce qui reste à faire
-
-- Traductions EN / DE (le sélecteur affiche « bientôt disponible »)
-- Vrais avis Abritel, lien Abritel, itinéraires, photos de la région et du spa (éditables depuis l'admin)
-- Mentions légales, politique de confidentialité, plan du site
-- Vraie carte d'accès (OpenStreetMap / Google Maps, avec consentement RGPD si besoin)
-- Redimensionnement automatique des photos envoyées
+- Vrais avis Abritel et lien de l'annonce (Avis, Coordonnées & carte)
+- SIRET, directeur de publication et hébergeur (Mentions légales)
+- Itinéraires « en voiture » / « en train » (Contact)
+- Photos de la région, du spa, du jardin nord et des propriétaires (Photos & médias)
+- Calendrier des saisons à confirmer (Tarifs)
 
 ## Scripts
 
 - `pnpm dev` — front en développement
-- `pnpm dev:api` — API en développement (rechargement auto)
+- `pnpm dev:api` — API en développement (rechargement auto, lit `server/.env`)
 - `pnpm build` — build du front
 - `pnpm format` — Prettier
 
