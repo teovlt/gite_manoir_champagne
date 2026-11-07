@@ -86,7 +86,7 @@ const regionTeasers = [
 ];
 
 const bookingInputClass =
-  "rounded-xl border border-line-strong bg-sand px-3.5 py-3 font-sans text-sm text-ink outline-none focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
+  "w-full min-w-0 rounded-xl border border-line-strong bg-sand px-3.5 py-3 font-sans text-sm text-ink outline-none focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
 
 function BookingBar() {
   const { t } = useTranslation();
@@ -115,7 +115,7 @@ function BookingBar() {
         className="flex flex-wrap items-end gap-5 rounded-[18px] bg-cream px-[clamp(20px,3vw,32px)] py-7 shadow-[0_14px_34px_rgba(43,42,37,0.2)]"
       >
         {fields.map((f) => (
-          <div key={f.id} className={cn("flex flex-1 flex-col gap-1.5", f.basis)}>
+          <div key={f.id} className={cn("flex min-w-0 flex-1 flex-col gap-1.5", f.basis)}>
             <label htmlFor={`b-${f.id}`} className="text-[11px] uppercase tracking-[0.5px] text-umber">
               {f.label}
             </label>

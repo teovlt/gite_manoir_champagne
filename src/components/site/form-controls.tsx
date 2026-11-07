@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 export const fieldLabelClass = "text-xs uppercase tracking-[0.5px] text-umber";
 export const fieldInputClass =
-  "rounded-[14px] border border-line-strong bg-cream px-3.5 py-3 font-sans text-sm text-ink outline-none transition-shadow focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
+  "w-full min-w-0 rounded-[14px] border border-line-strong bg-cream px-3.5 py-3 font-sans text-sm text-ink outline-none transition-shadow focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
 
 interface FieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;

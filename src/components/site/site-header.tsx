@@ -37,7 +37,7 @@ export const BrandLink = ({ onClick }: { onClick?: () => void }) => (
   <Link to="/" onClick={onClick} className="flex items-center gap-3 text-ink hover:text-ink">
     <Logo />
     <span className="flex flex-col leading-tight">
-      <span className="font-serif text-[21px] font-semibold">Manoir de la Champagne</span>
+      <span className="font-serif text-[18px] font-semibold sm:text-[21px]">Manoir de la Champagne</span>
       <span className="text-[11px] uppercase tracking-[1.5px] text-stone">Millières · Manche</span>
     </span>
   </Link>
@@ -54,7 +54,7 @@ export function SiteHeader() {
     );
 
   return (
-    <header className="px-gutter flex flex-wrap items-center justify-between gap-6 border-b border-line bg-cream py-[18px]">
+    <header className="px-gutter flex items-center justify-between gap-4 xl:gap-6 border-b border-line bg-cream py-[18px]">
       <BrandLink />
 
       <nav aria-label={t("navbar.main")} className="hidden flex-wrap gap-[26px] xl:flex">

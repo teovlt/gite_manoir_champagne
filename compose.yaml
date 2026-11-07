@@ -1,0 +1,21 @@
+# Manoir de la Champagne — déploiement VPS
+#   cp .env.example .env   # puis remplir les valeurs
+#   docker compose up -d --build
+services:
+  site:
+    build: .
+    image: manoir-champagne:latest
+    container_name: manoir-champagne
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      NODE_ENV: production
+    # Exposé uniquement en local : placez un reverse proxy HTTPS devant (Caddy, Traefik, Nginx…).
+    ports:
+      - "127.0.0.1:${HOST_PORT:-3000}:3000"
+    volumes:
+      # Base SQLite + photos envoyées depuis l'admin. À sauvegarder.
+      - manoir-data:/data
+
+volumes:
+  manoir-data:
