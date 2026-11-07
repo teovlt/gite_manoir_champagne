@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # ---- 1. Front-end build (Vite + React) ----
-FROM node:22-alpine AS web
+FROM node:20-alpine AS web
 RUN corepack enable
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
@@ -10,7 +10,7 @@ COPY . .
 RUN pnpm build
 
 # ---- 2. API dependencies (production only) ----
-FROM node:22-alpine AS api-deps
+FROM node:20-alpine AS api-deps
 RUN corepack enable
 WORKDIR /app/server
 COPY server/package.json server/pnpm-lock.yaml ./
@@ -18,7 +18,7 @@ RUN pnpm install --frozen-lockfile --prod
 
 # ---- 3. Runtime: one Node process serving the API, the photos (GridFS) and the built site ----
 # All data (texts, photos, users, bookings…) lives in MongoDB — see MONGODB_URI.
-FROM node:22-alpine
+FROM node:20-alpine
 ENV NODE_ENV=production \
     PORT=3000 \
     STATIC_DIR=/app/dist \
