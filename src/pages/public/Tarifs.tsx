@@ -70,7 +70,7 @@ export function Tarifs() {
 
   return (
     <>
-      <PageHero eyebrow={t("tarifs.eyebrow")} title={t("tarifs.title")} minHeight={380} />
+      <PageHero eyebrow={t("tarifs.eyebrow")} title={t("tarifs.title")} photoSlot="jardins.sud" minHeight={400} />
 
       <section className="px-gutter pb-6 pt-16">
         <Reveal className="mx-auto flex max-w-[1100px] flex-wrap gap-10">

@@ -164,7 +164,6 @@
   },
   "region": {
     "eyebrow": "La Manche, Normandie",
-    "heroPhoto": "Côte du Cotentin",
     "see": "À voir dans le Cotentin",
     "sights": [
       { "title": "Barneville-Carteret", "text": "Station prisée des plaisanciers." },
@@ -200,9 +199,17 @@
   "avis": {
     "eyebrow": "Livre d'or",
     "title": "Ce qu'en disent nos hôtes",
-    "stars": "5 étoiles sur 5",
-    "placeholders": "Ces emplacements sont prévus pour recueillir vos avis réels — à remplacer avant mise en ligne.",
-    "all": "Lire tous les avis sur Abritel ↗"
+    "stars": "{{count}} étoiles sur 5",
+    "onGoogle": "sur Google",
+    "reviewCount": "{{count}} avis",
+    "seeAll": "Voir tous les avis sur Google",
+    "visited": "Séjour en {{date}}",
+    "visitedYear": "Séjour en {{date}}",
+    "translated": "Traduit du français",
+    "readMore": "Lire la suite",
+    "readLess": "Réduire",
+    "fromGoogle": "Avis Google",
+    "all": "Lire aussi les avis sur Abritel ↗"
   },
   "contact": {
     "eyebrow": "Nous écrire",

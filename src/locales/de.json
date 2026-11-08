@@ -164,7 +164,6 @@
   },
   "region": {
     "eyebrow": "La Manche, Normandie",
-    "heroPhoto": "Küste des Cotentin",
     "see": "Sehenswertes im Cotentin",
     "sights": [
       { "title": "Barneville-Carteret", "text": "Beliebter Badeort bei Seglern." },
@@ -200,9 +199,17 @@
   "avis": {
     "eyebrow": "Gästebuch",
     "title": "Was unsere Gäste sagen",
-    "stars": "5 von 5 Sternen",
-    "placeholders": "Diese Plätze sind für echte Bewertungen vorgesehen – vor dem Livegang zu ersetzen.",
-    "all": "Alle Bewertungen auf Abritel lesen ↗"
+    "stars": "{{count}} von 5 Sternen",
+    "onGoogle": "auf Google",
+    "reviewCount": "{{count}} Bewertungen",
+    "seeAll": "Alle Bewertungen auf Google ansehen",
+    "visited": "Aufenthalt im {{date}}",
+    "visitedYear": "Aufenthalt {{date}}",
+    "translated": "Aus dem Französischen übersetzt",
+    "readMore": "Weiterlesen",
+    "readLess": "Weniger anzeigen",
+    "fromGoogle": "Google-Bewertung",
+    "all": "Auch unsere Bewertungen auf Abritel lesen ↗"
   },
   "contact": {
     "eyebrow": "Schreiben Sie uns",

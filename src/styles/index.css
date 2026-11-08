@@ -133,6 +133,10 @@
   .hero-zoom {
     animation: hero-zoom 18s ease-out both;
   }
+  /* Gentle drift of the drawing in heroes without a photo */
+  .hero-float {
+    animation: hero-float 9s ease-in-out infinite alternate;
+  }
   /* Image zoom inside a hovered card / tile */
   .zoom-frame img {
     transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -168,7 +172,19 @@
   }
 }
 
+@keyframes hero-float {
+  from {
+    transform: translateY(6px);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .hero-float {
+    animation: none;
+  }
   .reveal {
     opacity: 1;
     transform: none;

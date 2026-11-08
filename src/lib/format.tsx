@@ -3,7 +3,7 @@ import { intlLocale, type Lang } from "./locale";
 
 /** Renders centuries with a superscript: "XVIIe" (fr), "17th" (en), "17." stays as is. */
 export function Typo({ text }: { text: string }) {
-  const parts = text.split(/\b([IVXL]+)(e)\b|\b(\d{1,2})(st|nd|rd|th)\b/);
+  const parts = text.split(/\b([IVX]+|[IVXL]{2,})(e)\b|\b(\d{1,2})(st|nd|rd|th)\b/);
   const out: React.ReactNode[] = [];
   for (let i = 0; i < parts.length; i += 5) {
     out.push(<Fragment key={i}>{parts[i]}</Fragment>);

@@ -39,7 +39,9 @@ export function SiteDataProvider({ children }: { children: React.ReactNode }) {
 
   const refresh = useCallback(async () => {
     try {
-      setData(await api.get<SiteData>("/api/site"));
+      const site = await api.get<SiteData | null>("/api/site");
+      // A non-JSON answer (API down behind a proxy) also keeps the bundled defaults.
+      if (site) setData(site);
     } catch {
       // API unreachable: keep rendering bundled defaults.
     } finally {

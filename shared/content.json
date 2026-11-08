@@ -96,9 +96,9 @@
               "label": "Citation (extrait d'avis)",
               "type": "textarea",
               "value": {
-                "fr": "[Emplacement réservé — extrait d'un avis vérifié à reprendre depuis Abritel]",
-                "en": "[Placeholder — excerpt from a verified Abritel review]",
-                "de": "[Platzhalter — Auszug aus einer verifizierten Abritel-Bewertung]"
+                "fr": "Cette semaine a été un moment suspendu dans le temps. — Virginie, avis Google",
+                "en": "This week was a moment suspended in time. — Virginie, Google review",
+                "de": "Diese Woche war ein Moment, in dem die Zeit stillstand. — Virginie, Google-Bewertung"
               }
             }
           ]
@@ -398,28 +398,28 @@
               "label": "Texte d'introduction",
               "type": "textarea",
               "value": {
-                "fr": "Les séjours au Manoir de la Champagne font l'objet d'avis vérifiés sur Abritel. Voici un aperçu de ce que nos hôtes retiennent de leur passage — cousinades, anniversaires et week-ends entre amis.",
-                "en": "Stays at the Manoir de la Champagne receive verified reviews on Abritel. Here is a glimpse of what our guests remember — family reunions, birthdays and weekends with friends.",
-                "de": "Aufenthalte im Manoir de la Champagne werden auf Abritel verifiziert bewertet. Hier ein Eindruck davon, was unsere Gäste in Erinnerung behalten – Familientreffen, Geburtstage und Wochenenden mit Freunden."
+                "fr": "Cousinades, anniversaires, semaines en famille… Voici ce que nos hôtes retiennent de leur passage au Manoir de la Champagne, tels qu'ils l'ont écrit sur Google.",
+                "en": "Family reunions, birthdays, holiday weeks… Here is what our guests remember of their stay at the Manoir de la Champagne, as they wrote it on Google.",
+                "de": "Familientreffen, Geburtstage, Ferienwochen … Das behalten unsere Gäste von ihrem Aufenthalt im Manoir de la Champagne in Erinnerung – so, wie sie es auf Google geschrieben haben."
               }
             }
           ]
         },
         {
-          "title": "Avis clients",
+          "title": "Avis supplémentaires (en plus des avis Google)",
           "fields": [
-            { "key": "review1", "label": "Avis 1", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
-            { "key": "author1", "label": "Auteur 1", "type": "text", "value": { "fr": "[Prénom], séjour en famille", "en": "[First name], family stay", "de": "[Vorname], Familienurlaub" } },
-            { "key": "review2", "label": "Avis 2", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
-            { "key": "author2", "label": "Auteur 2", "type": "text", "value": { "fr": "[Prénom], cousinade", "en": "[First name], family reunion", "de": "[Vorname], Familientreffen" } },
-            { "key": "review3", "label": "Avis 3", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
-            { "key": "author3", "label": "Auteur 3", "type": "text", "value": { "fr": "[Prénom], week-end entre amis", "en": "[First name], weekend with friends", "de": "[Vorname], Wochenende mit Freunden" } },
-            { "key": "review4", "label": "Avis 4", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
-            { "key": "author4", "label": "Auteur 4", "type": "text", "value": { "fr": "[Prénom], anniversaire", "en": "[First name], birthday", "de": "[Vorname], Geburtstag" } },
-            { "key": "review5", "label": "Avis 5", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
-            { "key": "author5", "label": "Auteur 5", "type": "text", "value": { "fr": "[Prénom], retrouvailles familiales", "en": "[First name], family get-together", "de": "[Vorname], Familienzusammenkunft" } },
-            { "key": "review6", "label": "Avis 6", "type": "textarea", "value": { "fr": "[Avis vérifié à reprendre depuis Abritel]", "en": "[Verified review to copy from Abritel]", "de": "[Verifizierte Bewertung von Abritel übernehmen]" } },
-            { "key": "author6", "label": "Auteur 6", "type": "text", "value": { "fr": "[Prénom], séjour pêche", "en": "[First name], fishing holiday", "de": "[Vorname], Angelurlaub" } }
+            { "key": "review1", "label": "Avis 1", "type": "textarea", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "author1", "label": "Auteur 1", "type": "text", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "review2", "label": "Avis 2", "type": "textarea", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "author2", "label": "Auteur 2", "type": "text", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "review3", "label": "Avis 3", "type": "textarea", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "author3", "label": "Auteur 3", "type": "text", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "review4", "label": "Avis 4", "type": "textarea", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "author4", "label": "Auteur 4", "type": "text", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "review5", "label": "Avis 5", "type": "textarea", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "author5", "label": "Auteur 5", "type": "text", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "review6", "label": "Avis 6", "type": "textarea", "value": { "fr": "", "en": "", "de": "" } },
+            { "key": "author6", "label": "Auteur 6", "type": "text", "value": { "fr": "", "en": "", "de": "" } }
           ]
         }
       ]

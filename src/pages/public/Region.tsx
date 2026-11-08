@@ -74,7 +74,7 @@ export function Region() {
 
   return (
     <>
-      <PageHero eyebrow={t("region.eyebrow")} title={text("heroTitle")} subtitle={text("heroSubtitle")} photoSlot="region.hero" placeholderLabel={t("region.heroPhoto")} />
+      <PageHero eyebrow={t("region.eyebrow")} title={text("heroTitle")} subtitle={text("heroSubtitle")} photoSlot="region.hero" fallbackSlot="jardins.etang" />
 
       <section className="px-gutter pb-12 pt-20">
         <div className="mx-auto max-w-[1200px]">

@@ -164,7 +164,6 @@
   },
   "region": {
     "eyebrow": "La Manche, Normandy",
-    "heroPhoto": "Cotentin coastline",
     "see": "Things to see in the Cotentin",
     "sights": [
       { "title": "Barneville-Carteret", "text": "A seaside resort popular with sailors." },
@@ -200,9 +199,17 @@
   "avis": {
     "eyebrow": "Guestbook",
     "title": "What our guests say",
-    "stars": "5 out of 5 stars",
-    "placeholders": "These slots are reserved for your real reviews — to be replaced before going live.",
-    "all": "Read all reviews on Abritel ↗"
+    "stars": "{{count}} out of 5 stars",
+    "onGoogle": "on Google",
+    "reviewCount": "{{count}} reviews",
+    "seeAll": "See all reviews on Google",
+    "visited": "Stayed in {{date}}",
+    "visitedYear": "Stayed in {{date}}",
+    "translated": "Translated from French",
+    "readMore": "Read more",
+    "readLess": "Show less",
+    "fromGoogle": "Google review",
+    "all": "Also read our reviews on Abritel ↗"
   },
   "contact": {
     "eyebrow": "Write to us",
