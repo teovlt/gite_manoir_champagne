@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Check, ChevronDown, Menu } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { LANGS, langLabels, localize, stripLang, useLang, useLocalePath } from "@/lib/locale";
 import { cn } from "@/lib/utils";
@@ -19,83 +20,69 @@ export const mainNav = [
   { to: "/contact", key: "contact" },
 ] as const;
 
-// Survives the remount that a language switch may cause, so the indicator can slide from the old flag.
-let lastLangIndex: number | null = null;
-
-/** FR / EN / DE switch with flags: keeps the current page (and its query string). */
-export const LanguagePills = ({ onSwitch, full = false }: { onSwitch?: () => void; full?: boolean }) => {
+/** Language select (flag + code, opens the three choices): keeps the current page and its query string. */
+export const LanguageSelect = ({ onSwitch, full = false }: { onSwitch?: () => void; full?: boolean }) => {
   const { t } = useTranslation();
   const lang = useLang();
   const { pathname, search } = useLocation();
   const base = stripLang(pathname);
-  const index = LANGS.indexOf(lang);
-  const [shown, setShown] = useState(lastLangIndex ?? index);
-
-  useEffect(() => {
-    lastLangIndex = index;
-    const frame = requestAnimationFrame(() => setShown(index));
-    return () => cancelAnimationFrame(frame);
-  }, [index]);
 
   return (
-    <nav
-      aria-label={t("navbar.language")}
-      className={cn(
-        "relative grid grid-cols-3 border border-line-strong bg-wheat/60 p-[3px] shadow-[inset_0_1px_2px_rgba(43,42,37,0.06)]",
-        full ? "w-full max-w-[340px] rounded-[18px]" : "rounded-full",
-      )}
-    >
-      <span
-        aria-hidden="true"
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger
+        aria-label={`${t("navbar.language")} : ${langLabels[lang]}`}
         className={cn(
-          "absolute inset-y-[3px] left-[3px] w-[calc((100%-6px)/3)] bg-cream shadow-[0_2px_8px_rgba(43,42,37,0.14),0_0_0_1px_rgba(43,42,37,0.05)] transition-transform duration-500 ease-[cubic-bezier(0.34,1.4,0.5,1)] motion-reduce:transition-none",
-          full ? "rounded-[15px]" : "rounded-full",
+          "group flex items-center gap-2 rounded-full border border-line-strong bg-cream py-[5px] pl-[5px] pr-2.5 text-[12px] font-semibold uppercase tracking-[0.6px] text-ink shadow-[0_1px_3px_rgba(43,42,37,0.06)] outline-none transition-[border-color,box-shadow,background-color] hover:border-khaki hover:bg-sand focus-visible:ring-[3px] focus-visible:ring-sage/50 data-[state=open]:border-khaki data-[state=open]:bg-sand",
+          full && "w-full max-w-[260px] py-2 pl-2 pr-3.5 text-[13px] normal-case tracking-normal",
         )}
-        style={{ transform: `translateX(${shown * 100}%)` }}
-      />
-      {LANGS.map((l) => {
-        const active = l === lang;
-        return (
-          <Link
-            key={l}
-            to={`${localize(base, l)}${search}`}
-            hrefLang={l}
-            lang={l}
-            onClick={() => {
-              try {
-                localStorage.setItem("lang", l);
-              } catch {
-                /* ignore */
-              }
-              onSwitch?.();
-            }}
-            aria-current={active ? "true" : undefined}
-            aria-label={langLabels[l]}
-            title={langLabels[l]}
-            className={cn(
-              "group relative z-[1] flex items-center justify-center gap-1.5 uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-dark",
-              full
-                ? "flex-col rounded-[15px] px-1 py-2.5 text-[12px] normal-case tracking-normal"
-                : "rounded-full px-2.5 py-[5px] text-[11px] tracking-[0.6px] xl:max-2xl:px-2",
-              active ? "font-bold text-ink" : "font-semibold text-stone hover:text-ink",
-            )}
-          >
-            <Flag
-              lang={l}
-              className={cn(
-                "transition-[transform,filter,opacity] duration-300 group-hover:scale-[1.18] group-hover:-rotate-6 motion-reduce:transition-none",
-                full ? "size-6" : "size-4",
-                !active && "opacity-80 saturate-[0.7] group-hover:opacity-100 group-hover:saturate-100",
-              )}
-            />
-            {/* Between xl and 2xl the full menu leaves room for the flags only. */}
-            <span aria-hidden="true" className={cn(!full && "xl:max-2xl:hidden")}>
-              {full ? langLabels[l] : l}
-            </span>
-          </Link>
-        );
-      })}
-    </nav>
+      >
+        <Flag lang={lang} className={full ? "size-6" : "size-5"} />
+        <span>{full ? langLabels[lang] : lang}</span>
+        <ChevronDown
+          className="ml-auto size-3.5 text-stone transition-transform duration-300 group-data-[state=open]:rotate-180"
+          aria-hidden="true"
+        />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align={full ? "start" : "end"}
+        sideOffset={8}
+        className="z-[60] min-w-[184px] rounded-[14px] border-line-strong bg-cream p-1.5 shadow-[0_14px_34px_rgba(43,42,37,0.16)]"
+      >
+        {LANGS.map((l) => {
+          const active = l === lang;
+          return (
+            <DropdownMenuItem
+              key={l}
+              asChild
+              className="group/item cursor-pointer gap-3 rounded-[10px] px-2.5 py-2 text-[14px] text-ink focus:bg-wheat focus:text-ink"
+            >
+              <Link
+                to={`${localize(base, l)}${search}`}
+                hrefLang={l}
+                lang={l}
+                aria-current={active ? "true" : undefined}
+                onClick={() => {
+                  try {
+                    localStorage.setItem("lang", l);
+                  } catch {
+                    /* ignore */
+                  }
+                  onSwitch?.();
+                }}
+              >
+                <Flag lang={l} className="size-5 transition-transform duration-300 group-focus/item:scale-110" />
+                <span className={cn("flex-1", active && "font-semibold")}>{langLabels[l]}</span>
+                {active ? (
+                  <Check className="size-4 text-sage-dark" aria-hidden="true" />
+                ) : (
+                  <span className="text-[11px] uppercase tracking-[0.6px] text-pebble">{l}</span>
+                )}
+              </Link>
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
@@ -150,7 +137,7 @@ export function SiteHeader() {
       </nav>
 
       <div className="hidden shrink-0 items-center gap-[18px] sm:flex">
-        <LanguagePills />
+        <LanguageSelect />
         <Button asChild variant="clay" size="pill">
           <Link to={l("/tarifs")}>{t("navbar.book")}</Link>
         </Button>
@@ -175,7 +162,7 @@ export function SiteHeader() {
               </NavLink>
             ))}
           </nav>
-          <LanguagePills full onSwitch={() => setOpen(false)} />
+          <LanguageSelect full onSwitch={() => setOpen(false)} />
           <Button asChild variant="clay" size="pill" className="self-start">
             <Link to={l("/tarifs")} onClick={() => setOpen(false)}>
               {t("navbar.book")}

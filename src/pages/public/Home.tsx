@@ -49,7 +49,7 @@ const gallerySlots = ["accueil.hero", "gite.salon", "gite.marquise", "jardins.su
 const teaserSlots = ["region.mont", "region.debarquement", "region.barfleur"];
 
 const bookingInputClass =
-  "w-full min-w-0 rounded-xl border border-line-strong bg-sand px-3.5 py-3 font-sans text-sm text-ink outline-none focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
+  "w-full min-w-0 rounded-xl border border-line-strong bg-sand px-3 py-3 font-sans text-sm sm:px-3.5 text-ink outline-none focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
 
 function BookingBar() {
   const { t } = useTranslation();
@@ -68,17 +68,20 @@ function BookingBar() {
   };
 
   const fields = [
-    { id: "arrivee", label: t("booking.arrival"), type: "date", basis: "basis-[150px]", min: todayISO() },
-    { id: "depart", label: t("booking.departure"), type: "date", basis: "basis-[150px]", min: v.arrivee || todayISO() },
-    { id: "adultes", label: t("booking.adults"), type: "number", basis: "basis-[110px]", min: "1", max: "14", placeholder: "2" },
-    { id: "enfants", label: t("booking.children"), type: "number", basis: "basis-[110px]", min: "0", max: "13", placeholder: "0" },
+    { id: "arrivee", label: t("booking.arrival"), type: "date", min: todayISO() },
+    { id: "depart", label: t("booking.departure"), type: "date", min: v.arrivee || todayISO() },
+    { id: "adultes", label: t("booking.adults"), type: "number", min: "1", max: "14", placeholder: "2" },
+    { id: "enfants", label: t("booking.children"), type: "number", min: "0", max: "13", placeholder: "0" },
   ] as const;
 
   return (
     <div className="px-gutter relative z-[3] mx-auto -mt-14 max-w-[1100px] animate-in fade-in-0 slide-in-from-bottom-6 duration-700">
-      <form onSubmit={submit} className="flex flex-wrap items-end gap-5 rounded-[18px] bg-cream px-[clamp(20px,3vw,32px)] py-7 shadow-[0_14px_34px_rgba(43,42,37,0.2)]">
+      <form
+        onSubmit={submit}
+        className="grid grid-cols-2 items-end gap-x-3 gap-y-4 rounded-[18px] bg-cream px-[clamp(18px,3vw,32px)] py-6 shadow-[0_14px_34px_rgba(43,42,37,0.2)] sm:gap-x-4 md:grid-cols-4 md:py-7 lg:grid-cols-[1.3fr_1.3fr_0.8fr_0.8fr_auto] lg:gap-5"
+      >
         {fields.map((f) => (
-          <div key={f.id} className={cn("flex min-w-0 flex-1 flex-col gap-1.5", f.basis)}>
+          <div key={f.id} className="flex min-w-0 flex-col gap-1.5">
             <label htmlFor={`b-${f.id}`} className="text-[11px] uppercase tracking-[0.5px] text-umber">
               {f.label}
             </label>
@@ -94,7 +97,7 @@ function BookingBar() {
             />
           </div>
         ))}
-        <Button type="submit" variant="clay" size="pillMd" className="flex-none rounded-xl">
+        <Button type="submit" variant="clay" size="pillMd" className="col-span-2 w-full rounded-xl md:col-span-4 lg:col-span-1 lg:w-auto">
           {t("booking.check")}
         </Button>
       </form>
@@ -120,7 +123,9 @@ const PortraitIllustration = ({ className, label }: { className?: string; label:
       <path d="M157 258 C157 201 171 177 194 177 C217 177 231 201 231 258 Z" fill="#7E9574" />
       <circle cx="194" cy="133" r="27" fill="#7E9574" />
     </svg>
-    <span className="absolute bottom-2.5 left-2.5 rounded-[10px] bg-ink/45 px-[9px] py-1 text-[10px] uppercase tracking-[0.5px] text-cream">{label}</span>
+    <span className="absolute bottom-2.5 left-2.5 rounded-[10px] bg-ink/45 px-[9px] py-1 text-[10px] uppercase tracking-[0.5px] text-cream">
+      {label}
+    </span>
   </div>
 );
 
@@ -144,7 +149,14 @@ export function Home() {
       {data.banner && <EventBannerView event={data.banner} lang={lang} />}
 
       <section className="relative flex min-h-[680px] items-end overflow-hidden bg-ink">
-        {hero?.url && <img src={hero.url} alt={tr(hero.alt)} fetchPriority="high" className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover" />}
+        {hero?.url && (
+          <img
+            src={hero.url}
+            alt={tr(hero.alt)}
+            fetchPriority="high"
+            className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.40)_100%)]" />
         <div className="px-gutter relative z-[2] max-w-[900px] pb-[72px] pt-[clamp(48px,8vw,96px)] text-cream animate-in fade-in-0 slide-in-from-bottom-4 duration-1000">
           <span className="text-[13px] uppercase tracking-[2px] text-wheat-light">{text("heroEyebrow")}</span>
@@ -185,7 +197,12 @@ export function Home() {
           <SitePhoto
             slot="accueil.portrait"
             className="aspect-square max-w-[320px] flex-[1_1_280px] rounded-[14px] border border-khaki"
-            fallback={<PortraitIllustration label={t("home.ownersIllustration")} className="aspect-square max-w-[320px] flex-[1_1_280px] rounded-[14px] border border-khaki" />}
+            fallback={
+              <PortraitIllustration
+                label={t("home.ownersIllustration")}
+                className="aspect-square max-w-[320px] flex-[1_1_280px] rounded-[14px] border border-khaki"
+              />
+            }
           />
           <div className="flex-[1_1_380px]">
             <Eyebrow>{t("home.ownersEyebrow")}</Eyebrow>
@@ -204,7 +221,18 @@ export function Home() {
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-9">
             {highlights.map((h, i) => (
               <Reveal key={h.title} delay={(i % 3) * 90} className="flex flex-col gap-2.5">
-                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-sage" aria-hidden="true">
+                <svg
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="text-sage"
+                  aria-hidden="true"
+                >
                   {highlightIcons[i]}
                 </svg>
                 <h3 className="text-base font-semibold">{h.title}</h3>
@@ -254,7 +282,11 @@ export function Home() {
           </Reveal>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-6">
             {teasers.map((r, i) => (
-              <Reveal key={r.title} delay={i * 90} className="lift overflow-hidden rounded-2xl bg-sand shadow-[0_2px_10px_rgba(43,42,37,0.06)]">
+              <Reveal
+                key={r.title}
+                delay={i * 90}
+                className="lift overflow-hidden rounded-2xl bg-sand shadow-[0_2px_10px_rgba(43,42,37,0.06)]"
+              >
                 <SitePhoto slot={teaserSlots[i]} zoomable className="aspect-[16/10] w-full border-0" />
                 <div className="p-5">
                   <h3 className="mb-1.5 text-base font-semibold">{r.title}</h3>
