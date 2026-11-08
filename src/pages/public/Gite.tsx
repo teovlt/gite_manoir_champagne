@@ -13,7 +13,7 @@ export function Gite() {
   const { t } = useTranslation();
   const text = usePageText("gite");
   const extras = useExtraPhotos("gite");
-  usePageMeta({ title: t("navbar.gite"), description: text("intro") });
+  usePageMeta();
 
   const rooms = t("gite.roomList") as unknown as { name: string; tag: string; text: string }[];
   const badges = t("gite.badges") as unknown as string[];

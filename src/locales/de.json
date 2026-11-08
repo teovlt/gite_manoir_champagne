@@ -1,9 +1,4 @@
 {
-  "meta": {
-    "siteName": "Manoir de la Champagne",
-    "home": "Charmantes Ferienunterkunft in der Normandie",
-    "description": "Herrenhaus aus dem 17. Jahrhundert in Millières (Manche, Normandie): charmante Ferienunterkunft für 12 bis 14 Personen mit umfriedetem Garten, Angelteich und Whirlpool, 10 Minuten vom Meer."
-  },
   "navbar": {
     "home": "Startseite",
     "gite": "Das Haus",
@@ -111,7 +106,7 @@
     ],
     "gallery": "Ein Blick ins Haus",
     "galleryAll": "Zur ganzen Galerie →",
-    "readReviews": "Verifizierte Bewertungen lesen",
+    "readReviews": "Bewertungen unserer Gäste lesen",
     "regionTitle": "Ganz nah an der historischen Normandie",
     "regionText": "Der Mont-Saint-Michel, die Landungsstrände und die schönsten Dörfer des Cotentin sind bequem mit dem Auto erreichbar.",
     "teasers": [

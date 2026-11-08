@@ -1,9 +1,4 @@
 {
-  "meta": {
-    "siteName": "Manoir de la Champagne",
-    "home": "Charming holiday home in Normandy",
-    "description": "17th-century manor in Millières (Manche, Normandy): a charming holiday home for 12 to 14 guests with a walled garden, fishing pond and spa, 10 minutes from the sea."
-  },
   "navbar": {
     "home": "Home",
     "gite": "The house",
@@ -111,7 +106,7 @@
     ],
     "gallery": "A glimpse of the house",
     "galleryAll": "See the full gallery →",
-    "readReviews": "Read verified reviews",
+    "readReviews": "Read our guest reviews",
     "regionTitle": "Close to historic Normandy",
     "regionText": "Mont-Saint-Michel, the D-Day beaches and the loveliest villages of the Cotentin are all within easy driving distance.",
     "teasers": [

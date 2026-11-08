@@ -16,11 +16,13 @@ Site du gîte **Manoir de la Champagne** (Millières, Manche), en **français, a
 | Accueil | Bandeau de réservation (vérifie les disponibilités puis pré-remplit Contact), bannière d'événement, galerie en lightbox, carte |
 | Le Gîte, Jardins & Spa, La Région | Textes et photos gérés depuis l'admin, lightbox, apparitions au défilement |
 | Tarifs | Grille, saisons et suppléments depuis l'admin, **calendrier des disponibilités** cliquable |
-| Avis | 6 avis éditables, lien Abritel |
+| Avis | Avis Google (`shared/google-reviews.json`, note et nombre d'avis), avis supplémentaires éditables, lien Abritel |
 | Contact | Formulaire (demande enregistrée + e-mails), **carte OpenStreetMap**, itinéraire Google Maps / Waze / Plans, « depuis ma position », coordonnées GPS |
 | Mentions légales, Confidentialité, Plan du site | Textes éditables dans l'admin |
 
 Langue : sélecteur FR / EN / DE dans l'en-tête, détection de la langue du navigateur à la première visite, `hreflang`, `sitemap.xml` multilingue, `robots.txt`.
+
+SEO : titres, descriptions et images de partage par page et par langue dans `shared/seo.json`. Le serveur les injecte dans le HTML (balises `<title>`, `canonical`, `hreflang`, Open Graph, données structurées `LodgingBusiness`) et renvoie un vrai 404 pour les pages inconnues. Les polices (Fraunces, Inter) sont servies par le site lui-même — aucune requête vers Google Fonts.
 
 **Admin** — `/admin`
 

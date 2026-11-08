@@ -61,7 +61,7 @@ export function Tarifs() {
   const { pricing } = useSiteData().data;
   const blocks = useAvailability();
   const [preset, setPreset] = useState({ arrivee: "", depart: "" });
-  usePageMeta({ title: t("tarifs.title"), description: text("included") });
+  usePageMeta();
 
   const choose = (arrivee: string, depart: string) => {
     setPreset({ arrivee, depart });

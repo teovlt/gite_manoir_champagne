@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SiteFooter } from "@/components/site/site-footer";
@@ -26,7 +26,9 @@ const LangSync = () => {
       /* ignore */
     }
     if (stored || lang !== "fr") return;
-    const preferred = navigator.languages?.map((l) => l.slice(0, 2)).find((l) => (LANGS as readonly string[]).includes(l)) as Lang | undefined;
+    const preferred = navigator.languages?.map((l) => l.slice(0, 2)).find((l) => (LANGS as readonly string[]).includes(l)) as
+      | Lang
+      | undefined;
     try {
       localStorage.setItem("lang", preferred ?? "fr");
     } catch {
@@ -57,12 +59,18 @@ export const LayoutWrapper = () => (
     <div className="min-h-screen overflow-x-clip bg-cream text-ink">
       <LangSync />
       <ScrollManager />
-      <a href="#contenu" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-cream">
+      <a
+        href="#contenu"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-cream"
+      >
         Aller au contenu
       </a>
       <SiteHeader />
       <main id="contenu">
-        <Outlet />
+        {/* Pages load on demand: keep the screen height while the chunk arrives, so the footer doesn't jump. */}
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Outlet />
+        </Suspense>
       </main>
       <SiteFooter />
     </div>

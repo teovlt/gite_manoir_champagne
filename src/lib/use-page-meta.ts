@@ -1,8 +1,15 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { LANGS, localize, stripLang, useLang } from "./locale";
+import seo from "@shared/seo.json";
+import { LANGS, localize, stripLang, useLang, type Translated } from "./locale";
 
-const SITE = "Manoir de la Champagne";
+interface SeoPage {
+  image?: string;
+  title: Translated;
+  description?: Translated;
+}
+
+const pages = seo.pages as Record<string, SeoPage>;
 
 function setMeta(selector: string, create: () => HTMLElement, attr: string, value: string) {
   let el = document.head.querySelector(selector) as HTMLElement | null;
@@ -13,25 +20,40 @@ function setMeta(selector: string, create: () => HTMLElement, attr: string, valu
   el.setAttribute(attr, value);
 }
 
-/** Sets <title>, meta description, <html lang> and hreflang alternates for the current page. */
-export function usePageMeta({ title, description }: { title: string; description?: string }) {
+/**
+ * Sets <title>, meta description, <html lang>, canonical and hreflang alternates for the current page.
+ * Titles and descriptions come from shared/seo.json — the server injects the same ones in the HTML
+ * it sends (server/src/seo.js); `fallback` is used for pages that are not listed there (404).
+ */
+export function usePageMeta(fallback?: { title: string; description?: string }) {
   const lang = useLang();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    document.title = title === SITE || !title ? SITE : `${title} — ${SITE}`;
-    document.documentElement.lang = lang;
-    if (description) setMeta('meta[name="description"]', () => Object.assign(document.createElement("meta"), { name: "description" }), "content", description);
+    const base = stripLang(pathname).replace(/\/+$/, "") || "/";
+    const page = pages[base];
+    const title = page?.title[lang] ?? fallback?.title ?? "";
+    const description = page?.description?.[lang] ?? fallback?.description;
 
-    document.head.querySelectorAll('link[data-hreflang="1"]').forEach((n) => n.remove());
-    const base = stripLang(pathname);
-    for (const l of [...LANGS, "x-default" as const]) {
-      const link = document.createElement("link");
-      link.rel = "alternate";
-      link.hreflang = l;
-      link.href = window.location.origin + localize(base, l === "x-default" ? "fr" : l);
-      link.dataset.hreflang = "1";
+    document.title = !title ? seo.site : base === "/" ? `${seo.site} — ${title}` : `${title} — ${seo.site}`;
+    document.documentElement.lang = lang;
+    if (description)
+      setMeta(
+        'meta[name="description"]',
+        () => Object.assign(document.createElement("meta"), { name: "description" }),
+        "content",
+        description,
+      );
+
+    document.head.querySelectorAll('link[rel="alternate"][hreflang], link[rel="canonical"]').forEach((n) => n.remove());
+    if (!page) return;
+    const add = (rel: string, href: string, hreflang?: string) => {
+      const link = Object.assign(document.createElement("link"), { rel, href });
+      if (hreflang) link.hreflang = hreflang;
       document.head.appendChild(link);
-    }
-  }, [title, description, lang, pathname]);
+    };
+    add("canonical", window.location.origin + localize(base, lang));
+    for (const l of [...LANGS, "x-default" as const])
+      add("alternate", window.location.origin + localize(base, l === "x-default" ? "fr" : l), l);
+  }, [fallback?.title, fallback?.description, lang, pathname]);
 }

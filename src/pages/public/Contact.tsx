@@ -122,7 +122,7 @@ export function Contact() {
   const { phone, address } = useSiteData().data.settings;
   const [street, city] = address.split(/,\s*/);
   const share = typeof window !== "undefined" ? window.location.origin : "";
-  usePageMeta({ title: t("contact.title"), description: text("intro") });
+  usePageMeta();
 
   return (
     <>

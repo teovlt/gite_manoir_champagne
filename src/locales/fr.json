@@ -1,9 +1,4 @@
 {
-  "meta": {
-    "siteName": "Manoir de la Champagne",
-    "home": "Gîte de charme en Normandie",
-    "description": "Manoir du XVIIe siècle à Millières (Manche) : gîte de charme pour 12 à 14 personnes, jardin clos, étang de pêche et spa, à 10 minutes de la mer."
-  },
   "navbar": {
     "home": "Accueil",
     "gite": "Le Gîte",
@@ -111,7 +106,7 @@
     ],
     "gallery": "Un aperçu des lieux",
     "galleryAll": "Voir toute la galerie →",
-    "readReviews": "Lire les avis vérifiés",
+    "readReviews": "Lire les avis de nos hôtes",
     "regionTitle": "À deux pas de la Manche historique",
     "regionText": "Le Mont-Saint-Michel, les plages du Débarquement et les plus beaux villages du Cotentin sont à portée de voiture.",
     "teasers": [

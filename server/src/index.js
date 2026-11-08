@@ -5,6 +5,7 @@ import multer from "multer";
 import { config, LANGS } from "./config.js";
 import { client, connect, contentSchema, seed } from "./db.js";
 import { serveImage } from "./files.js";
+import { renderPage } from "./seo.js";
 import { startIcalSync } from "./ical.js";
 import { publicRoutes } from "./routes/public.js";
 import { authRoutes } from "./routes/auth.js";
@@ -89,18 +90,23 @@ app.get("/sitemap.xml", (_req, res) => {
   );
   res
     .type("application/xml")
-    .send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls.join("")}</urlset>`);
+    .send(
+      `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls.join("")}</urlset>`,
+    );
 });
 
 if (fs.existsSync(config.staticDir)) {
   app.use("/assets", express.static(path.join(config.staticDir, "assets"), { maxAge: "1y", immutable: true }));
   app.use(express.static(config.staticDir, { index: false, maxAge: "1d" }));
   const indexHtml = fs.readFileSync(path.join(config.staticDir, "index.html"), "utf8");
-  // SPA fallback: every other route renders the React app, with the right <html lang>.
-  app.get(/^(?!\/api\/|\/uploads\/).*/, (req, res) => {
-    const lang = /^\/(en|de)(\/|$)/.exec(req.path)?.[1] ?? "fr";
-    res.setHeader("Cache-Control", "no-cache");
-    res.type("html").send(indexHtml.replace('<html lang="fr">', `<html lang="${lang}">`));
+  // SPA fallback: every other route renders the React app, with that page's meta tags (and a 404 status if unknown).
+  app.get(/^(?!\/api\/|\/uploads\/).*/, (req, res, next) => {
+    renderPage(indexHtml, req.path)
+      .then(({ status, html }) => {
+        res.setHeader("Cache-Control", "no-cache");
+        res.status(status).type("html").send(html);
+      })
+      .catch(next);
   });
 }
 

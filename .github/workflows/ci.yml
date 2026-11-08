@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            server/pnpm-lock.yaml
+
+      - name: Front-end — type check and build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: API — install and syntax check
+        run: |
+          pnpm --dir server install --frozen-lockfile --prod
+          for f in server/src/*.js server/src/routes/*.js; do node --check "$f"; done
+
+      - name: Shared data — valid JSON
+        run: for f in shared/*.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done

@@ -66,7 +66,7 @@ export function Region() {
   const { t } = useTranslation();
   const text = usePageText("region");
   const extras = useExtraPhotos("region");
-  usePageMeta({ title: t("navbar.region"), description: text("heroSubtitle") });
+  usePageMeta();
 
   const sights = t("region.sights") as unknown as Item[];
   const memory = t("region.memoryList") as unknown as Item[];

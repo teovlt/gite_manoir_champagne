@@ -3,13 +3,17 @@ import { Outlet, Route, Routes } from "react-router-dom";
 import { AuthProvider, RequireAuth } from "@/providers/auth-provider";
 import { LayoutWrapper } from "./layout-wrapper";
 import { Home } from "@/pages/public/Home";
-import { Gite } from "@/pages/public/Gite";
-import { Jardins } from "@/pages/public/Jardins";
-import { Tarifs } from "@/pages/public/Tarifs";
-import { Region } from "@/pages/public/Region";
-import { Avis } from "@/pages/public/Avis";
-import { Contact } from "@/pages/public/Contact";
-import { LegalPage, NotFound, SitemapPage } from "@/pages/public/Legal";
+
+// Other public pages are split out of the main bundle, so the home page loads faster.
+const Gite = lazy(() => import("@/pages/public/Gite").then((m) => ({ default: m.Gite })));
+const Jardins = lazy(() => import("@/pages/public/Jardins").then((m) => ({ default: m.Jardins })));
+const Tarifs = lazy(() => import("@/pages/public/Tarifs").then((m) => ({ default: m.Tarifs })));
+const Region = lazy(() => import("@/pages/public/Region").then((m) => ({ default: m.Region })));
+const Avis = lazy(() => import("@/pages/public/Avis").then((m) => ({ default: m.Avis })));
+const Contact = lazy(() => import("@/pages/public/Contact").then((m) => ({ default: m.Contact })));
+const LegalPage = lazy(() => import("@/pages/public/Legal").then((m) => ({ default: m.LegalPage })));
+const SitemapPage = lazy(() => import("@/pages/public/Legal").then((m) => ({ default: m.SitemapPage })));
+const NotFound = lazy(() => import("@/pages/public/Legal").then((m) => ({ default: m.NotFound })));
 
 // The admin area is loaded on demand: visitors never download it.
 const AdminLayout = lazy(() => import("@/components/admin/admin-layout").then((m) => ({ default: m.AdminLayout })));

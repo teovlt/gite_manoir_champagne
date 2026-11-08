@@ -43,7 +43,7 @@ export function LegalPage({ page }: { page: "mentions" | "confidentialite" }) {
   const { t } = useTranslation();
   const text = usePageText(page);
   const title = page === "mentions" ? t("legal.mentions") : t("legal.privacy");
-  usePageMeta({ title });
+  usePageMeta();
 
   return (
     <>
@@ -61,7 +61,7 @@ export function SitemapPage() {
   const { t } = useTranslation();
   const lang = useLang();
   const l = useLocalePath();
-  usePageMeta({ title: t("legal.sitemap") });
+  usePageMeta();
 
   const pages = [
     ...mainNav.map((n) => ({ to: n.to, label: t(`navbar.${n.key}`) })),

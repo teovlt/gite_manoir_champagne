@@ -117,7 +117,7 @@ export function Avis() {
   const lang = useLang();
   const text = usePageText("avis");
   const { abritelUrl } = useSiteData().data.settings;
-  usePageMeta({ title: t("avis.title"), description: text("intro") });
+  usePageMeta();
 
   // Owners can add extra reviews (e.g. from Abritel) in the admin, on top of the Google ones.
   const extra: Review[] = [1, 2, 3, 4, 5, 6]

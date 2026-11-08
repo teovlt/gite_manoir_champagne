@@ -18,7 +18,7 @@ export function Jardins() {
   const l = useLocalePath();
   const text = usePageText("jardins");
   const extras = useExtraPhotos("jardins");
-  usePageMeta({ title: t("navbar.jardins"), description: text("heroSubtitle") });
+  usePageMeta();
 
   return (
     <>

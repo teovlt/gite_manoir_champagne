@@ -138,7 +138,7 @@ export function Home() {
   const { data } = useSiteData();
   const hero = usePhoto("accueil.hero");
   const extraGallery = useExtraPhotos("accueil");
-  usePageMeta({ title: t("meta.home"), description: t("meta.description") });
+  usePageMeta();
 
   const highlights = t("home.highlights") as unknown as { title: string; text: string }[];
   const teasers = t("home.teasers") as unknown as { title: string; text: string }[];

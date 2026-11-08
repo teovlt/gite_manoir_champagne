@@ -7,7 +7,7 @@
       "en": "Façade of the Manoir de la Champagne",
       "de": "Fassade des Manoir de la Champagne"
     },
-    "url": "/photos/facade.jpg"
+    "url": "/photos/facade.webp"
   },
   {
     "key": "accueil.portrait",
@@ -27,7 +27,7 @@
       "en": "The Manoir de la Champagne",
       "de": "Das Manoir de la Champagne"
     },
-    "url": "/photos/gite-hero.jpg"
+    "url": "/photos/gite-hero.webp"
   },
   {
     "key": "gite.salon",
@@ -37,7 +37,7 @@
       "en": "The 30 m² living room",
       "de": "Der 30 m² große Salon"
     },
-    "url": "/photos/salon.jpg"
+    "url": "/photos/salon.webp"
   },
   {
     "key": "gite.cuisine",
@@ -47,7 +47,7 @@
       "en": "The fully equipped kitchen",
       "de": "Die ausgestattete Küche"
     },
-    "url": "/photos/cuisine.jpg"
+    "url": "/photos/cuisine.webp"
   },
   {
     "key": "gite.serenite",
@@ -57,7 +57,7 @@
       "en": "Sérénité bedroom",
       "de": "Zimmer Sérénité"
     },
-    "url": "/photos/chambre-serenite.jpg"
+    "url": "/photos/chambre-serenite.webp"
   },
   {
     "key": "gite.bateau",
@@ -67,7 +67,7 @@
       "en": "Bateau bedroom",
       "de": "Zimmer Bateau"
     },
-    "url": "/photos/chambre-bateau.jpg"
+    "url": "/photos/chambre-bateau.webp"
   },
   {
     "key": "gite.familiale",
@@ -77,7 +77,7 @@
       "en": "Family bedroom",
       "de": "Familienzimmer"
     },
-    "url": "/photos/chambre-familiale.jpg"
+    "url": "/photos/chambre-familiale.webp"
   },
   {
     "key": "gite.marquise",
@@ -87,7 +87,7 @@
       "en": "La Marquise bedroom",
       "de": "Zimmer La Marquise"
     },
-    "url": "/photos/chambre-marquise.jpg"
+    "url": "/photos/chambre-marquise.webp"
   },
   {
     "key": "gite.plan-rdc",
@@ -97,7 +97,7 @@
       "en": "Ground floor plan",
       "de": "Grundriss Erdgeschoss"
     },
-    "url": "/photos/plan-rdc.jpg"
+    "url": "/photos/plan-rdc.webp"
   },
   {
     "key": "gite.plan-etage",
@@ -107,7 +107,7 @@
       "en": "First floor plan",
       "de": "Grundriss Obergeschoss"
     },
-    "url": "/photos/plan-etage.jpg"
+    "url": "/photos/plan-etage.webp"
   },
   {
     "key": "jardins.hero",
@@ -117,7 +117,7 @@
       "en": "South garden and pond",
       "de": "Südgarten und Teich"
     },
-    "url": "/photos/jardins-hero.jpg"
+    "url": "/photos/jardins-hero.webp"
   },
   {
     "key": "jardins.nord-1",
@@ -127,7 +127,7 @@
       "en": "North garden",
       "de": "Nordgarten"
     },
-    "url": "/photos/jardin-nord.jpg"
+    "url": "/photos/jardin-nord.webp"
   },
   {
     "key": "jardins.nord-2",
@@ -147,7 +147,7 @@
       "en": "Listed 17th-century porch",
       "de": "Denkmalgeschütztes Portal aus dem 17. Jahrhundert"
     },
-    "url": "/photos/porche.jpg"
+    "url": "/photos/porche.webp"
   },
   {
     "key": "jardins.nord-3",
@@ -167,7 +167,7 @@
       "en": "South garden",
       "de": "Südgarten"
     },
-    "url": "/photos/jardin-sud.jpg"
+    "url": "/photos/jardin-sud.webp"
   },
   {
     "key": "jardins.etang",
@@ -177,7 +177,7 @@
       "en": "Fishing pond",
       "de": "Angelteich"
     },
-    "url": "/photos/etang.jpg"
+    "url": "/photos/etang.webp"
   },
   {
     "key": "jardins.terrasse",
@@ -187,7 +187,7 @@
       "en": "South terrace",
       "de": "Südterrasse"
     },
-    "url": "/photos/terrasse.jpg"
+    "url": "/photos/terrasse.webp"
   },
   {
     "key": "jardins.barbecue",
@@ -197,7 +197,7 @@
       "en": "Barbecue and garden furniture",
       "de": "Grill und Gartenmöbel"
     },
-    "url": "/photos/barbecue.jpg"
+    "url": "/photos/barbecue.webp"
   },
   {
     "key": "jardins.spa",

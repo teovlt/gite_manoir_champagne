@@ -1,0 +1,81 @@
+{
+  "site": "Manoir de la Champagne",
+  "pages": {
+    "/": {
+      "image": "/photos/facade.jpg",
+      "title": {
+        "fr": "Gîte de charme 12-14 personnes avec spa en Normandie",
+        "en": "Charming holiday home for 12-14 with spa in Normandy",
+        "de": "Ferienhaus für 12-14 Personen mit Whirlpool in der Normandie"
+      },
+      "description": {
+        "fr": "Manoir du XVIIe siècle à Millières (Manche) : gîte de charme pour 12 à 14 personnes, jardin clos, étang de pêche et spa, à 10 minutes de la mer.",
+        "en": "17th-century manor in Millières (Manche, Normandy): a charming holiday home for 12 to 14 guests with a walled garden, fishing pond and spa, 10 minutes from the sea.",
+        "de": "Herrenhaus aus dem 17. Jahrhundert in Millières (Manche, Normandie): Ferienhaus für 12 bis 14 Personen mit umfriedetem Garten, Angelteich und Whirlpool, 10 Minuten vom Meer."
+      }
+    },
+    "/le-gite": {
+      "image": "/photos/gite-hero.jpg",
+      "title": { "fr": "Le Gîte — 180 m², 5 chambres", "en": "The house — 180 m², 5 bedrooms", "de": "Das Ferienhaus — 180 m², 5 Schlafzimmer" },
+      "description": {
+        "fr": "180 m² pour 12 à 14 personnes : salon de 30 m² avec cheminée, cuisine équipée, chambres à thème dont une de plain-pied accessible PMR.",
+        "en": "180 m² for 12 to 14 guests: 30 m² living room with fireplace, fully equipped kitchen, themed bedrooms including an accessible ground-floor room.",
+        "de": "180 m² für 12 bis 14 Personen: 30 m² großer Salon mit Kamin, voll ausgestattete Küche, Themenzimmer, darunter ein barrierefreies Zimmer im Erdgeschoss."
+      }
+    },
+    "/jardins-spa": {
+      "image": "/photos/jardins-hero.jpg",
+      "title": { "fr": "Jardins, étang & spa", "en": "Gardens, pond & spa", "de": "Gärten, Teich & Whirlpool" },
+      "description": {
+        "fr": "Jardin clos de 1 500 m², étang de pêche privé, terrasse avec barbecue, aire de jeux et spa extérieur 7 places au Manoir de la Champagne.",
+        "en": "A 1,500 m² walled garden, private fishing pond, terrace with barbecue, play area and a 7-seat outdoor spa at the Manoir de la Champagne.",
+        "de": "1.500 m² umfriedeter Garten, privater Angelteich, Terrasse mit Grill, Spielplatz und ein Außen-Whirlpool für 7 Personen im Manoir de la Champagne."
+      }
+    },
+    "/tarifs": {
+      "image": "/photos/jardin-sud.jpg",
+      "title": { "fr": "Tarifs & disponibilités", "en": "Rates & availability", "de": "Preise & Verfügbarkeit" },
+      "description": {
+        "fr": "Tarifs du gîte à la semaine, au week-end ou en mid-week, saisons, suppléments et calendrier des disponibilités du Manoir de la Champagne.",
+        "en": "Weekly, weekend and midweek rates, seasons, extras and the availability calendar of the Manoir de la Champagne.",
+        "de": "Preise pro Woche, Wochenende oder unter der Woche, Saisonzeiten, Zusatzleistungen und Belegungskalender des Manoir de la Champagne."
+      }
+    },
+    "/region": {
+      "image": "/photos/etang.jpg",
+      "title": { "fr": "Que faire dans le Cotentin ?", "en": "Things to do in the Cotentin", "de": "Ausflugsziele im Cotentin" },
+      "description": {
+        "fr": "Depuis Millières : plages de la côte ouest, Mont-Saint-Michel, plages du Débarquement, cap de la Hague, Barfleur et Saint-Vaast-la-Hougue.",
+        "en": "From Millières: west-coast beaches, Mont-Saint-Michel, the D-Day beaches, Cap de la Hague, Barfleur and Saint-Vaast-la-Hougue.",
+        "de": "Von Millières aus: Strände der Westküste, Mont-Saint-Michel, Landungsstrände, Cap de la Hague, Barfleur und Saint-Vaast-la-Hougue."
+      }
+    },
+    "/avis": {
+      "image": "/photos/terrasse.jpg",
+      "title": { "fr": "Avis de nos hôtes — 4,9/5 sur Google", "en": "Guest reviews — 4.9/5 on Google", "de": "Gästebewertungen — 4,9/5 auf Google" },
+      "description": {
+        "fr": "Familles et groupes d'amis racontent leur séjour au Manoir de la Champagne : accueil chaleureux, visite de la ferme, spa et calme de la campagne.",
+        "en": "Families and groups of friends share their stay at the Manoir de la Champagne: a warm welcome, a farm visit, the spa and peaceful countryside.",
+        "de": "Familien und Freundesgruppen berichten von ihrem Aufenthalt im Manoir de la Champagne: herzlicher Empfang, Hofbesuch, Whirlpool und ländliche Ruhe."
+      }
+    },
+    "/contact": {
+      "image": "/photos/porche.jpg",
+      "title": { "fr": "Contact & accès", "en": "Contact & directions", "de": "Kontakt & Anfahrt" },
+      "description": {
+        "fr": "Demande de réservation, téléphone et itinéraire jusqu'au Manoir de la Champagne, 2 rue La Champagne, 50190 Millières (Manche).",
+        "en": "Booking request, phone number and directions to the Manoir de la Champagne, 2 rue La Champagne, 50190 Millières (Manche, Normandy).",
+        "de": "Buchungsanfrage, Telefon und Anfahrt zum Manoir de la Champagne, 2 rue La Champagne, 50190 Millières (Manche, Normandie)."
+      }
+    },
+    "/mentions-legales": {
+      "title": { "fr": "Mentions légales", "en": "Legal notice", "de": "Impressum" }
+    },
+    "/confidentialite": {
+      "title": { "fr": "Politique de confidentialité", "en": "Privacy policy", "de": "Datenschutzerklärung" }
+    },
+    "/plan-du-site": {
+      "title": { "fr": "Plan du site", "en": "Sitemap", "de": "Sitemap" }
+    }
+  }
+}

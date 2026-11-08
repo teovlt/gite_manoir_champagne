@@ -39,8 +39,8 @@
 }
 
 @theme {
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", Georgia, serif;
   --color-cream: #fbf7ed;
   --color-sand: #faf3e3;
   --color-wheat: #f1e6cc;

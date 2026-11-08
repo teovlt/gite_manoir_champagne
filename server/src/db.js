@@ -53,6 +53,12 @@ export async function seed() {
       col.photos.updateOne({ key: p.key }, { $setOnInsert: { ...p, sort: i, createdAt: new Date() } }, { upsert: true }),
     ),
   );
+  // The bundled default photos moved from JPEG to WebP: follow them, unless the owners replaced the photo.
+  await Promise.all(
+    photos
+      .filter((p) => p.url?.endsWith(".webp"))
+      .map((p) => col.photos.updateOne({ key: p.key, url: p.url.replace(/\.webp$/, ".jpg") }, { $set: { url: p.url } })),
+  );
 
   const defaults = {
     pricing: readShared("pricing.json"),
