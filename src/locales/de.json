@@ -46,7 +46,10 @@
     "invalidContact": "Bitte geben Sie Ihren Namen und eine gültige E-Mail-Adresse an.",
     "available": "Gute Nachricht: Diese Daten sind frei.",
     "datesFrom": "Vom {{start}} bis {{end}}",
-    "datesStart": "Ab dem {{start}}"
+    "datesStart": "Ab dem {{start}}",
+    "pickDate": "Wählen",
+    "less": "Weniger — {{label}}",
+    "more": "Mehr — {{label}}"
   },
   "calendar": {
     "title": "Verfügbarkeit",
@@ -88,6 +91,9 @@
     "counter": "{{index}} / {{total}}"
   },
   "home": {
+    "priceFrom": "Aufenthalte ab",
+    "factsLabel": "Das Herrenhaus auf einen Blick",
+    "facts": ["Bis zu 14 Personen", "5 Schlafzimmer", "Whirlpool für 7", "Privater Teich", "1.500 m² Garten"],
     "ctaAvailability": "Verfügbarkeit prüfen",
     "ctaDiscover": "Das Herrenhaus entdecken",
     "bookingNote": "Ihre Daten und die Personenzahl werden automatisch auf die Kontaktseite übernommen, oder",

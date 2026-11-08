@@ -9,9 +9,12 @@ import { PhotoGrid, SitePhoto } from "@/components/site/site-photo";
 import { Reveal } from "@/components/site/reveal";
 import { ManorMap } from "@/components/site/lazy-map";
 import { contactUrl, validateBooking } from "@/components/site/form-controls";
+import { DateRangeField, GuestFields, useCheapestFormula } from "@/components/site/booking-fields";
+import { GoogleG, Stars, formatRating } from "@/components/site/reviews";
+import googleReviews from "@shared/google-reviews.json";
 import { useAvailability, useExtraPhotos, usePageText, usePhoto, useSiteData } from "@/providers/site-data-provider";
 import { usePageMeta } from "@/lib/use-page-meta";
-import { Typo, todayISO } from "@/lib/format";
+import { Typo, formatPrice } from "@/lib/format";
 import { useLang, useLocalePath, useTr } from "@/lib/locale";
 import { cn } from "@/lib/utils";
 
@@ -48,56 +51,75 @@ const highlightIcons = [
 const gallerySlots = ["accueil.hero", "gite.salon", "gite.marquise", "jardins.sud", "jardins.etang", "jardins.porche"];
 const teaserSlots = ["region.mont", "region.debarquement", "region.barfleur"];
 
-const bookingInputClass =
-  "w-full min-w-0 rounded-xl border border-line-strong bg-sand px-3 py-3 font-sans text-sm sm:px-3.5 text-ink outline-none focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
+const bookingBoxClass =
+  "h-12 w-full min-w-0 rounded-xl border border-line-strong bg-sand px-3 py-3 font-sans text-sm sm:px-3.5 text-ink outline-none transition-shadow focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40";
 
 function BookingBar() {
   const { t } = useTranslation();
   const lang = useLang();
+  const tr = useTr();
+  const l = useLocalePath();
   const navigate = useNavigate();
   const blocks = useAvailability();
-  const [v, setV] = useState({ arrivee: "", depart: "", adultes: "", enfants: "" });
-  const set = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement>) => setV({ ...v, [k]: e.target.value });
+  const cheapest = useCheapestFormula();
+  const [v, setV] = useState({ arrivee: "", depart: "", adultes: 2, enfants: 0 });
+  const values = { ...v, adultes: String(v.adultes), enfants: String(v.enfants) };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const error = validateBooking(v, blocks);
+    const error = validateBooking(values, blocks);
     if (error) return toast.error(t(error));
     if (v.arrivee && v.depart) toast.success(t("booking.available"));
-    navigate(contactUrl(v, lang));
+    navigate(contactUrl(values, lang));
   };
-
-  const fields = [
-    { id: "arrivee", label: t("booking.arrival"), type: "date", min: todayISO() },
-    { id: "depart", label: t("booking.departure"), type: "date", min: v.arrivee || todayISO() },
-    { id: "adultes", label: t("booking.adults"), type: "number", min: "1", max: "14", placeholder: "2" },
-    { id: "enfants", label: t("booking.children"), type: "number", min: "0", max: "13", placeholder: "0" },
-  ] as const;
 
   return (
     <div className="px-gutter relative z-[3] mx-auto -mt-14 max-w-[1100px] animate-in fade-in-0 slide-in-from-bottom-6 duration-700">
       <form
         onSubmit={submit}
-        className="grid grid-cols-2 items-end gap-x-3 gap-y-4 rounded-[18px] bg-cream px-[clamp(18px,3vw,32px)] py-6 shadow-[0_14px_34px_rgba(43,42,37,0.2)] sm:gap-x-4 md:grid-cols-4 md:py-7 lg:grid-cols-[1.3fr_1.3fr_0.8fr_0.8fr_auto] lg:gap-5"
+        className="grid grid-cols-2 items-end gap-x-3 gap-y-4 rounded-[18px] bg-cream px-[clamp(18px,3vw,32px)] pb-6 pt-5 shadow-[0_14px_34px_rgba(43,42,37,0.2)] sm:gap-x-4 md:grid-cols-4 md:pb-7 lg:grid-cols-[2.4fr_1fr_1fr_auto] lg:gap-x-5"
       >
-        {fields.map((f) => (
-          <div key={f.id} className="flex min-w-0 flex-col gap-1.5">
-            <label htmlFor={`b-${f.id}`} className="text-[11px] uppercase tracking-[0.5px] text-umber">
-              {f.label}
-            </label>
-            <input
-              id={`b-${f.id}`}
-              type={f.type}
-              min={f.min}
-              max={"max" in f ? f.max : undefined}
-              placeholder={"placeholder" in f ? f.placeholder : undefined}
-              value={v[f.id]}
-              onChange={set(f.id)}
-              className={bookingInputClass}
-            />
-          </div>
-        ))}
-        <Button type="submit" variant="clay" size="pillMd" className="col-span-2 w-full rounded-xl md:col-span-4 lg:col-span-1 lg:w-auto">
+        <div className="col-span-full flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5 border-b border-line pb-3.5 text-[13px] text-umber">
+          {cheapest && (
+            <Link to={l("/tarifs")} className="hover:text-ink">
+              {t("home.priceFrom")}{" "}
+              <strong className="font-serif text-[17px] font-semibold text-clay">{formatPrice(cheapest.low, lang)}</strong>{" "}
+              <span className="text-stone">· {tr(cheapest.name)}</span>
+            </Link>
+          )}
+          <Link to={l("/avis")} className="flex items-center gap-2 hover:text-ink">
+            <GoogleG className="size-4" />
+            <Stars value={googleReviews.rating} className="text-[13px]" />
+            <span>
+              <strong className="text-ink">{formatRating(googleReviews.rating, lang)}</strong> ·{" "}
+              {t("avis.reviewCount", { count: googleReviews.count })}
+            </span>
+          </Link>
+        </div>
+        <DateRangeField
+          blocks={blocks}
+          arrival={v.arrivee}
+          departure={v.depart}
+          onChange={(arrivee, depart) => setV((cur) => ({ ...cur, arrivee, depart }))}
+          boxClassName={bookingBoxClass}
+          labelClassName="text-[11px]"
+          idPrefix="b"
+          className="col-span-2 lg:col-span-1"
+        />
+        <GuestFields
+          adults={v.adultes}
+          children={v.enfants}
+          onChange={(adultes, enfants) => setV((cur) => ({ ...cur, adultes, enfants }))}
+          boxClassName={bookingBoxClass}
+          labelClassName="text-[11px]"
+          idPrefix="b"
+        />
+        <Button
+          type="submit"
+          variant="clay"
+          size="pillMd"
+          className="col-span-2 h-12 w-full rounded-xl md:col-span-4 lg:col-span-1 lg:w-auto"
+        >
           {t("booking.check")}
         </Button>
       </form>
@@ -109,6 +131,74 @@ function BookingBar() {
         .
       </p>
     </div>
+  );
+}
+
+function HomeReviews() {
+  const { t } = useTranslation();
+  const lang = useLang();
+  const tr = useTr();
+  const l = useLocalePath();
+  const text = usePageText("accueil");
+  // The three most recent reviews; long ones are clamped to six lines.
+  const picks = [...googleReviews.reviews]
+    .sort((a, b) => (b.visited ?? "").localeCompare(a.visited ?? ""))
+    .slice(0, 3);
+
+  return (
+    <section className="px-gutter bg-sand py-20">
+      <div className="mx-auto max-w-[1200px]">
+        <Reveal className="mx-auto mb-12 max-w-[800px] text-center">
+          <span className="font-serif text-5xl leading-none text-clay" aria-hidden="true">
+            “
+          </span>
+          <p className="mb-6 mt-2 font-serif text-[22px] italic leading-normal">{text("quote")}</p>
+          <a
+            href={googleReviews.url}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full border border-line-strong bg-cream px-5 py-2.5 text-[13px] text-umber transition-shadow hover:text-ink hover:shadow-[0_8px_20px_rgba(43,42,37,0.1)]"
+          >
+            <GoogleG className="size-5" />
+            <strong className="font-serif text-xl font-medium text-ink">{formatRating(googleReviews.rating, lang)}</strong>
+            <Stars value={googleReviews.rating} className="text-[15px]" />
+            <span>
+              {t("avis.reviewCount", { count: googleReviews.count })} {t("avis.onGoogle")}
+            </span>
+          </a>
+        </Reveal>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-6">
+          {picks.map((r, i) => (
+            <Reveal
+              key={r.author}
+              as="figure"
+              delay={i * 90}
+              className="lift flex flex-col gap-4 rounded-[18px] border border-line bg-cream p-6 shadow-[0_2px_10px_rgba(43,42,37,0.04)]"
+            >
+              <Stars value={r.rating} className="text-[14px]" />
+              <blockquote className="font-serif text-[16px] leading-[1.6] text-ink">
+                <p className="line-clamp-6">{tr(r.text)}</p>
+              </blockquote>
+              <figcaption className="mt-auto flex items-center gap-3 border-t border-line pt-4">
+                <span
+                  className="flex size-9 shrink-0 items-center justify-center rounded-full bg-sage/40 font-serif text-[15px] text-moss"
+                  aria-hidden="true"
+                >
+                  {r.author.charAt(0)}
+                </span>
+                <span className="text-[14px] font-semibold">{r.author}</span>
+                <GoogleG className="ml-auto size-4" />
+              </figcaption>
+            </Reveal>
+          ))}
+        </div>
+        <div className="mt-10 text-center">
+          <Button asChild variant="clay" size="pillMd">
+            <Link to={l("/avis")}>{t("home.readReviews")}</Link>
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -141,6 +231,7 @@ export function Home() {
   usePageMeta();
 
   const highlights = t("home.highlights") as unknown as { title: string; text: string }[];
+  const facts = t("home.facts", { returnObjects: true }) as unknown as string[];
   const teasers = t("home.teasers") as unknown as { title: string; text: string }[];
   const [street, city] = data.settings.address.split(/,\s*/);
 
@@ -164,7 +255,14 @@ export function Home() {
           <h1 className="mb-6 mt-[18px] font-serif text-[clamp(36px,5.5vw,64px)] font-medium leading-[1.08]">
             <Typo text={text("heroTitle")} />
           </h1>
-          <p className="mb-8 max-w-[640px] text-lg leading-relaxed text-[#F6EEDC]">{text("heroSubtitle")}</p>
+          <p className="mb-6 max-w-[640px] text-lg leading-relaxed text-[#F6EEDC]">{text("heroSubtitle")}</p>
+          <ul className="mb-8 flex flex-wrap gap-2" aria-label={t("home.factsLabel")}>
+            {facts.map((f) => (
+              <li key={f} className="rounded-full border border-cream/30 bg-ink/25 px-3.5 py-1.5 text-[13px] text-cream backdrop-blur-sm">
+                {f}
+              </li>
+            ))}
+          </ul>
           <div className="flex flex-wrap gap-4">
             <Button asChild variant="clay" size="pillLg">
               <Link to={l("/tarifs#disponibilites")}>{t("home.ctaAvailability")}</Link>
@@ -262,17 +360,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="px-gutter bg-sand py-20">
-        <Reveal className="mx-auto max-w-[800px] text-center">
-          <span className="font-serif text-5xl leading-none text-clay" aria-hidden="true">
-            “
-          </span>
-          <p className="mb-7 mt-2 font-serif text-[22px] italic leading-normal">{text("quote")}</p>
-          <Button asChild variant="clay" size="pillMd">
-            <Link to={l("/avis")}>{t("home.readReviews")}</Link>
-          </Button>
-        </Reveal>
-      </section>
+      <HomeReviews />
 
       <section className="px-gutter py-24">
         <div className="mx-auto max-w-[1200px]">

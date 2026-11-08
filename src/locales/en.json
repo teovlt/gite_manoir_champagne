@@ -46,7 +46,10 @@
     "invalidContact": "Please enter your name and a valid e-mail address.",
     "available": "Good news: these dates are available.",
     "datesFrom": "From {{start}} to {{end}}",
-    "datesStart": "From {{start}}"
+    "datesStart": "From {{start}}",
+    "pickDate": "Select",
+    "less": "Remove — {{label}}",
+    "more": "Add — {{label}}"
   },
   "calendar": {
     "title": "Availability",
@@ -88,6 +91,9 @@
     "counter": "{{index}} / {{total}}"
   },
   "home": {
+    "priceFrom": "Stays from",
+    "factsLabel": "The manor at a glance",
+    "facts": ["Up to 14 guests", "5 bedrooms", "7-seat hot tub", "Private pond", "1,500 m² garden"],
     "ctaAvailability": "Check availability",
     "ctaDiscover": "Discover the manor",
     "bookingNote": "Your dates and number of guests are carried over to the Contact page, or",

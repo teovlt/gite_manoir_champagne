@@ -7,45 +7,64 @@ import { PageHero } from "@/components/site/page-hero";
 import { Accent } from "@/components/site/ornaments";
 import { Reveal } from "@/components/site/reveal";
 import { AvailabilityCalendar } from "@/components/site/availability-calendar";
-import { Field, TextAreaField, contactUrl, validateBooking } from "@/components/site/form-controls";
+import { TextAreaField, contactUrl, fieldInputClass, validateBooking } from "@/components/site/form-controls";
+import { DateRangeField, GuestFields } from "@/components/site/booking-fields";
 import { useAvailability, usePageText, useSiteData } from "@/providers/site-data-provider";
 import { usePageMeta } from "@/lib/use-page-meta";
-import { formatPrice, lines, todayISO } from "@/lib/format";
+import { formatPrice, lines } from "@/lib/format";
 import { useLang, useTr } from "@/lib/locale";
 import type { AvailabilityBlock } from "@/lib/types";
 import { cn } from "@/lib/utils";
+
+const formBoxClass = cn(fieldInputClass, "h-12");
 
 function AvailabilityForm({ blocks, preset }: { blocks: AvailabilityBlock[] | null; preset: { arrivee: string; depart: string } }) {
   const { t } = useTranslation();
   const lang = useLang();
   const navigate = useNavigate();
-  const [v, setV] = useState({ arrivee: "", depart: "", adultes: "", enfants: "", message: "" });
+  const [v, setV] = useState({ arrivee: "", depart: "", adultes: 2, enfants: 0, message: "" });
   const [lastPreset, setLastPreset] = useState(preset);
   if (preset !== lastPreset) {
     setLastPreset(preset);
     setV((cur) => ({ ...cur, ...preset }));
   }
-  const set = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setV({ ...v, [k]: e.target.value });
+  const values = { ...v, adultes: String(v.adultes), enfants: String(v.enfants) };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const error = validateBooking(v, blocks);
+    const error = validateBooking(values, blocks);
     if (error) return toast.error(t(error));
     // Name & e-mail are collected on the contact page, which is pre-filled with these values.
-    navigate(contactUrl(v, lang));
+    navigate(contactUrl(values, lang));
   };
 
   return (
     <form id="demande" onSubmit={submit} className="flex scroll-mt-28 flex-col gap-5 rounded-[18px] bg-sand p-[clamp(20px,4vw,36px)]">
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-5">
-        <Field id="arrivee" label={t("booking.arrival")} type="date" min={todayISO()} value={v.arrivee} onChange={set("arrivee")} />
-        <Field id="depart" label={t("booking.departure")} type="date" min={v.arrivee || todayISO()} value={v.depart} onChange={set("depart")} />
+      <DateRangeField
+        blocks={blocks}
+        arrival={v.arrivee}
+        departure={v.depart}
+        onChange={(arrivee, depart) => setV((cur) => ({ ...cur, arrivee, depart }))}
+        boxClassName={formBoxClass}
+        idPrefix="t"
+        className="gap-x-5"
+      />
+      <div className="grid grid-cols-2 gap-5">
+        <GuestFields
+          adults={v.adultes}
+          children={v.enfants}
+          onChange={(adultes, enfants) => setV((cur) => ({ ...cur, adultes, enfants }))}
+          boxClassName={formBoxClass}
+          idPrefix="t"
+        />
       </div>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-5">
-        <Field id="adultes" label={t("booking.adults")} type="number" min="1" max="14" placeholder="2" value={v.adultes} onChange={set("adultes")} />
-        <Field id="enfants" label={t("booking.children")} type="number" min="0" max="13" placeholder="0" value={v.enfants} onChange={set("enfants")} />
-      </div>
-      <TextAreaField id="message" label={t("tarifs.message")} rows={3} value={v.message} onChange={set("message")} />
+      <TextAreaField
+        id="message"
+        label={t("tarifs.message")}
+        rows={3}
+        value={v.message}
+        onChange={(e) => setV({ ...v, message: e.target.value })}
+      />
       <Button type="submit" variant="clay" size="pillMd" className="self-start px-8">
         {t("tarifs.ask")}
       </Button>
@@ -111,7 +130,9 @@ export function Tarifs() {
                   <tr key={f.id} className={cn("border-t border-line transition-colors hover:bg-wheat/50", i % 2 === 1 && "bg-sand")}>
                     <td className="px-5 py-3.5 font-semibold">{tr(f.name)}</td>
                     <td className="px-5 py-3.5 text-ink-soft">{tr(f.duration)}</td>
-                    <td className="px-5 py-3.5 text-ink-soft">{t("tarifs.range", { low: formatPrice(f.low, lang), high: formatPrice(f.high, lang) })}</td>
+                    <td className="px-5 py-3.5 text-ink-soft">
+                      {t("tarifs.range", { low: formatPrice(f.low, lang), high: formatPrice(f.high, lang) })}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -136,7 +157,10 @@ export function Tarifs() {
             <h2 className="mb-4 font-serif text-[22px] font-medium">{t("tarifs.extras")}</h2>
             <ul className="flex flex-col gap-2.5 text-sm text-ink-soft">
               {pricing.extras.map((x, i) => (
-                <li key={x.id} className={cn("flex justify-between gap-3", i < pricing.extras.length - 1 && "border-b border-line-strong pb-2")}>
+                <li
+                  key={x.id}
+                  className={cn("flex justify-between gap-3", i < pricing.extras.length - 1 && "border-b border-line-strong pb-2")}
+                >
                   <span>{tr(x.label)}</span>
                   <strong className="text-right">
                     {formatPrice(x.price, lang)}

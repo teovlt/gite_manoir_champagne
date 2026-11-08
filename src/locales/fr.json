@@ -46,7 +46,10 @@
     "invalidContact": "Indiquez votre nom et une adresse e-mail valide.",
     "available": "Bonne nouvelle : ces dates sont libres.",
     "datesFrom": "Du {{start}} au {{end}}",
-    "datesStart": "À partir du {{start}}"
+    "datesStart": "À partir du {{start}}",
+    "pickDate": "Choisir",
+    "less": "Retirer — {{label}}",
+    "more": "Ajouter — {{label}}"
   },
   "calendar": {
     "title": "Disponibilités",
@@ -88,6 +91,9 @@
     "counter": "{{index}} / {{total}}"
   },
   "home": {
+    "priceFrom": "Séjours dès",
+    "factsLabel": "Le manoir en bref",
+    "facts": ["Jusqu’à 14 personnes", "5 chambres", "Jacuzzi 7 places", "Étang privé", "Jardin de 1 500 m²"],
     "ctaAvailability": "Vérifier les disponibilités",
     "ctaDiscover": "Découvrir le manoir",
     "bookingNote": "Vos dates et le nombre de voyageurs sont repris automatiquement sur la page Contact, ou",

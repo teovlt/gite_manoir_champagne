@@ -3,6 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { SiteFooter } from "@/components/site/site-footer";
 import { SiteHeader } from "@/components/site/site-header";
+import { MobileBookingCta } from "@/components/site/mobile-cta";
 import { LightboxProvider } from "@/components/site/lightbox";
 import { LANGS, localize, stripLang, useLang, type Lang } from "@/lib/locale";
 
@@ -73,6 +74,7 @@ export const LayoutWrapper = () => (
         </Suspense>
       </main>
       <SiteFooter />
+      <MobileBookingCta />
     </div>
   </LightboxProvider>
 );
