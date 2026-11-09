@@ -91,7 +91,23 @@ export function SiteFooter() {
         </Column>
       </div>
       <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-x-6 gap-y-4 pt-6 text-xs text-stone">
-        <span>© {new Date().getFullYear()} Manoir de la Champagne — Loïc &amp; Maryline Courteille</span>
+        <span className="flex flex-wrap gap-x-2 gap-y-1">
+          <span>© {new Date().getFullYear()} Manoir de la Champagne — Loïc &amp; Maryline Courteille</span>
+          <span aria-hidden="true" className="hidden sm:inline">
+            ·
+          </span>
+          <span>
+            {t("footer.madeBy")}{" "}
+            <a
+              href="https://teovillet.fr"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-umber underline-offset-2 hover:text-clay hover:underline"
+            >
+              Téo Villet
+            </a>
+          </span>
+        </span>
         <div className="flex items-center gap-5">
           <span>{t("footer.rating")}</span>
           <BackToTop />

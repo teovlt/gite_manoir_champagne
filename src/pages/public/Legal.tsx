@@ -7,7 +7,31 @@ import { usePageText } from "@/providers/site-data-provider";
 import { usePageMeta } from "@/lib/use-page-meta";
 import { LANGS, langLabels, localize, useLang, useLocalePath } from "@/lib/locale";
 
-/** Renders owner-edited text: blank line = new paragraph, "## " = subheading. */
+/** "[label](https://…)" → link; everything else stays plain text. */
+function Inline({ text }: { text: string }) {
+  const parts = text.split(/(\[[^\]]+\]\((?:https?:\/\/|\/|mailto:)[^)\s]+\))/);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const m = /^\[([^\]]+)\]\(([^)\s]+)\)$/.exec(part);
+        if (!m) return part;
+        const external = /^https?:/.test(m[2]);
+        return (
+          <a
+            key={i}
+            href={m[2]}
+            {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+            className="font-semibold text-clay hover:text-rust"
+          >
+            {m[1]}
+          </a>
+        );
+      })}
+    </>
+  );
+}
+
+/** Renders owner-edited text: blank line = new paragraph, "## " = subheading, [label](url) = link. */
 function RichBody({ text }: { text: string }) {
   const blocks = text.split(/\n{2,}/);
   return (
@@ -19,7 +43,9 @@ function RichBody({ text }: { text: string }) {
             <div key={i}>
               <h2 className="mb-2 font-serif text-xl font-medium text-ink">{first.slice(3)}</h2>
               {rest.map((line, j) => (
-                <p key={j}>{line}</p>
+                <p key={j}>
+                  <Inline text={line} />
+                </p>
               ))}
             </div>
           );
@@ -29,7 +55,7 @@ function RichBody({ text }: { text: string }) {
             {block.split("\n").map((line, j) => (
               <span key={j}>
                 {j > 0 && <br />}
-                {line}
+                <Inline text={line} />
               </span>
             ))}
           </p>
