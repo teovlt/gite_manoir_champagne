@@ -8,6 +8,15 @@ import { usePageMeta } from "@/lib/use-page-meta";
 import { lines } from "@/lib/format";
 
 const roomSlots = ["gite.serenite", "gite.bateau", "gite.familiale", "gite.marquise"];
+const gallerySlots = [
+  "gite.salon-2",
+  "gite.cheminee",
+  "gite.salle-a-manger",
+  "gite.bateau-2",
+  "gite.marquise-2",
+  "gite.salle-d-eau",
+  "gite.verriere",
+];
 
 export function Gite() {
   const { t } = useTranslation();
@@ -73,7 +82,12 @@ export function Gite() {
           </Reveal>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-7">
             {rooms.map((r, i) => (
-              <Reveal as="article" key={r.name} delay={(i % 2) * 100} className="lift overflow-hidden rounded-2xl bg-sand shadow-[0_2px_10px_rgba(43,42,37,0.06)]">
+              <Reveal
+                as="article"
+                key={r.name}
+                delay={(i % 2) * 100}
+                className="lift overflow-hidden rounded-2xl bg-sand shadow-[0_2px_10px_rgba(43,42,37,0.06)]"
+              >
                 <SitePhoto slot={roomSlots[i]} zoomable className="aspect-[4/3] w-full border-0" />
                 <div className="p-[22px]">
                   <h3 className="mb-2 font-serif text-lg font-medium">{r.name}</h3>
@@ -87,16 +101,19 @@ export function Gite() {
         </div>
       </section>
 
-      {extras.length > 0 && (
-        <section className="px-gutter pb-24">
-          <div className="mx-auto max-w-[1200px]">
-            <SectionTitle className="mb-10">{t("gite.gallery")}</SectionTitle>
-            <Reveal>
-              <PhotoGrid extras={extras} className="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-5" tileClassName="aspect-[4/3] rounded-[14px]" />
-            </Reveal>
-          </div>
-        </section>
-      )}
+      <section className="px-gutter pb-24">
+        <div className="mx-auto max-w-[1200px]">
+          <SectionTitle className="mb-10">{t("gite.gallery")}</SectionTitle>
+          <Reveal>
+            <PhotoGrid
+              slots={gallerySlots}
+              extras={extras}
+              className="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-5"
+              tileClassName="aspect-[4/3] rounded-[14px]"
+            />
+          </Reveal>
+        </div>
+      </section>
 
       <section className="bg-sand pb-24">
         <div className="px-gutter mx-auto max-w-[1200px] pt-[72px]">

@@ -110,6 +110,76 @@
     "url": "/photos/plan-etage.webp"
   },
   {
+    "key": "gite.salle-a-manger",
+    "section": "gite",
+    "alt": {
+      "fr": "Cuisine ouverte et grande table",
+      "en": "Open kitchen and large dining table",
+      "de": "Offene Küche mit großem Esstisch"
+    },
+    "url": "/photos/salle-a-manger.webp"
+  },
+  {
+    "key": "gite.cheminee",
+    "section": "gite",
+    "alt": {
+      "fr": "La cheminée du salon",
+      "en": "The living-room fireplace",
+      "de": "Der Kamin im Salon"
+    },
+    "url": "/photos/cheminee.webp"
+  },
+  {
+    "key": "gite.salon-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Le salon et ses canapés",
+      "en": "The living room and its sofas",
+      "de": "Der Salon mit seinen Sofas"
+    },
+    "url": "/photos/salon-2.webp"
+  },
+  {
+    "key": "gite.bateau-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Bateau, lit superposé",
+      "en": "Bateau bedroom, bunk bed",
+      "de": "Zimmer Bateau, Etagenbett"
+    },
+    "url": "/photos/chambre-bateau-2.webp"
+  },
+  {
+    "key": "gite.marquise-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre La Marquise et sa salle d'eau",
+      "en": "La Marquise bedroom and its shower room",
+      "de": "Zimmer La Marquise mit Duschbad"
+    },
+    "url": "/photos/chambre-marquise-2.webp"
+  },
+  {
+    "key": "gite.salle-d-eau",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle d'eau avec douche à l'italienne",
+      "en": "Shower room with walk-in shower",
+      "de": "Duschbad mit ebenerdiger Dusche"
+    },
+    "url": "/photos/salle-d-eau.webp"
+  },
+  {
+    "key": "gite.verriere",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle de bain sous verrière",
+      "en": "Bathroom behind a glass partition",
+      "de": "Badezimmer mit Glaswand"
+    },
+    "url": "/photos/salle-de-bain-verriere.webp"
+  },
+  {
     "key": "jardins.hero",
     "section": "jardins",
     "alt": {
@@ -137,7 +207,7 @@
       "en": "North garden",
       "de": "Nordgarten"
     },
-    "url": null
+    "url": "/photos/jardin-nord-2.webp"
   },
   {
     "key": "jardins.porche",
@@ -157,7 +227,7 @@
       "en": "North garden",
       "de": "Nordgarten"
     },
-    "url": null
+    "url": "/photos/jardin-nord-3.webp"
   },
   {
     "key": "jardins.sud",
@@ -207,7 +277,37 @@
       "en": "7-seat outdoor spa",
       "de": "Außen-Whirlpool für 7 Personen"
     },
-    "url": null
+    "url": "/photos/spa.webp"
+  },
+  {
+    "key": "jardins.etang-2",
+    "section": "jardins",
+    "alt": {
+      "fr": "L'étang et ses berges",
+      "en": "The pond and its banks",
+      "de": "Der Teich und seine Ufer"
+    },
+    "url": "/photos/etang-2.webp"
+  },
+  {
+    "key": "jardins.glycine",
+    "section": "jardins",
+    "alt": {
+      "fr": "Le manoir vu sous la glycine",
+      "en": "The manor seen under the wisteria",
+      "de": "Das Herrenhaus unter der Glyzinie"
+    },
+    "url": "/photos/glycine.webp"
+  },
+  {
+    "key": "jardins.pavillon-spa",
+    "section": "jardins",
+    "alt": {
+      "fr": "Le pavillon du spa",
+      "en": "The spa pavilion",
+      "de": "Der Spa-Pavillon"
+    },
+    "url": "/photos/pavillon-spa.webp"
   },
   {
     "key": "region.hero",

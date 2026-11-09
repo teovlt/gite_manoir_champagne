@@ -73,6 +73,9 @@ export async function seed() {
     "region.racine",
     "region.vauban",
     "region.saint-vaast",
+    "jardins.nord-2",
+    "jardins.nord-3",
+    "jardins.spa",
   ];
   await Promise.all(
     photos

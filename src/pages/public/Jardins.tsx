@@ -11,7 +11,15 @@ import { Typo } from "@/lib/format";
 import { useLocalePath } from "@/lib/locale";
 
 const north = ["jardins.nord-1", "jardins.nord-2", "jardins.porche", "jardins.nord-3"];
-const south = ["jardins.sud", "jardins.etang", "jardins.terrasse", "jardins.barbecue"];
+const south = [
+  "jardins.sud",
+  "jardins.etang",
+  "jardins.terrasse",
+  "jardins.barbecue",
+  "jardins.etang-2",
+  "jardins.glycine",
+  "jardins.pavillon-spa",
+];
 
 export function Jardins() {
   const { t } = useTranslation();
@@ -33,7 +41,11 @@ export function Jardins() {
             </p>
           </Reveal>
           <Reveal>
-            <PhotoGrid slots={north} className="grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-[18px]" tileClassName="aspect-[4/3] rounded-[14px]" />
+            <PhotoGrid
+              slots={north}
+              className="grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-[18px]"
+              tileClassName="aspect-[4/3] rounded-[14px]"
+            />
           </Reveal>
         </div>
       </section>
