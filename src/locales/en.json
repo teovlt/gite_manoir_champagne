@@ -186,6 +186,7 @@
     "mont": { "title": "Mont-Saint-Michel", "text": "A UNESCO World Heritage Site." },
     "malo": { "title": "Saint-Malo", "text": "The walled corsair city in Brittany." },
     "illustration": "Illustration",
+    "officialSite": "Official website",
     "islands": "The Channel Islands",
     "activities": "Sports & nature",
     "activityList": [

@@ -217,7 +217,7 @@
       "en": "Cotentin coastline",
       "de": "Küste des Cotentin"
     },
-    "url": null
+    "url": "/photos/region-hero.webp"
   },
   {
     "key": "region.mont",
@@ -227,7 +227,7 @@
       "en": "Mont-Saint-Michel",
       "de": "Mont-Saint-Michel"
     },
-    "url": null
+    "url": "/photos/mont-saint-michel.webp"
   },
   {
     "key": "region.debarquement",
@@ -237,7 +237,7 @@
       "en": "D-Day beaches",
       "de": "Landungsstrände"
     },
-    "url": null
+    "url": "/photos/debarquement.webp"
   },
   {
     "key": "region.barneville",
@@ -247,7 +247,7 @@
       "en": "Barneville-Carteret",
       "de": "Barneville-Carteret"
     },
-    "url": null
+    "url": "/photos/barneville-carteret.webp"
   },
   {
     "key": "region.hague",
@@ -257,7 +257,7 @@
       "en": "La Hague",
       "de": "La Hague"
     },
-    "url": null
+    "url": "/photos/la-hague.webp"
   },
   {
     "key": "region.cherbourg",
@@ -267,7 +267,7 @@
       "en": "Cherbourg",
       "de": "Cherbourg"
     },
-    "url": null
+    "url": "/photos/cherbourg.webp"
   },
   {
     "key": "region.barfleur",
@@ -277,7 +277,7 @@
       "en": "Barfleur",
       "de": "Barfleur"
     },
-    "url": null
+    "url": "/photos/barfleur.webp"
   },
   {
     "key": "region.gatteville",
@@ -287,7 +287,7 @@
       "en": "Gatteville lighthouse",
       "de": "Leuchtturm Gatteville"
     },
-    "url": null
+    "url": "/photos/phare-gatteville.webp"
   },
   {
     "key": "region.racine",
@@ -297,7 +297,7 @@
       "en": "Port Racine",
       "de": "Port Racine"
     },
-    "url": null
+    "url": "/photos/port-racine.webp"
   },
   {
     "key": "region.vauban",
@@ -307,7 +307,7 @@
       "en": "Vauban towers",
       "de": "Vauban-Türme"
     },
-    "url": null
+    "url": "/photos/tour-vauban.webp"
   },
   {
     "key": "region.saint-vaast",
@@ -317,7 +317,7 @@
       "en": "Saint-Vaast oysters",
       "de": "Austern aus Saint-Vaast"
     },
-    "url": null
+    "url": "/photos/saint-vaast.webp"
   },
   {
     "key": "region.saint-malo",
@@ -327,6 +327,6 @@
       "en": "Saint-Malo",
       "de": "Saint-Malo"
     },
-    "url": null
+    "url": "/photos/saint-malo.webp"
   }
 ]

@@ -59,6 +59,28 @@ export async function seed() {
       .filter((p) => p.url?.endsWith(".webp"))
       .map((p) => col.photos.updateOne({ key: p.key, url: p.url.replace(/\.webp$/, ".jpg") }, { $set: { url: p.url } })),
   );
+  // Slots that got a bundled photo after launch: fill them once if still empty, so an owner's later removal sticks.
+  const filledLater = [
+    "region.hero",
+    "region.mont",
+    "region.saint-malo",
+    "region.debarquement",
+    "region.barneville",
+    "region.hague",
+    "region.cherbourg",
+    "region.barfleur",
+    "region.gatteville",
+    "region.racine",
+    "region.vauban",
+    "region.saint-vaast",
+  ];
+  await Promise.all(
+    photos
+      .filter((p) => filledLater.includes(p.key) && p.url)
+      .map((p) =>
+        col.photos.updateOne({ key: p.key, url: null, bundleFilled: { $ne: true } }, { $set: { url: p.url, bundleFilled: true } }),
+      ),
+  );
 
   const defaults = {
     pricing: readShared("pricing.json"),

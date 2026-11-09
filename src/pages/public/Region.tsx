@@ -1,3 +1,4 @@
+import { ArrowUpRight, Bike, Footprints, Gauge, PawPrint, Sailboat, Trees } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { PageHero } from "@/components/site/page-hero";
 import { Accent, SectionTitle } from "@/components/site/ornaments";
@@ -7,9 +8,23 @@ import { useExtraPhotos, usePageText, usePhoto } from "@/providers/site-data-pro
 import { usePageMeta } from "@/lib/use-page-meta";
 import { Typo } from "@/lib/format";
 import { useTr } from "@/lib/locale";
+import { officialSites } from "@/lib/region-links";
+import { PhotoCredit } from "@/components/site/photo-credit";
 
-const sightSlots = ["region.barneville", "region.hague", "region.cherbourg", "region.barfleur", "region.gatteville", "region.racine", "region.vauban", "region.saint-vaast"];
+const sightSlots = [
+  "region.barneville",
+  "region.hague",
+  "region.cherbourg",
+  "region.barfleur",
+  "region.gatteville",
+  "region.racine",
+  "region.vauban",
+  "region.saint-vaast",
+];
 type Item = { title: string; text: string };
+
+/** Same order as region.activityList in the locales: sailing, hiking, cycling, karting, nature park, zoo. */
+const activityIcons = [Sailboat, Footprints, Bike, Gauge, Trees, PawPrint];
 
 const MontIllustration = () => (
   <svg viewBox="0 0 420 300" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 block h-full w-full" aria-hidden="true">
@@ -41,23 +56,42 @@ function FeatureTile({ slot, item, overlay, illustration }: { slot: string; item
   const { t } = useTranslation();
   const tr = useTr();
   const photo = usePhoto(slot);
+  const href = officialSites[slot];
+  const Tag = href ? "a" : "div";
   return (
-    <div className="group relative flex min-h-[300px] flex-[1_1_420px] items-center justify-center overflow-hidden text-cream">
-      {photo?.url ? (
-        <img src={photo.url} alt={tr(photo.alt)} loading="lazy" className="photo-warm absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-      ) : (
-        illustration
-      )}
-      <div className="absolute inset-0" style={{ background: overlay }} />
-      {!photo?.url && (
-        <span className="absolute right-[18px] top-[18px] z-[2] rounded-[14px] bg-ink/45 px-2.5 py-[5px] text-[11px] uppercase tracking-[1px]">
-          {t("region.illustration")} — {item.title}
-        </span>
-      )}
-      <Reveal className="relative z-[2] p-8 text-center">
-        <h3 className="font-serif text-[22px] font-medium">{item.title}</h3>
-        <p className="mt-2.5 text-sm text-[#F6EEDC]">{item.text}</p>
-      </Reveal>
+    // The credit is a link of its own, so it sits next to the tile's link rather than inside it.
+    <div className="relative flex flex-[1_1_420px]">
+      <Tag
+        {...(href ? { href, target: "_blank", rel: "noreferrer", "aria-label": `${item.title} — ${t("region.officialSite")}` } : {})}
+        className="group relative flex min-h-[340px] w-full items-center justify-center overflow-hidden text-cream hover:text-cream focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-wheat-light"
+      >
+        {photo?.url ? (
+          <img
+            src={photo.url}
+            alt={tr(photo.alt)}
+            loading="lazy"
+            className="photo-warm absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
+          />
+        ) : (
+          illustration
+        )}
+        <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-80" style={{ background: overlay }} />
+        {!photo?.url && (
+          <span className="absolute right-[18px] top-[18px] z-[2] rounded-[14px] bg-ink/45 px-2.5 py-[5px] text-[11px] uppercase tracking-[1px]">
+            {t("region.illustration")} — {item.title}
+          </span>
+        )}
+        <Reveal className="relative z-[2] p-8 text-center [text-shadow:0_1px_12px_rgba(35,24,14,0.55)]">
+          <h3 className="font-serif text-[26px] font-medium">{item.title}</h3>
+          <p className="mt-2.5 text-sm text-[#F6EEDC]">{item.text}</p>
+          {href && (
+            <span className="mt-5 inline-flex items-center gap-1.5 rounded-full border border-cream/60 bg-ink/25 px-4 py-2 text-[12px] font-semibold uppercase tracking-[1px] backdrop-blur-sm transition-colors [text-shadow:none] group-hover:bg-cream group-hover:text-ink">
+              {t("region.officialSite")} <ArrowUpRight className="size-3.5" aria-hidden="true" />
+            </span>
+          )}
+        </Reveal>
+      </Tag>
+      <PhotoCredit url={photo?.url} />
     </div>
   );
 }
@@ -74,7 +108,13 @@ export function Region() {
 
   return (
     <>
-      <PageHero eyebrow={t("region.eyebrow")} title={text("heroTitle")} subtitle={text("heroSubtitle")} photoSlot="region.hero" fallbackSlot="jardins.etang" />
+      <PageHero
+        eyebrow={t("region.eyebrow")}
+        title={text("heroTitle")}
+        subtitle={text("heroSubtitle")}
+        photoSlot="region.hero"
+        fallbackSlot="jardins.etang"
+      />
 
       <section className="px-gutter pb-12 pt-20">
         <div className="mx-auto max-w-[1200px]">
@@ -85,7 +125,11 @@ export function Region() {
           </Reveal>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-6">
             {sights.map((s, i) => (
-              <Reveal key={s.title} delay={(i % 4) * 70} className="lift overflow-hidden rounded-2xl bg-sand shadow-[0_2px_10px_rgba(43,42,37,0.06)]">
+              <Reveal
+                key={s.title}
+                delay={(i % 4) * 70}
+                className="lift overflow-hidden rounded-2xl bg-sand shadow-[0_2px_10px_rgba(43,42,37,0.06)]"
+              >
                 <SitePhoto slot={sightSlots[i]} zoomable className="aspect-[16/10] w-full border-0" />
                 <div className="p-[18px]">
                   <h3 className="mb-1.5 text-[15px] font-semibold">{s.title}</h3>
@@ -98,7 +142,11 @@ export function Region() {
           </div>
           {extras.length > 0 && (
             <Reveal className="mt-6">
-              <PhotoGrid extras={extras} className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-6" tileClassName="aspect-[16/10] rounded-2xl" />
+              <PhotoGrid
+                extras={extras}
+                className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-6"
+                tileClassName="aspect-[16/10] rounded-2xl"
+              />
             </Reveal>
           )}
         </div>
@@ -121,8 +169,18 @@ export function Region() {
       </section>
 
       <section className="flex flex-wrap">
-        <FeatureTile slot="region.mont" item={t("region.mont") as unknown as Item} overlay="rgba(126,149,116,0.4)" illustration={<MontIllustration />} />
-        <FeatureTile slot="region.saint-malo" item={t("region.malo") as unknown as Item} overlay="rgba(94,120,83,0.4)" illustration={<MaloIllustration />} />
+        <FeatureTile
+          slot="region.mont"
+          item={t("region.mont") as unknown as Item}
+          overlay="rgba(126,149,116,0.4)"
+          illustration={<MontIllustration />}
+        />
+        <FeatureTile
+          slot="region.saint-malo"
+          item={t("region.malo") as unknown as Item}
+          overlay="rgba(94,120,83,0.4)"
+          illustration={<MaloIllustration />}
+        />
       </section>
 
       <section className="px-gutter py-16">
@@ -136,12 +194,23 @@ export function Region() {
         <div className="mx-auto max-w-[1200px]">
           <h2 className="mb-8 font-serif text-[26px] font-medium">{t("region.activities")}</h2>
           <div className="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-5">
-            {activities.map((a, i) => (
-              <Reveal key={a.title} delay={(i % 3) * 70} className="lift rounded-[14px] bg-cream p-5">
-                <h3 className="mb-1.5 text-sm font-semibold">{a.title}</h3>
-                <p className="text-[13px] text-umber">{a.text}</p>
-              </Reveal>
-            ))}
+            {activities.map((a, i) => {
+              const Icon = activityIcons[i] ?? Trees;
+              return (
+                <Reveal key={a.title} delay={(i % 3) * 70} className="lift flex gap-4 rounded-[14px] bg-cream p-5">
+                  <span
+                    className="flex size-11 shrink-0 items-center justify-center rounded-full bg-moss-light text-moss"
+                    aria-hidden="true"
+                  >
+                    <Icon className="size-[22px]" strokeWidth={1.6} />
+                  </span>
+                  <div>
+                    <h3 className="mb-1.5 text-sm font-semibold">{a.title}</h3>
+                    <p className="text-[13px] text-umber">{a.text}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>

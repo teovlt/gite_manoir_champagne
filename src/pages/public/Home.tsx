@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EventBannerView } from "@/components/site/event-banner";
 import { Accent, Eyebrow, SageStripe, SectionTitle } from "@/components/site/ornaments";
@@ -16,6 +17,7 @@ import { useAvailability, useExtraPhotos, usePageText, usePhoto, useSiteData } f
 import { usePageMeta } from "@/lib/use-page-meta";
 import { Typo, formatPrice } from "@/lib/format";
 import { useLang, useLocalePath, useTr } from "@/lib/locale";
+import { officialSites } from "@/lib/region-links";
 import { cn } from "@/lib/utils";
 
 const highlightIcons = [
@@ -141,9 +143,7 @@ function HomeReviews() {
   const l = useLocalePath();
   const text = usePageText("accueil");
   // The three most recent reviews; long ones are clamped to six lines.
-  const picks = [...googleReviews.reviews]
-    .sort((a, b) => (b.visited ?? "").localeCompare(a.visited ?? ""))
-    .slice(0, 3);
+  const picks = [...googleReviews.reviews].sort((a, b) => (b.visited ?? "").localeCompare(a.visited ?? "")).slice(0, 3);
 
   return (
     <section className="px-gutter bg-sand py-20">
@@ -379,6 +379,16 @@ export function Home() {
                 <div className="p-5">
                   <h3 className="mb-1.5 text-base font-semibold">{r.title}</h3>
                   <p className="text-sm text-umber">{r.text}</p>
+                  {officialSites[teaserSlots[i]] && (
+                    <a
+                      href={officialSites[teaserSlots[i]]}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[1px] text-clay hover:text-rust"
+                    >
+                      {t("region.officialSite")} <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
               </Reveal>
             ))}

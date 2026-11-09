@@ -3,6 +3,7 @@ import { Typo } from "@/lib/format";
 import { useTr } from "@/lib/locale";
 import { cn } from "@/lib/utils";
 import { Accent, SageStripe } from "./ornaments";
+import { PhotoCredit } from "./photo-credit";
 
 interface PageHeroProps {
   eyebrow: string;
@@ -73,6 +74,7 @@ export function PageHero({ eyebrow, title, subtitle, photoSlot, fallbackSlot, mi
               className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,24,14,0.5)_0%,rgba(35,24,14,0.12)_65%),linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.38)_100%)]" />
+            <PhotoCredit url={photo!.url} className="bottom-2.5 right-4" />
           </>
         ) : (
           <>

@@ -186,6 +186,7 @@
     "mont": { "title": "Mont-Saint-Michel", "text": "Classé au patrimoine mondial de l'UNESCO." },
     "malo": { "title": "Saint-Malo", "text": "La cité corsaire, en Ille-et-Vilaine." },
     "illustration": "Illustration",
+    "officialSite": "Site officiel",
     "islands": "Les îles Anglo-Normandes",
     "activities": "Activités sportives & nature",
     "activityList": [
