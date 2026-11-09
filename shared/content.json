@@ -452,16 +452,20 @@
               "label": "En voiture",
               "type": "textarea",
               "value": {
-                "fr": "[itinéraire indicatif depuis Paris / Caen / Cherbourg à préciser]",
-                "en": "[directions from Paris / Caen / Cherbourg to be added]",
-                "de": "[Wegbeschreibung ab Paris / Caen / Cherbourg folgt]"
+                "fr": "Depuis Paris (≈ 340 km, 4 h) : A13 jusqu'à Caen, puis A84 direction Rennes, N174 vers Saint-Lô et D900 par Périers. Depuis Caen (≈ 105 km, 1 h 20) : même itinéraire par l'A84 et Saint-Lô. Depuis Cherbourg (≈ 65 km, 1 h 10) : N13 puis D2 et D900.",
+                "en": "From Paris (≈ 340 km, 4 h): A13 to Caen, then A84 towards Rennes, N174 to Saint-Lô and D900 via Périers. From Caen (≈ 105 km, 1 h 20): same route via the A84 and Saint-Lô. From Cherbourg (≈ 65 km, 1 h 10): N13, then D2 and D900.",
+                "de": "Ab Paris (≈ 340 km, 4 Std.): A13 bis Caen, dann A84 Richtung Rennes, N174 nach Saint-Lô und D900 über Périers. Ab Caen (≈ 105 km, 1 Std. 20): gleiche Strecke über die A84 und Saint-Lô. Ab Cherbourg (≈ 65 km, 1 Std. 10): N13, dann D2 und D900."
               }
             },
             {
               "key": "byTrain",
               "label": "En train",
               "type": "textarea",
-              "value": { "fr": "[gare la plus proche à préciser]", "en": "[nearest station to be added]", "de": "[nächster Bahnhof folgt]" }
+              "value": {
+                "fr": "Gare de Carentan (≈ 25 km, 25 min en voiture), sur la ligne Paris-Saint-Lazare – Cherbourg. Gare de Coutances (≈ 20 km), sur la ligne TER Caen – Rennes. Prévoir une voiture de location ou un taxi depuis la gare.",
+                "en": "Carentan station (≈ 25 km, 25 min by car), on the Paris-Saint-Lazare – Cherbourg line. Coutances station (≈ 20 km), on the Caen – Rennes regional line. Plan a hire car or a taxi from the station.",
+                "de": "Bahnhof Carentan (≈ 25 km, 25 Min. mit dem Auto) an der Strecke Paris-Saint-Lazare – Cherbourg. Bahnhof Coutances (≈ 20 km) an der Regionalstrecke Caen – Rennes. Ab dem Bahnhof Mietwagen oder Taxi einplanen."
+              }
             },
             {
               "key": "bySea",
@@ -490,9 +494,9 @@
               "label": "Texte (« ## » en début de ligne pour un intertitre)",
               "type": "textarea",
               "value": {
-                "fr": "## Éditeur du site\nManoir de la Champagne — Loïc et Maryline Courteille, loueurs en meublé de tourisme.\n2 rue La Champagne, 50190 Millières, France.\nTéléphone : +33 (0)6 65 15 62 71.\nSIRET : [à compléter].\nDirecteur de la publication : [à compléter].\n\n## Hébergement\nSite hébergé par [nom de l'hébergeur, adresse, téléphone — à compléter].\n\n## Propriété intellectuelle\nLes textes et photographies de ce site sont la propriété des propriétaires du Manoir de la Champagne, sauf mention contraire. Toute reproduction sans autorisation est interdite.\n\n## Cartographie\nFonds de carte © les contributeurs d'OpenStreetMap, sous licence ODbL.",
-                "en": "## Site publisher\nManoir de la Champagne — Loïc and Maryline Courteille, holiday rental owners.\n2 rue La Champagne, 50190 Millières, France.\nPhone: +33 (0)6 65 15 62 71.\nSIRET: [to be completed].\nPublication director: [to be completed].\n\n## Hosting\nHosted by [hosting provider, address, phone — to be completed].\n\n## Intellectual property\nThe texts and photographs on this site belong to the owners of the Manoir de la Champagne unless stated otherwise. Any reproduction without permission is prohibited.\n\n## Maps\nMap data © OpenStreetMap contributors, ODbL licence.",
-                "de": "## Herausgeber\nManoir de la Champagne — Loïc und Maryline Courteille, Vermieter einer Ferienunterkunft.\n2 rue La Champagne, 50190 Millières, Frankreich.\nTelefon: +33 (0)6 65 15 62 71.\nSIRET: [zu ergänzen].\nVerantwortlich für den Inhalt: [zu ergänzen].\n\n## Hosting\nGehostet von [Hosting-Anbieter, Adresse, Telefon — zu ergänzen].\n\n## Urheberrecht\nTexte und Fotos dieser Website sind, sofern nicht anders angegeben, Eigentum der Eigentümer des Manoir de la Champagne. Jede Vervielfältigung ohne Genehmigung ist untersagt.\n\n## Karten\nKartendaten © OpenStreetMap-Mitwirkende, Lizenz ODbL."
+                "fr": "## Éditeur du site\nManoir de la Champagne — Loïc et Maryline Courteille, loueurs en meublé de tourisme.\n2 rue La Champagne, 50190 Millières, France.\nTéléphone : +33 (0)6 65 15 62 71.\nSIRET : [à compléter].\nDirecteur de la publication : [à compléter].\n\n## Hébergement\nSite hébergé sur un serveur privé virtuel (VPS) d'OVH SAS, 2 rue Kellermann, 59100 Roubaix, France — www.ovhcloud.com — tél. : 1007.\n\n## Propriété intellectuelle\nLes textes et photographies de ce site sont la propriété des propriétaires du Manoir de la Champagne, sauf mention contraire. Toute reproduction sans autorisation est interdite.\n\n## Cartographie\nFonds de carte © les contributeurs d'OpenStreetMap, sous licence ODbL.",
+                "en": "## Site publisher\nManoir de la Champagne — Loïc and Maryline Courteille, holiday rental owners.\n2 rue La Champagne, 50190 Millières, France.\nPhone: +33 (0)6 65 15 62 71.\nSIRET: [to be completed].\nPublication director: [to be completed].\n\n## Hosting\nHosted on a virtual private server (VPS) provided by OVH SAS, 2 rue Kellermann, 59100 Roubaix, France — www.ovhcloud.com — phone: +33 9 72 10 10 07.\n\n## Intellectual property\nThe texts and photographs on this site belong to the owners of the Manoir de la Champagne unless stated otherwise. Any reproduction without permission is prohibited.\n\n## Maps\nMap data © OpenStreetMap contributors, ODbL licence.",
+                "de": "## Herausgeber\nManoir de la Champagne — Loïc und Maryline Courteille, Vermieter einer Ferienunterkunft.\n2 rue La Champagne, 50190 Millières, Frankreich.\nTelefon: +33 (0)6 65 15 62 71.\nSIRET: [zu ergänzen].\nVerantwortlich für den Inhalt: [zu ergänzen].\n\n## Hosting\nGehostet auf einem virtuellen privaten Server (VPS) von OVH SAS, 2 rue Kellermann, 59100 Roubaix, Frankreich — www.ovhcloud.com — Tel.: +33 9 72 10 10 07.\n\n## Urheberrecht\nTexte und Fotos dieser Website sind, sofern nicht anders angegeben, Eigentum der Eigentümer des Manoir de la Champagne. Jede Vervielfältigung ohne Genehmigung ist untersagt.\n\n## Karten\nKartendaten © OpenStreetMap-Mitwirkende, Lizenz ODbL."
               }
             }
           ]
