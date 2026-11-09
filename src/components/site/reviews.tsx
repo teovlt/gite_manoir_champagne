@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { intlLocale, type Lang } from "@/lib/locale";
 import { cn } from "@/lib/utils";
+import googleReviews from "@shared/google-reviews.json";
 
 export const GoogleG = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
@@ -39,3 +40,33 @@ export const Stars = ({ value, className }: { value: number; className?: string 
 /** "4,9" (fr/de) or "4.9" (en). */
 export const formatRating = (value: number, lang: Lang) =>
   new Intl.NumberFormat(intlLocale[lang], { minimumFractionDigits: 1 }).format(value);
+
+/** Soft tones from the site palette, so each reviewer gets a recognisable avatar. */
+const avatarTones = [
+  "bg-sage/40 text-moss",
+  "bg-clay/20 text-rust",
+  "bg-[#DCE5EC] text-[#3E5A73]",
+  "bg-khaki/60 text-olive",
+  "bg-[#EBD9DE] text-[#7A4B5A]",
+  "bg-[#D8E6DF] text-[#2F6B57]",
+];
+
+/**
+ * Same name, same colour on every page: Google reviewers take the tones in turn (so neighbours never match),
+ * reviews added in the admin fall back to a hash of the name.
+ */
+const googleAuthors = googleReviews.reviews.map((r) => r.author);
+const toneFor = (name: string) => {
+  const i = googleAuthors.indexOf(name);
+  const n = i >= 0 ? i : [...name].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+  return avatarTones[n % avatarTones.length];
+};
+
+export const ReviewerAvatar = ({ name, className }: { name: string; className?: string }) => (
+  <span
+    className={cn("flex size-10 shrink-0 items-center justify-center rounded-full font-serif text-[17px]", toneFor(name), className)}
+    aria-hidden="true"
+  >
+    {name.charAt(0)}
+  </span>
+);

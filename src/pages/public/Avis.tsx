@@ -8,7 +8,7 @@ import { usePageText, useSiteData } from "@/providers/site-data-provider";
 import { intlLocale, useLang, useTr, type Translated } from "@/lib/locale";
 import { usePageMeta } from "@/lib/use-page-meta";
 import { cn } from "@/lib/utils";
-import { GoogleG, Stars } from "@/components/site/reviews";
+import { GoogleG, ReviewerAvatar, Stars } from "@/components/site/reviews";
 
 interface Review {
   author: string;
@@ -42,7 +42,7 @@ function ReviewCard({ review, delay }: { review: Review; delay: number }) {
     <Reveal
       as="figure"
       delay={delay}
-      className="lift mb-7 flex break-inside-avoid flex-col gap-4 rounded-[18px] border border-line bg-cream p-7 shadow-[0_2px_10px_rgba(43,42,37,0.04)]"
+      className="lift flex w-full flex-col gap-4 rounded-[18px] border border-line bg-cream p-7 shadow-[0_2px_10px_rgba(43,42,37,0.04)] md:w-[calc((100%-28px)/2)] lg:w-[calc((100%-56px)/3)]"
     >
       <div className="flex items-center justify-between gap-3">
         <Stars value={review.rating} className="text-[15px]" />
@@ -62,12 +62,7 @@ function ReviewCard({ review, delay }: { review: Review; delay: number }) {
         </button>
       )}
       <figcaption className="mt-auto flex items-center gap-3 border-t border-line pt-4">
-        <span
-          className="flex size-10 shrink-0 items-center justify-center rounded-full bg-sage/40 font-serif text-[17px] text-moss"
-          aria-hidden="true"
-        >
-          {review.author.charAt(0)}
-        </span>
+        <ReviewerAvatar name={review.author} />
         <span className="flex min-w-0 flex-col">
           <span className="text-[14px] font-semibold text-ink">{review.author}</span>
           <span className="text-[12px] text-stone">
@@ -125,7 +120,7 @@ export function Avis() {
       </section>
 
       <section className="px-gutter pb-20 pt-10">
-        <div className="mx-auto max-w-[1200px] columns-1 gap-7 md:columns-2 lg:columns-3">
+        <div className="mx-auto flex max-w-[1200px] flex-wrap items-stretch justify-center gap-7">
           {reviews.map((r, i) => (
             <ReviewCard key={i} review={r} delay={(i % 3) * 90} />
           ))}

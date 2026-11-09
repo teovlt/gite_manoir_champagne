@@ -11,7 +11,7 @@ import { Reveal } from "@/components/site/reveal";
 import { ManorMap } from "@/components/site/lazy-map";
 import { contactUrl, validateBooking } from "@/components/site/form-controls";
 import { DateRangeField, GuestFields, useCheapestFormula } from "@/components/site/booking-fields";
-import { GoogleG, Stars, formatRating } from "@/components/site/reviews";
+import { GoogleG, ReviewerAvatar, Stars, formatRating } from "@/components/site/reviews";
 import googleReviews from "@shared/google-reviews.json";
 import { useAvailability, useExtraPhotos, usePageText, usePhoto, useSiteData } from "@/providers/site-data-provider";
 import { usePageMeta } from "@/lib/use-page-meta";
@@ -180,12 +180,7 @@ function HomeReviews() {
                 <p className="line-clamp-6">{tr(r.text)}</p>
               </blockquote>
               <figcaption className="mt-auto flex items-center gap-3 border-t border-line pt-4">
-                <span
-                  className="flex size-9 shrink-0 items-center justify-center rounded-full bg-sage/40 font-serif text-[15px] text-moss"
-                  aria-hidden="true"
-                >
-                  {r.author.charAt(0)}
-                </span>
+                <ReviewerAvatar name={r.author} className="size-9 text-[15px]" />
                 <span className="text-[14px] font-semibold">{r.author}</span>
                 <GoogleG className="ml-auto size-4" />
               </figcaption>
