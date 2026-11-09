@@ -50,7 +50,7 @@ const highlightIcons = [
   </>,
 ];
 
-const gallerySlots = ["accueil.hero", "gite.salon", "gite.marquise", "jardins.sud", "jardins.etang", "jardins.porche"];
+const gallerySlots = ["accueil.hero", "gite.salon", "gite.marquise", "jardins.glycine", "jardins.etang", "jardins.porche"];
 const teaserSlots = ["region.mont", "region.debarquement", "region.barfleur"];
 
 const bookingBoxClass =
@@ -243,7 +243,7 @@ export function Home() {
             className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover"
           />
         )}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.40)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,24,14,0.62)_0%,rgba(35,24,14,0.28)_55%,rgba(35,24,14,0)_80%),linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.40)_100%)]" />
         <div className="px-gutter relative z-[2] max-w-[900px] pb-[72px] pt-[clamp(48px,8vw,96px)] text-cream animate-in fade-in-0 slide-in-from-bottom-4 duration-1000">
           <span className="text-[13px] uppercase tracking-[2px] text-wheat-light">{text("heroEyebrow")}</span>
           <Accent size="lg" className="mt-[18px]" />
