@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ArrowUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useSiteData } from "@/providers/site-data-provider";
 import { useLocalePath, useTr } from "@/lib/locale";
@@ -24,6 +25,27 @@ const Column = ({ title, children }: { title: string; children: React.ReactNode 
     <div className="flex flex-col gap-2.5 text-sm">{children}</div>
   </div>
 );
+
+/** Round "back to top" button closing every page. */
+function BackToTop() {
+  const { t } = useTranslation();
+  return (
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className="group flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[1px] text-umber hover:text-clay"
+    >
+      <span className="hidden sm:inline">{t("footer.backToTop")}</span>
+      <span
+        className="flex size-10 items-center justify-center rounded-full border border-khaki bg-cream text-clay shadow-[0_4px_12px_rgba(43,42,37,0.08)] transition-[transform,background-color,color] duration-300 group-hover:-translate-y-1 group-hover:bg-clay group-hover:text-cream"
+        aria-hidden="true"
+      >
+        <ArrowUp className="size-[18px]" />
+      </span>
+      <span className="sr-only sm:hidden">{t("footer.backToTop")}</span>
+    </button>
+  );
+}
 
 export function SiteFooter() {
   const { t } = useTranslation();
@@ -68,9 +90,12 @@ export function SiteFooter() {
           <FooterLink to="/plan-du-site">{t("footer.sitemap")}</FooterLink>
         </Column>
       </div>
-      <div className="mx-auto flex max-w-[1200px] flex-wrap justify-between gap-3 pt-6 text-xs text-stone">
+      <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-x-6 gap-y-4 pt-6 text-xs text-stone">
         <span>© {new Date().getFullYear()} Manoir de la Champagne — Loïc &amp; Maryline Courteille</span>
-        <span>{t("footer.rating")}</span>
+        <div className="flex items-center gap-5">
+          <span>{t("footer.rating")}</span>
+          <BackToTop />
+        </div>
       </div>
     </footer>
   );

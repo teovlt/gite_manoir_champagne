@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EventBannerView } from "@/components/site/event-banner";
 import { Accent, Eyebrow, SageStripe, SectionTitle } from "@/components/site/ornaments";
@@ -132,6 +132,24 @@ function BookingBar() {
         </a>
         .
       </p>
+      <ScrollHint targetId="bienvenue" />
+    </div>
+  );
+}
+
+/** Bouncing arrow that scrolls past the hero to the first section. */
+function ScrollHint({ targetId }: { targetId: string }) {
+  const { t } = useTranslation();
+  return (
+    <div className="mt-3 flex justify-center lg:mt-1.5">
+      <button
+        type="button"
+        onClick={() => document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+        aria-label={t("home.scrollDown")}
+        className="scroll-hint flex size-11 lg:size-10 items-center justify-center rounded-full border border-line-strong bg-cream text-clay shadow-[0_6px_16px_rgba(43,42,37,0.12)] transition-colors hover:bg-clay hover:text-cream focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-sage/50"
+      >
+        <ChevronDown className="size-5" aria-hidden="true" />
+      </button>
     </div>
   );
 }
@@ -234,7 +252,7 @@ export function Home() {
     <>
       {data.banner && <EventBannerView event={data.banner} lang={lang} />}
 
-      <section className="relative flex min-h-[680px] items-end overflow-hidden bg-ink">
+      <section className="relative flex min-h-[620px] items-end overflow-hidden bg-ink lg:min-h-[clamp(420px,calc(100svh-340px),620px)]">
         {hero?.url && (
           <img
             src={hero.url}
@@ -244,14 +262,16 @@ export function Home() {
           />
         )}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,24,14,0.62)_0%,rgba(35,24,14,0.28)_55%,rgba(35,24,14,0)_80%),linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.40)_100%)]" />
-        <div className="px-gutter relative z-[2] max-w-[900px] pb-[72px] pt-[clamp(48px,8vw,96px)] text-cream animate-in fade-in-0 slide-in-from-bottom-4 duration-1000">
+        <div className="px-gutter relative z-[2] max-w-[900px] pb-[72px] pt-[clamp(48px,8vw,96px)] text-cream animate-in fade-in-0 slide-in-from-bottom-4 duration-1000 lg:max-w-[1000px] lg:pb-[clamp(64px,8vh,84px)] lg:pt-[clamp(16px,2.4vh,72px)]">
           <span className="text-[13px] uppercase tracking-[2px] text-wheat-light">{text("heroEyebrow")}</span>
-          <Accent size="lg" className="mt-[18px]" />
-          <h1 className="mb-6 mt-[18px] font-serif text-[clamp(36px,5.5vw,64px)] font-medium leading-[1.08]">
+          <Accent size="lg" className="mt-[18px] lg:mt-[min(18px,1.6vh)]" />
+          <h1 className="mb-6 mt-[18px] font-serif text-[clamp(36px,5.5vw,64px)] font-medium leading-[1.08] lg:mb-[min(24px,2.2vh)] lg:mt-[min(18px,1.6vh)] lg:text-[clamp(36px,min(4.6vw,5.4vh),64px)]">
             <Typo text={text("heroTitle")} />
           </h1>
-          <p className="mb-6 max-w-[640px] text-lg leading-relaxed text-[#F6EEDC]">{text("heroSubtitle")}</p>
-          <ul className="mb-8 flex flex-wrap gap-2" aria-label={t("home.factsLabel")}>
+          <p className="mb-6 max-w-[640px] text-lg leading-relaxed text-[#F6EEDC] lg:mb-[min(24px,2.2vh)] lg:text-[clamp(16px,2.2vh,18px)]">
+            {text("heroSubtitle")}
+          </p>
+          <ul className="mb-8 flex flex-wrap gap-2 lg:mb-[min(32px,2.6vh)]" aria-label={t("home.factsLabel")}>
             {facts.map((f) => (
               <li key={f} className="rounded-full border border-cream/30 bg-ink/25 px-3.5 py-1.5 text-[13px] text-cream backdrop-blur-sm">
                 {f}
@@ -272,7 +292,7 @@ export function Home() {
 
       <BookingBar />
 
-      <section className="px-gutter pb-[72px] pt-24">
+      <section id="bienvenue" className="px-gutter scroll-mt-20 pb-[72px] pt-20 lg:pt-16">
         <Reveal className="mx-auto flex max-w-[1100px] flex-wrap gap-16">
           <div className="flex-[1_1_320px]">
             <Eyebrow>{t("home.welcome")}</Eyebrow>

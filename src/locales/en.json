@@ -14,6 +14,7 @@
     "tagline": "Millières · Normandy"
   },
   "footer": {
+    "backToTop": "Back to top",
     "explore": "Explore",
     "book": "Book",
     "pricing": "Rates & availability",
@@ -91,6 +92,7 @@
     "counter": "{{index}} / {{total}}"
   },
   "home": {
+    "scrollDown": "Scroll down to the content",
     "priceFrom": "Stays from",
     "factsLabel": "The manor at a glance",
     "facts": ["Up to 14 guests", "5 bedrooms", "7-seat hot tub", "Private pond", "1,500 m² garden"],

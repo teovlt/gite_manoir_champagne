@@ -154,6 +154,13 @@
     transform: translateY(-4px);
     box-shadow: 0 14px 30px rgba(43, 42, 37, 0.12);
   }
+  /* Gentle up-and-down hint on the "scroll down" arrow */
+  .scroll-hint {
+    animation: scroll-hint 1.8s ease-in-out infinite;
+  }
+  .scroll-hint:hover {
+    animation-play-state: paused;
+  }
   .photo-warm {
     filter: saturate(1.12) sepia(0.05) contrast(1.02);
   }
@@ -169,6 +176,16 @@
   }
   to {
     transform: scale(1);
+  }
+}
+
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
   }
 }
 
@@ -191,6 +208,9 @@
     transition: none;
   }
   .hero-zoom {
+    animation: none;
+  }
+  .scroll-hint {
     animation: none;
   }
   .zoom-frame img,

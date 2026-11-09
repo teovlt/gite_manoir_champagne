@@ -14,6 +14,7 @@
     "tagline": "Millières · Manche"
   },
   "footer": {
+    "backToTop": "Haut de page",
     "explore": "Explorer",
     "book": "Réserver",
     "pricing": "Tarifs & disponibilités",
@@ -91,6 +92,7 @@
     "counter": "{{index}} / {{total}}"
   },
   "home": {
+    "scrollDown": "Faire défiler vers le contenu",
     "priceFrom": "Séjours dès",
     "factsLabel": "Le manoir en bref",
     "facts": ["Jusqu’à 14 personnes", "5 chambres", "Jacuzzi 7 places", "Étang privé", "Jardin de 1 500 m²"],

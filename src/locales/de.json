@@ -14,6 +14,7 @@
     "tagline": "Millières · Normandie"
   },
   "footer": {
+    "backToTop": "Nach oben",
     "explore": "Entdecken",
     "book": "Buchen",
     "pricing": "Preise & Verfügbarkeit",
@@ -91,6 +92,7 @@
     "counter": "{{index}} / {{total}}"
   },
   "home": {
+    "scrollDown": "Zum Inhalt scrollen",
     "priceFrom": "Aufenthalte ab",
     "factsLabel": "Das Herrenhaus auf einen Blick",
     "facts": ["Bis zu 14 Personen", "5 Schlafzimmer", "Whirlpool für 7", "Privater Teich", "1.500 m² Garten"],
