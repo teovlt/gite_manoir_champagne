@@ -45,7 +45,11 @@ adminRoutes.get(
       col.activity.find().sort({ createdAt: -1 }).limit(1).next(),
       col.activity.find().sort({ createdAt: -1 }).limit(8).toArray(),
       col.requests.find().sort({ createdAt: -1 }).limit(6).toArray(),
-      col.availability.find({ end: { $gt: today() } }).sort({ start: 1 }).limit(4).toArray(),
+      col.availability
+        .find({ end: { $gt: today() } })
+        .sort({ start: 1 })
+        .limit(4)
+        .toArray(),
     ]);
     res.json({
       stats: {
@@ -136,18 +140,19 @@ adminRoutes.put(
     const lang = req.body?.lang;
     if (!page) return bad(res, "Page inconnue.", 404);
     if (!LANGS.includes(lang)) return bad(res, "Langue inconnue.");
-    const allowed = new Set(page.sections.flatMap((s) => s.fields.map((f) => f.key)));
+    const defaults = new Map(page.sections.flatMap((s) => s.fields.map((f) => [f.key, f.value?.[lang] ?? ""])));
+    // Only the fields sent are touched. A text equal to the default (or emptied) drops the override,
+    // so later updates of the default texts keep reaching the site.
     const ops = Object.entries(req.body?.values ?? {})
-      .filter(([key, value]) => allowed.has(key) && typeof value === "string")
-      .map(([key, value]) => ({
-        updateOne: {
-          filter: { page: page.id, key, lang },
-          update: { $set: { value: value.slice(0, 20000), updatedAt: new Date(), updatedBy: who(req) } },
-          upsert: true,
-        },
-      }));
+      .filter(([key, value]) => defaults.has(key) && typeof value === "string")
+      .map(([key, value]) => {
+        const filter = { page: page.id, key, lang };
+        const text = value.slice(0, 20000);
+        if (!text.trim() || text.trim() === defaults.get(key).trim()) return { deleteOne: { filter } };
+        return { updateOne: { filter, update: { $set: { value: text, updatedAt: new Date(), updatedBy: who(req) } }, upsert: true } };
+      });
     if (ops.length) await col.content.bulkWrite(ops);
-    await log(req, `a modifié le texte de la page ${page.label} (${lang.toUpperCase()})`);
+    if (ops.length) await log(req, `a modifié le texte de la page ${page.label} (${lang.toUpperCase()})`);
     res.json({ ok: true });
   }),
 );
@@ -167,7 +172,10 @@ adminRoutes.put(
 
 // ---------------------------------------------------------------- site settings (contact, map)
 
-adminRoutes.get("/settings", h(async (_req, res) => res.json(await getSetting("site", contentSchema.settings))));
+adminRoutes.get(
+  "/settings",
+  h(async (_req, res) => res.json(await getSetting("site", contentSchema.settings))),
+);
 
 adminRoutes.put(
   "/settings",
@@ -193,7 +201,10 @@ adminRoutes.put(
 
 // ---------------------------------------------------------------- photos
 
-adminRoutes.get("/photos", h(async (_req, res) => res.json((await col.photos.find().sort({ sort: 1, _id: 1 }).toArray()).map(toPhoto))));
+adminRoutes.get(
+  "/photos",
+  h(async (_req, res) => res.json((await col.photos.find().sort({ sort: 1, _id: 1 }).toArray()).map(toPhoto))),
+);
 
 const altFromName = (name) => {
   const base = name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ");
@@ -269,7 +280,10 @@ adminRoutes.delete(
 adminRoutes.get(
   "/events",
   h(async (_req, res) => {
-    const [bannerEnabled, events] = await Promise.all([getSetting("bannerEnabled", true), col.events.find().sort({ startDate: -1, _id: -1 }).toArray()]);
+    const [bannerEnabled, events] = await Promise.all([
+      getSetting("bannerEnabled", true),
+      col.events.find().sort({ startDate: -1, _id: -1 }).toArray(),
+    ]);
     res.json({ bannerEnabled, events: events.map(toEvent) });
   }),
 );
@@ -337,7 +351,10 @@ adminRoutes.put(
 
 // ---------------------------------------------------------------- pricing
 
-adminRoutes.get("/pricing", h(async (_req, res) => res.json(await getSetting("pricing"))));
+adminRoutes.get(
+  "/pricing",
+  h(async (_req, res) => res.json(await getSetting("pricing"))),
+);
 
 const price = (v) => {
   const n = Number(String(v).replace(/\s/g, "").replace(",", "."));
@@ -392,12 +409,22 @@ adminRoutes.get(
   h(async (_req, res) => {
     const from = new Date(Date.now() - 60 * 86400000).toISOString().slice(0, 10);
     const [blocks, icalUrls, lastSync] = await Promise.all([
-      col.availability.find({ end: { $gte: from } }).sort({ start: 1 }).toArray(),
+      col.availability
+        .find({ end: { $gte: from } })
+        .sort({ start: 1 })
+        .toArray(),
       getSetting("icalUrls", []),
       getSetting("icalLastSync", null),
     ]);
     res.json({
-      blocks: blocks.map((b) => ({ id: String(b._id), start: b.start, end: b.end, label: b.label, source: b.source, feed: b.feed ?? null })),
+      blocks: blocks.map((b) => ({
+        id: String(b._id),
+        start: b.start,
+        end: b.end,
+        label: b.label,
+        source: b.source,
+        feed: b.feed ?? null,
+      })),
       icalUrls,
       lastSync,
     });
@@ -447,7 +474,10 @@ adminRoutes.put(
   }),
 );
 
-adminRoutes.post("/availability/sync", h(async (_req, res) => res.json({ report: await syncIcal() })));
+adminRoutes.post(
+  "/availability/sync",
+  h(async (_req, res) => res.json({ report: await syncIcal() })),
+);
 
 // ---------------------------------------------------------------- account & users
 
@@ -458,8 +488,10 @@ adminRoutes.put(
     const update = {};
     if (name) update.name = name;
     if (req.body?.newPassword !== undefined) {
-      if (!(await verifyPassword(String(req.body.currentPassword ?? ""), req.user.passwordHash))) return bad(res, "Mot de passe actuel incorrect.");
-      if (String(req.body.newPassword).length < MIN_PASSWORD) return bad(res, `Le nouveau mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`);
+      if (!(await verifyPassword(String(req.body.currentPassword ?? ""), req.user.passwordHash)))
+        return bad(res, "Mot de passe actuel incorrect.");
+      if (String(req.body.newPassword).length < MIN_PASSWORD)
+        return bad(res, `Le nouveau mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`);
       update.passwordHash = await hashPassword(String(req.body.newPassword));
       update.sessionVersion = (req.user.sessionVersion ?? 0) + 1;
     }
@@ -470,7 +502,11 @@ adminRoutes.put(
   }),
 );
 
-adminRoutes.get("/users", requireAdmin, h(async (_req, res) => res.json((await col.users.find().sort({ createdAt: 1 }).toArray()).map(toUser))));
+adminRoutes.get(
+  "/users",
+  requireAdmin,
+  h(async (_req, res) => res.json((await col.users.find().sort({ createdAt: 1 }).toArray()).map(toUser))),
+);
 
 adminRoutes.post(
   "/users",
@@ -509,11 +545,13 @@ adminRoutes.patch(
     const update = {};
     if (req.body?.name) update.name = str(req.body.name, 80);
     if (ROLES.includes(req.body?.role) && req.body.role !== user.role) {
-      if (user.role === "admin" && (await col.users.countDocuments({ role: "admin" })) <= 1) return bad(res, "Il faut garder au moins un administrateur.");
+      if (user.role === "admin" && (await col.users.countDocuments({ role: "admin" })) <= 1)
+        return bad(res, "Il faut garder au moins un administrateur.");
       update.role = req.body.role;
     }
     if (req.body?.password) {
-      if (String(req.body.password).length < MIN_PASSWORD) return bad(res, `Le mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`);
+      if (String(req.body.password).length < MIN_PASSWORD)
+        return bad(res, `Le mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`);
       update.passwordHash = await hashPassword(String(req.body.password));
       update.sessionVersion = (user.sessionVersion ?? 0) + 1;
     }
@@ -530,7 +568,8 @@ adminRoutes.delete(
     const user = await col.users.findOne({ _id: oid(req.params.id) });
     if (!user) return bad(res, "Compte introuvable.", 404);
     if (String(user._id) === String(req.user._id)) return bad(res, "Vous ne pouvez pas supprimer votre propre compte.");
-    if (user.role === "admin" && (await col.users.countDocuments({ role: "admin" })) <= 1) return bad(res, "Il faut garder au moins un administrateur.");
+    if (user.role === "admin" && (await col.users.countDocuments({ role: "admin" })) <= 1)
+      return bad(res, "Il faut garder au moins un administrateur.");
     await col.users.deleteOne({ _id: user._id });
     await log(req, `a supprimé le compte de ${user.name}`);
     res.json({ ok: true });

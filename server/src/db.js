@@ -85,6 +85,21 @@ export async function seed() {
       ),
   );
 
+  // Text overrides that only repeat the default, or still hold a "[to be completed]" placeholder, are dropped:
+  // the site then shows the current default text (older admin versions saved every field of a page).
+  const defaultText = new Map(
+    contentSchema.pages.flatMap((p) =>
+      p.sections.flatMap((s) => s.fields.flatMap((f) => Object.entries(f.value ?? {}).map(([lang, v]) => [`${p.id}|${f.key}|${lang}`, v]))),
+    ),
+  );
+  const stale = [];
+  for await (const row of col.content.find({}, { projection: { page: 1, key: 1, lang: 1, value: 1 } })) {
+    const value = String(row.value ?? "").trim();
+    const def = defaultText.get(`${row.page}|${row.key}|${row.lang}`);
+    if (!value || (def !== undefined && value === def.trim()) || /^\[[^\]]*\]$/.test(value)) stale.push(row._id);
+  }
+  if (stale.length) await col.content.deleteMany({ _id: { $in: stale } });
+
   const defaults = {
     pricing: readShared("pricing.json"),
     navLinks: contentSchema.navLinks,

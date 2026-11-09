@@ -2,7 +2,16 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { AdminCard, AdminH2, AdminLabel, InfoNote, LangSwitch, PillTabs, adminInputClass, type AdminLang } from "@/components/admin/admin-ui";
+import {
+  AdminCard,
+  AdminH2,
+  AdminLabel,
+  InfoNote,
+  LangSwitch,
+  PillTabs,
+  adminInputClass,
+  type AdminLang,
+} from "@/components/admin/admin-ui";
 import { contentPages, defaultContent, resolveText, useSiteData } from "@/providers/site-data-provider";
 import { api } from "@/lib/api";
 import { localize } from "@/lib/locale";
@@ -16,6 +25,7 @@ export function AdminContent() {
   const [pageId, setPageId] = useState(contentPages[0].id);
   const [lang, setLang] = useState<AdminLang>("fr");
   const [values, setValues] = useState<PageValues>({});
+  const [loaded, setLoaded] = useState<Record<string, string>>({});
   const [links, setLinks] = useState<NavLink[]>(data.navLinks);
   const [dirty, setDirty] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -25,9 +35,11 @@ export function AdminContent() {
   // Load the effective texts of this page/language (owner's text, else the default translation).
   useEffect(() => {
     if (dirty) return;
-    setValues({
-      [pageId]: Object.fromEntries(page.sections.flatMap((s) => s.fields.map((f) => [f.key, resolveText(data.content, lang, pageId, f.key)]))),
-    });
+    const current = Object.fromEntries(
+      page.sections.flatMap((s) => s.fields.map((f) => [f.key, resolveText(data.content, lang, pageId, f.key)])),
+    );
+    setValues({ [pageId]: current });
+    setLoaded(current);
     setLinks(data.navLinks);
   }, [data, pageId, lang, dirty, page]);
 
@@ -47,7 +59,9 @@ export function AdminContent() {
   const save = async () => {
     setSaving(true);
     try {
-      await api.put(`/api/admin/content/${pageId}`, { lang, values: values[pageId] });
+      // Only the edited fields: the others keep following the default texts.
+      const changed = Object.fromEntries(Object.entries(values[pageId] ?? {}).filter(([key, value]) => value !== loaded[key]));
+      if (Object.keys(changed).length) await api.put(`/api/admin/content/${pageId}`, { lang, values: changed });
       if (pageId === "accueil") await api.put("/api/admin/nav-links", { links });
       setDirty(false);
       await refresh();
@@ -61,13 +75,20 @@ export function AdminContent() {
 
   return (
     <>
-      <PillTabs label="Pages du site" items={contentPages.map((p) => ({ id: p.id, label: p.label }))} value={pageId} onChange={switchPage} className="mb-5" />
+      <PillTabs
+        label="Pages du site"
+        items={contentPages.map((p) => ({ id: p.id, label: p.label }))}
+        value={pageId}
+        onChange={switchPage}
+        className="mb-5"
+      />
 
       <div className="mb-6 flex flex-wrap items-center gap-4">
         <LangSwitch value={lang} onChange={switchLang} />
         <div className="min-w-[260px] flex-1">
           <InfoNote>
-            Vous modifiez la page <strong>{page.label}</strong> en <strong>{langName[lang]}</strong>. Les changements sont visibles immédiatement après enregistrement.
+            Vous modifiez la page <strong>{page.label}</strong> en <strong>{langName[lang]}</strong>. Les changements sont visibles
+            immédiatement après enregistrement.
           </InfoNote>
         </div>
       </div>
@@ -80,12 +101,26 @@ export function AdminContent() {
               const id = `${pageId}-${f.key}`;
               const value = values[pageId]?.[f.key] ?? "";
               const reference = lang !== "fr" ? resolveText(data.content, "fr", pageId, f.key) : null;
-              const isDefault = value === (defaultContent[lang]?.[pageId]?.[f.key] ?? "");
+              const original = defaultContent[lang]?.[pageId]?.[f.key] ?? "";
+              const isDefault = value.trim() === original.trim();
               return (
                 <div key={f.key} className="flex flex-col gap-1.5">
                   <div className="flex items-baseline justify-between gap-2">
                     <AdminLabel htmlFor={id}>{f.label}</AdminLabel>
-                    {isDefault && <span className="text-[10.5px] text-pebble">texte d'origine</span>}
+                    {isDefault ? (
+                      <span className="text-[10.5px] text-pebble">texte d'origine</span>
+                    ) : (
+                      original && (
+                        <button
+                          type="button"
+                          onClick={() => setField(f.key, original)}
+                          className="text-[11px] font-semibold text-umber underline-offset-2 hover:text-clay hover:underline"
+                          title={original}
+                        >
+                          Rétablir le texte d'origine
+                        </button>
+                      )
+                    )}
                   </div>
                   {f.type === "textarea" ? (
                     <textarea
@@ -96,7 +131,13 @@ export function AdminContent() {
                       className={cn(adminInputClass, "resize-y")}
                     />
                   ) : (
-                    <input id={id} type="text" value={value} onChange={(e) => setField(f.key, e.target.value)} className={adminInputClass} />
+                    <input
+                      id={id}
+                      type="text"
+                      value={value}
+                      onChange={(e) => setField(f.key, e.target.value)}
+                      className={adminInputClass}
+                    />
                   )}
                   {reference && reference !== value && (
                     <details className="text-[12px] text-stone">
@@ -166,7 +207,11 @@ export function AdminContent() {
         <Button type="button" variant="clay" size="pillMd" className="px-8" disabled={!dirty || saving} onClick={save}>
           {saving ? "Enregistrement…" : "Enregistrer les modifications"}
         </Button>
-        <Link to={localize(page.path, lang)} target="_blank" className="px-2.5 py-3.5 text-[13px] font-semibold uppercase tracking-[1px] text-umber hover:text-clay">
+        <Link
+          to={localize(page.path, lang)}
+          target="_blank"
+          className="px-2.5 py-3.5 text-[13px] font-semibold uppercase tracking-[1px] text-umber hover:text-clay"
+        >
           Aperçu du site →
         </Link>
         {dirty && <span className="text-[12.5px] text-stone">Modifications non enregistrées</span>}

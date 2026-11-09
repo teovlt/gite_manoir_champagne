@@ -8,6 +8,7 @@ import { AdminCard, AdminH2, AdminLabel, InfoNote, adminInputClass } from "@/com
 import { useSiteData } from "@/providers/site-data-provider";
 import { api } from "@/lib/api";
 import type { SiteSettings } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 const pin = L.divIcon({
   className: "",
@@ -15,6 +16,14 @@ const pin = L.divIcon({
   iconSize: [34, 44],
   iconAnchor: [17, 43],
 });
+
+/** "49,17" or "49.17" → 49.17; anything incomplete → null. */
+const parseCoord = (raw: string) => {
+  const v = raw.trim().replace(",", ".");
+  if (!/^-?\d+(\.\d+)?$/.test(v)) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+};
 
 function ClickToPlace({ onPick }: { onPick: (lat: number, lng: number) => void }) {
   useMapEvents({ click: (e) => onPick(e.latlng.lat, e.latlng.lng) });
@@ -28,17 +37,43 @@ export function AdminSettings() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    api.get<SiteSettings>("/api/admin/settings").then(setForm).catch((e) => toast.error(e.message));
+    api
+      .get<SiteSettings>("/api/admin/settings")
+      .then(setForm)
+      .catch((e) => toast.error(e.message));
   }, []);
 
   const setLoc = (patch: Partial<SiteSettings["location"]>) => setForm((f) => ({ ...f, location: { ...f.location, ...patch } }));
+
+  // The GPS fields keep what is typed ("-1.", "49,17", empty…); the map only moves on a valid number.
+  const [typed, setTyped] = useState({
+    lat: String(data.settings.location.lat),
+    lng: String(data.settings.location.lng),
+    zoom: String(data.settings.location.zoom),
+  });
+  useEffect(() => {
+    const { lat, lng, zoom } = form.location;
+    setTyped((t) => ({
+      lat: parseCoord(t.lat) === lat ? t.lat : String(lat),
+      lng: parseCoord(t.lng) === lng ? t.lng : String(lng),
+      zoom: parseCoord(t.zoom) === zoom ? t.zoom : String(zoom),
+    }));
+  }, [form.location]);
+  const typeCoord = (k: "lat" | "lng" | "zoom", raw: string) => {
+    setTyped((t) => ({ ...t, [k]: raw }));
+    const n = parseCoord(raw);
+    const ok = n !== null && (k === "lat" ? Math.abs(n) <= 90 : k === "lng" ? Math.abs(n) <= 180 : n >= 5 && n <= 18);
+    if (ok) setLoc({ [k]: k === "zoom" ? Math.round(n) : n });
+  };
 
   /** Address lookup through OpenStreetMap's geocoder (Nominatim). */
   const geocode = async () => {
     const q = search || form.address;
     if (!q) return;
     try {
-      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(q)}`, { headers: { "Accept-Language": "fr" } });
+      const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(q)}`, {
+        headers: { "Accept-Language": "fr" },
+      });
       const [hit] = (await res.json()) as { lat: string; lon: string; display_name: string }[];
       if (!hit) return toast.error("Adresse introuvable — placez le repère en cliquant sur la carte.");
       setLoc({ lat: Number(hit.lat), lng: Number(hit.lon) });
@@ -69,18 +104,36 @@ export function AdminSettings() {
         <AdminH2>Coordonnées affichées sur le site</AdminH2>
         <div className="flex flex-col gap-1.5">
           <AdminLabel htmlFor="s-phone">Téléphone</AdminLabel>
-          <input id="s-phone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className={adminInputClass} />
+          <input
+            id="s-phone"
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            className={adminInputClass}
+          />
         </div>
         <div className="flex flex-col gap-1.5">
           <AdminLabel htmlFor="s-address">Adresse (rue, code postal + ville)</AdminLabel>
-          <input id="s-address" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} className={adminInputClass} />
+          <input
+            id="s-address"
+            value={form.address}
+            onChange={(e) => setForm({ ...form, address: e.target.value })}
+            className={adminInputClass}
+          />
         </div>
         <div className="flex flex-col gap-1.5">
           <AdminLabel htmlFor="s-abritel">Lien vers votre annonce / vos avis Abritel</AdminLabel>
-          <input id="s-abritel" placeholder="https://www.abritel.fr/location-vacances/p…" value={form.abritelUrl} onChange={(e) => setForm({ ...form, abritelUrl: e.target.value })} className={adminInputClass} />
+          <input
+            id="s-abritel"
+            placeholder="https://www.abritel.fr/location-vacances/p…"
+            value={form.abritelUrl}
+            onChange={(e) => setForm({ ...form, abritelUrl: e.target.value })}
+            className={adminInputClass}
+          />
           <p className="text-[12px] text-stone">Laissé vide, le bouton « Lire tous les avis sur Abritel » est masqué.</p>
         </div>
-        <InfoNote>Ces informations apparaissent dans le pied de page, la page Contact et les itinéraires GPS, dans les trois langues.</InfoNote>
+        <InfoNote>
+          Ces informations apparaissent dans le pied de page, la page Contact et les itinéraires GPS, dans les trois langues.
+        </InfoNote>
       </AdminCard>
 
       <AdminCard className="flex flex-col gap-4 p-6">
@@ -99,7 +152,12 @@ export function AdminSettings() {
           </Button>
         </div>
         <div className="relative isolate aspect-[4/3] overflow-hidden rounded-[14px] border border-line-strong">
-          <MapContainer center={[lat, lng]} zoom={zoom} className="absolute inset-0 h-full w-full" key={`${lat.toFixed(3)}-${lng.toFixed(3)}`}>
+          <MapContainer
+            center={[lat, lng]}
+            zoom={zoom}
+            className="absolute inset-0 h-full w-full"
+            key={`${lat.toFixed(3)}-${lng.toFixed(3)}`}
+          >
             <TileLayer url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="© OpenStreetMap" />
             <Marker
               position={[lat, lng]}
@@ -110,19 +168,41 @@ export function AdminSettings() {
             <ClickToPlace onPick={(la, ln) => setLoc({ lat: la, lng: ln })} />
           </MapContainer>
         </div>
-        <p className="text-[12px] text-stone">Cliquez sur la carte ou faites glisser le repère pour ajuster la position exacte de l'entrée.</p>
+        <p className="text-[12px] text-stone">
+          Cliquez sur la carte ou faites glisser le repère pour ajuster la position exacte de l'entrée.
+        </p>
         <div className="grid grid-cols-3 gap-3">
           <div className="flex flex-col gap-1.5">
             <AdminLabel htmlFor="s-lat">Latitude</AdminLabel>
-            <input id="s-lat" inputMode="decimal" value={lat} onChange={(e) => setLoc({ lat: Number(e.target.value) })} className={adminInputClass} />
+            <input
+              id="s-lat"
+              inputMode="decimal"
+              value={typed.lat}
+              onChange={(e) => typeCoord("lat", e.target.value)}
+              className={cn(adminInputClass, parseCoord(typed.lat) === null && "border-clay")}
+            />
           </div>
           <div className="flex flex-col gap-1.5">
             <AdminLabel htmlFor="s-lng">Longitude</AdminLabel>
-            <input id="s-lng" inputMode="decimal" value={lng} onChange={(e) => setLoc({ lng: Number(e.target.value) })} className={adminInputClass} />
+            <input
+              id="s-lng"
+              inputMode="decimal"
+              value={typed.lng}
+              onChange={(e) => typeCoord("lng", e.target.value)}
+              className={cn(adminInputClass, parseCoord(typed.lng) === null && "border-clay")}
+            />
           </div>
           <div className="flex flex-col gap-1.5">
             <AdminLabel htmlFor="s-zoom">Zoom</AdminLabel>
-            <input id="s-zoom" type="number" min={5} max={18} value={zoom} onChange={(e) => setLoc({ zoom: Number(e.target.value) })} className={adminInputClass} />
+            <input
+              id="s-zoom"
+              type="number"
+              min={5}
+              max={18}
+              value={typed.zoom}
+              onChange={(e) => typeCoord("zoom", e.target.value)}
+              className={adminInputClass}
+            />
           </div>
         </div>
       </AdminCard>

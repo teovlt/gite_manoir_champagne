@@ -30,7 +30,9 @@ function YearOverview({ blocks }: { blocks: AvailabilityBlock[] }) {
         const offset = (m.getDay() + 6) % 7;
         return (
           <div key={m.toISOString()}>
-            <p className="mb-1.5 text-xs font-semibold capitalize text-umber">{m.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}</p>
+            <p className="mb-1.5 text-xs font-semibold capitalize text-umber">
+              {m.toLocaleDateString("fr-FR", { month: "long", year: "numeric" })}
+            </p>
             <div className="grid grid-cols-7 gap-[3px]">
               {Array.from({ length: offset }, (_, k) => (
                 <span key={k} />
@@ -42,7 +44,13 @@ function YearOverview({ blocks }: { blocks: AvailabilityBlock[] }) {
                   <span
                     key={day}
                     title={b ? `${day} — ${b.label}` : day}
-                    className={cn("aspect-square rounded-[3px]", !b && "bg-line", b?.source === "ical" && "bg-[#C9A36A]", b?.source === "request" && "bg-sage-dark", b?.source === "manual" && "bg-clay")}
+                    className={cn(
+                      "aspect-square rounded-[3px]",
+                      !b && "bg-line",
+                      b?.source === "ical" && "bg-[#C9A36A]",
+                      b?.source === "request" && "bg-sage-dark",
+                      b?.source === "manual" && "bg-clay",
+                    )}
                   />
                 );
               })}
@@ -110,9 +118,13 @@ export function AdminCalendar() {
   const sync = async () => {
     setSaving(true);
     try {
-      await api.post("/api/admin/availability/sync");
-      toast.success("Synchronisation terminée.");
+      const res = await api.post<{ report: SyncReport }>("/api/admin/availability/sync");
+      const failed = res.report.filter((r) => !r.ok);
+      if (failed.length) toast.error(`Synchronisation incomplète : ${failed.map((f) => f.error).join(", ")}`);
+      else toast.success("Synchronisation terminée.");
       load();
+    } catch (err) {
+      toast.error((err as Error).message);
     } finally {
       setSaving(false);
     }
@@ -147,18 +159,43 @@ export function AdminCalendar() {
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
                 <AdminLabel htmlFor="bl-start">Arrivée</AdminLabel>
-                <input id="bl-start" type="date" required value={draft.start} onChange={(e) => setDraft({ ...draft, start: e.target.value })} className={adminInputClass} />
+                <input
+                  id="bl-start"
+                  type="date"
+                  required
+                  value={draft.start}
+                  onChange={(e) => setDraft({ ...draft, start: e.target.value })}
+                  className={adminInputClass}
+                />
               </div>
               <div className="flex flex-col gap-1.5">
                 <AdminLabel htmlFor="bl-end">Départ</AdminLabel>
-                <input id="bl-end" type="date" required min={draft.start} value={draft.end} onChange={(e) => setDraft({ ...draft, end: e.target.value })} className={adminInputClass} />
+                <input
+                  id="bl-end"
+                  type="date"
+                  required
+                  min={draft.start}
+                  value={draft.end}
+                  onChange={(e) => setDraft({ ...draft, end: e.target.value })}
+                  className={adminInputClass}
+                />
               </div>
             </div>
             <div className="flex flex-col gap-1.5">
               <AdminLabel htmlFor="bl-label">Libellé (visible ici seulement)</AdminLabel>
-              <input id="bl-label" placeholder="Ex. Famille Martin, travaux, usage personnel…" value={draft.label} onChange={(e) => setDraft({ ...draft, label: e.target.value })} className={adminInputClass} />
+              <input
+                id="bl-label"
+                placeholder="Ex. Famille Martin, travaux, usage personnel…"
+                value={draft.label}
+                onChange={(e) => setDraft({ ...draft, label: e.target.value })}
+                className={adminInputClass}
+              />
             </div>
-            {draft.start && draft.end > draft.start && <p className="text-[12.5px] text-stone">{nightsBetween(draft.start, draft.end)} nuit(s) — le jour du départ reste disponible pour une arrivée.</p>}
+            {draft.start && draft.end > draft.start && (
+              <p className="text-[12.5px] text-stone">
+                {nightsBetween(draft.start, draft.end)} nuit(s) — le jour du départ reste disponible pour une arrivée.
+              </p>
+            )}
             <Button type="submit" variant="clay" size="pillMd" className="self-start">
               Bloquer ces dates
             </Button>
@@ -168,8 +205,8 @@ export function AdminCalendar() {
         <AdminCard className="p-6">
           <AdminH2 className="mb-2">Calendriers synchronisés (iCal)</AdminH2>
           <p className="mb-4 text-[12.5px] leading-relaxed text-stone">
-            Collez le lien d'export iCal de votre annonce Abritel (Calendrier › Importer/Exporter › Exporter), Airbnb ou Booking : les réservations y sont importées
-            automatiquement toutes les 30 minutes.
+            Collez le lien d'export iCal de votre annonce Abritel (Calendrier › Importer/Exporter › Exporter), Airbnb ou Booking : les
+            réservations y sont importées automatiquement toutes les 30 minutes.
           </p>
           <div className="flex flex-col gap-2.5">
             {urls.map((u, i) => (
@@ -181,13 +218,21 @@ export function AdminCalendar() {
                   onChange={(e) => setUrls(urls.map((x, j) => (j === i ? e.target.value : x)))}
                   className={cn(adminInputClass, "rounded-xl py-2.5 text-[13px]")}
                 />
-                <button type="button" onClick={() => setUrls(urls.filter((_, j) => j !== i))} className="text-[12.5px] font-semibold text-clay">
+                <button
+                  type="button"
+                  onClick={() => setUrls(urls.filter((_, j) => j !== i))}
+                  className="text-[12.5px] font-semibold text-clay"
+                >
                   Retirer
                 </button>
               </div>
             ))}
             {urls.length < 5 && (
-              <button type="button" onClick={() => setUrls([...urls, ""])} className="self-start rounded-full border border-dashed border-khaki px-4 py-2 text-[13px] font-semibold text-umber hover:text-ink">
+              <button
+                type="button"
+                onClick={() => setUrls([...urls, ""])}
+                className="self-start rounded-full border border-dashed border-khaki px-4 py-2 text-[13px] font-semibold text-umber hover:text-ink"
+              >
                 + Ajouter un calendrier
               </button>
             )}
@@ -241,11 +286,19 @@ export function AdminCalendar() {
                 </td>
                 <td className="px-4 py-3 font-semibold">{b.label}</td>
                 <td className="px-4 py-3">
-                  <StatusBadge tone={b.source === "request" ? "sage" : b.source === "ical" ? "muted" : "wheat"}>{sourceLabel[b.source ?? "manual"]}</StatusBadge>
+                  <StatusBadge tone={b.source === "request" ? "sage" : b.source === "ical" ? "muted" : "wheat"}>
+                    {sourceLabel[b.source ?? "manual"]}
+                  </StatusBadge>
                 </td>
                 <td className="px-4 py-3">
                   {b.source !== "ical" && (
-                    <button type="button" onClick={() => remove(b)} className="text-clay hover:text-[#8A3B22]" title="Libérer" aria-label={`Libérer ${b.label}`}>
+                    <button
+                      type="button"
+                      onClick={() => remove(b)}
+                      className="text-clay hover:text-[#8A3B22]"
+                      title="Libérer"
+                      aria-label={`Libérer ${b.label}`}
+                    >
                       <Icon name="trash" size={15} strokeWidth={2} />
                     </button>
                   )}

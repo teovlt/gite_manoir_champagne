@@ -9,7 +9,13 @@ export const publicRoutes = express.Router();
 
 export async function currentBanner() {
   if (!(await getSetting("bannerEnabled", true))) return null;
-  const event = await col.events.find({ active: true, endDate: { $gte: today() } }).sort({ startDate: -1, _id: -1 }).limit(1).next();
+  // Shown during its period only, as the admin says ("affiché pendant la période").
+  const now = today();
+  const event = await col.events
+    .find({ active: true, startDate: { $lte: now }, endDate: { $gte: now } })
+    .sort({ startDate: -1, _id: -1 })
+    .limit(1)
+    .next();
   return event ? toEvent(event) : null;
 }
 
