@@ -402,8 +402,8 @@ export function Home() {
       </section>
 
       <section className="flex flex-wrap">
-        <ManorMap className="aspect-[4/3] min-h-[320px] flex-[1_1_420px]" />
-        <div className="px-gutter flex flex-[1_1_420px] flex-col justify-center gap-4 bg-sand py-16">
+        <ManorMap className="h-[260px] flex-[1_1_420px] md:h-[320px]" />
+        <div className="px-gutter flex flex-[1_1_420px] flex-col justify-center gap-3 bg-sand py-10">
           <h2 className="font-serif text-[26px] font-medium">{t("home.findUs")}</h2>
           <p className="text-[15px] leading-[1.7] text-ink-soft">
             {street}
