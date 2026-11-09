@@ -132,7 +132,6 @@ function BookingBar() {
         </a>
         .
       </p>
-      <ScrollHint targetId="bienvenue" />
     </div>
   );
 }
@@ -141,7 +140,7 @@ function BookingBar() {
 function ScrollHint({ targetId }: { targetId: string }) {
   const { t } = useTranslation();
   return (
-    <div className="mt-3 flex justify-center lg:mt-1.5">
+    <div className="mt-auto flex justify-center pb-6 pt-4 lg:pb-[clamp(12px,2.5vh,28px)] lg:pt-3">
       <button
         type="button"
         onClick={() => document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth", block: "start" })}
@@ -252,45 +251,49 @@ export function Home() {
     <>
       {data.banner && <EventBannerView event={data.banner} lang={lang} />}
 
-      <section className="relative flex min-h-[620px] items-end overflow-hidden bg-ink lg:min-h-[clamp(420px,calc(100svh-340px),620px)]">
-        {hero?.url && (
-          <img
-            src={hero.url}
-            alt={tr(hero.alt)}
-            fetchPriority="high"
-            className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover"
-          />
-        )}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,24,14,0.62)_0%,rgba(35,24,14,0.28)_55%,rgba(35,24,14,0)_80%),linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.40)_100%)]" />
-        <div className="px-gutter relative z-[2] max-w-[900px] pb-[72px] pt-[clamp(48px,8vw,96px)] text-cream animate-in fade-in-0 slide-in-from-bottom-4 duration-1000 lg:max-w-[1000px] lg:pb-[clamp(64px,8vh,84px)] lg:pt-[clamp(16px,2.4vh,72px)]">
-          <span className="text-[13px] uppercase tracking-[2px] text-wheat-light">{text("heroEyebrow")}</span>
-          <Accent size="lg" className="mt-[18px] lg:mt-[min(18px,1.6vh)]" />
-          <h1 className="mb-6 mt-[18px] font-serif text-[clamp(36px,5.5vw,64px)] font-medium leading-[1.08] lg:mb-[min(24px,2.2vh)] lg:mt-[min(18px,1.6vh)] lg:text-[clamp(36px,min(4.6vw,5.4vh),64px)]">
-            <Typo text={text("heroTitle")} />
-          </h1>
-          <p className="mb-6 max-w-[640px] text-lg leading-relaxed text-[#F6EEDC] lg:mb-[min(24px,2.2vh)] lg:text-[clamp(16px,2.2vh,18px)]">
-            {text("heroSubtitle")}
-          </p>
-          <ul className="mb-8 flex flex-wrap gap-2 lg:mb-[min(32px,2.6vh)]" aria-label={t("home.factsLabel")}>
-            {facts.map((f) => (
-              <li key={f} className="rounded-full border border-cream/30 bg-ink/25 px-3.5 py-1.5 text-[13px] text-cream backdrop-blur-sm">
-                {f}
-              </li>
-            ))}
-          </ul>
-          <div className="flex flex-wrap gap-4">
-            <Button asChild variant="clay" size="pillLg">
-              <Link to={l("/tarifs#disponibilites")}>{t("home.ctaAvailability")}</Link>
-            </Button>
-            <Button asChild variant="ghostLight" size="pillLg">
-              <Link to={l("/le-gite")}>{t("home.ctaDiscover")}</Link>
-            </Button>
+      {/* On desktop the hero, the booking bar and the arrow fill the first screen, the arrow sitting at its bottom. */}
+      <div className="flex flex-col lg:min-h-[calc(100svh-81px)]">
+        <section className="relative flex min-h-[620px] items-end overflow-hidden bg-ink lg:min-h-[clamp(420px,calc(100svh-340px),620px)] lg:flex-1">
+          {hero?.url && (
+            <img
+              src={hero.url}
+              alt={tr(hero.alt)}
+              fetchPriority="high"
+              className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover"
+            />
+          )}
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,24,14,0.62)_0%,rgba(35,24,14,0.28)_55%,rgba(35,24,14,0)_80%),linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.40)_100%)]" />
+          <div className="px-gutter relative z-[2] max-w-[900px] pb-[72px] pt-[clamp(48px,8vw,96px)] text-cream animate-in fade-in-0 slide-in-from-bottom-4 duration-1000 lg:max-w-[1000px] lg:pb-[clamp(64px,8vh,84px)] lg:pt-[clamp(16px,2.4vh,72px)]">
+            <span className="text-[13px] uppercase tracking-[2px] text-wheat-light">{text("heroEyebrow")}</span>
+            <Accent size="lg" className="mt-[18px] lg:mt-[min(18px,1.6vh)]" />
+            <h1 className="mb-6 mt-[18px] font-serif text-[clamp(36px,5.5vw,64px)] font-medium leading-[1.08] lg:mb-[min(24px,2.2vh)] lg:mt-[min(18px,1.6vh)] lg:text-[clamp(36px,min(4.6vw,5.4vh),64px)]">
+              <Typo text={text("heroTitle")} />
+            </h1>
+            <p className="mb-6 max-w-[640px] text-lg leading-relaxed text-[#F6EEDC] lg:mb-[min(24px,2.2vh)] lg:text-[clamp(16px,2.2vh,18px)]">
+              {text("heroSubtitle")}
+            </p>
+            <ul className="mb-8 flex flex-wrap gap-2 lg:mb-[min(32px,2.6vh)]" aria-label={t("home.factsLabel")}>
+              {facts.map((f) => (
+                <li key={f} className="rounded-full border border-cream/30 bg-ink/25 px-3.5 py-1.5 text-[13px] text-cream backdrop-blur-sm">
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-wrap gap-4">
+              <Button asChild variant="clay" size="pillLg">
+                <Link to={l("/tarifs#disponibilites")}>{t("home.ctaAvailability")}</Link>
+              </Button>
+              <Button asChild variant="ghostLight" size="pillLg">
+                <Link to={l("/le-gite")}>{t("home.ctaDiscover")}</Link>
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
-      <SageStripe />
+        </section>
+        <SageStripe />
 
-      <BookingBar />
+        <BookingBar />
+        <ScrollHint targetId="bienvenue" />
+      </div>
 
       <section id="bienvenue" className="px-gutter scroll-mt-20 pb-[72px] pt-20 lg:pt-16">
         <Reveal className="mx-auto flex max-w-[1100px] flex-wrap gap-16">
