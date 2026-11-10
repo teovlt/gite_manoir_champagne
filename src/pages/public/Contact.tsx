@@ -8,13 +8,15 @@ import { PageHero } from "@/components/site/page-hero";
 import { Accent } from "@/components/site/ornaments";
 import { Reveal } from "@/components/site/reveal";
 import { DirectionsPanel, ManorMap } from "@/components/site/lazy-map";
-import { Field, TextAreaField, apiErrorKey, validateBooking } from "@/components/site/form-controls";
+import { Field, TextAreaField, apiErrorKey, fieldInputClass, validateBooking } from "@/components/site/form-controls";
+import { DateRangeField, GuestFields } from "@/components/site/booking-fields";
 import { telHref } from "@/components/site/site-footer";
 import { useAvailability, usePageText, useSiteData } from "@/providers/site-data-provider";
 import { usePageMeta } from "@/lib/use-page-meta";
 import { ApiError, api } from "@/lib/api";
 import { formatDay } from "@/lib/format";
 import { useLang, useLocalePath, type Lang } from "@/lib/locale";
+import { cn } from "@/lib/utils";
 
 function describeDates(t: TFunction, lang: Lang, arrival: string, departure: string) {
   if (arrival && departure) return t("booking.datesFrom", { start: formatDay(arrival, lang), end: formatDay(departure, lang, true) });
@@ -22,50 +24,63 @@ function describeDates(t: TFunction, lang: Lang, arrival: string, departure: str
   return "";
 }
 
+const formBoxClass = cn(fieldInputClass, "h-12");
+
+type Kind = "booking" | "question";
+
 function ContactForm() {
   const { t } = useTranslation();
   const lang = useLang();
   const l = useLocalePath();
   const blocks = useAvailability();
   const [params] = useSearchParams();
-  const arrival = params.get("arrivee") ?? "";
-  const departure = params.get("depart") ?? "";
-  const fromBooking = Boolean(arrival || departure || params.get("adultes"));
+  const fromBooking = Boolean(params.get("arrivee") || params.get("depart") || params.get("adultes"));
 
-  const [v, setV] = useState({
-    nom: "",
-    email: "",
-    dates: describeDates(t, lang, arrival, departure),
-    adultes: params.get("adultes") ?? "",
-    enfants: params.get("enfants") ?? "",
+  const [kind, setKind] = useState<Kind>("booking");
+  const empty = { nom: "", email: "", arrivee: "", depart: "", adultes: 2, enfants: 0, message: "", website: "" };
+  const [v, setV] = useState(() => ({
+    ...empty,
+    arrivee: params.get("arrivee") ?? "",
+    depart: params.get("depart") ?? "",
+    adultes: Number(params.get("adultes")) || 2,
+    enfants: Number(params.get("enfants")) || 0,
     message: params.get("message") ?? "",
-    website: "", // honeypot
-  });
+  }));
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
-  const set = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setV({ ...v, [k]: e.target.value });
+  const set = (k: "nom" | "email" | "message" | "website") => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setV({ ...v, [k]: e.target.value });
+  const booking = kind === "booking";
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const error = validateBooking({ arrivee: arrival, depart: departure, adultes: v.adultes, enfants: v.enfants }, blocks);
-    if (error) return toast.error(t(error));
+    if (booking) {
+      if (!v.arrivee || !v.depart) return toast.error(t("contact.datesRequired"));
+      const error = validateBooking(
+        { arrivee: v.arrivee, depart: v.depart, adultes: String(v.adultes), enfants: String(v.enfants) },
+        blocks,
+      );
+      if (error) return toast.error(t(error));
+    }
     setSending(true);
     try {
       await api.post("/api/requests", {
         name: v.nom,
         email: v.email,
-        dates: v.dates,
-        arrival: arrival || null,
-        departure: departure || null,
-        adults: v.adultes ? Number(v.adultes) : null,
-        children: v.enfants ? Number(v.enfants) : null,
         message: v.message,
         website: v.website,
         lang,
+        ...(booking && {
+          dates: describeDates(t, lang, v.arrivee, v.depart),
+          arrival: v.arrivee,
+          departure: v.depart,
+          adults: v.adultes,
+          children: v.enfants,
+        }),
       });
       toast.success(t("booking.sent"));
       setSent(true);
-      setV({ nom: "", email: "", dates: "", adultes: "", enfants: "", message: "", website: "" });
+      setV(empty);
     } catch (err) {
       const key = err instanceof ApiError ? apiErrorKey[err.message] : undefined;
       toast.error(t(key ?? "booking.error"));
@@ -74,20 +89,66 @@ function ContactForm() {
     }
   };
 
+  const tab = (id: Kind, label: string) => (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={kind === id}
+      onClick={() => setKind(id)}
+      className={cn(
+        "flex-1 rounded-full px-4 py-2.5 text-[13px] font-semibold transition-colors",
+        kind === id ? "bg-sage-dark text-cream" : "text-umber hover:text-ink",
+      )}
+    >
+      {label}
+    </button>
+  );
+
   return (
-    <form id="formulaire" onSubmit={submit} className="flex scroll-mt-28 flex-col gap-[18px] rounded-[18px] bg-sand p-[clamp(20px,4vw,32px)]">
+    <form
+      id="formulaire"
+      onSubmit={submit}
+      className="flex scroll-mt-28 flex-col gap-[18px] rounded-[18px] bg-sand p-[clamp(20px,4vw,32px)]"
+    >
+      <div role="radiogroup" aria-label={t("contact.kindLabel")} className="flex gap-1 rounded-full border border-line-strong bg-cream p-1">
+        {tab("booking", t("contact.kindBooking"))}
+        {tab("question", t("contact.kindQuestion"))}
+      </div>
       <p className="rounded-xl border border-line-strong bg-cream px-3.5 py-2.5 text-xs leading-relaxed text-stone" aria-live="polite">
-        {sent ? t("booking.sent") : fromBooking ? t("contact.notePrefilled") : t("contact.noteDefault")}
+        {sent
+          ? t("booking.sent")
+          : !booking
+            ? t("contact.noteQuestion")
+            : fromBooking
+              ? t("contact.notePrefilled")
+              : t("contact.noteDefault")}
       </p>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(180px,100%),1fr))] gap-[18px]">
         <Field id="nom" label={t("contact.name")} type="text" required autoComplete="name" value={v.nom} onChange={set("nom")} />
         <Field id="email" label={t("contact.email")} type="email" required autoComplete="email" value={v.email} onChange={set("email")} />
       </div>
-      <Field id="dates" label={t("contact.datesWanted")} type="text" placeholder={t("contact.datesPlaceholder")} value={v.dates} onChange={set("dates")} />
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(140px,100%),1fr))] gap-[18px]">
-        <Field id="adultes-c" label={t("booking.adults")} type="number" min="1" max="14" value={v.adultes} onChange={set("adultes")} />
-        <Field id="enfants-c" label={t("booking.children")} type="number" min="0" max="13" value={v.enfants} onChange={set("enfants")} />
-      </div>
+      {booking && (
+        <>
+          <DateRangeField
+            blocks={blocks}
+            arrival={v.arrivee}
+            departure={v.depart}
+            onChange={(arrivee, depart) => setV((cur) => ({ ...cur, arrivee, depart }))}
+            boxClassName={formBoxClass}
+            idPrefix="c"
+            className="gap-x-[18px]"
+          />
+          <div className="grid grid-cols-2 gap-[18px]">
+            <GuestFields
+              adults={v.adultes}
+              children={v.enfants}
+              onChange={(adultes, enfants) => setV((cur) => ({ ...cur, adultes, enfants }))}
+              boxClassName={formBoxClass}
+              idPrefix="c"
+            />
+          </div>
+        </>
+      )}
       <TextAreaField id="message-c" label={t("contact.message")} rows={4} required value={v.message} onChange={set("message")} />
       <div className="hidden" aria-hidden="true">
         <label htmlFor="website">Website</label>
@@ -103,8 +164,22 @@ function ContactForm() {
         <Button type="submit" variant="clay" size="pillMd" className="px-8" disabled={sending}>
           {sending ? t("contact.sending") : t("contact.send")}
         </Button>
-        <a href="/demande-reservation.pdf" download className="flex items-center gap-1.5 text-xs tracking-[0.5px] text-umber hover:text-clay">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <a
+          href="/demande-reservation.pdf"
+          download
+          className="flex items-center gap-1.5 text-xs tracking-[0.5px] text-umber hover:text-clay"
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M12 3v12" />
             <path d="M7 10l5 5 5-5" />
             <path d="M4 19h16" />

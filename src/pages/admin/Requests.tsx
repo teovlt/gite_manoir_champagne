@@ -156,7 +156,7 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
 }
 
 export function AdminRequests() {
-  const [filter, setFilter] = useState<Filter>("nouvelle");
+  const [filter, setFilter] = useState<Filter>("all");
   const [requests, setRequests] = useState<BookingRequest[] | null>(null);
 
   const load = useCallback(async () => {
