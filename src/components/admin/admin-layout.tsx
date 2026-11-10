@@ -39,7 +39,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <Logo size={34} />
         <span className="flex flex-col leading-tight">
           <span className="font-serif text-[14.5px] font-semibold text-cream">Manoir de la Champagne</span>
-          <span className="text-[10px] uppercase tracking-[1px] text-stone">Administration</span>
+          <span className="text-[11px] uppercase tracking-[1px] text-[#A8A08A]">Administration</span>
         </span>
       </div>
       <nav aria-label="Administration" className="flex flex-1 flex-col gap-0.5 py-3.5">
@@ -103,7 +103,7 @@ export function AdminLayout() {
               </SheetContent>
             </Sheet>
             <div>
-              <span className="text-[11px] uppercase tracking-[1px] text-stone">Administration</span>
+              <span className="text-[12px] uppercase tracking-[1px] text-stone">Administration</span>
               <h1 className="mt-1 font-serif text-2xl font-medium">{current.label}</h1>
             </div>
           </div>
@@ -112,7 +112,7 @@ export function AdminLayout() {
               <span className="flex size-9 items-center justify-center rounded-full bg-clay text-[13px] font-semibold text-cream">{initials(user.name)}</span>
               <span className="flex flex-col leading-tight">
                 <span className="text-[13px] font-semibold">{user.name}</span>
-                <span className="text-[11px] text-stone">{user.role === "admin" ? "Administrateur" : "Éditeur"}</span>
+                <span className="text-[12px] text-stone">{user.role === "admin" ? "Administrateur" : "Éditeur"}</span>
               </span>
             </Link>
           )}

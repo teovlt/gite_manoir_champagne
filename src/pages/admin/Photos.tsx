@@ -5,6 +5,7 @@ import { useSiteData } from "@/providers/site-data-provider";
 import { api } from "@/lib/api";
 import type { Photo, PhotoSection } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 
 type Filter = "all" | PhotoSection;
 
@@ -31,6 +32,7 @@ function pickFile(onPick: (file: File) => void) {
 }
 
 function PhotoCard({ photo, lang, onChanged }: { photo: Photo; lang: AdminLang; onChanged: () => void }) {
+  const confirm = useConfirm();
   const current = photo.alt[lang] ?? "";
   const [alt, setAlt] = useState(current);
   const [busy, setBusy] = useState(false);
@@ -56,11 +58,13 @@ function PhotoCard({ photo, lang, onChanged }: { photo: Photo; lang: AdminLang; 
       run(() => api.put(`/api/admin/photos/${photo.id}/file`, form), photo.url ? "Photo remplacée." : "Photo ajoutée.");
     });
 
-  const remove = () => {
-    const message = photo.key
-      ? `Retirer « ${photo.alt.fr} » ? L'emplacement restera sur la page avec une image d'attente.`
-      : `Supprimer définitivement « ${photo.alt.fr} » ?`;
-    if (window.confirm(message)) run(() => api.delete(`/api/admin/photos/${photo.id}`), "Photo retirée.");
+  const remove = async () => {
+    const ok = await confirm(
+      photo.key
+        ? { title: "Retirer cette photo ?", message: `« ${photo.alt.fr} » : l'emplacement restera sur la page avec une image d'attente.`, confirmLabel: "Retirer" }
+        : { title: "Supprimer cette photo ?", message: `« ${photo.alt.fr} » sera supprimée définitivement.`, confirmLabel: "Supprimer", danger: true },
+    );
+    if (ok) run(() => api.delete(`/api/admin/photos/${photo.id}`), "Photo retirée.");
   };
 
   const saveAlt = () => {
@@ -96,7 +100,7 @@ function PhotoCard({ photo, lang, onChanged }: { photo: Photo; lang: AdminLang; 
             </button>
           )}
         </div>
-        <span className="absolute bottom-2 left-2 rounded-lg bg-ink/55 px-2 py-[3px] text-[10px] tracking-[0.3px] text-cream">
+        <span className="absolute bottom-2 left-2 rounded-lg bg-ink/55 px-2 py-[3px] text-[11px] tracking-[0.3px] text-cream">
           {sectionLabels[photo.section]}
           {!photo.key && " · galerie"}
         </span>
@@ -109,7 +113,7 @@ function PhotoCard({ photo, lang, onChanged }: { photo: Photo; lang: AdminLang; 
           onChange={(e) => setAlt(e.target.value)}
           onBlur={saveAlt}
           onKeyDown={(e) => e.key === "Enter" && (e.target as HTMLInputElement).blur()}
-          className="w-full rounded-[9px] border border-line-strong bg-sand px-[9px] py-[7px] text-[12.5px] outline-none focus-visible:border-sage-dark"
+          className="w-full rounded-[9px] border border-line-strong bg-sand px-[9px] py-[7px] text-[13px] outline-none focus-visible:border-sage-dark"
         />
       </div>
     </AdminCard>
@@ -170,7 +174,7 @@ export function AdminPhotos() {
     <>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <PillTabs label="Filtrer par page" items={filters} value={filter} onChange={setFilter} />
-        <div className="flex items-center gap-2 text-[12.5px] text-umber">
+        <div className="flex items-center gap-2 text-[13px] text-umber">
           Légendes en
           <LangSwitch value={lang} onChange={setLang} />
         </div>
@@ -197,10 +201,10 @@ export function AdminPhotos() {
           <span className="mb-1 text-sm font-semibold text-ink">
             {uploading ? "Envoi en cours…" : "Glissez vos photos ici, ou cliquez pour parcourir"}
           </span>
-          <span className="text-[12.5px] text-stone">JPG, PNG ou WebP, 15 Mo maximum — redimensionnées et optimisées automatiquement. Pensez au format 4:3 pour un rendu homogène.</span>
+          <span className="text-[13px] text-stone">JPG, PNG ou WebP, 15 Mo maximum — redimensionnées et optimisées automatiquement. Pensez au format 4:3 pour un rendu homogène.</span>
         </button>
         <input ref={inputRef} type="file" accept={ACCEPT} multiple hidden onChange={(e) => e.target.files && upload(e.target.files)} />
-        <div className="mt-4 flex items-center justify-center gap-2 text-[12.5px] text-umber">
+        <div className="mt-4 flex items-center justify-center gap-2 text-[13px] text-umber">
           {filter === "all" ? (
             <>
               <label htmlFor="upload-section">Ajouter à la galerie :</label>

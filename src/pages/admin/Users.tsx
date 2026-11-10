@@ -7,6 +7,7 @@ import { useAuth } from "@/providers/auth-provider";
 import { api } from "@/lib/api";
 import { formatRelative, initials } from "@/lib/format";
 import type { AdminUser } from "@/lib/types";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 
 const roleLabels = { admin: "Administrateur", editor: "Éditeur" } as const;
 const emptyDraft = { name: "", email: "", role: "editor" as AdminUser["role"], password: "" };
@@ -79,7 +80,7 @@ function UserEditor({ user, isMe, mailEnabled, onSaved, onClose, onRemove }: Edi
           <option value="admin">Administrateur</option>
           <option value="editor">Éditeur</option>
         </select>
-        {isMe && <p className="text-[12px] text-stone">Un autre administrateur doit changer votre rôle.</p>}
+        {isMe && <p className="text-[13px] text-stone">Un autre administrateur doit changer votre rôle.</p>}
       </div>
       <div className="flex flex-col gap-1.5">
         <AdminLabel htmlFor={id("pass")}>Nouveau mot de passe (facultatif)</AdminLabel>
@@ -119,6 +120,7 @@ function UserEditor({ user, isMe, mailEnabled, onSaved, onClose, onRemove }: Edi
 }
 
 export function AdminUsers() {
+  const confirm = useConfirm();
   const { user: me, setUser: setMe } = useAuth();
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [editing, setEditing] = useState<string | null>(null);
@@ -166,7 +168,7 @@ export function AdminUsers() {
   };
 
   const remove = async (u: AdminUser) => {
-    if (!window.confirm(`Supprimer définitivement le compte de ${u.name} ? Cette personne n'aura plus accès à l'administration.`)) return;
+    if (!(await confirm({ title: `Supprimer le compte de ${u.name} ?`, message: "Cette personne n'aura plus accès à l'administration. C'est définitif.", confirmLabel: "Supprimer le compte", danger: true }))) return;
     try {
       await api.delete(`/api/admin/users/${u.id}`);
       toast.success("Compte supprimé.");
@@ -188,19 +190,19 @@ export function AdminUsers() {
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-clay text-[13px] font-semibold text-cream">{initials(u.name)}</span>
                 <div className="min-w-[180px] flex-1">
                   <p className="text-[14px] font-semibold">
-                    {u.name} {u.id === me.id && <span className="text-[12px] font-normal text-stone">(vous)</span>}
+                    {u.name} {u.id === me.id && <span className="text-[13px] font-normal text-stone">(vous)</span>}
                   </p>
-                  <p className="text-[12.5px] text-stone">
+                  <p className="text-[13px] text-stone">
                     {u.email} · {u.pending ? "invitation en attente" : u.lastLoginAt ? `connecté ${formatRelative(u.lastLoginAt)}` : "jamais connecté"}
                   </p>
-                  {u.pendingEmail && <p className="text-[12px] text-rust">Nouvelle adresse à confirmer : {u.pendingEmail}</p>}
+                  {u.pendingEmail && <p className="text-[13px] text-rust">Nouvelle adresse à confirmer : {u.pendingEmail}</p>}
                 </div>
                 <StatusBadge tone={u.role === "admin" ? "sage" : "muted"}>{roleLabels[u.role]}</StatusBadge>
                 <button
                   type="button"
                   onClick={() => setEditing(editing === u.id ? null : u.id)}
                   aria-expanded={editing === u.id}
-                  className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-umber hover:text-ink"
+                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-umber hover:text-ink"
                 >
                   <Icon name="edit" size={14} />
                   Modifier
@@ -220,7 +222,7 @@ export function AdminUsers() {
             </div>
           ))}
         </AdminCard>
-        <p className="mt-3 text-[12.5px] leading-relaxed text-stone">
+        <p className="mt-3 text-[13px] leading-relaxed text-stone">
           <strong>Administrateur</strong> : accès complet, y compris la gestion des comptes et des modèles d'e-mails. <strong>Éditeur</strong> : textes, photos,
           événements, tarifs, calendrier et demandes. Chacun peut modifier son nom, son e-mail et son mot de passe dans{" "}
           <Link to="/admin/compte" className="font-semibold text-clay">
@@ -260,7 +262,7 @@ export function AdminUsers() {
               onChange={(e) => setDraft({ ...draft, password: e.target.value })}
               className={adminInputClass}
             />
-            <p className="text-[12px] text-stone">
+            <p className="text-[13px] text-stone">
               {mailEnabled
                 ? "Laissé vide, une invitation est envoyée par e-mail pour que la personne choisisse son mot de passe."
                 : "L'envoi d'e-mails n'est pas configuré : communiquez ce mot de passe à la personne."}

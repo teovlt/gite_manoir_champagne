@@ -16,7 +16,7 @@ export const isQuestion = (r: BookingRequest) => r.kind === "question";
 
 export const KindBadge = ({ r }: { r: BookingRequest }) =>
   isQuestion(r) ? (
-    <span className="rounded-full bg-wheat px-2 py-0.5 text-[10px] font-bold uppercase text-rust">Question</span>
+    <span className="rounded-full bg-wheat px-2 py-0.5 text-[11px] font-bold uppercase text-rust">Question</span>
   ) : null;
 
 /** Dates column: a question has none. */

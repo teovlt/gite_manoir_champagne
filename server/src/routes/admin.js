@@ -6,7 +6,7 @@ import { hashPassword, rateLimit, setSessionCookie, sha256, verifyPassword } fro
 import { removeImage, storeImage, upload } from "../files.js";
 import { exportToken, exportUrl, findConflicts, ignoreConflict, syncIcal } from "../ical.js";
 import { mailEnabled, send, sendEmailChange, sendInvitation } from "../mail.js";
-import { BODY_MAX, MAIL_TEMPLATES, SUBJECT_MAX, fill, listTemplates, sampleVars, saveTemplate } from "../mail-templates.js";
+import { BODY_MAX, MAIL_TEMPLATES, SUBJECT_MAX, listTemplates, renderMail, sampleVars, saveTemplate } from "../mail-templates.js";
 import { MIN_PASSWORD, sendResetLink, sessionUser } from "./auth.js";
 import { currentBanner, contentOverrides } from "./public.js";
 import { bad, h, isDate, isEmail, isSafeLink, oid, overlapQuery, str, toEvent, toPhoto, toUser, today, translated } from "./helpers.js";
@@ -725,6 +725,22 @@ adminRoutes.put(
   }),
 );
 
+/** The draft as an e-mail: subject, text and branded HTML, filled with example values. */
+const draftMail = ({ tpl, lang, subject, body }, id) => {
+  const def = tpl.defaults[lang];
+  return renderMail(subject.trim() || def.subject, body.trim() ? body : def.body, sampleVars(id), lang);
+};
+
+adminRoutes.post(
+  "/mail-templates/:id/preview",
+  requireAdmin,
+  h(async (req, res) => {
+    const input = templateInput(req);
+    if (input.error) return bad(res, input.error);
+    res.json(draftMail(input, req.params.id));
+  }),
+);
+
 /** Sends the draft (saved or not) to the signed-in user, filled with example values. */
 adminRoutes.post(
   "/mail-templates/:id/test",
@@ -732,15 +748,10 @@ adminRoutes.post(
   rateLimit({ windowMs: 15 * 60 * 1000, max: 15 }),
   h(async (req, res) => {
     if (!mailEnabled) return bad(res, mailOff);
-    const { tpl, lang, subject, body, error } = templateInput(req);
-    if (error) return bad(res, error);
-    const vars = sampleVars(req.params.id);
-    const def = tpl.defaults[lang];
-    await send({
-      to: req.user.email,
-      subject: `[Test] ${fill(subject.trim() || def.subject, vars).replace(/\s*\n\s*/g, " ")}`,
-      text: fill(body.trim() ? body : def.body, vars),
-    });
+    const input = templateInput(req);
+    if (input.error) return bad(res, input.error);
+    const mail = draftMail(input, req.params.id);
+    await send({ to: req.user.email, ...mail, subject: `[Test] ${mail.subject}` });
     res.json({ ok: true, email: req.user.email });
   }),
 );

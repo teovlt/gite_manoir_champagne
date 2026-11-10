@@ -17,6 +17,7 @@ import { useSiteData } from "@/providers/site-data-provider";
 import { api } from "@/lib/api";
 import { formatPeriodShort, todayISO } from "@/lib/format";
 import type { SiteEvent } from "@/lib/types";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 
 type Draft = Omit<SiteEvent, "id">;
 const emptyT = () => ({ fr: "", en: "", de: "" });
@@ -33,6 +34,7 @@ const pageLabels: Record<string, string> = {
 };
 
 export function AdminBanner() {
+  const confirm = useConfirm();
   const { refresh } = useSiteData();
   const [events, setEvents] = useState<SiteEvent[]>([]);
   const [enabled, setEnabled] = useState(true);
@@ -115,7 +117,7 @@ export function AdminBanner() {
   };
 
   const remove = async (ev: SiteEvent) => {
-    if (!window.confirm(`Supprimer définitivement l'événement « ${ev.title.fr} » ?`)) return;
+    if (!(await confirm({ title: "Supprimer l'événement ?", message: `« ${ev.title.fr} » sera supprimé définitivement.`, confirmLabel: "Supprimer", danger: true }))) return;
     try {
       await api.delete(`/api/admin/events/${ev.id}`);
       if (editingId === ev.id) reset();
@@ -142,7 +144,7 @@ export function AdminBanner() {
       <AdminCard className="mb-7 flex flex-wrap items-center justify-between gap-4 px-[22px] py-[18px]">
         <div>
           <span className="text-[14.5px] font-semibold">Afficher la bannière d'événements sur la page d'accueil</span>
-          <p className="mt-1 text-[12.5px] text-stone">
+          <p className="mt-1 text-[13px] text-stone">
             Un événement « Actif » s'affiche en haut de l'accueil de sa date de début à sa date de fin (le plus récent s'il y en a
             plusieurs).
           </p>
@@ -228,7 +230,7 @@ export function AdminBanner() {
               Actif (affiché sur l'accueil pendant la période)
             </label>
             {missing.length > 0 && (
-              <p className="text-[12px] text-stone">
+              <p className="text-[13px] text-stone">
                 Sans traduction {missing.map((m) => m.toUpperCase()).join(" / ")}, le texte français s'affiche sur les versions étrangères
                 du site.
               </p>
@@ -257,7 +259,7 @@ export function AdminBanner() {
               </div>
             )}
           </div>
-          <p className="mt-3.5 text-[12.5px] text-stone">
+          <p className="mt-3.5 text-[13px] text-stone">
             {draft.title.fr
               ? "Aperçu de l'événement en cours de saisie."
               : "C'est exactement ce que vos visiteurs verront en haut de la page d'accueil, juste sous le menu."}
@@ -268,7 +270,7 @@ export function AdminBanner() {
       <AdminH2 className="mb-4">Événements enregistrés</AdminH2>
       <AdminCard className="overflow-x-auto">
         <div className="min-w-[760px]">
-          <div className={`${grid} bg-wheat px-[18px] py-3 text-[11px] uppercase tracking-[0.5px] text-stone`}>
+          <div className={`${grid} bg-wheat px-[18px] py-3 text-[12px] uppercase tracking-[0.5px] text-stone`}>
             <span>Titre</span>
             <span>Période</span>
             <span>Texte</span>
@@ -286,11 +288,11 @@ export function AdminBanner() {
               <div key={ev.id} className={`${grid} items-center border-t border-line px-[18px] py-4`}>
                 <span className="text-[13.5px] font-semibold">
                   {ev.title.fr}
-                  {(!ev.title.en || !ev.title.de) && <span className="ml-2 text-[10.5px] font-normal text-pebble">non traduit</span>}
+                  {(!ev.title.en || !ev.title.de) && <span className="ml-2 text-[11.5px] font-normal text-pebble">non traduit</span>}
                 </span>
                 <span className="text-[13px] text-umber">{formatPeriodShort(ev.startDate, ev.endDate)}</span>
                 <span className="text-[13px] text-ink-soft">{ev.text.fr}</span>
-                <span className="text-[12.5px] text-stone">{pageLabels[ev.link] ?? ev.link}</span>
+                <span className="text-[13px] text-stone">{pageLabels[ev.link] ?? ev.link}</span>
                 <button type="button" onClick={() => toggleActive(ev)} title={ev.active ? "Désactiver" : "Activer"}>
                   {over ? (
                     <StatusBadge tone="muted">Terminé</StatusBadge>

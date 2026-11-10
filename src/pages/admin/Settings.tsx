@@ -129,7 +129,7 @@ export function AdminSettings() {
             onChange={(e) => setForm({ ...form, abritelUrl: e.target.value })}
             className={adminInputClass}
           />
-          <p className="text-[12px] text-stone">Laissé vide, le bouton « Lire tous les avis sur Abritel » est masqué.</p>
+          <p className="text-[13px] text-stone">Laissé vide, le bouton « Lire tous les avis sur Abritel » est masqué.</p>
         </div>
         <InfoNote>
           Ces informations apparaissent dans le pied de page, la page Contact et les itinéraires GPS, dans les trois langues.
@@ -168,7 +168,7 @@ export function AdminSettings() {
             <ClickToPlace onPick={(la, ln) => setLoc({ lat: la, lng: ln })} />
           </MapContainer>
         </div>
-        <p className="text-[12px] text-stone">
+        <p className="text-[13px] text-stone">
           Cliquez sur la carte ou faites glisser le repère pour ajuster la position exacte de l'entrée.
         </p>
         <div className="grid grid-cols-3 gap-3">

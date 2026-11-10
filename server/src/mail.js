@@ -4,12 +4,12 @@ import { renderTemplate } from "./mail-templates.js";
 export const mailEnabled = Boolean(config.mail);
 
 /** Sends an e-mail through the Resend HTTP API (no-op when RESEND_API_KEY is not set). */
-export async function send({ to, replyTo, subject, text }) {
+export async function send({ to, replyTo, subject, text, html }) {
   if (!config.mail) return;
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${config.mail.apiKey}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ from: config.mail.from, to, subject, text, ...(replyTo && { reply_to: replyTo }) }),
+    body: JSON.stringify({ from: config.mail.from, to, subject, text, ...(html && { html }), ...(replyTo && { reply_to: replyTo }) }),
     signal: AbortSignal.timeout(15_000),
   });
   if (!res.ok) {

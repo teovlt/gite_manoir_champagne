@@ -142,7 +142,7 @@ export function AdminPricing() {
         <Button type="button" variant="clay" size="pillMd" className="px-8" disabled={!dirty || invalid || saving} onClick={save}>
           {saving ? "Enregistrement…" : "Enregistrer les tarifs"}
         </Button>
-        {invalid && <span className="text-[12.5px] text-clay">Vérifiez les montants surlignés (nombres uniquement).</span>}
+        {invalid && <span className="text-[13px] text-clay">Vérifiez les montants surlignés (nombres uniquement).</span>}
       </div>
     </>
   );

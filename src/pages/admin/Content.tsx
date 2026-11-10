@@ -17,10 +17,12 @@ import { api } from "@/lib/api";
 import { localize } from "@/lib/locale";
 import type { NavLink, PageValues } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 
 const langName = { fr: "français", en: "anglais", de: "allemand" } as const;
 
 export function AdminContent() {
+  const confirm = useConfirm();
   const { data, refresh } = useSiteData();
   const [pageId, setPageId] = useState(contentPages[0].id);
   const [lang, setLang] = useState<AdminLang>("fr");
@@ -52,9 +54,19 @@ export function AdminContent() {
     setDirty(true);
   };
 
-  const guard = () => !dirty || window.confirm("Des modifications ne sont pas enregistrées. Continuer quand même ?");
-  const switchPage = (id: string) => guard() && (setDirty(false), setPageId(id));
-  const switchLang = (l: AdminLang) => guard() && (setDirty(false), setLang(l));
+  const guard = async () =>
+    !dirty ||
+    confirm({ title: "Modifications non enregistrées", message: "Si vous continuez, elles seront perdues.", confirmLabel: "Continuer sans enregistrer", danger: true });
+  const switchPage = async (id: string) => {
+    if (!(await guard())) return;
+    setDirty(false);
+    setPageId(id);
+  };
+  const switchLang = async (l: AdminLang) => {
+    if (!(await guard())) return;
+    setDirty(false);
+    setLang(l);
+  };
 
   const save = async () => {
     setSaving(true);
@@ -108,13 +120,13 @@ export function AdminContent() {
                   <div className="flex items-baseline justify-between gap-2">
                     <AdminLabel htmlFor={id}>{f.label}</AdminLabel>
                     {isDefault ? (
-                      <span className="text-[10.5px] text-pebble">texte d'origine</span>
+                      <span className="text-[11.5px] text-pebble">texte d'origine</span>
                     ) : (
                       original && (
                         <button
                           type="button"
                           onClick={() => setField(f.key, original)}
-                          className="text-[11px] font-semibold text-umber underline-offset-2 hover:text-clay hover:underline"
+                          className="text-[12px] font-semibold text-umber underline-offset-2 hover:text-clay hover:underline"
                           title={original}
                         >
                           Rétablir le texte d'origine
@@ -140,7 +152,7 @@ export function AdminContent() {
                     />
                   )}
                   {reference && reference !== value && (
-                    <details className="text-[12px] text-stone">
+                    <details className="text-[13px] text-stone">
                       <summary className="cursor-pointer select-none">Voir le texte français</summary>
                       <p className="mt-1 whitespace-pre-line rounded-lg bg-sand px-3 py-2">{reference}</p>
                     </details>
@@ -154,7 +166,7 @@ export function AdminContent() {
         {pageId === "accueil" && (
           <AdminCard className="flex flex-col gap-3.5 p-6">
             <AdminH2>Liens du pied de page (colonne « Explorer »)</AdminH2>
-            <div className="grid grid-cols-[1fr_1fr_auto] gap-3 text-[11px] uppercase tracking-[0.5px] text-stone">
+            <div className="grid grid-cols-[1fr_1fr_auto] gap-3 text-[12px] uppercase tracking-[0.5px] text-stone">
               <span>Libellé ({lang.toUpperCase()})</span>
               <span>Lien</span>
               <span className="w-12" />
@@ -181,7 +193,7 @@ export function AdminContent() {
                     setLinks(links.filter((_, j) => j !== i));
                     setDirty(true);
                   }}
-                  className="text-[12.5px] font-semibold text-clay hover:underline"
+                  className="text-[13px] font-semibold text-clay hover:underline"
                 >
                   Retirer
                 </button>
@@ -198,7 +210,7 @@ export function AdminContent() {
             >
               + Ajouter un lien
             </button>
-            <p className="text-[12px] text-stone">Les liens internes (« /le-gite ») mènent automatiquement à la bonne langue.</p>
+            <p className="text-[13px] text-stone">Les liens internes (« /le-gite ») mènent automatiquement à la bonne langue.</p>
           </AdminCard>
         )}
       </div>
@@ -214,7 +226,7 @@ export function AdminContent() {
         >
           Aperçu du site →
         </Link>
-        {dirty && <span className="text-[12.5px] text-stone">Modifications non enregistrées</span>}
+        {dirty && <span className="text-[13px] text-stone">Modifications non enregistrées</span>}
       </div>
     </>
   );

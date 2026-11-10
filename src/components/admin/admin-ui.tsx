@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 
 export const adminInputClass =
-  "w-full rounded-[14px] border border-line-strong bg-cream px-3.5 py-3 font-sans text-sm text-ink outline-none placeholder:text-[#B9B199] focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40 disabled:opacity-60";
+  "w-full rounded-[14px] border border-line-strong bg-cream px-3.5 py-3 font-sans text-[15px] text-ink outline-none placeholder:text-[#B9B199] focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40 disabled:opacity-60";
 
 /** Secondary rounded button (outline), next to the clay primary one. */
 export const adminSecondaryButtonClass =
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-line-strong bg-cream px-[22px] py-[11px] text-[13px] font-semibold text-umber transition-colors hover:border-khaki hover:text-ink disabled:pointer-events-none disabled:opacity-50";
 
 export const AdminLabel = ({ htmlFor, children }: { htmlFor?: string; children: React.ReactNode }) => (
-  <label htmlFor={htmlFor} className="text-xs uppercase tracking-[0.5px] text-umber">
+  <label htmlFor={htmlFor} className="text-[12.5px] font-medium uppercase tracking-[0.5px] text-umber">
     {children}
   </label>
 );
@@ -58,7 +58,7 @@ export function PillTabs<T extends string>({ items, value, onChange, label, clas
 export const StatusBadge = ({ tone, children, className }: { tone: "sage" | "wheat" | "muted"; children: React.ReactNode; className?: string }) => (
   <span
     className={cn(
-      "inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.3px]",
+      "inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-[12px] font-semibold uppercase tracking-[0.3px]",
       tone === "sage" && "bg-moss-light text-moss",
       tone === "wheat" && "bg-wheat text-rust",
       tone === "muted" && "bg-line text-stone",

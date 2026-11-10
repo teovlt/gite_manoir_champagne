@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { formatPeriodShort, formatRelative } from "@/lib/format";
 import type { BookingRequest, RequestStatus } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 
 type Filter = "all" | RequestStatus;
 const filters: { id: Filter; label: string }[] = [
@@ -26,6 +27,7 @@ const questionSubject = {
 } as Record<string, string>;
 
 function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void }) {
+  const confirm = useConfirm();
   const [note, setNote] = useState(r.note ?? "");
   const [busy, setBusy] = useState(false);
 
@@ -50,7 +52,7 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
   };
 
   const remove = async () => {
-    if (!window.confirm(`Supprimer définitivement ${question ? "la question" : "la demande"} de ${r.name} ?`)) return;
+    if (!(await confirm({ title: question ? "Supprimer la question ?" : "Supprimer la demande ?", message: `${question ? "La question" : "La demande"} de ${r.name} sera supprimée définitivement.`, confirmLabel: "Supprimer", danger: true }))) return;
     try {
       await api.delete(`/api/admin/requests/${r.id}`);
       toast.success("Demande supprimée.");
@@ -60,7 +62,7 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
     }
   };
 
-  const btn = "rounded-full border px-3.5 py-1.5 text-[12.5px] font-semibold transition-colors disabled:opacity-50";
+  const btn = "rounded-full border px-3.5 py-1.5 text-[13px] font-semibold transition-colors disabled:opacity-50";
 
   return (
     <AdminCard className={cn("flex flex-col gap-3 p-5", busy && "opacity-70")}>
@@ -76,7 +78,7 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
         </div>
         <div className="flex items-center gap-2">
           <KindBadge r={r} />
-          <span className="rounded-full bg-line px-2 py-0.5 text-[10px] font-bold uppercase text-stone" title="Langue du visiteur">
+          <span className="rounded-full bg-line px-2 py-0.5 text-[11px] font-bold uppercase text-stone" title="Langue du visiteur">
             {r.lang}
           </span>
           <RequestStatusBadge status={r.status} />
@@ -95,7 +97,7 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
         <dd>{formatRelative(r.createdAt)}</dd>
       </dl>
       {r.message && <p className="whitespace-pre-line rounded-xl bg-sand px-3.5 py-3 text-[13px] text-ink-soft">{r.message}</p>}
-      <label className="flex flex-col gap-1 text-[11px] uppercase tracking-[0.5px] text-stone">
+      <label className="flex flex-col gap-1 text-[12px] uppercase tracking-[0.5px] text-stone">
         Note interne
         <textarea
           rows={2}

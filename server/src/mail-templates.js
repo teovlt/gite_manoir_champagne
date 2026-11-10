@@ -1,5 +1,6 @@
 import { config } from "./config.js";
 import { getSetting, setSetting } from "./db.js";
+import { renderHtml } from "./mail-html.js";
 
 const SIGN_FR = "Loïc & Maryline Courteille\nManoir de la Champagne — 2 rue La Champagne, 50190 Millières";
 
@@ -156,9 +157,18 @@ export async function templateText(id, lang) {
   return { subject: custom?.subject || tpl.defaults[l].subject, body: custom?.body || tpl.defaults[l].body };
 }
 
+/** Fills a subject/body pair: plain text plus its branded HTML version. */
+export function renderMail(subject, body, vars, lang = "fr") {
+  const s = fill(subject, vars).replace(/\s*\n\s*/g, " ");
+  const text = fill(body, vars);
+  return { subject: s, text, html: renderHtml({ subject: s, text, lang }) };
+}
+
 export async function renderTemplate(id, lang, vars) {
-  const { subject, body } = await templateText(id, lang);
-  return { subject: fill(subject, vars).replace(/\s*\n\s*/g, " "), text: fill(body, vars) };
+  const tpl = MAIL_TEMPLATES[id];
+  const l = tpl.langs.includes(lang) ? lang : tpl.langs[0];
+  const { subject, body } = await templateText(id, l);
+  return renderMail(subject, body, vars, l);
 }
 
 /** Example values for previews and test e-mails (links point at the real site). */

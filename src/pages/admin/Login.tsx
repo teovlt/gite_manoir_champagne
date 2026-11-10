@@ -62,7 +62,7 @@ export function AdminLogin() {
           <Logo size={56} />
           <div className="text-center">
             <span className="block font-serif text-[19px] font-semibold">Manoir de la Champagne</span>
-            <span className="mt-1 block text-[11px] uppercase tracking-[1.5px] text-stone">Espace propriétaires</span>
+            <span className="mt-1 block text-[12px] uppercase tracking-[1.5px] text-stone">Espace propriétaires</span>
           </div>
         </div>
 
@@ -95,7 +95,7 @@ export function AdminLogin() {
               className={inputClass}
             />
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-2 text-[12.5px]">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[13px]">
             <label className="flex items-center gap-[7px] text-umber">
               <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="accent-sage-dark" /> Se souvenir de moi
             </label>

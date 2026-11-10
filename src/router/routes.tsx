@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import { Outlet, Route, Routes } from "react-router-dom";
 import { AuthProvider, RequireAuth } from "@/providers/auth-provider";
+import { ConfirmProvider } from "@/components/admin/confirm-dialog";
 import { LayoutWrapper } from "./layout-wrapper";
 import { Home } from "@/pages/public/Home";
 
@@ -34,9 +35,13 @@ const AdminAccount = lazy(() => import("@/pages/admin/Account").then((m) => ({ d
 
 const AdminRoot = () => (
   <AuthProvider>
-    <Suspense fallback={<div className="min-h-screen bg-parchment" />}>
-      <Outlet />
-    </Suspense>
+    <ConfirmProvider>
+      <div className="admin-scope">
+        <Suspense fallback={<div className="min-h-screen bg-parchment" />}>
+          <Outlet />
+        </Suspense>
+      </div>
+    </ConfirmProvider>
   </AuthProvider>
 );
 

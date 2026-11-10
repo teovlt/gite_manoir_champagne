@@ -125,7 +125,7 @@ Avec [Resend](https://resend.com) (`RESEND_API_KEY`, `MAIL_FROM` sur un domaine 
 - les propriétaires (`NOTIFY_EMAIL`) reçoivent chaque demande, avec `Reply-To` sur le visiteur ;
 - le visiteur reçoit un accusé de réception dans sa langue ;
 - « Mot de passe oublié », les invitations d'utilisateurs et la confirmation d'un changement d'e-mail fonctionnent ;
-- tous ces textes se modifient dans **Admin › Modèles d'e-mails**.
+- tous ces textes se modifient dans **Admin › Modèles d'e-mails** ; chaque e-mail part en HTML aux couleurs du manoir (un lien seul sur sa ligne devient un bouton), avec une version texte.
 
 Sans clé Resend, les demandes restent consultables dans l'admin et les comptes se créent avec un mot de passe provisoire.
 

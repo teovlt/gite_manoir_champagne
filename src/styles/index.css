@@ -244,3 +244,9 @@
     transform: none;
   }
 }
+
+/* Admin area: darker greys so small help text stays readable (WCAG AA 4.5:1 on cream and parchment). */
+.admin-scope {
+  --color-stone: #6b6552;
+  --color-pebble: #736c55;
+}

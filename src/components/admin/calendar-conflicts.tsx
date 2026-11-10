@@ -41,7 +41,7 @@ export function CalendarConflicts({ conflicts, onChange }: { conflicts: Calendar
           {real ? `⚠ ${real > 1 ? `${real} doubles réservations possibles` : "Double réservation possible"}` : "Dates à vérifier"}
         </h2>
         {!onChange && (
-          <Link to="/admin/calendrier" className="text-[12.5px] font-semibold text-clay">
+          <Link to="/admin/calendrier" className="text-[13px] font-semibold text-clay">
             Voir le calendrier →
           </Link>
         )}
@@ -59,7 +59,7 @@ export function CalendarConflicts({ conflicts, onChange }: { conflicts: Calendar
                 type="button"
                 disabled={busy === c.key}
                 onClick={() => ignore(c)}
-                className="rounded-full border border-line-strong bg-cream px-3 py-1 text-[12px] font-semibold text-umber hover:text-ink disabled:opacity-50"
+                className="rounded-full border border-line-strong bg-cream px-3 py-1 text-[13px] font-semibold text-umber hover:text-ink disabled:opacity-50"
               >
                 C'est vérifié
               </button>
@@ -68,7 +68,7 @@ export function CalendarConflicts({ conflicts, onChange }: { conflicts: Calendar
         ))}
       </ul>
       {onChange && (
-        <p className="mt-3 text-[12px] leading-relaxed opacity-80">
+        <p className="mt-3 text-[13px] leading-relaxed opacity-80">
           Réglez la situation sur la plateforme concernée (annulation, déplacement). L'alerte disparaît d'elle-même quand les dates ne se
           chevauchent plus, ou marquez-la comme vérifiée.
         </p>

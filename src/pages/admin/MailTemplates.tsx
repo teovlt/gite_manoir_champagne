@@ -13,6 +13,7 @@ import {
   adminSecondaryButtonClass,
   type AdminLang,
 } from "@/components/admin/admin-ui";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 import { useAuth } from "@/providers/auth-provider";
 import { api } from "@/lib/api";
 import type { MailTemplate } from "@/lib/types";
@@ -23,17 +24,52 @@ interface Listing {
   notifyEmail: boolean;
   templates: MailTemplate[];
 }
+interface RenderedMail {
+  subject: string;
+  text: string;
+  html: string;
+}
 
-const fill = (text: string, vars: Record<string, string>) => text.replace(/\{\{\s*([a-z_]+)\s*\}\}/g, (all, key: string) => vars[key] ?? all);
 const current = (t: MailTemplate, lang: AdminLang) => t.custom[lang] ?? t.defaults[lang] ?? { subject: "", body: "" };
+
+/** Renders the HTML e-mail in an isolated frame that grows with its content. */
+function MailFrame({ html }: { html: string }) {
+  const ref = useRef<HTMLIFrameElement>(null);
+  const [height, setHeight] = useState(520);
+  // Layout inside the (script-less) frame settles shortly after "load": measure a few times.
+  const fit = () => {
+    const measure = () => {
+      const doc = ref.current?.contentDocument;
+      if (!doc?.body) return;
+      doc.documentElement.style.overflow = "hidden"; // the frame grows with the e-mail instead of scrolling
+      setHeight(Math.max(320, doc.body.scrollHeight));
+    };
+    measure();
+    for (const ms of [60, 250, 800]) setTimeout(measure, ms);
+  };
+  return (
+    <iframe
+      ref={ref}
+      title="Aperçu de l'e-mail"
+      srcDoc={html}
+      sandbox="allow-same-origin"
+      onLoad={fit}
+      style={{ height }}
+      className="w-full rounded-xl border border-line bg-parchment"
+    />
+  );
+}
 
 export function AdminMailTemplates() {
   const { user } = useAuth();
+  const confirm = useConfirm();
   const [data, setData] = useState<Listing | null>(null);
-  const [selected, setSelected] = useState<string>("");
+  const [selected, setSelected] = useState("");
   const [lang, setLang] = useState<AdminLang>("fr");
   const [draft, setDraft] = useState({ subject: "", body: "" });
   const [busy, setBusy] = useState<"save" | "test" | null>(null);
+  const [view, setView] = useState<"edit" | "preview">("edit");
+  const [rendered, setRendered] = useState<RenderedMail | null>(null);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
   const subjectRef = useRef<HTMLInputElement>(null);
   const lastField = useRef<"subject" | "body">("body");
@@ -57,14 +93,21 @@ export function AdminMailTemplates() {
     if (tpl) setDraft(current(tpl, tpl.langs.includes(lang) ? lang : "fr"));
   }, [tpl, lang]);
 
+  // The preview is rendered by the server, exactly as it will be sent (debounced while typing).
+  useEffect(() => {
+    if (!tpl) return;
+    const id = setTimeout(() => {
+      api
+        .post<RenderedMail>(`/api/admin/mail-templates/${tpl.id}/preview`, { lang, ...draft })
+        .then(setRendered)
+        .catch(() => {});
+    }, 350);
+    return () => clearTimeout(id);
+  }, [tpl, lang, draft]);
+
   const dirty = Boolean(saved && (draft.subject !== saved.subject || draft.body !== saved.body));
   const def = tpl?.defaults[lang];
-  const isDefault = Boolean(def && draft.subject.trim() === def.subject && draft.body.trim() === def.body.trim());
 
-  const preview = useMemo(
-    () => (tpl ? { subject: fill(draft.subject, tpl.sample).replace(/\s*\n\s*/g, " "), body: fill(draft.body, tpl.sample) } : null),
-    [tpl, draft],
-  );
   const unknownVars = useMemo(() => {
     if (!tpl) return [];
     const known = new Set(tpl.variables.map((v) => v.key));
@@ -73,17 +116,25 @@ export function AdminMailTemplates() {
   }, [tpl, draft]);
 
   if (user?.role !== "admin") return <Navigate to="/admin" replace />;
-  if (!data || !tpl || !preview) return <div className="text-sm text-stone">Chargement…</div>;
+  if (!data || !tpl) return <div className="text-sm text-stone">Chargement…</div>;
 
-  const choose = (id: string) => {
-    if (dirty && !window.confirm("Abandonner les modifications non enregistrées de ce modèle ?")) return;
+  const discardOk = async () =>
+    !dirty ||
+    confirm({
+      title: "Modifications non enregistrées",
+      message: "Si vous continuez, les changements apportés à ce modèle seront perdus.",
+      confirmLabel: "Continuer sans enregistrer",
+      danger: true,
+    });
+
+  const choose = async (id: string) => {
+    if (id === selected || !(await discardOk())) return;
     setSelected(id);
     const next = data.templates.find((t) => t.id === id);
     if (next && !next.langs.includes(lang)) setLang("fr");
   };
-  const chooseLang = (l: AdminLang) => {
-    if (dirty && !window.confirm("Abandonner les modifications non enregistrées de cette langue ?")) return;
-    setLang(l);
+  const chooseLang = async (l: AdminLang) => {
+    if (l !== lang && (await discardOk())) setLang(l);
   };
 
   /** Inserts {{variable}} where the cursor was, in the subject or the body. */
@@ -95,6 +146,7 @@ export function AdminMailTemplates() {
     const start = el?.selectionStart ?? value.length;
     const end = el?.selectionEnd ?? value.length;
     setDraft({ ...draft, [field]: value.slice(0, start) + token + value.slice(end) });
+    setView("edit");
     requestAnimationFrame(() => {
       el?.focus();
       el?.setSelectionRange(start + token.length, start + token.length);
@@ -114,8 +166,15 @@ export function AdminMailTemplates() {
     }
   };
 
-  const restoreDefault = () => {
-    if (!def || !window.confirm("Remettre le texte d'origine de ce modèle ? Votre version sera perdue.")) return;
+  const restoreDefault = async () => {
+    if (!def) return;
+    const ok = await confirm({
+      title: "Rétablir le texte d'origine ?",
+      message: "Votre version de ce modèle sera remplacée par le texte fourni avec le site.",
+      confirmLabel: "Rétablir",
+      danger: true,
+    });
+    if (!ok) return;
     setDraft(def);
     save(def);
   };
@@ -137,141 +196,175 @@ export function AdminMailTemplates() {
   return (
     <div className="flex flex-col gap-6">
       {!data.mailEnabled && (
-        <InfoNote>L'envoi d'e-mails n'est pas configuré (RESEND_API_KEY) : vous pouvez préparer les modèles, ils serviront dès qu'il le sera.</InfoNote>
+        <InfoNote>
+          L'envoi d'e-mails n'est pas configuré (RESEND_API_KEY) : vous pouvez préparer les modèles, ils serviront dès qu'il le sera.
+        </InfoNote>
       )}
       {data.mailEnabled && !data.notifyEmail && (
         <InfoNote>NOTIFY_EMAIL n'est pas défini : les e-mails destinés aux propriétaires ne sont pas envoyés.</InfoNote>
       )}
 
-      <div className="grid items-start gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <nav aria-label="Modèles d'e-mails" className="flex flex-col gap-5">
-          {audiences.map((a) => (
-            <div key={a}>
-              <p className="mb-2 text-[11px] uppercase tracking-[1px] text-stone">{a}</p>
-              <div className="flex flex-col gap-1.5">
-                {data.templates
-                  .filter((t) => t.audience === a)
-                  .map((t) => (
-                    <button
-                      key={t.id}
-                      type="button"
-                      onClick={() => choose(t.id)}
-                      aria-current={t.id === selected}
-                      className={cn(
-                        "flex items-center justify-between gap-2 rounded-xl border px-3.5 py-3 text-left text-[13.5px] font-medium transition-colors",
-                        t.id === selected ? "border-ink bg-ink text-cream" : "border-line-strong bg-cream text-ink hover:border-khaki",
-                      )}
-                    >
-                      <span>{t.label}</span>
-                      {Object.keys(t.custom).length > 0 && (
-                        <StatusBadge tone="wheat" className="shrink-0">
-                          Modifié
-                        </StatusBadge>
-                      )}
-                    </button>
-                  ))}
-              </div>
+      {/* Template picker: one row per audience */}
+      <nav aria-label="Modèles d'e-mails" className="flex flex-col gap-3.5">
+        {audiences.map((a) => (
+          <div key={a} className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4">
+            <span className="text-[12px] font-medium uppercase tracking-[1px] text-stone sm:w-[130px] sm:shrink-0 sm:pt-[11px]">{a}</span>
+            <div className="flex flex-wrap gap-2.5">
+              {data.templates
+                .filter((t) => t.audience === a)
+                .map((t) => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    onClick={() => choose(t.id)}
+                    aria-current={t.id === selected}
+                    className={cn(
+                      "inline-flex items-center gap-2 rounded-full px-4 py-[9px] text-[13.5px] font-semibold transition-colors",
+                      t.id === selected
+                        ? "bg-ink text-cream"
+                        : "border border-line-strong bg-cream text-umber hover:border-khaki hover:text-ink",
+                    )}
+                  >
+                    {t.label}
+                    {Object.keys(t.custom).length > 0 && (
+                      <span
+                        className={cn("size-2 rounded-full", t.id === selected ? "bg-wheat-light" : "bg-clay")}
+                        title="Texte modifié"
+                        aria-label="modifié"
+                      />
+                    )}
+                  </button>
+                ))}
             </div>
-          ))}
-        </nav>
+          </div>
+        ))}
+      </nav>
 
-        <div className="grid min-w-0 items-start gap-6 xl:grid-cols-2">
-          <AdminCard className="min-w-0 p-6">
-            <div className="mb-1 flex flex-wrap items-center justify-between gap-3">
+      {/* Below xl the editor and the preview share the space through tabs */}
+      <div
+        role="tablist"
+        aria-label="Affichage"
+        className="inline-flex self-start rounded-full border border-line-strong bg-cream p-1 xl:hidden"
+      >
+        {(["edit", "preview"] as const).map((v) => (
+          <button
+            key={v}
+            type="button"
+            role="tab"
+            aria-selected={view === v}
+            onClick={() => setView(v)}
+            className={cn(
+              "rounded-full px-4 py-1.5 text-[13px] font-semibold",
+              view === v ? "bg-sage-dark text-cream" : "text-umber hover:text-ink",
+            )}
+          >
+            {v === "edit" ? "Modifier" : "Aperçu"}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid min-w-0 items-start gap-6 xl:grid-cols-2">
+        <AdminCard className={cn("min-w-0 p-6", view !== "edit" && "hidden xl:block")}>
+          <div className="mb-1 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
               <AdminH2>{tpl.label}</AdminH2>
-              {tpl.langs.length > 1 && <LangSwitch value={lang} onChange={chooseLang} />}
+              {tpl.custom[lang] && <StatusBadge tone="wheat">Modifié</StatusBadge>}
             </div>
-            <p className="mb-5 text-[13px] leading-relaxed text-stone">{tpl.description}</p>
+            {tpl.langs.length > 1 && <LangSwitch value={lang} onChange={chooseLang} />}
+          </div>
+          <p className="mb-5 text-[13.5px] leading-relaxed text-stone">{tpl.description}</p>
 
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-1.5">
-                <AdminLabel htmlFor="mail-subject">Objet</AdminLabel>
-                <input
-                  id="mail-subject"
-                  ref={subjectRef}
-                  value={draft.subject}
-                  maxLength={300}
-                  onFocus={() => (lastField.current = "subject")}
-                  onChange={(e) => setDraft({ ...draft, subject: e.target.value })}
-                  className={adminInputClass}
-                />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <AdminLabel htmlFor="mail-body">Message</AdminLabel>
-                <textarea
-                  id="mail-body"
-                  ref={bodyRef}
-                  rows={14}
-                  value={draft.body}
-                  maxLength={10000}
-                  onFocus={() => (lastField.current = "body")}
-                  onChange={(e) => setDraft({ ...draft, body: e.target.value })}
-                  className={cn(adminInputClass, "resize-y font-mono text-[13px] leading-relaxed")}
-                />
-              </div>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1.5">
+              <AdminLabel htmlFor="mail-subject">Objet</AdminLabel>
+              <input
+                id="mail-subject"
+                ref={subjectRef}
+                value={draft.subject}
+                maxLength={300}
+                onFocus={() => (lastField.current = "subject")}
+                onChange={(e) => setDraft({ ...draft, subject: e.target.value })}
+                className={adminInputClass}
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <AdminLabel htmlFor="mail-body">Message</AdminLabel>
+              <textarea
+                id="mail-body"
+                ref={bodyRef}
+                rows={14}
+                value={draft.body}
+                maxLength={10000}
+                onFocus={() => (lastField.current = "body")}
+                onChange={(e) => setDraft({ ...draft, body: e.target.value })}
+                className={cn(adminInputClass, "resize-y leading-relaxed")}
+              />
+              <p className="text-[13px] leading-relaxed text-stone">
+                Une ligne vide sépare deux paragraphes. Un lien seul sur sa ligne devient un bouton dans l'e-mail.
+              </p>
+            </div>
 
-              <div>
-                <p className="mb-2 text-xs uppercase tracking-[0.5px] text-umber">Variables — cliquez pour insérer</p>
-                <div className="flex flex-wrap gap-2">
-                  {tpl.variables.map((v) => (
-                    <button
-                      key={v.key}
-                      type="button"
-                      title={v.label}
-                      onClick={() => insertVar(v.key)}
-                      className="rounded-full border border-line-strong bg-parchment px-3 py-1.5 font-mono text-[12px] text-umber hover:border-khaki hover:text-ink"
-                    >
+            <div>
+              <p className="mb-2 text-[12.5px] font-medium uppercase tracking-[0.5px] text-umber">Variables — cliquez pour insérer</p>
+              <div className="flex flex-col gap-1.5">
+                {tpl.variables.map((v) => (
+                  <button
+                    key={v.key}
+                    type="button"
+                    onClick={() => insertVar(v.key)}
+                    className="group flex items-center gap-3 rounded-xl px-2 py-1.5 text-left hover:bg-parchment"
+                  >
+                    <code className="shrink-0 rounded-full border border-line-strong bg-parchment px-2.5 py-1 font-mono text-[12.5px] text-umber group-hover:border-khaki group-hover:text-ink">
                       {`{{${v.key}}}`}
-                    </button>
-                  ))}
-                </div>
-                <ul className="mt-3 grid gap-1 text-[12px] text-stone">
-                  {tpl.variables.map((v) => (
-                    <li key={v.key}>
-                      <code className="text-umber">{v.key}</code> — {v.label}
-                    </li>
-                  ))}
-                </ul>
-                {unknownVars.length > 0 && (
-                  <p className="mt-3 text-[12.5px] text-[#8A3B22]">
-                    Variable inconnue : {unknownVars.map((k) => `{{${k}}}`).join(", ")} — elle apparaîtra telle quelle dans l'e-mail.
-                  </p>
-                )}
+                    </code>
+                    <span className="text-[13px] text-stone">{v.label}</span>
+                  </button>
+                ))}
               </div>
-
-              <div className="flex flex-wrap items-center gap-3 border-t border-line pt-4">
-                <Button type="button" variant="clay" size="pill" onClick={() => save()} disabled={!dirty || busy !== null}>
-                  {busy === "save" ? "Enregistrement…" : "Enregistrer"}
-                </Button>
-                {data.mailEnabled && (
-                  <button type="button" onClick={sendTest} disabled={busy !== null} className={adminSecondaryButtonClass}>
-                    {busy === "test" ? "Envoi…" : "M'envoyer un test"}
-                  </button>
-                )}
-                {dirty && (
-                  <button type="button" onClick={() => setDraft(saved!)} className="text-[13px] font-semibold text-umber hover:text-ink">
-                    Annuler les modifications
-                  </button>
-                )}
-                {!isDefault && tpl.custom[lang] && (
-                  <button type="button" onClick={restoreDefault} disabled={busy !== null} className="ml-auto text-[13px] font-semibold text-clay hover:text-[#8A3B22]">
-                    Rétablir le texte d'origine
-                  </button>
-                )}
-              </div>
+              {unknownVars.length > 0 && (
+                <p className="mt-3 text-[13px] text-[#8A3B22]">
+                  Variable inconnue : {unknownVars.map((k) => `{{${k}}}`).join(", ")} — elle apparaîtra telle quelle dans l'e-mail.
+                </p>
+              )}
             </div>
-          </AdminCard>
 
-          <AdminCard className="min-w-0 p-6">
-            <AdminH2 className="mb-1">Aperçu</AdminH2>
-            <p className="mb-5 text-[12.5px] text-stone">Avec des valeurs d'exemple.</p>
-            <div className="rounded-xl border border-line bg-parchment p-4">
-              <p className="text-[11px] uppercase tracking-[0.5px] text-stone">Objet</p>
-              <p className="mb-4 mt-1 break-words text-[14px] font-semibold">{preview.subject || "—"}</p>
-              <div className="whitespace-pre-wrap break-words border-t border-line pt-4 text-[13.5px] leading-relaxed text-ink-soft">{preview.body}</div>
+            <div className="flex flex-wrap items-center gap-3 border-t border-line pt-4">
+              <Button type="button" variant="clay" size="pill" onClick={() => save()} disabled={!dirty || busy !== null}>
+                {busy === "save" ? "Enregistrement…" : "Enregistrer"}
+              </Button>
+              {data.mailEnabled && (
+                <button type="button" onClick={sendTest} disabled={busy !== null} className={adminSecondaryButtonClass}>
+                  {busy === "test" ? "Envoi…" : "M'envoyer un test"}
+                </button>
+              )}
+              {dirty && (
+                <button type="button" onClick={() => setDraft(saved!)} className="text-[13px] font-semibold text-umber hover:text-ink">
+                  Annuler les modifications
+                </button>
+              )}
+              {tpl.custom[lang] && (
+                <button
+                  type="button"
+                  onClick={restoreDefault}
+                  disabled={busy !== null}
+                  className="ml-auto text-[13px] font-semibold text-clay hover:text-[#8A3B22]"
+                >
+                  Rétablir le texte d'origine
+                </button>
+              )}
             </div>
-          </AdminCard>
-        </div>
+          </div>
+        </AdminCard>
+
+        <AdminCard className={cn("min-w-0 p-6 xl:sticky xl:top-6", view !== "preview" && "hidden xl:block")}>
+          <AdminH2 className="mb-1">Aperçu</AdminH2>
+          <p className="mb-4 text-[13px] text-stone">Tel que reçu, avec des valeurs d'exemple. Une version texte est aussi envoyée.</p>
+          <div className="mb-3 rounded-xl border border-line bg-parchment px-4 py-3">
+            <p className="text-[12px] uppercase tracking-[0.5px] text-stone">Objet</p>
+            <p className="mt-1 break-words text-[14px] font-semibold">{rendered?.subject || "—"}</p>
+          </div>
+          {rendered ? <MailFrame html={rendered.html} /> : <div className="h-[320px] rounded-xl border border-line bg-parchment" />}
+        </AdminCard>
       </div>
     </div>
   );

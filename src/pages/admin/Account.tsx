@@ -103,7 +103,7 @@ export function AdminAccount() {
               className={adminInputClass}
             />
             {emailChanged && mailEnabled && (
-              <p className="text-[12px] text-stone">Un lien de confirmation sera envoyé à la nouvelle adresse : elle ne remplacera l'actuelle qu'une fois ouverte.</p>
+              <p className="text-[13px] text-stone">Un lien de confirmation sera envoyé à la nouvelle adresse : elle ne remplacera l'actuelle qu'une fois ouverte.</p>
             )}
           </div>
           {emailChanged && (

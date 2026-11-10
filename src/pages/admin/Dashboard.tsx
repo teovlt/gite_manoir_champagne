@@ -36,7 +36,7 @@ const Stat = ({ label, value, hint, hintMuted, to }: { label: string; value: Rea
     <>
       <span className="text-xs uppercase tracking-[0.5px] text-stone">{label}</span>
       <div className="mb-1 mt-2 font-serif text-[30px] font-medium">{value}</div>
-      <span className={hintMuted ? "text-[12.5px] text-stone" : "text-[12.5px] text-sage-dark"}>{hint}</span>
+      <span className={hintMuted ? "text-[13px] text-stone" : "text-[13px] text-sage-dark"}>{hint}</span>
     </>
   );
   return to ? (
@@ -101,7 +101,7 @@ export function AdminDashboard() {
             {data?.activity.length === 0 && <p className="py-4 text-[13.5px] text-stone">Aucune modification pour l'instant.</p>}
             {data?.activity.map((a, i) => (
               <div key={a.id} className={i < data.activity.length - 1 ? "flex items-start gap-3.5 border-b border-line py-3.5" : "flex items-start gap-3.5 py-3.5"}>
-                <span className="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-wheat text-[11px] font-bold text-rust">{a.userName.slice(0, 2)}</span>
+                <span className="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-wheat text-[12px] font-bold text-rust">{a.userName.slice(0, 2)}</span>
                 <div className="flex-1 text-[13.5px] text-ink-soft">
                   <strong className="text-ink">{a.userName}</strong> {a.message}
                 </div>
@@ -114,7 +114,7 @@ export function AdminDashboard() {
           <div>
             <div className="mb-3 flex items-baseline justify-between gap-3">
               <AdminH2 className="text-[19px]">Demandes récentes</AdminH2>
-              <Link to="/admin/demandes" className="text-[12.5px] font-semibold text-clay">
+              <Link to="/admin/demandes" className="text-[13px] font-semibold text-clay">
                 Tout voir →
               </Link>
             </div>
@@ -153,7 +153,7 @@ export function AdminDashboard() {
           <div>
             <div className="mb-3 flex items-baseline justify-between gap-3">
               <AdminH2 className="text-[19px]">Prochains séjours bloqués</AdminH2>
-              <Link to="/admin/calendrier" className="text-[12.5px] font-semibold text-clay">
+              <Link to="/admin/calendrier" className="text-[13px] font-semibold text-clay">
                 Calendrier →
               </Link>
             </div>

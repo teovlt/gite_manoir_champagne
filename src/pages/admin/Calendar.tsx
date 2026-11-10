@@ -7,6 +7,7 @@ import { formatPeriodShort, formatRelative, nightsBetween, todayISO } from "@/li
 import type { AvailabilityBlock, CalendarConflict } from "@/lib/types";
 import { CalendarConflicts } from "@/components/admin/calendar-conflicts";
 import { cn } from "@/lib/utils";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 
 type SyncReport = { url: string; ok: boolean; count?: number; error?: string }[];
 
@@ -66,6 +67,7 @@ function YearOverview({ blocks }: { blocks: AvailabilityBlock[] }) {
 }
 
 export function AdminCalendar() {
+  const confirm = useConfirm();
   const [data, setData] = useState<CalendarData | null>(null);
   const [draft, setDraft] = useState({ start: "", end: "", label: "" });
   const [urls, setUrls] = useState<string[]>([]);
@@ -93,7 +95,7 @@ export function AdminCalendar() {
   };
 
   const remove = async (b: AvailabilityBlock) => {
-    if (!window.confirm(`Libérer la période « ${b.label} » (${formatPeriodShort(b.start, b.end)}) ?`)) return;
+    if (!(await confirm({ title: "Libérer cette période ?", message: `« ${b.label} » (${formatPeriodShort(b.start, b.end)}) redeviendra disponible.`, confirmLabel: "Libérer" }))) return;
     try {
       await api.delete(`/api/admin/availability/${b.id}`);
       toast.success("Période libérée.");
@@ -144,8 +146,12 @@ export function AdminCalendar() {
   };
 
   const renewExport = async () => {
-    if (!window.confirm("Créer un nouveau lien ? L'ancien cessera de fonctionner : il faudra coller le nouveau sur chaque plateforme."))
-      return;
+    const ok = await confirm({
+      title: "Créer un nouveau lien d'export ?",
+      message: "L'ancien cessera de fonctionner : il faudra coller le nouveau sur chaque plateforme (Abritel, Airbnb, Booking…).",
+      confirmLabel: "Créer un nouveau lien",
+    });
+    if (!ok) return;
     try {
       const res = await api.post<{ exportUrl: string }>("/api/admin/availability/export-link");
       setData((d) => (d ? { ...d, exportUrl: res.exportUrl } : d));
@@ -218,7 +224,7 @@ export function AdminCalendar() {
               />
             </div>
             {draft.start && draft.end > draft.start && (
-              <p className="text-[12.5px] text-stone">
+              <p className="text-[13px] text-stone">
                 {nightsBetween(draft.start, draft.end)} nuit(s) — le jour du départ reste disponible pour une arrivée.
               </p>
             )}
@@ -230,7 +236,7 @@ export function AdminCalendar() {
 
         <AdminCard className="p-6">
           <AdminH2 className="mb-2">Calendriers synchronisés (iCal)</AdminH2>
-          <p className="mb-4 text-[12.5px] leading-relaxed text-stone">
+          <p className="mb-4 text-[13px] leading-relaxed text-stone">
             Collez le lien d'export iCal de votre annonce Abritel (Calendrier › Importer/Exporter › Exporter), Airbnb ou Booking : les
             réservations y sont importées automatiquement toutes les 30 minutes.
           </p>
@@ -247,7 +253,7 @@ export function AdminCalendar() {
                 <button
                   type="button"
                   onClick={() => setUrls(urls.filter((_, j) => j !== i))}
-                  className="text-[12.5px] font-semibold text-clay"
+                  className="text-[13px] font-semibold text-clay"
                 >
                   Retirer
                 </button>
@@ -274,7 +280,7 @@ export function AdminCalendar() {
             ) : null}
           </div>
           {data?.lastSync && (
-            <ul className="mt-4 flex flex-col gap-1 text-[12px] text-stone">
+            <ul className="mt-4 flex flex-col gap-1 text-[13px] text-stone">
               <li>Dernière synchronisation {formatRelative(data.lastSync.at)}</li>
               {data.lastSync.report.map((r) => (
                 <li key={r.url} className={r.ok ? "" : "text-clay"}>
@@ -287,7 +293,7 @@ export function AdminCalendar() {
 
         <AdminCard className="p-6">
           <AdminH2 className="mb-2">Envoyer vos réservations vers Abritel, Airbnb, Booking</AdminH2>
-          <p className="mb-4 text-[12.5px] leading-relaxed text-stone">
+          <p className="mb-4 text-[13px] leading-relaxed text-stone">
             Copiez ce lien et collez-le dans chaque plateforme (Abritel : Calendrier › Importer/Exporter › Importer ; Airbnb :
             Disponibilités › Connecter un calendrier ; Booking : Tarifs et disponibilités › Synchroniser les calendriers). Les dates
             bloquées ici et les demandes confirmées y deviennent indisponibles, sans nom ni détail. Les plateformes relisent ce lien
@@ -305,7 +311,7 @@ export function AdminCalendar() {
               Copier
             </Button>
           </div>
-          <p className="mt-3 text-[12px] leading-relaxed text-stone">
+          <p className="mt-3 text-[13px] leading-relaxed text-stone">
             Les réservations venant d'Abritel ou d'Airbnb ne sont pas renvoyées par ce lien : pour qu'Abritel connaisse celles d'Airbnb,
             reliez aussi les deux plateformes entre elles.
           </p>
@@ -313,7 +319,7 @@ export function AdminCalendar() {
             type="button"
             onClick={renewExport}
             disabled={!data}
-            className="mt-3 text-[12.5px] font-semibold text-umber hover:text-ink"
+            className="mt-3 text-[13px] font-semibold text-umber hover:text-ink"
           >
             Créer un nouveau lien (si l'ancien a été partagé par erreur)
           </button>
