@@ -46,13 +46,11 @@ export const config = {
     password: env.ADMIN_PASSWORD,
     name: env.ADMIN_NAME ?? "Propriétaire",
   },
-  smtp: env.SMTP_HOST
+  /** Resend (https://resend.com). MAIL_FROM must use a domain verified in Resend. */
+  mail: env.RESEND_API_KEY
     ? {
-        host: env.SMTP_HOST,
-        port: Number(env.SMTP_PORT ?? 587),
-        secure: env.SMTP_SECURE === "true",
-        auth: env.SMTP_USER ? { user: env.SMTP_USER, pass: env.SMTP_PASSWORD } : undefined,
-        from: env.SMTP_FROM ?? env.SMTP_USER,
+        apiKey: env.RESEND_API_KEY,
+        from: env.MAIL_FROM ?? "Manoir de la Champagne <onboarding@resend.dev>",
         to: env.NOTIFY_EMAIL,
       }
     : null,

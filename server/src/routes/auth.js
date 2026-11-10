@@ -58,7 +58,7 @@ authRoutes.post(
       await col.users.updateOne({ _id: user._id }, { $set: { resetTokenHash: sha256(token), resetExpires: new Date(Date.now() + 3600 * 1000) } });
       sendPasswordReset(user, token).catch((err) => console.error("[mail]", err.message));
     }
-    if (!mailEnabled) console.warn("[auth] password reset requested but SMTP is not configured");
+    if (!mailEnabled) console.warn("[auth] password reset requested but e-mail (RESEND_API_KEY) is not configured");
     res.json({ ok: true, mailEnabled });
   }),
 );

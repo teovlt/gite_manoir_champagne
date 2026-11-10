@@ -1,18 +1,29 @@
-import nodemailer from "nodemailer";
 import { config } from "./config.js";
 
-const transport = config.smtp ? nodemailer.createTransport(config.smtp) : null;
-export const mailEnabled = Boolean(transport);
+export const mailEnabled = Boolean(config.mail);
 
-const send = (message) => (transport ? transport.sendMail({ from: config.smtp.from, ...message }) : Promise.resolve());
+/** Sends an e-mail through the Resend HTTP API (no-op when RESEND_API_KEY is not set). */
+async function send({ to, replyTo, subject, text }) {
+  if (!config.mail) return;
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${config.mail.apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from: config.mail.from, to, subject, text, ...(replyTo && { reply_to: replyTo }) }),
+    signal: AbortSignal.timeout(15_000),
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(`Resend ${res.status}: ${body.message ?? res.statusText}`);
+  }
+}
 
 const guestsText = (r) => [r.adults && `${r.adults} adulte(s)`, r.children && `${r.children} enfant(s)`].filter(Boolean).join(", ") || "—";
 
 /** E-mails the owners when a booking request arrives (needs NOTIFY_EMAIL). */
 export async function notifyNewRequest(r) {
-  if (!config.smtp?.to) return;
+  if (!config.mail?.to) return;
   await send({
-    to: config.smtp.to,
+    to: config.mail.to,
     replyTo: r.email,
     subject: `Nouvelle demande de réservation — ${r.name}`,
     text: [
@@ -50,7 +61,7 @@ const ack = {
 /** Automatic acknowledgement sent to the guest, in the language of the site they used. */
 export async function acknowledgeRequest(r) {
   const t = ack[r.lang] ?? ack.fr;
-  await send({ to: r.email, replyTo: config.smtp?.to, subject: t.subject, text: t.body(r.name) });
+  await send({ to: r.email, replyTo: config.mail?.to, subject: t.subject, text: t.body(r.name) });
 }
 
 export async function sendPasswordReset(user, token) {

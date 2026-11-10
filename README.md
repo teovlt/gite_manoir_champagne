@@ -111,13 +111,13 @@ docker compose exec site node src/create-user.js maryline@example.fr "nouveau-mo
 
 ### E-mails
 
-Avec les variables `SMTP_*` :
+Avec [Resend](https://resend.com) (`RESEND_API_KEY`, `MAIL_FROM` sur un domaine vérifié, `NOTIFY_EMAIL`) :
 
 - les propriétaires (`NOTIFY_EMAIL`) reçoivent chaque demande, avec `Reply-To` sur le visiteur ;
 - le visiteur reçoit un accusé de réception dans sa langue ;
 - « Mot de passe oublié » et les invitations d'utilisateurs fonctionnent.
 
-Sans SMTP, les demandes restent consultables dans l'admin et les comptes se créent avec un mot de passe provisoire.
+Sans clé Resend, les demandes restent consultables dans l'admin et les comptes se créent avec un mot de passe provisoire.
 
 ### Sauvegardes
 

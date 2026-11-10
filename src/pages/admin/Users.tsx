@@ -147,7 +147,7 @@ export function AdminUsers() {
           <div className="flex flex-col gap-1.5">
             <AdminLabel htmlFor="u-pass">Mot de passe provisoire (facultatif)</AdminLabel>
             <input id="u-pass" type="text" minLength={10} autoComplete="off" value={draft.password} onChange={(e) => setDraft({ ...draft, password: e.target.value })} className={adminInputClass} />
-            <p className="text-[12px] text-stone">Laissé vide, une invitation est envoyée par e-mail pour que la personne choisisse son mot de passe (nécessite la configuration SMTP).</p>
+            <p className="text-[12px] text-stone">Laissé vide, une invitation est envoyée par e-mail pour que la personne choisisse son mot de passe (nécessite la configuration des e-mails).</p>
           </div>
           <Button type="submit" variant="clay" size="pillMd" className="self-start" disabled={saving}>
             {draft.password ? "Créer le compte" : "Envoyer l'invitation"}
