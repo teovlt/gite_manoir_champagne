@@ -13,6 +13,7 @@ interface CalendarData {
   blocks: AvailabilityBlock[];
   icalUrls: string[];
   lastSync: { at: string; report: SyncReport } | null;
+  exportUrl: string;
 }
 
 const sourceLabel = { manual: "Manuel", ical: "Calendrier externe", request: "Demande confirmée" } as const;
@@ -127,6 +128,28 @@ export function AdminCalendar() {
       toast.error((err as Error).message);
     } finally {
       setSaving(false);
+    }
+  };
+
+  const copyExport = async () => {
+    if (!data) return;
+    try {
+      await navigator.clipboard.writeText(data.exportUrl);
+      toast.success("Lien copié.");
+    } catch {
+      toast.error("Copie impossible : sélectionnez le lien et copiez-le à la main.");
+    }
+  };
+
+  const renewExport = async () => {
+    if (!window.confirm("Créer un nouveau lien ? L'ancien cessera de fonctionner : il faudra coller le nouveau sur chaque plateforme."))
+      return;
+    try {
+      const res = await api.post<{ exportUrl: string }>("/api/admin/availability/export-link");
+      setData((d) => (d ? { ...d, exportUrl: res.exportUrl } : d));
+      toast.success("Nouveau lien créé.");
+    } catch (err) {
+      toast.error((err as Error).message);
     }
   };
 
@@ -257,6 +280,40 @@ export function AdminCalendar() {
               ))}
             </ul>
           )}
+        </AdminCard>
+
+        <AdminCard className="p-6">
+          <AdminH2 className="mb-2">Envoyer vos réservations vers Abritel, Airbnb, Booking</AdminH2>
+          <p className="mb-4 text-[12.5px] leading-relaxed text-stone">
+            Copiez ce lien et collez-le dans chaque plateforme (Abritel : Calendrier › Importer/Exporter › Importer ; Airbnb :
+            Disponibilités › Connecter un calendrier ; Booking : Tarifs et disponibilités › Synchroniser les calendriers). Les dates
+            bloquées ici et les demandes confirmées y deviennent indisponibles, sans nom ni détail. Les plateformes relisent ce lien
+            elles-mêmes, en général toutes les 1 à 3 heures.
+          </p>
+          <div className="flex gap-2">
+            <input
+              aria-label="Lien d'export iCal du site"
+              readOnly
+              value={data?.exportUrl ?? ""}
+              onFocus={(e) => e.target.select()}
+              className={cn(adminInputClass, "rounded-xl py-2.5 text-[13px]")}
+            />
+            <Button type="button" variant="clay" size="pill" disabled={!data} onClick={copyExport}>
+              Copier
+            </Button>
+          </div>
+          <p className="mt-3 text-[12px] leading-relaxed text-stone">
+            Les réservations venant d'Abritel ou d'Airbnb ne sont pas renvoyées par ce lien : pour qu'Abritel connaisse celles d'Airbnb,
+            reliez aussi les deux plateformes entre elles.
+          </p>
+          <button
+            type="button"
+            onClick={renewExport}
+            disabled={!data}
+            className="mt-3 text-[12.5px] font-semibold text-umber hover:text-ink"
+          >
+            Créer un nouveau lien (si l'ancien a été partagé par erreur)
+          </button>
         </AdminCard>
       </div>
 

@@ -1,7 +1,9 @@
+import crypto from "node:crypto";
 import express from "express";
 import { LANGS } from "../config.js";
 import { col, contentSchema, getSetting } from "../db.js";
 import { rateLimit } from "../auth.js";
+import { buildIcalExport, exportToken } from "../ical.js";
 import { acknowledgeRequest, notifyNewRequest } from "../mail.js";
 import { bad, h, isDate, isEmail, optInt, overlapQuery, str, toEvent, toPhoto, today } from "./helpers.js";
 
@@ -41,6 +43,19 @@ publicRoutes.get(
     ]);
     res.setHeader("Cache-Control", "no-cache");
     res.json({ content, navLinks, photos: photos.map(toPhoto), pricing, banner, settings: site });
+  }),
+);
+
+/** iCal feed for Abritel / Airbnb / Booking. The token in the URL keeps it unguessable. */
+publicRoutes.get(
+  "/calendar/:file",
+  h(async (req, res) => {
+    const given = Buffer.from(String(req.params.file).replace(/.ics$/, ""));
+    const expected = Buffer.from(await exportToken());
+    if (given.length !== expected.length || !crypto.timingSafeEqual(given, expected)) return bad(res, "Not found", 404);
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("X-Robots-Tag", "noindex");
+    res.type("text/calendar; charset=utf-8").send(await buildIcalExport());
   }),
 );
 

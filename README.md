@@ -30,7 +30,7 @@ SEO : titres, descriptions et images de partage par page et par langue dans `sha
 | --- | --- |
 | Tableau de bord | Demandes à traiter, activité, prochains séjours |
 | Demandes | Répondre, confirmer (bloque les dates), refuser, notes internes |
-| Calendrier | Bloquer des dates, synchronisation iCal Abritel / Airbnb / Booking (toutes les 30 min) |
+| Calendrier | Bloquer des dates, import iCal Abritel / Airbnb / Booking (toutes les 30 min), lien d'export iCal à coller sur ces plateformes (dates bloquées et demandes confirmées, sans nom) |
 | Contenu des pages | Tous les textes, par langue, avec le français en référence |
 | Photos & médias | Glisser-déposer, remplacement, légendes par langue |
 | Bannière & événements | Événements traduits, aperçu dans chaque langue |

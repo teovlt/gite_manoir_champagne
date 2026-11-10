@@ -4,7 +4,7 @@ import { LANGS } from "../config.js";
 import { col, contentSchema, getSetting, logActivity, setSetting } from "../db.js";
 import { hashPassword, setSessionCookie, sha256, verifyPassword } from "../auth.js";
 import { removeImage, storeImage, upload } from "../files.js";
-import { syncIcal } from "../ical.js";
+import { exportToken, exportUrl, syncIcal } from "../ical.js";
 import { mailEnabled, sendInvitation } from "../mail.js";
 import { MIN_PASSWORD, sessionUser } from "./auth.js";
 import { currentBanner, contentOverrides } from "./public.js";
@@ -408,13 +408,14 @@ adminRoutes.get(
   "/availability",
   h(async (_req, res) => {
     const from = new Date(Date.now() - 60 * 86400000).toISOString().slice(0, 10);
-    const [blocks, icalUrls, lastSync] = await Promise.all([
+    const [blocks, icalUrls, lastSync, token] = await Promise.all([
       col.availability
         .find({ end: { $gte: from } })
         .sort({ start: 1 })
         .toArray(),
       getSetting("icalUrls", []),
       getSetting("icalLastSync", null),
+      exportToken(),
     ]);
     res.json({
       blocks: blocks.map((b) => ({
@@ -427,6 +428,7 @@ adminRoutes.get(
       })),
       icalUrls,
       lastSync,
+      exportUrl: exportUrl(token),
     });
   }),
 );
@@ -471,6 +473,15 @@ adminRoutes.put(
     const report = await syncIcal();
     await log(req, "a mis à jour les calendriers synchronisés");
     res.json({ ok: true, report });
+  }),
+);
+
+adminRoutes.post(
+  "/availability/export-link",
+  h(async (req, res) => {
+    const token = await exportToken({ renew: true });
+    await log(req, "a régénéré le lien d'export du calendrier");
+    res.json({ exportUrl: exportUrl(token) });
   }),
 );
 

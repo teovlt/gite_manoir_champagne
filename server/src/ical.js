@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import { col, getSetting, setSetting } from "./db.js";
 import { config } from "./config.js";
 
@@ -38,13 +39,24 @@ export async function syncIcal() {
   const report = [];
   for (const url of urls) {
     try {
-      const res = await fetch(url, { headers: { "User-Agent": "ManoirDeLaChampagne/1.0 (calendar sync)" }, signal: AbortSignal.timeout(20000) });
+      const res = await fetch(url, {
+        headers: { "User-Agent": "ManoirDeLaChampagne/1.0 (calendar sync)" },
+        signal: AbortSignal.timeout(20000),
+      });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const events = parseIcal(await res.text());
       await col.availability.deleteMany({ source: "ical", feed: url });
       if (events.length) {
         await col.availability.insertMany(
-          events.map((e) => ({ start: e.start, end: e.end, label: e.summary || "Réservé (calendrier externe)", source: "ical", feed: url, uid: e.uid, createdAt: new Date() })),
+          events.map((e) => ({
+            start: e.start,
+            end: e.end,
+            label: e.summary || "Réservé (calendrier externe)",
+            source: "ical",
+            feed: url,
+            uid: e.uid,
+            createdAt: new Date(),
+          })),
         );
       }
       report.push({ url, ok: true, count: events.length });
@@ -60,4 +72,64 @@ export function startIcalSync() {
   const run = () => syncIcal().catch((err) => console.error("[ical]", err.message));
   run();
   setInterval(run, Math.max(5, config.icalSyncMinutes) * 60 * 1000).unref();
+}
+
+// ---------------------------------------------------------------- export
+
+/** Secret part of the export link, created on first use. Regenerating it invalidates the old link. */
+export async function exportToken({ renew = false } = {}) {
+  let token = renew ? null : await getSetting("icalExportToken", null);
+  if (!token) {
+    token = crypto.randomBytes(24).toString("hex");
+    await setSetting("icalExportToken", token);
+  }
+  return token;
+}
+
+export const exportUrl = (token) => `${config.publicUrl}/api/calendar/${token}.ics`;
+
+const fold = (line) => {
+  const parts = [];
+  for (let i = 0; i < line.length; i += 73) parts.push((i ? " " : "") + line.slice(i, i + 73));
+  return parts.join("\r\n");
+};
+
+const icsDay = (day) => day.replaceAll("-", "");
+
+/**
+ * Feed for Abritel / Airbnb / Booking: the dates booked through the site or blocked by hand.
+ * Periods imported from those platforms are left out, so a platform never re-imports its own bookings
+ * (link the platforms to each other directly). No names or labels: every event reads "Réservé".
+ */
+export async function buildIcalExport() {
+  const from = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10);
+  const blocks = await col.availability
+    .find({ source: { $ne: "ical" }, end: { $gte: from } })
+    .sort({ start: 1 })
+    .toArray();
+  const host = new URL(config.publicUrl).hostname;
+  const stamp = new Date()
+    .toISOString()
+    .replace(/[-:]/g, "")
+    .replace(/\.\d{3}/, "");
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Manoir de la Champagne//Calendrier//FR",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "X-WR-CALNAME:Manoir de la Champagne",
+    ...blocks.flatMap((b) => [
+      "BEGIN:VEVENT",
+      `UID:${b._id}@${host}`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${icsDay(b.start)}`,
+      `DTEND;VALUE=DATE:${icsDay(b.end)}`,
+      "SUMMARY:Réservé",
+      "TRANSP:OPAQUE",
+      "END:VEVENT",
+    ]),
+    "END:VCALENDAR",
+  ];
+  return lines.map(fold).join("\r\n") + "\r\n";
 }
