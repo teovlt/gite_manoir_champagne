@@ -1,12 +1,13 @@
 import crypto from "node:crypto";
 import express from "express";
-import { LANGS } from "../config.js";
+import { config, LANGS } from "../config.js";
 import { col, contentSchema, getSetting, logActivity, setSetting } from "../db.js";
-import { hashPassword, setSessionCookie, sha256, verifyPassword } from "../auth.js";
+import { hashPassword, rateLimit, setSessionCookie, sha256, verifyPassword } from "../auth.js";
 import { removeImage, storeImage, upload } from "../files.js";
 import { exportToken, exportUrl, findConflicts, ignoreConflict, syncIcal } from "../ical.js";
-import { mailEnabled, sendInvitation } from "../mail.js";
-import { MIN_PASSWORD, sessionUser } from "./auth.js";
+import { mailEnabled, send, sendEmailChange, sendInvitation } from "../mail.js";
+import { BODY_MAX, MAIL_TEMPLATES, SUBJECT_MAX, fill, listTemplates, sampleVars, saveTemplate } from "../mail-templates.js";
+import { MIN_PASSWORD, sendResetLink, sessionUser } from "./auth.js";
 import { currentBanner, contentOverrides } from "./public.js";
 import { bad, h, isDate, isEmail, isSafeLink, oid, overlapQuery, str, toEvent, toPhoto, toUser, today, translated } from "./helpers.js";
 
@@ -507,24 +508,76 @@ adminRoutes.post(
 
 // ---------------------------------------------------------------- account & users
 
+const tooShort = (password) => String(password).length < MIN_PASSWORD;
+const pwdError = `Le mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`;
+const emailTaken = async (email, exceptId) => Boolean(await col.users.findOne({ email, _id: { $ne: exceptId } }));
+const mailOff = "L'envoi d'e-mails n'est pas configuré (RESEND_API_KEY).";
+const EMAIL_PENDING_FIELDS = { pendingEmail: "", emailTokenHash: "", emailExpires: "" };
+
+/** Applies $set/$unset to a user document and returns the updated copy. */
+async function updateUser(user, set, unset) {
+  await col.users.updateOne({ _id: user._id }, { $set: set, ...(Object.keys(unset).length && { $unset: unset }) });
+  const updated = { ...user, ...set };
+  for (const k of Object.keys(unset)) delete updated[k];
+  return updated;
+}
+
+adminRoutes.get("/mail-status", (_req, res) => res.json({ enabled: mailEnabled }));
+
+/** Own profile: name, e-mail (confirmed through the new address when e-mails work) and password. */
 adminRoutes.put(
   "/me",
   h(async (req, res) => {
+    const me = req.user;
     const name = str(req.body?.name, 80);
-    const update = {};
-    if (name) update.name = name;
-    if (req.body?.newPassword !== undefined) {
-      if (!(await verifyPassword(String(req.body.currentPassword ?? ""), req.user.passwordHash)))
-        return bad(res, "Mot de passe actuel incorrect.");
-      if (String(req.body.newPassword).length < MIN_PASSWORD)
-        return bad(res, `Le nouveau mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`);
-      update.passwordHash = await hashPassword(String(req.body.newPassword));
-      update.sessionVersion = (req.user.sessionVersion ?? 0) + 1;
+    const email = req.body?.email !== undefined ? str(req.body.email, 200).toLowerCase() : me.email;
+    const changingEmail = email !== me.email;
+    const changingPassword = req.body?.newPassword !== undefined;
+    const set = {};
+    const unset = {};
+    let emailPending = false;
+
+    if (name) set.name = name;
+    if ((changingEmail || changingPassword) && !(await verifyPassword(String(req.body.currentPassword ?? ""), me.passwordHash)))
+      return bad(res, "Mot de passe actuel incorrect.");
+    if (changingEmail) {
+      if (!isEmail(email)) return bad(res, "Adresse e-mail invalide.");
+      if (await emailTaken(email, me._id)) return bad(res, "Un autre compte utilise déjà cette adresse.", 409);
+      if (mailEnabled) {
+        const token = crypto.randomBytes(32).toString("base64url");
+        Object.assign(set, { pendingEmail: email, emailTokenHash: sha256(token), emailExpires: new Date(Date.now() + 86400 * 1000) });
+        sendEmailChange({ ...me, ...set }, email, token).catch((err) => console.error("[mail]", err.message));
+        emailPending = true;
+      } else {
+        set.email = email;
+        Object.assign(unset, EMAIL_PENDING_FIELDS);
+      }
     }
-    await col.users.updateOne({ _id: req.user._id }, { $set: update });
-    const user = { ...req.user, ...update };
-    if (update.sessionVersion) setSessionCookie(res, user, false); // keep this browser signed in
-    res.json(toUser(user));
+    if (changingPassword) {
+      if (tooShort(req.body.newPassword)) return bad(res, `Le nouveau mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`);
+      set.passwordHash = await hashPassword(String(req.body.newPassword));
+      set.sessionVersion = (me.sessionVersion ?? 0) + 1;
+    }
+    const user = await updateUser(me, set, unset);
+    if (set.sessionVersion) setSessionCookie(res, user, false); // keep this browser signed in
+    if (set.email) await log(req, "a changé son adresse e-mail de connexion");
+    res.json({ ...toUser(user), emailPending });
+  }),
+);
+
+adminRoutes.delete(
+  "/me/pending-email",
+  h(async (req, res) => res.json(toUser(await updateUser(req.user, {}, EMAIL_PENDING_FIELDS)))),
+);
+
+/** Sends the signed-in user a password reset link. */
+adminRoutes.post(
+  "/me/password-link",
+  rateLimit({ windowMs: 15 * 60 * 1000, max: 5 }),
+  h(async (req, res) => {
+    if (!mailEnabled) return bad(res, mailOff);
+    await sendResetLink(req.user);
+    res.json({ ok: true, email: req.user.email });
   }),
 );
 
@@ -543,7 +596,7 @@ adminRoutes.post(
     const role = ROLES.includes(req.body?.role) ? req.body.role : "editor";
     const password = typeof req.body?.password === "string" ? req.body.password : "";
     if (!isEmail(email) || !name) return bad(res, "Nom et e-mail valides requis.");
-    if (password && password.length < MIN_PASSWORD) return bad(res, `Le mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`);
+    if (password && tooShort(password)) return bad(res, pwdError);
     if (!password && !mailEnabled) return bad(res, "L'envoi d'e-mails n'est pas configuré : indiquez un mot de passe provisoire.");
     if (await col.users.findOne({ email })) return bad(res, "Un compte existe déjà avec cet e-mail.", 409);
 
@@ -568,22 +621,62 @@ adminRoutes.patch(
   h(async (req, res) => {
     const user = await col.users.findOne({ _id: oid(req.params.id) });
     if (!user) return bad(res, "Compte introuvable.", 404);
-    const update = {};
-    if (req.body?.name) update.name = str(req.body.name, 80);
+    const set = {};
+    const unset = {};
+    const changes = [];
+    const name = str(req.body?.name, 80);
+    if (name && name !== user.name) {
+      set.name = name;
+      changes.push("nom");
+    }
+    if (req.body?.email !== undefined) {
+      const email = str(req.body.email, 200).toLowerCase();
+      if (email !== user.email) {
+        if (!isEmail(email)) return bad(res, "Adresse e-mail invalide.");
+        if (await emailTaken(email, user._id)) return bad(res, "Un autre compte utilise déjà cette adresse.", 409);
+        set.email = email;
+        Object.assign(unset, EMAIL_PENDING_FIELDS);
+        changes.push("e-mail");
+      }
+    }
     if (ROLES.includes(req.body?.role) && req.body.role !== user.role) {
       if (user.role === "admin" && (await col.users.countDocuments({ role: "admin" })) <= 1)
         return bad(res, "Il faut garder au moins un administrateur.");
-      update.role = req.body.role;
+      set.role = req.body.role;
+      changes.push(`rôle ${req.body.role === "admin" ? "administrateur" : "éditeur"}`);
     }
     if (req.body?.password) {
-      if (String(req.body.password).length < MIN_PASSWORD)
-        return bad(res, `Le mot de passe doit faire au moins ${MIN_PASSWORD} caractères.`);
-      update.passwordHash = await hashPassword(String(req.body.password));
-      update.sessionVersion = (user.sessionVersion ?? 0) + 1;
+      if (tooShort(req.body.password)) return bad(res, pwdError);
+      set.passwordHash = await hashPassword(String(req.body.password));
+      set.sessionVersion = (user.sessionVersion ?? 0) + 1;
+      Object.assign(unset, { resetTokenHash: "", resetExpires: "" });
+      changes.push("mot de passe");
     }
-    await col.users.updateOne({ _id: user._id }, { $set: update });
-    await log(req, `a modifié le compte de ${update.name ?? user.name}`);
-    res.json(toUser({ ...user, ...update }));
+    if (!changes.length) return res.json(toUser(user));
+    const updated = await updateUser(user, set, unset);
+    // Changing one's own password here must not sign this browser out.
+    if (String(user._id) === String(req.user._id) && set.sessionVersion) setSessionCookie(res, updated, false);
+    await log(req, `a modifié le compte de ${updated.name} (${changes.join(", ")})`);
+    res.json(toUser(updated));
+  }),
+);
+
+/** E-mails a password reset link — or a new invitation when the account never chose a password. */
+adminRoutes.post(
+  "/users/:id/send-link",
+  requireAdmin,
+  h(async (req, res) => {
+    if (!mailEnabled) return bad(res, mailOff);
+    const user = await col.users.findOne({ _id: oid(req.params.id) });
+    if (!user) return bad(res, "Compte introuvable.", 404);
+    if (user.passwordHash) await sendResetLink(user);
+    else {
+      const token = crypto.randomBytes(32).toString("base64url");
+      await col.users.updateOne({ _id: user._id }, { $set: { resetTokenHash: sha256(token), resetExpires: new Date(Date.now() + 7 * 86400 * 1000) } });
+      await sendInvitation(user, token, req.user.name);
+    }
+    await log(req, `a envoyé ${user.passwordHash ? "un lien de réinitialisation du mot de passe" : "une nouvelle invitation"} à ${user.name}`);
+    res.json({ ok: true, invitation: !user.passwordHash });
   }),
 );
 
@@ -599,5 +692,55 @@ adminRoutes.delete(
     await col.users.deleteOne({ _id: user._id });
     await log(req, `a supprimé le compte de ${user.name}`);
     res.json({ ok: true });
+  }),
+);
+
+// ---------------------------------------------------------------- e-mail templates
+
+adminRoutes.get(
+  "/mail-templates",
+  requireAdmin,
+  h(async (_req, res) => res.json({ mailEnabled, notifyEmail: Boolean(config.mail?.to), templates: await listTemplates() })),
+);
+
+const templateInput = (req) => {
+  const tpl = MAIL_TEMPLATES[req.params.id];
+  const lang = req.body?.lang ?? "fr";
+  if (!tpl) return { error: "Modèle inconnu." };
+  if (!tpl.langs.includes(lang)) return { error: "Langue non disponible pour ce modèle." };
+  const subject = typeof req.body?.subject === "string" ? req.body.subject.slice(0, SUBJECT_MAX) : "";
+  const body = typeof req.body?.body === "string" ? req.body.body.slice(0, BODY_MAX) : "";
+  return { tpl, lang, subject, body };
+};
+
+adminRoutes.put(
+  "/mail-templates/:id",
+  requireAdmin,
+  h(async (req, res) => {
+    const { tpl, lang, subject, body, error } = templateInput(req);
+    if (error) return bad(res, error);
+    await saveTemplate(req.params.id, lang, subject, body);
+    await log(req, `a modifié le modèle d'e-mail « ${tpl.label} »${tpl.langs.length > 1 ? ` (${lang.toUpperCase()})` : ""}`);
+    res.json((await listTemplates()).find((t) => t.id === req.params.id));
+  }),
+);
+
+/** Sends the draft (saved or not) to the signed-in user, filled with example values. */
+adminRoutes.post(
+  "/mail-templates/:id/test",
+  requireAdmin,
+  rateLimit({ windowMs: 15 * 60 * 1000, max: 15 }),
+  h(async (req, res) => {
+    if (!mailEnabled) return bad(res, mailOff);
+    const { tpl, lang, subject, body, error } = templateInput(req);
+    if (error) return bad(res, error);
+    const vars = sampleVars(req.params.id);
+    const def = tpl.defaults[lang];
+    await send({
+      to: req.user.email,
+      subject: `[Test] ${fill(subject.trim() || def.subject, vars).replace(/\s*\n\s*/g, " ")}`,
+      text: fill(body.trim() ? body : def.body, vars),
+    });
+    res.json({ ok: true, email: req.user.email });
   }),
 );

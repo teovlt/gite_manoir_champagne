@@ -28,6 +28,8 @@ const AdminBanner = lazy(() => import("@/pages/admin/Banner").then((m) => ({ def
 const AdminPricing = lazy(() => import("@/pages/admin/Pricing").then((m) => ({ default: m.AdminPricing })));
 const AdminSettings = lazy(() => import("@/pages/admin/Settings").then((m) => ({ default: m.AdminSettings })));
 const AdminUsers = lazy(() => import("@/pages/admin/Users").then((m) => ({ default: m.AdminUsers })));
+const AdminMailTemplates = lazy(() => import("@/pages/admin/MailTemplates").then((m) => ({ default: m.AdminMailTemplates })));
+const AdminConfirmEmail = lazy(() => import("@/pages/admin/ConfirmEmail").then((m) => ({ default: m.AdminConfirmEmail })));
 const AdminAccount = lazy(() => import("@/pages/admin/Account").then((m) => ({ default: m.AdminAccount })));
 
 const AdminRoot = () => (
@@ -59,6 +61,7 @@ export const Router = () => (
     <Route path="/admin" element={<AdminRoot />}>
       <Route path="connexion" element={<AdminLogin />} />
       <Route path="reinitialiser" element={<AdminReset />} />
+      <Route path="confirmer-email" element={<AdminConfirmEmail />} />
       <Route
         element={
           <RequireAuth>
@@ -75,6 +78,7 @@ export const Router = () => (
         <Route path="tarifs" element={<AdminPricing />} />
         <Route path="parametres" element={<AdminSettings />} />
         <Route path="utilisateurs" element={<AdminUsers />} />
+        <Route path="emails" element={<AdminMailTemplates />} />
         <Route path="compte" element={<AdminAccount />} />
       </Route>
     </Route>

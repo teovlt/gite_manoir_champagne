@@ -36,8 +36,9 @@ SEO : titres, descriptions et images de partage par page et par langue dans `sha
 | Bannière & événements | Événements traduits, aperçu dans chaque langue |
 | Tarifs | Prix, saisons (par langue), suppléments, historique des changements |
 | Coordonnées & carte | Téléphone, adresse, lien Abritel, position GPS (recherche d'adresse ou clic sur la carte) |
-| Utilisateurs | Comptes **administrateur** / **éditeur**, invitations par e-mail, réinitialisation |
-| Mon compte | Nom, changement de mot de passe (déconnecte les autres appareils) |
+| Utilisateurs | Comptes **administrateur** / **éditeur** : l'admin modifie nom, e-mail, rôle et mot de passe de chacun, envoie un lien de réinitialisation ou renvoie une invitation |
+| Modèles d'e-mails | Objet et texte de chaque e-mail envoyé (variables `{{nom}}`…, aperçu, envoi de test, retour au texte d'origine), accusé de réception en FR / EN / DE |
+| Mon compte | Nom, e-mail (confirmé par un lien envoyé à la nouvelle adresse), mot de passe actuel → nouveau, ou lien de réinitialisation par e-mail |
 
 ## Développement
 
@@ -115,7 +116,8 @@ Avec [Resend](https://resend.com) (`RESEND_API_KEY`, `MAIL_FROM` sur un domaine 
 
 - les propriétaires (`NOTIFY_EMAIL`) reçoivent chaque demande, avec `Reply-To` sur le visiteur ;
 - le visiteur reçoit un accusé de réception dans sa langue ;
-- « Mot de passe oublié » et les invitations d'utilisateurs fonctionnent.
+- « Mot de passe oublié », les invitations d'utilisateurs et la confirmation d'un changement d'e-mail fonctionnent ;
+- tous ces textes se modifient dans **Admin › Modèles d'e-mails**.
 
 Sans clé Resend, les demandes restent consultables dans l'admin et les comptes se créent avec un mot de passe provisoire.
 

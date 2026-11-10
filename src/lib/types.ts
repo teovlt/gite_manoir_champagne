@@ -123,6 +123,22 @@ export interface AdminUser {
   createdAt: string;
   lastLoginAt: string | null;
   pending: boolean;
+  /** New address waiting for confirmation through the link sent to it. */
+  pendingEmail: string | null;
+}
+
+export type MailLang = "fr" | "en" | "de";
+
+export interface MailTemplate {
+  id: string;
+  label: string;
+  description: string;
+  audience: string;
+  langs: MailLang[];
+  variables: { key: string; label: string }[];
+  sample: Record<string, string>;
+  defaults: Partial<Record<MailLang, { subject: string; body: string }>>;
+  custom: Partial<Record<MailLang, { subject: string; body: string }>>;
 }
 
 /** A platform booking overlapping a stay of the site or a hand-blocked period. */

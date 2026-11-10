@@ -24,6 +24,7 @@ export async function connect() {
   await Promise.all([
     col.users.createIndex({ email: 1 }, { unique: true }),
     col.users.createIndex({ resetTokenHash: 1 }, { sparse: true }),
+    col.users.createIndex({ emailTokenHash: 1 }, { sparse: true }),
     col.content.createIndex({ page: 1, key: 1, lang: 1 }, { unique: true }),
     col.photos.createIndex({ key: 1 }, { unique: true, partialFilterExpression: { key: { $type: "string" } } }),
     col.photos.createIndex({ section: 1, sort: 1 }),

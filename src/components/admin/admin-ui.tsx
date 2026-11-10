@@ -3,6 +3,10 @@ import { cn } from "@/lib/utils";
 export const adminInputClass =
   "w-full rounded-[14px] border border-line-strong bg-cream px-3.5 py-3 font-sans text-sm text-ink outline-none placeholder:text-[#B9B199] focus-visible:border-sage-dark focus-visible:ring-[3px] focus-visible:ring-sage/40 disabled:opacity-60";
 
+/** Secondary rounded button (outline), next to the clay primary one. */
+export const adminSecondaryButtonClass =
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-line-strong bg-cream px-[22px] py-[11px] text-[13px] font-semibold text-umber transition-colors hover:border-khaki hover:text-ink disabled:pointer-events-none disabled:opacity-50";
+
 export const AdminLabel = ({ htmlFor, children }: { htmlFor?: string; children: React.ReactNode }) => (
   <label htmlFor={htmlFor} className="text-xs uppercase tracking-[0.5px] text-umber">
     {children}
@@ -180,6 +184,12 @@ export const AdminIcon = {
       <circle cx="9" cy="8" r="3.5" />
       <path d="M2.5 20a6.5 6.5 0 0 1 13 0" />
       <path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6" />
+    </>
+  ),
+  mail: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6 9-6" />
     </>
   ),
   user: (

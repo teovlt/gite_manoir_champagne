@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import express from "express";
-import { col } from "../db.js";
+import { col, logActivity } from "../db.js";
 import { clearSessionCookie, hashPassword, rateLimit, readSession, setSessionCookie, sha256, verifyPassword } from "../auth.js";
 import { mailEnabled, sendPasswordReset } from "../mail.js";
 import { bad, h, oid, str, toUser } from "./helpers.js";
@@ -46,6 +46,13 @@ authRoutes.get(
   }),
 );
 
+/** Stores a fresh one-hour reset token and e-mails the link (fire and forget). */
+export async function sendResetLink(user) {
+  const token = crypto.randomBytes(32).toString("base64url");
+  await col.users.updateOne({ _id: user._id }, { $set: { resetTokenHash: sha256(token), resetExpires: new Date(Date.now() + 3600 * 1000) } });
+  await sendPasswordReset(user, token);
+}
+
 /** Always answers the same thing, so the form cannot be used to discover accounts. */
 authRoutes.post(
   "/forgot",
@@ -53,11 +60,7 @@ authRoutes.post(
   h(async (req, res) => {
     const email = str(req.body?.email, 200).toLowerCase();
     const user = email && (await col.users.findOne({ email }));
-    if (user && mailEnabled) {
-      const token = crypto.randomBytes(32).toString("base64url");
-      await col.users.updateOne({ _id: user._id }, { $set: { resetTokenHash: sha256(token), resetExpires: new Date(Date.now() + 3600 * 1000) } });
-      sendPasswordReset(user, token).catch((err) => console.error("[mail]", err.message));
-    }
+    if (user && mailEnabled) sendResetLink(user).catch((err) => console.error("[mail]", err.message));
     if (!mailEnabled) console.warn("[auth] password reset requested but e-mail (RESEND_API_KEY) is not configured");
     res.json({ ok: true, mailEnabled });
   }),
@@ -79,5 +82,24 @@ authRoutes.post(
     );
     setSessionCookie(res, { ...user, sessionVersion }, false);
     res.json(toUser(user));
+  }),
+);
+
+/** Link sent to the new address when someone changes the e-mail of their own account. */
+authRoutes.post(
+  "/confirm-email",
+  rateLimit({ windowMs: 15 * 60 * 1000, max: 10 }),
+  h(async (req, res) => {
+    const token = str(req.body?.token, 200);
+    const user = token && (await col.users.findOne({ emailTokenHash: sha256(token), emailExpires: { $gt: new Date() } }));
+    if (!user?.pendingEmail) return bad(res, "Ce lien a expiré ou a déjà été utilisé. Refaites le changement depuis Mon compte.");
+    const unset = { pendingEmail: "", emailTokenHash: "", emailExpires: "" };
+    if (await col.users.findOne({ email: user.pendingEmail, _id: { $ne: user._id } })) {
+      await col.users.updateOne({ _id: user._id }, { $unset: unset });
+      return bad(res, "Un autre compte utilise déjà cette adresse.", 409);
+    }
+    await col.users.updateOne({ _id: user._id }, { $set: { email: user.pendingEmail }, $unset: unset });
+    await logActivity(user.name.split(" ")[0], `a changé son adresse e-mail de connexion`);
+    res.json({ ok: true, email: user.pendingEmail });
   }),
 );

@@ -18,7 +18,8 @@ export const adminNav: { to: string; label: string; icon: keyof typeof AdminIcon
   { to: "/admin/tarifs", label: "Tarifs", icon: "pricing" },
   { to: "/admin/parametres", label: "Coordonnées & carte", icon: "settings" },
   { to: "/admin/utilisateurs", label: "Utilisateurs", icon: "users", adminOnly: true },
-  { to: "/admin/compte", label: "Mon compte", icon: "user", hidden: true },
+  { to: "/admin/emails", label: "Modèles d'e-mails", icon: "mail", adminOnly: true },
+  { to: "/admin/compte", label: "Mon compte", icon: "user" },
 ];
 
 const itemClass = "flex items-center gap-3 border-l-[3px] px-[18px] py-[11px] text-[13.5px] font-medium transition-colors";
