@@ -70,6 +70,7 @@ function ContactForm() {
         message: v.message,
         website: v.website,
         lang,
+        kind,
         ...(booking && {
           dates: describeDates(t, lang, v.arrivee, v.depart),
           arrival: v.arrivee,

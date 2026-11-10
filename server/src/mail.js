@@ -22,15 +22,15 @@ const guestsText = (r) => [r.adults && `${r.adults} adulte(s)`, r.children && `$
 /** E-mails the owners when a booking request arrives (needs NOTIFY_EMAIL). */
 export async function notifyNewRequest(r) {
   if (!config.mail?.to) return;
+  const question = r.kind === "question";
   await send({
     to: config.mail.to,
     replyTo: r.email,
-    subject: `Nouvelle demande de réservation — ${r.name}`,
+    subject: `${question ? "Nouvelle question" : "Nouvelle demande de réservation"} — ${r.name}`,
     text: [
       `Nom : ${r.name}`,
       `E-mail : ${r.email}`,
-      `Dates : ${r.dates ?? "—"}`,
-      `Voyageurs : ${guestsText(r)}`,
+      ...(question ? [] : [`Dates : ${r.dates ?? "—"}`, `Voyageurs : ${guestsText(r)}`]),
       `Langue : ${r.lang.toUpperCase()}`,
       "",
       r.message ?? "",
@@ -62,6 +62,31 @@ const ack = {
 export async function acknowledgeRequest(r) {
   const t = ack[r.lang] ?? ack.fr;
   await send({ to: r.email, replyTo: config.mail?.to, subject: t.subject, text: t.body(r.name) });
+}
+
+const frDay = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+
+/** Warns the owners that a platform booking overlaps a stay of the site (needs NOTIFY_EMAIL). */
+export async function notifyConflicts(conflicts) {
+  if (!config.mail?.to || !conflicts.length) return;
+  const lines = conflicts.map(
+    (c) =>
+      `• ${c.external.platform} : ${frDay(c.external.start)} → ${frDay(c.external.end)} (${c.external.label})\n` +
+      `  chevauche « ${c.local.label} » : ${frDay(c.local.start)} → ${frDay(c.local.end)}`,
+  );
+  await send({
+    to: config.mail.to,
+    subject: `⚠ Double réservation possible — Manoir de la Champagne`,
+    text: [
+      "Bonjour,",
+      "",
+      "La synchronisation des calendriers a trouvé des dates réservées sur une plateforme qui chevauchent un séjour déjà prévu :",
+      "",
+      ...lines,
+      "",
+      `Vérifiez et réglez la situation sur la plateforme concernée, puis consultez ${config.publicUrl}/admin/calendrier`,
+    ].join("\n"),
+  });
 }
 
 export async function sendPasswordReset(user, token) {

@@ -82,24 +82,30 @@ publicRoutes.post(
     const name = str(b.name, 120);
     const email = str(b.email, 200).toLowerCase();
     if (!name || !isEmail(email)) return bad(res, "invalid_contact");
-    const arrival = isDate(b.arrival) ? b.arrival : null;
-    const departure = isDate(b.departure) ? b.departure : null;
+    // A question carries no stay details: only booking requests keep dates and guests.
+    const kind = b.kind === "question" ? "question" : "booking";
+    const booking = kind === "booking";
+    const message = str(b.message, 4000) || null;
+    if (!booking && !message) return bad(res, "invalid_contact");
+    const arrival = booking && isDate(b.arrival) ? b.arrival : null;
+    const departure = booking && isDate(b.departure) ? b.departure : null;
     if (arrival && departure && departure <= arrival) return bad(res, "dates_order");
     if (arrival && arrival < today()) return bad(res, "dates_past");
-    const adults = optInt(b.adults, 30);
-    const children = optInt(b.children, 30);
+    const adults = booking ? optInt(b.adults, 30) : null;
+    const children = booking ? optInt(b.children, 30) : null;
     if ((adults ?? 0) + (children ?? 0) > 14) return bad(res, "capacity");
     if (arrival && departure && (await col.availability.findOne(overlapQuery(arrival, departure)))) return bad(res, "unavailable", 409);
 
     const request = {
+      kind,
       name,
       email,
       arrival,
       departure,
-      dates: str(b.dates, 200) || null,
+      dates: (booking && str(b.dates, 200)) || null,
       adults,
       children,
-      message: str(b.message, 4000) || null,
+      message,
       lang: LANGS.includes(b.lang) ? b.lang : "fr",
       status: "nouvelle",
       createdAt: new Date(),

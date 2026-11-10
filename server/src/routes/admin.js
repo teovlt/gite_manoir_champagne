@@ -4,7 +4,7 @@ import { LANGS } from "../config.js";
 import { col, contentSchema, getSetting, logActivity, setSetting } from "../db.js";
 import { hashPassword, setSessionCookie, sha256, verifyPassword } from "../auth.js";
 import { removeImage, storeImage, upload } from "../files.js";
-import { exportToken, exportUrl, syncIcal } from "../ical.js";
+import { exportToken, exportUrl, findConflicts, ignoreConflict, syncIcal } from "../ical.js";
 import { mailEnabled, sendInvitation } from "../mail.js";
 import { MIN_PASSWORD, sessionUser } from "./auth.js";
 import { currentBanner, contentOverrides } from "./public.js";
@@ -37,7 +37,7 @@ adminRoutes.get(
   "/dashboard",
   h(async (_req, res) => {
     const yearStart = new Date(new Date().getFullYear(), 0, 1);
-    const [activeEvents, banner, requestsThisYear, newRequests, lastActivity, activity, requests, upcoming] = await Promise.all([
+    const [activeEvents, banner, requestsThisYear, newRequests, lastActivity, activity, requests, upcoming, conflicts] = await Promise.all([
       col.events.countDocuments({ active: true, endDate: { $gte: today() } }),
       currentBanner(),
       col.requests.countDocuments({ createdAt: { $gte: yearStart } }),
@@ -50,6 +50,7 @@ adminRoutes.get(
         .sort({ start: 1 })
         .limit(4)
         .toArray(),
+      findConflicts(),
     ]);
     res.json({
       stats: {
@@ -63,6 +64,7 @@ adminRoutes.get(
       activity: activity.map((a) => ({ id: String(a._id), userName: a.userName, message: a.message, createdAt: a.createdAt })),
       requests: requests.map(toRequest),
       upcoming: upcoming.map((b) => ({ id: String(b._id), start: b.start, end: b.end, label: b.label, source: b.source })),
+      conflicts,
     });
   }),
 );
@@ -84,6 +86,7 @@ adminRoutes.patch(
     if (!request) return bad(res, "Demande introuvable.", 404);
     const status = req.body?.status;
     if (!REQUEST_STATUSES.includes(status)) return bad(res, "Statut inconnu.");
+    if (status === "confirmee" && request.kind === "question") return bad(res, "Une question ne se confirme pas comme un séjour.");
     const note = req.body?.note !== undefined ? str(req.body.note, 2000) : request.note;
 
     // Confirming a request with real dates blocks them in the calendar (and refusing/reopening frees them).
@@ -108,7 +111,7 @@ adminRoutes.patch(
     await col.requests.updateOne({ _id: request._id }, { $set: { status, note, blockId: request.blockId ?? null } });
     if (status !== request.status) {
       const labels = { nouvelle: "rouvert", repondue: "marqué comme répondue", confirmee: "confirmé", refusee: "refusé" };
-      await log(req, `a ${labels[status]} la demande de ${request.name}`);
+      await log(req, `a ${labels[status]} ${request.kind === "question" ? "la question" : "la demande"} de ${request.name}`);
     }
     res.json({ ok: true });
   }),
@@ -408,7 +411,7 @@ adminRoutes.get(
   "/availability",
   h(async (_req, res) => {
     const from = new Date(Date.now() - 60 * 86400000).toISOString().slice(0, 10);
-    const [blocks, icalUrls, lastSync, token] = await Promise.all([
+    const [blocks, icalUrls, lastSync, token, conflicts] = await Promise.all([
       col.availability
         .find({ end: { $gte: from } })
         .sort({ start: 1 })
@@ -416,6 +419,7 @@ adminRoutes.get(
       getSetting("icalUrls", []),
       getSetting("icalLastSync", null),
       exportToken(),
+      findConflicts(),
     ]);
     res.json({
       blocks: blocks.map((b) => ({
@@ -429,6 +433,7 @@ adminRoutes.get(
       icalUrls,
       lastSync,
       exportUrl: exportUrl(token),
+      conflicts,
     });
   }),
 );
@@ -473,6 +478,16 @@ adminRoutes.put(
     const report = await syncIcal();
     await log(req, "a mis à jour les calendriers synchronisés");
     res.json({ ok: true, report });
+  }),
+);
+
+adminRoutes.post(
+  "/availability/conflicts/ignore",
+  h(async (req, res) => {
+    const key = str(req.body?.key, 300);
+    if (!(await ignoreConflict(key))) return bad(res, "Ce chevauchement n'existe plus.", 404);
+    await log(req, "a marqué un chevauchement de calendrier comme vérifié");
+    res.json({ ok: true });
   }),
 );
 

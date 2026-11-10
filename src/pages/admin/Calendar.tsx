@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { AdminCard, AdminH2, AdminLabel, Icon, StatusBadge, adminInputClass } from "@/components/admin/admin-ui";
 import { api } from "@/lib/api";
 import { formatPeriodShort, formatRelative, nightsBetween, todayISO } from "@/lib/format";
-import type { AvailabilityBlock } from "@/lib/types";
+import type { AvailabilityBlock, CalendarConflict } from "@/lib/types";
+import { CalendarConflicts } from "@/components/admin/calendar-conflicts";
 import { cn } from "@/lib/utils";
 
 type SyncReport = { url: string; ok: boolean; count?: number; error?: string }[];
@@ -14,6 +15,7 @@ interface CalendarData {
   icalUrls: string[];
   lastSync: { at: string; report: SyncReport } | null;
   exportUrl: string;
+  conflicts: CalendarConflict[];
 }
 
 const sourceLabel = { manual: "Manuel", ical: "Calendrier externe", request: "Demande confirmée" } as const;
@@ -157,6 +159,7 @@ export function AdminCalendar() {
 
   return (
     <>
+      {data && <CalendarConflicts conflicts={data.conflicts} onChange={() => load().catch((e) => toast.error(e.message))} />}
       <AdminCard className="mb-7 p-6">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <AdminH2>Les 12 prochains mois</AdminH2>

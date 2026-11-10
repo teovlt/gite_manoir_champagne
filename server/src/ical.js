@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import { col, getSetting, setSetting } from "./db.js";
 import { config } from "./config.js";
+import { notifyConflicts } from "./mail.js";
 
 /** Unfolds RFC 5545 continuation lines. */
 const unfold = (text) => text.replace(/\r?\n[ \t]/g, "");
@@ -65,7 +66,74 @@ export async function syncIcal() {
     }
   }
   await setSetting("icalLastSync", { at: new Date(), report });
+  await alertNewConflicts().catch((err) => console.error("[ical] conflict alert:", err.message));
   return report;
+}
+
+// ---------------------------------------------------------------- double bookings
+
+const platformName = (feed) => {
+  try {
+    return new URL(feed).hostname.replace(/^www\./, "");
+  } catch {
+    return "calendrier externe";
+  }
+};
+
+/** Stable as long as the two periods keep their dates (imported periods get new ids on every sync). */
+const conflictKey = (local, ext) => `${local._id}|${ext.feed}|${ext.start}|${ext.end}`;
+
+/**
+ * Upcoming periods imported from a platform that overlap a stay confirmed on the site or blocked by hand:
+ * a probable double booking. Dates that match exactly are flagged as "exact": often just the platform
+ * re-exporting the dates it imported from this site, but still worth a look.
+ */
+export async function findConflicts() {
+  const from = new Date().toISOString().slice(0, 10);
+  const [blocks, ignored] = await Promise.all([
+    col.availability
+      .find({ end: { $gt: from } })
+      .sort({ start: 1 })
+      .toArray(),
+    getSetting("icalConflictsIgnored", []),
+  ]);
+  const skip = new Set(ignored);
+  const local = blocks.filter((b) => b.source !== "ical");
+  const external = blocks.filter((b) => b.source === "ical");
+  const out = [];
+  for (const l of local) {
+    for (const e of external) {
+      if (!(e.start < l.end && e.end > l.start)) continue;
+      const key = conflictKey(l, e);
+      if (skip.has(key)) continue;
+      out.push({
+        key,
+        exact: e.start === l.start && e.end === l.end,
+        local: { id: String(l._id), start: l.start, end: l.end, label: l.label, source: l.source },
+        external: { start: e.start, end: e.end, label: e.label, platform: platformName(e.feed) },
+      });
+    }
+  }
+  return out;
+}
+
+/** Hides a conflict the owners checked. Keys of conflicts that no longer exist are pruned. */
+export async function ignoreConflict(key) {
+  const current = new Set((await findConflicts()).map((c) => c.key));
+  if (!current.has(key)) return false;
+  const kept = (await getSetting("icalConflictsIgnored", [])).filter((k) => k.split("|")[3] >= new Date().toISOString().slice(0, 10));
+  await setSetting("icalConflictsIgnored", [...kept, key].slice(-300));
+  return true;
+}
+
+/** E-mails the owners once per new overlap (exact re-exports excepted, they stay visible in the admin). */
+async function alertNewConflicts() {
+  const conflicts = (await findConflicts()).filter((c) => !c.exact);
+  const notified = new Set(await getSetting("icalConflictsNotified", []));
+  const fresh = conflicts.filter((c) => !notified.has(c.key));
+  if (!fresh.length) return;
+  await setSetting("icalConflictsNotified", [...notified, ...fresh.map((c) => c.key)].slice(-300));
+  await notifyConflicts(fresh);
 }
 
 export function startIcalSync() {

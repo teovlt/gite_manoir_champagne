@@ -91,6 +91,8 @@ export type RequestStatus = "nouvelle" | "repondue" | "confirmee" | "refusee";
 
 export interface BookingRequest {
   id: string;
+  /** Missing on requests sent before questions existed: those are bookings. */
+  kind?: "booking" | "question";
   name: string;
   email: string;
   arrival: string | null;
@@ -121,6 +123,15 @@ export interface AdminUser {
   createdAt: string;
   lastLoginAt: string | null;
   pending: boolean;
+}
+
+/** A platform booking overlapping a stay of the site or a hand-blocked period. */
+export interface CalendarConflict {
+  key: string;
+  /** Same dates on both sides: often just the platform re-exporting the site's own dates. */
+  exact: boolean;
+  local: { id: string; start: string; end: string; label: string; source: "manual" | "request" };
+  external: { start: string; end: string; label: string; platform: string };
 }
 
 export interface AvailabilityBlock {

@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { AdminCard, AdminH2, Icon, type AdminIcon } from "@/components/admin/admin-ui";
-import { RequestStatusBadge, guestsLabel } from "@/components/admin/request-status";
+import { RequestStatusBadge, guestsLabel, isQuestion, requestDatesLabel } from "@/components/admin/request-status";
 import { useAuth } from "@/providers/auth-provider";
 import { api } from "@/lib/api";
 import { formatPeriodShort, formatRelative } from "@/lib/format";
-import type { ActivityEntry, AvailabilityBlock, BookingRequest } from "@/lib/types";
+import type { ActivityEntry, AvailabilityBlock, BookingRequest, CalendarConflict } from "@/lib/types";
+import { CalendarConflicts } from "@/components/admin/calendar-conflicts";
 
 interface DashboardData {
   stats: {
@@ -20,6 +21,7 @@ interface DashboardData {
   activity: ActivityEntry[];
   requests: BookingRequest[];
   upcoming: AvailabilityBlock[];
+  conflicts: CalendarConflict[];
 }
 
 const quickActions: { to: string; label: string; icon: keyof typeof AdminIcon }[] = [
@@ -67,6 +69,8 @@ export function AdminDashboard() {
         Bonjour {firstName} — voici un aperçu du site au {today}.
       </p>
 
+      {data && <CalendarConflicts conflicts={data.conflicts} />}
+
       <div className="mb-8 flex flex-wrap gap-[18px]">
         <Stat label="Demandes à traiter" value={s?.newRequests ?? "…"} hint={`${s?.requestsThisYear ?? 0} reçues depuis le 1er janvier`} to="/admin/demandes" />
         <Stat label="Événements actifs" value={s?.activeEvents ?? "…"} hint={s?.bannerTitle ?? "Aucun affiché"} hintMuted={!s?.bannerTitle} to="/admin/banniere" />
@@ -109,7 +113,7 @@ export function AdminDashboard() {
         <div className="flex flex-col gap-6">
           <div>
             <div className="mb-3 flex items-baseline justify-between gap-3">
-              <AdminH2 className="text-[19px]">Demandes de réservation récentes</AdminH2>
+              <AdminH2 className="text-[19px]">Demandes récentes</AdminH2>
               <Link to="/admin/demandes" className="text-[12.5px] font-semibold text-clay">
                 Tout voir →
               </Link>
@@ -135,8 +139,8 @@ export function AdminDashboard() {
                   {data?.requests.map((r) => (
                     <tr key={r.id} className="border-t border-line">
                       <td className="px-4 py-3 font-semibold">{r.name}</td>
-                      <td className="px-4 py-3 text-ink-soft">{r.arrival && r.departure ? formatPeriodShort(r.arrival, r.departure) : r.dates || "—"}</td>
-                      <td className="px-4 py-3 text-ink-soft">{guestsLabel(r)}</td>
+                      <td className="px-4 py-3 text-ink-soft">{requestDatesLabel(r, formatPeriodShort)}</td>
+                      <td className="px-4 py-3 text-ink-soft">{isQuestion(r) ? "—" : guestsLabel(r)}</td>
                       <td className="px-4 py-3">
                         <RequestStatusBadge status={r.status} />
                       </td>

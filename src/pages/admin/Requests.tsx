@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { AdminCard, Icon, PillTabs } from "@/components/admin/admin-ui";
-import { RequestStatusBadge, guestsLabel, statusLabels } from "@/components/admin/request-status";
+import { KindBadge, RequestStatusBadge, guestsLabel, isQuestion, statusLabels } from "@/components/admin/request-status";
 import { api } from "@/lib/api";
 import { formatPeriodShort, formatRelative } from "@/lib/format";
 import type { BookingRequest, RequestStatus } from "@/lib/types";
@@ -19,11 +19,19 @@ const replySubject = {
   de: "Ihr Aufenthalt im Manoir de la Champagne",
 } as Record<string, string>;
 
+const questionSubject = {
+  fr: "Votre message au Manoir de la Champagne",
+  en: "Your message to the Manoir de la Champagne",
+  de: "Ihre Nachricht an das Manoir de la Champagne",
+} as Record<string, string>;
+
 function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void }) {
   const [note, setNote] = useState(r.note ?? "");
   const [busy, setBusy] = useState(false);
 
   const savedNote = r.note ?? "";
+  const question = isQuestion(r);
+  const subjects = question ? questionSubject : replySubject;
   const update = async (status: RequestStatus) => {
     setBusy(true);
     try {
@@ -42,7 +50,7 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
   };
 
   const remove = async () => {
-    if (!window.confirm(`Supprimer définitivement la demande de ${r.name} ?`)) return;
+    if (!window.confirm(`Supprimer définitivement ${question ? "la question" : "la demande"} de ${r.name} ?`)) return;
     try {
       await api.delete(`/api/admin/requests/${r.id}`);
       toast.success("Demande supprimée.");
@@ -60,13 +68,14 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
         <div>
           <h3 className="text-[15px] font-semibold">{r.name}</h3>
           <a
-            href={`mailto:${r.email}?subject=${encodeURIComponent(replySubject[r.lang] ?? replySubject.fr)}`}
+            href={`mailto:${r.email}?subject=${encodeURIComponent(subjects[r.lang] ?? subjects.fr)}`}
             className="text-[13px] font-semibold text-clay"
           >
             {r.email}
           </a>
         </div>
         <div className="flex items-center gap-2">
+          <KindBadge r={r} />
           <span className="rounded-full bg-line px-2 py-0.5 text-[10px] font-bold uppercase text-stone" title="Langue du visiteur">
             {r.lang}
           </span>
@@ -74,10 +83,14 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
         </div>
       </div>
       <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-[13px]">
-        <dt className="text-stone">Dates</dt>
-        <dd>{r.arrival && r.departure ? formatPeriodShort(r.arrival, r.departure) : r.dates || "—"}</dd>
-        <dt className="text-stone">Voyageurs</dt>
-        <dd>{guestsLabel(r)}</dd>
+        {!question && (
+          <>
+            <dt className="text-stone">Dates</dt>
+            <dd>{r.arrival && r.departure ? formatPeriodShort(r.arrival, r.departure) : r.dates || "—"}</dd>
+            <dt className="text-stone">Voyageurs</dt>
+            <dd>{guestsLabel(r)}</dd>
+          </>
+        )}
         <dt className="text-stone">Reçue</dt>
         <dd>{formatRelative(r.createdAt)}</dd>
       </dl>
@@ -108,7 +121,7 @@ function RequestCard({ r, onChange }: { r: BookingRequest; onChange: () => void 
             Marquer répondue
           </button>
         )}
-        {r.status !== "confirmee" && (
+        {r.status !== "confirmee" && !question && (
           <button
             type="button"
             disabled={busy}
