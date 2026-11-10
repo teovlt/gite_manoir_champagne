@@ -57,6 +57,14 @@ PUBLIC_URL=http://localhost:5173
 COOKIE_SECURE=false
 ```
 
+MongoDB local, via Docker (`compose.dev.yaml`, image `mongo:7`, données gardées dans un volume) :
+
+```bash
+pnpm db:up      # démarre MongoDB sur 127.0.0.1:27017
+pnpm db:down    # l'arrête, les données restent
+pnpm db:reset   # l'arrête et efface toutes les données
+```
+
 Puis, dans deux terminaux :
 
 ```bash

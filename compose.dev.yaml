@@ -1,0 +1,25 @@
+# MongoDB local pour le développement (pas utilisé en production).
+#
+#   pnpm db:up     démarre MongoDB sur 127.0.0.1:27017 (données conservées dans le volume « mongo-data »)
+#   pnpm db:down   l'arrête (les données restent)
+#   pnpm db:reset  l'arrête et efface toutes les données
+#
+# server/.env : MONGODB_URI=mongodb://127.0.0.1:27017/manoir
+name: manoir-dev
+
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mongo-data:

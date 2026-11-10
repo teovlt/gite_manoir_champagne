@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite",
     "dev:api": "pnpm --dir server dev",
+    "db:up": "docker compose -f compose.dev.yaml up -d --wait",
+    "db:down": "docker compose -f compose.dev.yaml down",
+    "db:reset": "docker compose -f compose.dev.yaml down -v",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "format": "prettier --write ."
