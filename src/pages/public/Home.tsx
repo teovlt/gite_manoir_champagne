@@ -231,6 +231,61 @@ const PortraitIllustration = ({ className, label }: { className?: string; label:
   </div>
 );
 
+/** The outdoor spa, guests' favourite: shown high on the page with its price. */
+function SpaFeature() {
+  const { t } = useTranslation();
+  const lang = useLang();
+  const l = useLocalePath();
+  const { data } = useSiteData();
+  const spa = data.pricing.extras.find((x) => x.id === "spa");
+  const points = t("home.spa.points") as unknown as { value: string; label: string }[];
+
+  return (
+    <section className="px-gutter relative overflow-hidden bg-ink py-24 text-cream">
+      <div className="pointer-events-none absolute -right-40 -top-40 size-[520px] rounded-full bg-clay/15 blur-3xl" aria-hidden="true" />
+      <div className="relative mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-16 gap-y-12">
+        <Reveal className="relative flex-[1_1_460px] pb-16 pr-10 sm:pb-20 sm:pr-16">
+          <SitePhoto slot="jardins.spa" zoomable className="aspect-[4/3] w-full rounded-[16px] shadow-[0_24px_60px_rgba(0,0,0,0.45)]" />
+          <SitePhoto
+            slot="jardins.pavillon-spa"
+            zoomable
+            className="absolute bottom-0 right-0 aspect-[4/3] w-[48%] rounded-[14px] border-4 border-ink shadow-[0_16px_40px_rgba(0,0,0,0.5)]"
+          />
+        </Reveal>
+        <Reveal delay={120} className="flex-[1_1_380px]">
+          <span className="text-[13px] font-semibold uppercase tracking-[2px] text-wheat-light">{t("home.spa.eyebrow")}</span>
+          <Accent className="mt-4" />
+          <h2 className="mb-5 mt-4 font-serif text-[clamp(30px,3.8vw,44px)] font-medium leading-[1.1]">{t("home.spa.title")}</h2>
+          <p className="mb-8 text-base leading-[1.75] text-[#F6EEDC]">{t("home.spa.text")}</p>
+          <dl className="mb-8 grid grid-cols-3 gap-4 border-y border-cream/15 py-5">
+            {points.map((p) => (
+              <div key={p.label}>
+                <dt className="sr-only">{p.label}</dt>
+                <dd className="font-serif text-[clamp(24px,3vw,32px)] font-semibold leading-none text-wheat-light">{p.value}</dd>
+                <dd className="mt-1.5 text-[12px] uppercase tracking-[1px] text-cream/70">{p.label}</dd>
+              </div>
+            ))}
+          </dl>
+          {spa && (
+            <p className="mb-6 text-[15px] text-cream/85">
+              {t("home.spa.price")} <strong className="font-serif text-xl font-semibold text-cream">{formatPrice(spa.price, lang)}</strong>{" "}
+              {t("home.spa.priceUnit")}
+            </p>
+          )}
+          <div className="flex flex-wrap gap-4">
+            <Button asChild variant="clay" size="pillMd">
+              <Link to={l("/contact")}>{t("home.spa.cta")}</Link>
+            </Button>
+            <Button asChild variant="ghostLight" size="pillMd">
+              <Link to={l("/jardins-spa")}>{t("home.spa.more")}</Link>
+            </Button>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 export function Home() {
   const { t } = useTranslation();
   const lang = useLang();
@@ -307,6 +362,8 @@ export function Home() {
           </div>
         </Reveal>
       </section>
+
+      <SpaFeature />
 
       <section className="px-gutter py-20">
         <Reveal className="mx-auto flex max-w-[1100px] flex-wrap-reverse items-center gap-14">

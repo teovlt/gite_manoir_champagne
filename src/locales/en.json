@@ -96,7 +96,7 @@
     "scrollDown": "Scroll down to the content",
     "priceFrom": "Stays from",
     "factsLabel": "The manor at a glance",
-    "facts": ["Up to 14 guests", "5 bedrooms", "7-seat hot tub", "Private pond", "1,500 m² garden"],
+    "facts": ["Up to 14 guests", "7-seat hot tub", "5 bedrooms", "Private pond", "1,500 m² garden"],
     "ctaAvailability": "Check availability",
     "ctaDiscover": "Discover the manor",
     "bookingNote": "Your dates and number of guests are carried over to the Contact page, or",
@@ -126,7 +126,21 @@
     "exploreRegion": "Explore the region →",
     "findUs": "Find us",
     "nearSea": "Normandy — 10 minutes from the sea",
-    "directionsContact": "Directions & contact →"
+    "directionsContact": "Directions & contact →",
+    "spa": {
+      "eyebrow": "Our guests' favourite moment",
+      "title": "Your private hot tub, under the Normandy stars",
+      "text": "After a day on the beaches or at Mont-Saint-Michel, slip into the warm water of the 7-seat spa and let its 104 jets do the rest. Sheltered in its glass pavilion facing the garden, it is yours and your loved ones' alone for the whole stay.",
+      "points": [
+        { "value": "7", "label": "seats" },
+        { "value": "104", "label": "massage jets" },
+        { "value": "100%", "label": "private" }
+      ],
+      "price": "Optional, from",
+      "priceUnit": "per weekend",
+      "cta": "Book with the spa",
+      "more": "Discover the spa"
+    }
   },
   "gite": {
     "eyebrow": "Accommodation",

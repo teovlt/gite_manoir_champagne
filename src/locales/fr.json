@@ -96,7 +96,7 @@
     "scrollDown": "Faire défiler vers le contenu",
     "priceFrom": "Séjours dès",
     "factsLabel": "Le manoir en bref",
-    "facts": ["Jusqu’à 14 personnes", "5 chambres", "Jacuzzi 7 places", "Étang privé", "Jardin de 1 500 m²"],
+    "facts": ["Jusqu’à 14 personnes", "Jacuzzi 7 places", "5 chambres", "Étang privé", "Jardin de 1 500 m²"],
     "ctaAvailability": "Vérifier les disponibilités",
     "ctaDiscover": "Découvrir le manoir",
     "bookingNote": "Vos dates et le nombre de voyageurs sont repris automatiquement sur la page Contact, ou",
@@ -126,7 +126,21 @@
     "exploreRegion": "Explorer la région →",
     "findUs": "Nous trouver",
     "nearSea": "Normandie — à 10 minutes de la mer",
-    "directionsContact": "Itinéraire & contact →"
+    "directionsContact": "Itinéraire & contact →",
+    "spa": {
+      "eyebrow": "Le moment préféré de nos hôtes",
+      "title": "Votre jacuzzi privatif, sous les étoiles normandes",
+      "text": "Après une journée sur les plages ou au Mont-Saint-Michel, glissez-vous dans l'eau chaude du spa 7 places et laissez ses 104 jets faire le reste. Abrité dans son pavillon vitré face au jardin, il est rien qu'à vous et vos proches le temps du séjour.",
+      "points": [
+        { "value": "7", "label": "places" },
+        { "value": "104", "label": "jets massants" },
+        { "value": "100 %", "label": "privatif" }
+      ],
+      "price": "En option, dès",
+      "priceUnit": "le week-end",
+      "cta": "Réserver avec le spa",
+      "more": "Découvrir le spa"
+    }
   },
   "gite": {
     "eyebrow": "Hébergement",

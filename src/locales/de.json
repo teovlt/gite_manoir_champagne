@@ -96,7 +96,7 @@
     "scrollDown": "Zum Inhalt scrollen",
     "priceFrom": "Aufenthalte ab",
     "factsLabel": "Das Herrenhaus auf einen Blick",
-    "facts": ["Bis zu 14 Personen", "5 Schlafzimmer", "Whirlpool für 7", "Privater Teich", "1.500 m² Garten"],
+    "facts": ["Bis zu 14 Personen", "Whirlpool für 7", "5 Schlafzimmer", "Privater Teich", "1.500 m² Garten"],
     "ctaAvailability": "Verfügbarkeit prüfen",
     "ctaDiscover": "Das Herrenhaus entdecken",
     "bookingNote": "Ihre Daten und die Personenzahl werden automatisch auf die Kontaktseite übernommen, oder",
@@ -126,7 +126,21 @@
     "exploreRegion": "Die Region entdecken →",
     "findUs": "So finden Sie uns",
     "nearSea": "Normandie — 10 Minuten vom Meer",
-    "directionsContact": "Anfahrt & Kontakt →"
+    "directionsContact": "Anfahrt & Kontakt →",
+    "spa": {
+      "eyebrow": "Der Lieblingsmoment unserer Gäste",
+      "title": "Ihr privater Whirlpool unter dem Sternenhimmel der Normandie",
+      "text": "Nach einem Tag an den Stränden oder am Mont-Saint-Michel gleiten Sie ins warme Wasser des Whirlpools für 7 Personen und lassen die 104 Düsen den Rest erledigen. Geschützt in seinem verglasten Pavillon mit Blick auf den Garten gehört er während Ihres Aufenthalts ganz Ihnen und Ihren Liebsten.",
+      "points": [
+        { "value": "7", "label": "Plätze" },
+        { "value": "104", "label": "Massagedüsen" },
+        { "value": "100 %", "label": "privat" }
+      ],
+      "price": "Optional, ab",
+      "priceUnit": "pro Wochenende",
+      "cta": "Mit Whirlpool buchen",
+      "more": "Den Whirlpool entdecken"
+    }
   },
   "gite": {
     "eyebrow": "Unterkunft",
