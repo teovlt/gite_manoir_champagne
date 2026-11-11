@@ -220,7 +220,7 @@ adminRoutes.post(
   upload.array("files"),
   h(async (req, res) => {
     const section = SECTIONS.includes(req.body?.section) ? req.body.section : "accueil";
-    if (!req.files?.length) return bad(res, "Aucune image valide (JPG, PNG ou WebP, 15 Mo max).");
+    if (!req.files?.length) return bad(res, "Aucune image valide (JPG, PNG ou WebP, 25 Mo max).");
     const last = await col.photos.find().sort({ sort: -1 }).limit(1).next();
     let sort = (last?.sort ?? 0) + 1;
     for (const file of req.files) {
@@ -238,7 +238,7 @@ adminRoutes.put(
   h(async (req, res) => {
     const photo = await col.photos.findOne({ _id: oid(req.params.id) });
     if (!photo) return bad(res, "Photo introuvable.", 404);
-    if (!req.file) return bad(res, "Image invalide (JPG, PNG ou WebP, 15 Mo max).");
+    if (!req.file) return bad(res, "Image invalide (JPG, PNG ou WebP, 25 Mo max).");
     const url = await storeImage(req.file);
     await removeImage(photo.url);
     await col.photos.updateOne({ _id: photo._id }, { $set: { url } });

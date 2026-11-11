@@ -6,19 +6,19 @@ import { uploads } from "./db.js";
 
 export const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 15 * 1024 * 1024, files: 20 },
+  limits: { fileSize: 25 * 1024 * 1024, files: 30 },
   fileFilter: (_req, file, cb) => cb(null, ["image/jpeg", "image/png", "image/webp"].includes(file.mimetype)),
 });
 
 /**
- * Normalises an uploaded photo (auto-rotation, max 2000 px, WebP) and stores it in GridFS.
+ * Normalises an uploaded photo (auto-rotation, max 2560 px, WebP) and stores it in GridFS.
  * Returns the public URL (/uploads/<id>).
  */
 export async function storeImage(file) {
   const { data, info } = await sharp(file.buffer)
     .rotate()
-    .resize({ width: 2000, height: 2000, fit: "inside", withoutEnlargement: true })
-    .webp({ quality: 82 })
+    .resize({ width: 2560, height: 2560, fit: "inside", withoutEnlargement: true })
+    .webp({ quality: 84, smartSubsample: true })
     .toBuffer({ resolveWithObject: true });
 
   const stream = uploads.openUploadStream(file.originalname.replace(/\.[^.]+$/, "") + ".webp", {

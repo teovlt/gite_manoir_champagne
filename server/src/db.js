@@ -77,6 +77,7 @@ export async function seed() {
     "jardins.nord-2",
     "jardins.nord-3",
     "jardins.spa",
+    "accueil.portrait",
   ];
   await Promise.all(
     photos
@@ -85,6 +86,23 @@ export async function seed() {
         col.photos.updateOne({ key: p.key, url: null, bundleFilled: { $ne: true } }, { $set: { url: p.url, bundleFilled: true } }),
       ),
   );
+  // Bundled gallery photos (shared/gallery.json): added once each, at the end of the gallery,
+  // so they show up in the admin like an upload and an owner's later deletion sticks.
+  const seededGallery = new Set(await getSetting("seededGallery", []));
+  const newGallery = readShared("gallery.json").filter((g) => !seededGallery.has(g.url));
+  if (newGallery.length) {
+    const last = await col.photos.find().sort({ sort: -1 }).limit(1).next();
+    let sort = (last?.sort ?? 0) + 1;
+    for (const g of newGallery) {
+      await col.photos.updateOne(
+        { key: null, url: g.url },
+        { $setOnInsert: { key: null, section: g.section, alt: g.alt, url: g.url, sort: sort++, createdAt: new Date() } },
+        { upsert: true },
+      );
+      seededGallery.add(g.url);
+    }
+    await setSetting("seededGallery", [...seededGallery]);
+  }
 
   // Text overrides that only repeat the default, or still hold a "[to be completed]" placeholder, are dropped:
   // the site then shows the current default text (older admin versions saved every field of a page).

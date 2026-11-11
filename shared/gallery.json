@@ -1,0 +1,227 @@
+[
+  {
+    "section": "gite",
+    "url": "/photos/galerie/salon-3.webp",
+    "alt": {
+      "fr": "Le salon sous les poutres",
+      "en": "The living room under the beams",
+      "de": "Der Salon unter den Holzbalken"
+    }
+  },
+  {
+    "section": "gite",
+    "url": "/photos/galerie/cuisine-2.webp",
+    "alt": {
+      "fr": "La cuisine et sa grande table",
+      "en": "The kitchen and its large table",
+      "de": "Die Küche mit großem Tisch"
+    }
+  },
+  {
+    "section": "gite",
+    "url": "/photos/galerie/salon-soiree.webp",
+    "alt": {
+      "fr": "Soirée au coin du feu",
+      "en": "An evening by the fire",
+      "de": "Ein Abend am Kaminfeuer"
+    }
+  },
+  {
+    "section": "gite",
+    "url": "/photos/galerie/chambre-serenite-3.webp",
+    "alt": {
+      "fr": "Chambre Sérénité",
+      "en": "Sérénité bedroom",
+      "de": "Zimmer Sérénité"
+    }
+  },
+  {
+    "section": "gite",
+    "url": "/photos/galerie/salle-d-eau-2.webp",
+    "alt": {
+      "fr": "Salle d'eau avec douche à l'italienne",
+      "en": "Shower room with walk-in shower",
+      "de": "Duschbad mit ebenerdiger Dusche"
+    }
+  },
+  {
+    "section": "gite",
+    "url": "/photos/galerie/chambre-marquise-3.webp",
+    "alt": {
+      "fr": "Chambre La Marquise",
+      "en": "La Marquise bedroom",
+      "de": "Zimmer La Marquise"
+    }
+  },
+  {
+    "section": "gite",
+    "url": "/photos/galerie/chambre-marquise-4.webp",
+    "alt": {
+      "fr": "Chambre La Marquise",
+      "en": "La Marquise bedroom",
+      "de": "Zimmer La Marquise"
+    }
+  },
+  {
+    "section": "gite",
+    "url": "/photos/galerie/salle-de-bain-bateau.webp",
+    "alt": {
+      "fr": "Salle de bain de la chambre Bateau",
+      "en": "Bateau bedroom bathroom",
+      "de": "Badezimmer des Zimmers Bateau"
+    }
+  },
+  {
+    "section": "gite",
+    "url": "/photos/galerie/chambre-familiale-2.webp",
+    "alt": {
+      "fr": "Lits superposés",
+      "en": "Bunk beds",
+      "de": "Etagenbetten"
+    }
+  },
+  {
+    "section": "jardins",
+    "url": "/photos/galerie/facade-sud.webp",
+    "alt": {
+      "fr": "La façade sud au printemps",
+      "en": "The south façade in spring",
+      "de": "Die Südfassade im Frühling"
+    }
+  },
+  {
+    "section": "jardins",
+    "url": "/photos/galerie/facade-sud-2.webp",
+    "alt": {
+      "fr": "Le jardin sud",
+      "en": "The south garden",
+      "de": "Der Südgarten"
+    }
+  },
+  {
+    "section": "jardins",
+    "url": "/photos/galerie/porche-2.webp",
+    "alt": {
+      "fr": "L'allée vue depuis le porche",
+      "en": "The drive seen from the porch",
+      "de": "Die Allee vom Portal aus gesehen"
+    }
+  },
+  {
+    "section": "jardins",
+    "url": "/photos/galerie/ruines-jonquille.webp",
+    "alt": {
+      "fr": "Les vieux murs au printemps",
+      "en": "The old walls in spring",
+      "de": "Die alten Mauern im Frühling"
+    }
+  },
+  {
+    "section": "jardins",
+    "url": "/photos/galerie/jardin-clos.webp",
+    "alt": {
+      "fr": "Le jardin clos au bord de l’étang",
+      "en": "The walled garden by the pond",
+      "de": "Der ummauerte Garten am Teich"
+    }
+  },
+  {
+    "section": "jardins",
+    "url": "/photos/galerie/hamac.webp",
+    "alt": {
+      "fr": "Fauteuil suspendu sous les arbres",
+      "en": "Hanging chair under the trees",
+      "de": "Hängesessel unter den Bäumen"
+    }
+  },
+  {
+    "section": "jardins",
+    "url": "/photos/galerie/terrasse-2.webp",
+    "alt": {
+      "fr": "La terrasse et le pavillon du spa",
+      "en": "The terrace and the spa pavilion",
+      "de": "Die Terrasse und der Spa-Pavillon"
+    }
+  },
+  {
+    "section": "jardins",
+    "url": "/photos/galerie/vaches.webp",
+    "alt": {
+      "fr": "Les voisines du pré",
+      "en": "The neighbours in the meadow",
+      "de": "Die Nachbarinnen auf der Weide"
+    }
+  },
+  {
+    "section": "region",
+    "url": "/photos/galerie/cimetiere-americain.webp",
+    "alt": {
+      "fr": "Cimetière américain de Colleville-sur-Mer",
+      "en": "American Cemetery, Colleville-sur-Mer",
+      "de": "Amerikanischer Friedhof in Colleville-sur-Mer"
+    }
+  },
+  {
+    "section": "region",
+    "url": "/photos/galerie/monument-debarquement.webp",
+    "alt": {
+      "fr": "Monument face aux plages du Débarquement",
+      "en": "Memorial overlooking the D-Day beaches",
+      "de": "Denkmal über den Landungsstränden"
+    }
+  },
+  {
+    "section": "region",
+    "url": "/photos/galerie/casemate.webp",
+    "alt": {
+      "fr": "Casemate du Mur de l'Atlantique",
+      "en": "Atlantic Wall casemate",
+      "de": "Kasematte des Atlantikwalls"
+    }
+  },
+  {
+    "section": "region",
+    "url": "/photos/galerie/voiliers.webp",
+    "alt": {
+      "fr": "Voiliers le long de la côte",
+      "en": "Sailing boats along the coast",
+      "de": "Segelboote an der Küste"
+    }
+  },
+  {
+    "section": "region",
+    "url": "/photos/galerie/vieux-greement.webp",
+    "alt": {
+      "fr": "Un vieux gréement",
+      "en": "A traditional sailing ship",
+      "de": "Ein traditionelles Segelschiff"
+    }
+  },
+  {
+    "section": "region",
+    "url": "/photos/galerie/port.webp",
+    "alt": {
+      "fr": "Retour au port",
+      "en": "Back to the harbour",
+      "de": "Zurück im Hafen"
+    }
+  },
+  {
+    "section": "region",
+    "url": "/photos/galerie/cabines-de-plage.webp",
+    "alt": {
+      "fr": "Cabines de plage",
+      "en": "Beach huts",
+      "de": "Strandhäuschen"
+    }
+  },
+  {
+    "section": "region",
+    "url": "/photos/galerie/chateau-ruines.webp",
+    "alt": {
+      "fr": "Château en ruines",
+      "en": "Castle ruins",
+      "de": "Burgruine"
+    }
+  }
+]

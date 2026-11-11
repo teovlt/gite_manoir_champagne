@@ -65,7 +65,7 @@ api.use("/auth", authRoutes);
 api.use("/admin", adminRoutes);
 api.use((_req, res) => bad(res, "Not found", 404));
 api.use((err, _req, res, _next) => {
-  if (err instanceof multer.MulterError) return bad(res, err.code === "LIMIT_FILE_SIZE" ? "Fichier trop lourd (15 Mo max)." : err.message);
+  if (err instanceof multer.MulterError) return bad(res, err.code === "LIMIT_FILE_SIZE" ? "Fichier trop lourd (25 Mo max)." : err.message);
   if (err.type === "entity.parse.failed") return bad(res, "Requête invalide.");
   console.error(err);
   res.status(500).json({ error: "Erreur serveur." });

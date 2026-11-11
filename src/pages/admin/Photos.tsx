@@ -151,8 +151,8 @@ export function AdminPhotos() {
   const upload = async (files: FileList | File[]) => {
     const list = Array.from(files).filter((f) => f.type && ACCEPT.includes(f.type));
     if (!list.length) return toast.error("Formats acceptés : JPG, PNG ou WebP.");
-    const tooBig = list.find((f) => f.size > 15 * 1024 * 1024);
-    if (tooBig) return toast.error(`« ${tooBig.name} » dépasse 15 Mo.`);
+    const tooBig = list.find((f) => f.size > 25 * 1024 * 1024);
+    if (tooBig) return toast.error(`« ${tooBig.name} » dépasse 25 Mo.`);
     const form = new FormData();
     form.append("section", section);
     list.forEach((f) => form.append("files", f));
@@ -201,7 +201,7 @@ export function AdminPhotos() {
           <span className="mb-1 text-sm font-semibold text-ink">
             {uploading ? "Envoi en cours…" : "Glissez vos photos ici, ou cliquez pour parcourir"}
           </span>
-          <span className="text-[13px] text-stone">JPG, PNG ou WebP, 15 Mo maximum — redimensionnées et optimisées automatiquement. Pensez au format 4:3 pour un rendu homogène.</span>
+          <span className="text-[13px] text-stone">JPG, PNG ou WebP, 25 Mo maximum — redimensionnées et optimisées automatiquement. Pensez au format 4:3 pour un rendu homogène.</span>
         </button>
         <input ref={inputRef} type="file" accept={ACCEPT} multiple hidden onChange={(e) => e.target.files && upload(e.target.files)} />
         <div className="mt-4 flex items-center justify-center gap-2 text-[13px] text-umber">
