@@ -93,7 +93,7 @@ export function Tarifs() {
         eyebrow={t("tarifs.eyebrow")}
         title={t("tarifs.title")}
         photoSlot="jardins.terrasse"
-        sideSlots={["gite.hero", "jardins.hero-3"]}
+        sideSlots={["gite.hero", "gite.familiale"]}
         minHeight={400}
       />
 
