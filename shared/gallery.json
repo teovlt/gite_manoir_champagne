@@ -30,9 +30,9 @@
     "section": "gite",
     "url": "/photos/galerie/chambre-serenite-3.webp",
     "alt": {
-      "fr": "Chambre Sérénité",
-      "en": "Sérénité bedroom",
-      "de": "Zimmer Sérénité"
+      "fr": "Chambre Familiale",
+      "en": "Family bedroom",
+      "de": "Familienzimmer"
     }
   },
   {
@@ -75,9 +75,9 @@
     "section": "gite",
     "url": "/photos/galerie/chambre-familiale-2.webp",
     "alt": {
-      "fr": "Lits superposés",
-      "en": "Bunk beds",
-      "de": "Etagenbetten"
+      "fr": "Chambre Cabine",
+      "en": "Cabine bedroom",
+      "de": "Zimmer Cabine"
     }
   },
   {

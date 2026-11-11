@@ -30,7 +30,13 @@ export function Jardins() {
 
   return (
     <>
-      <PageHero eyebrow={t("jardins.eyebrow")} title={text("heroTitle")} subtitle={text("heroSubtitle")} photoSlot="jardins.hero" />
+      <PageHero
+        eyebrow={t("jardins.eyebrow")}
+        title={text("heroTitle")}
+        subtitle={text("heroSubtitle")}
+        photoSlot="jardins.hero"
+        sideSlots={["jardins.hero-2", "jardins.hero-3"]}
+      />
 
       <section className="px-gutter pb-12 pt-16">
         <div className="mx-auto max-w-[1200px]">

@@ -202,7 +202,13 @@ export function Contact() {
 
   return (
     <>
-      <PageHero eyebrow={t("contact.eyebrow")} title={t("contact.title")} photoSlot="jardins.porche" minHeight={380} />
+      <PageHero
+        eyebrow={t("contact.eyebrow")}
+        title={t("contact.title")}
+        photoSlot="jardins.porche"
+        sideSlots={["jardins.nord-1", "gite.salle-a-manger"]}
+        minHeight={380}
+      />
 
       <section className="px-gutter py-20">
         <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(min(360px,100%),1fr))] gap-14">

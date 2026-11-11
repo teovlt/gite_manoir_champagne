@@ -103,6 +103,18 @@ export async function seed() {
     }
     await setSetting("seededGallery", [...seededGallery]);
   }
+  // Captions of bundled gallery photos corrected after their first seeding (owners' own edits are kept).
+  const fixedCaptions = [
+    ["/photos/galerie/chambre-serenite-3.webp", "Chambre Sérénité"],
+    ["/photos/galerie/chambre-familiale-2.webp", "Lits superposés"],
+  ];
+  const gallery = readShared("gallery.json");
+  await Promise.all(
+    fixedCaptions.map(([url, oldFr]) => {
+      const g = gallery.find((x) => x.url === url);
+      return g && col.photos.updateOne({ key: null, url, "alt.fr": oldFr }, { $set: { alt: g.alt } });
+    }),
+  );
 
   // Text overrides that only repeat the default, or still hold a "[to be completed]" placeholder, are dropped:
   // the site then shows the current default text (older admin versions saved every field of a page).

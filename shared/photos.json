@@ -30,6 +30,26 @@
     "url": "/photos/gite-hero.webp"
   },
   {
+    "key": "gite.hero-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Familiale",
+      "en": "Family bedroom",
+      "de": "Familienzimmer"
+    },
+    "url": "/photos/gite-hero-2.webp"
+  },
+  {
+    "key": "gite.hero-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre La Marquise",
+      "en": "La Marquise bedroom",
+      "de": "Zimmer La Marquise"
+    },
+    "url": "/photos/gite-hero-3.webp"
+  },
+  {
     "key": "gite.salon",
     "section": "gite",
     "alt": {
@@ -78,6 +98,16 @@
       "de": "Familienzimmer"
     },
     "url": "/photos/chambre-familiale.webp"
+  },
+  {
+    "key": "gite.cabine",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Cabine",
+      "en": "Cabine bedroom",
+      "de": "Zimmer Cabine"
+    },
+    "url": "/photos/chambre-cabine.webp"
   },
   {
     "key": "gite.marquise",
@@ -188,6 +218,26 @@
       "de": "Südgarten und Teich"
     },
     "url": "/photos/jardins-hero.webp"
+  },
+  {
+    "key": "jardins.hero-2",
+    "section": "jardins",
+    "alt": {
+      "fr": "Le manoir et son étang",
+      "en": "The manor and its pond",
+      "de": "Das Herrenhaus und sein Teich"
+    },
+    "url": "/photos/jardins-hero-2.webp"
+  },
+  {
+    "key": "jardins.hero-3",
+    "section": "jardins",
+    "alt": {
+      "fr": "Le spa 7 places",
+      "en": "The 7-seat spa",
+      "de": "Der Whirlpool für 7 Personen"
+    },
+    "url": "/photos/spa.webp"
   },
   {
     "key": "jardins.nord-1",

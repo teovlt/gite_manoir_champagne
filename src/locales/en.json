@@ -151,7 +151,8 @@
     "roomList": [
       { "name": "Sérénité bedroom", "tag": "Ground floor · step-free access", "text": "1 bed 160×200. Shower room with a large hydromassage shower with built-in seat, washbasin, WC." },
       { "name": "Bateau bedroom", "tag": "First floor · seaside theme", "text": "2 beds 90×190, 1 bunk bed 90×190, 1 pull-out bed 90×190. Bathroom with glass basin and hydromassage shower, WC." },
-      { "name": "Family bedroom", "tag": "First floor", "text": "2 beds 90×190." },
+      { "name": "Family bedroom", "tag": "First floor · family suite", "text": "1 bed 160×200. Forms a suite with the Cabine bedroom, sharing its bathroom and WC." },
+      { "name": "Cabine bedroom", "tag": "First floor · family suite", "text": "1 bunk bed 90×190 and 1 pull-out bed 90×190: the children's corner, right next to the Family bedroom." },
       { "name": "La Marquise bedroom", "tag": "First floor", "text": "2 beds 90×200. Normandy-style wardrobe. Bathroom with glass basin, large hydromassage shower, WC." }
     ],
     "gallery": "Gallery",

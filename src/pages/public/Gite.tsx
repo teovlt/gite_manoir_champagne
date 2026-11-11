@@ -7,7 +7,7 @@ import { useExtraPhotos, usePageText } from "@/providers/site-data-provider";
 import { usePageMeta } from "@/lib/use-page-meta";
 import { lines } from "@/lib/format";
 
-const roomSlots = ["gite.serenite", "gite.bateau", "gite.familiale", "gite.marquise"];
+const roomSlots = ["gite.serenite", "gite.bateau", "gite.familiale", "gite.cabine", "gite.marquise"];
 const gallerySlots = [
   "gite.salon-2",
   "gite.cheminee",
@@ -29,7 +29,7 @@ export function Gite() {
 
   return (
     <>
-      <PageHero eyebrow={t("gite.eyebrow")} title={text("heroTitle")} photoSlot="gite.hero" />
+      <PageHero eyebrow={t("gite.eyebrow")} title={text("heroTitle")} photoSlot="gite.hero" sideSlots={["gite.hero-2", "gite.hero-3"]} />
 
       <section className="px-gutter pb-12 pt-16">
         <Reveal className="mx-auto flex max-w-[1100px] flex-wrap items-start gap-12">

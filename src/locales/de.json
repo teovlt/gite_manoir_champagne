@@ -151,7 +151,8 @@
     "roomList": [
       { "name": "Zimmer Sérénité", "tag": "Erdgeschoss · barrierefrei", "text": "1 Bett 160×200. Duschbad mit großer Hydromassage-Dusche mit integriertem Sitz, Waschbecken, WC." },
       { "name": "Zimmer Bateau", "tag": "Obergeschoss · maritimes Thema", "text": "2 Betten 90×190, 1 Etagenbett 90×190, 1 Ausziehbett 90×190. Bad mit Glaswaschbecken und Hydromassage-Dusche, WC." },
-      { "name": "Familienzimmer", "tag": "Obergeschoss", "text": "2 Betten 90×190." },
+      { "name": "Familienzimmer", "tag": "Obergeschoss · Familiensuite", "text": "1 Bett 160×200. Bildet eine Suite mit dem Zimmer Cabine und teilt sich mit ihm Bad und WC." },
+      { "name": "Zimmer Cabine", "tag": "Obergeschoss · Familiensuite", "text": "1 Etagenbett 90×190 und 1 Ausziehbett 90×190: die Kinderecke, direkt neben dem Familienzimmer." },
       { "name": "Zimmer La Marquise", "tag": "Obergeschoss", "text": "2 Betten 90×200. Normannischer Schrank. Bad mit Glaswaschbecken, großer Hydromassage-Dusche, WC." }
     ],
     "gallery": "Galerie",

@@ -151,7 +151,8 @@
     "roomList": [
       { "name": "Chambre Sérénité", "tag": "Rez-de-chaussée · accès PMR", "text": "1 lit 160×200. Salle d'eau avec douche hydromassante grand format à siège intégré, lavabo, WC." },
       { "name": "Chambre Bateau", "tag": "Étage · thème marin", "text": "2 lits 90×190, 1 lit superposé 90×190, 1 lit tiroir 90×190. Salle de bain avec vasque en verre et douche hydromassante, WC." },
-      { "name": "Chambre Familiale", "tag": "Étage", "text": "2 lits 90×190." },
+      { "name": "Chambre Familiale", "tag": "Étage · suite familiale", "text": "1 lit 160×200. Forme une suite avec la chambre Cabine, avec qui elle partage sa salle de bain et son WC." },
+      { "name": "Chambre Cabine", "tag": "Étage · suite familiale", "text": "1 lit superposé 90×190 et 1 lit tiroir 90×190 : le coin des enfants, juste à côté de la chambre Familiale." },
       { "name": "Chambre La Marquise", "tag": "Étage", "text": "2 lits 90×200. Armoire de style normand. Salle de bain avec vasque en verre, douche hydromassante grand format, WC." }
     ],
     "gallery": "Galerie",

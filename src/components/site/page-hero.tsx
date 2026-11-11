@@ -1,4 +1,4 @@
-import { usePhoto } from "@/providers/site-data-provider";
+import { usePhoto, useSiteData } from "@/providers/site-data-provider";
 import { Typo } from "@/lib/format";
 import { useTr } from "@/lib/locale";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,11 @@ interface PageHeroProps {
   photoSlot?: string;
   /** Slot used while `photoSlot` is empty (or when the page has no slot of its own). */
   fallbackSlot?: string;
+  /**
+   * Two more slots shown stacked beside the main photo on large screens, so each picture keeps a
+   * size close to its own instead of one photo stretched across the whole width.
+   */
+  sideSlots?: [string, string];
   minHeight?: number;
   children?: React.ReactNode;
 }
@@ -48,12 +53,16 @@ const ManorSketch = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export function PageHero({ eyebrow, title, subtitle, photoSlot, fallbackSlot, minHeight = 460, children }: PageHeroProps) {
+export function PageHero({ eyebrow, title, subtitle, photoSlot, fallbackSlot, sideSlots, minHeight = 460, children }: PageHeroProps) {
   const own = usePhoto(photoSlot ?? "");
   const fallback = usePhoto(fallbackSlot ?? "");
+  const { data } = useSiteData();
   const photo = own?.url ? own : fallback;
   const tr = useTr();
   const withPhoto = Boolean(photo?.url);
+  // The mosaic only shows when both side photos exist; otherwise the main photo fills the hero.
+  const side = (sideSlots ?? []).map((s) => data.photos.find((p) => p.key === s)).filter((p) => p?.url);
+  const mosaic = withPhoto && side.length === 2;
 
   return (
     <>
@@ -67,14 +76,32 @@ export function PageHero({ eyebrow, title, subtitle, photoSlot, fallbackSlot, mi
       >
         {withPhoto ? (
           <>
-            <img
-              src={photo!.url!}
-              alt={tr(photo!.alt)}
-              fetchPriority="high"
-              className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,24,14,0.5)_0%,rgba(35,24,14,0.12)_65%),linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.38)_100%)]" />
-            <PhotoCredit url={photo!.url} className="bottom-2.5 right-4" />
+            <div className={cn("absolute inset-0 overflow-hidden", mosaic && "lg:right-[38%]")}>
+              <img
+                src={photo!.url!}
+                alt={tr(photo!.alt)}
+                fetchPriority="high"
+                className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,24,14,0.5)_0%,rgba(35,24,14,0.12)_65%),linear-gradient(180deg,rgba(43,42,37,0)_0%,rgba(35,24,14,0.38)_100%)]" />
+              <PhotoCredit url={photo!.url} className="bottom-2.5 right-4" />
+            </div>
+            {mosaic && (
+              <div className="absolute inset-y-0 right-0 hidden w-[38%] grid-rows-2 gap-1 bg-cream pl-1 lg:grid">
+                {side.map((p, i) => (
+                  <div key={p!.key} className="relative overflow-hidden">
+                    <img
+                      src={p!.url!}
+                      alt={tr(p!.alt)}
+                      fetchPriority={i === 0 ? "high" : undefined}
+                      className="photo-warm hero-zoom absolute inset-0 h-full w-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(43,42,37,0)_55%,rgba(35,24,14,0.25)_100%)]" />
+                    <PhotoCredit url={p!.url} className="bottom-2 right-3" />
+                  </div>
+                ))}
+              </div>
+            )}
           </>
         ) : (
           <>
@@ -85,7 +112,12 @@ export function PageHero({ eyebrow, title, subtitle, photoSlot, fallbackSlot, mi
             <ManorSketch className="hero-float absolute bottom-0 right-[-6%] w-[min(560px,70%)] opacity-40 sm:right-[2%] sm:opacity-90" />
           </>
         )}
-        <div className="px-gutter relative z-[2] max-w-[760px] py-16 animate-in fade-in-0 slide-in-from-bottom-4 duration-700">
+        <div
+          className={cn(
+            "px-gutter relative z-[2] max-w-[760px] py-16 animate-in fade-in-0 slide-in-from-bottom-4 duration-700",
+            mosaic && "lg:max-w-[min(760px,62%)]",
+          )}
+        >
           <span className={cn("text-[13px] uppercase tracking-[2px]", withPhoto ? "text-wheat-light" : "font-semibold text-clay")}>
             {eyebrow}
           </span>

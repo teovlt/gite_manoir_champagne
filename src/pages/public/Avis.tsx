@@ -90,7 +90,13 @@ export function Avis() {
 
   return (
     <>
-      <PageHero eyebrow={t("avis.eyebrow")} title={t("avis.title")} photoSlot="jardins.terrasse" minHeight={400} />
+      <PageHero
+        eyebrow={t("avis.eyebrow")}
+        title={t("avis.title")}
+        photoSlot="accueil.hero"
+        sideSlots={["gite.hero-3", "jardins.hero-2"]}
+        minHeight={400}
+      />
 
       <section className="px-gutter pb-6 pt-14">
         <Reveal className="mx-auto flex max-w-[860px] flex-col items-center gap-9 text-center">

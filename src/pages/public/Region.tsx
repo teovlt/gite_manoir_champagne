@@ -114,6 +114,7 @@ export function Region() {
         subtitle={text("heroSubtitle")}
         photoSlot="region.hero"
         fallbackSlot="jardins.etang"
+        sideSlots={["region.mont", "region.barfleur"]}
       />
 
       <section className="px-gutter pb-12 pt-20">
