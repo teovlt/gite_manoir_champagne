@@ -5,7 +5,8 @@ import { AdminCard, AdminH2, Icon, type AdminIcon } from "@/components/admin/adm
 import { RequestStatusBadge, guestsLabel, isQuestion, requestDatesLabel } from "@/components/admin/request-status";
 import { useAuth } from "@/providers/auth-provider";
 import { api } from "@/lib/api";
-import { formatPeriodShort, formatRelative } from "@/lib/format";
+import { formatPeriodShort, formatRelative, initials } from "@/lib/format";
+import { cn } from "@/lib/utils";
 import type { ActivityEntry, AvailabilityBlock, BookingRequest, CalendarConflict } from "@/lib/types";
 import { CalendarConflicts } from "@/components/admin/calendar-conflicts";
 
@@ -98,12 +99,25 @@ export function AdminDashboard() {
         <div>
           <AdminH2 className="mb-3 text-[19px]">Activité récente</AdminH2>
           <AdminCard className="px-5 py-1.5">
-            {data?.activity.length === 0 && <p className="py-4 text-[13.5px] text-stone">Aucune modification pour l'instant.</p>}
+            {data?.activity.length === 0 && <p className="py-4 text-[13.5px] text-stone">Aucune activité pour l'instant.</p>}
             {data?.activity.map((a, i) => (
               <div key={a.id} className={i < data.activity.length - 1 ? "flex items-start gap-3.5 border-b border-line py-3.5" : "flex items-start gap-3.5 py-3.5"}>
-                <span className="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-wheat text-[12px] font-bold text-rust">{a.userName.slice(0, 2)}</span>
-                <div className="flex-1 text-[13.5px] text-ink-soft">
-                  <strong className="text-ink">{a.userName}</strong> {a.message}
+                <span
+                  className={cn(
+                    "flex size-[30px] shrink-0 items-center justify-center rounded-full text-[12px] font-bold",
+                    a.kind === "login" ? "bg-moss-light text-moss" : "bg-wheat text-rust",
+                  )}
+                  aria-hidden="true"
+                >
+                  {initials(a.userName)}
+                </span>
+                <div className={cn("flex-1 text-[13.5px]", a.kind === "login" ? "text-stone" : "text-ink-soft")}>
+                  <strong className={a.kind === "login" ? "font-semibold text-ink-soft" : "text-ink"}>{a.userName}</strong> {a.message}
+                  {(a.count ?? 1) > 1 && (
+                    <span className="ml-1.5 rounded-full bg-wheat px-1.5 py-px text-[11.5px] font-semibold text-umber" title={`${a.count} fois`}>
+                      ×{a.count}
+                    </span>
+                  )}
                 </div>
                 <span className="whitespace-nowrap text-xs text-stone">{formatRelative(a.createdAt)}</span>
               </div>

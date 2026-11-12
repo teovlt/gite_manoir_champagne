@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import express from "express";
-import { col, logActivity } from "../db.js";
+import { col, logActivity, markSeen } from "../db.js";
 import { clearSessionCookie, hashPassword, rateLimit, readSession, setSessionCookie, sha256, verifyPassword } from "../auth.js";
 import { mailEnabled, sendPasswordReset } from "../mail.js";
 import { bad, h, oid, str, toUser } from "./helpers.js";
@@ -15,6 +15,8 @@ export async function sessionUser(req) {
   if (!session) return null;
   const user = await col.users.findOne({ _id: oid(session.uid) });
   if (!user || !user.passwordHash || (user.sessionVersion ?? 0) !== session.sv) return null;
+  // Tracking must never lock someone out.
+  await markSeen(user).catch((err) => console.error("[auth] last seen:", err.message));
   return user;
 }
 
@@ -26,7 +28,7 @@ authRoutes.post(
     const password = typeof req.body?.password === "string" ? req.body.password : "";
     const user = await col.users.findOne({ email });
     if (!user || !(await verifyPassword(password, user.passwordHash))) return bad(res, "E-mail ou mot de passe incorrect.", 401);
-    await col.users.updateOne({ _id: user._id }, { $set: { lastLoginAt: new Date() } });
+    await markSeen(user, { signIn: true });
     setSessionCookie(res, user, Boolean(req.body?.remember));
     res.json(toUser(user));
   }),
@@ -78,8 +80,9 @@ authRoutes.post(
     const sessionVersion = (user.sessionVersion ?? 0) + 1;
     await col.users.updateOne(
       { _id: user._id },
-      { $set: { passwordHash: await hashPassword(password), sessionVersion, lastLoginAt: new Date() }, $unset: { resetTokenHash: "", resetExpires: "" } },
+      { $set: { passwordHash: await hashPassword(password), sessionVersion }, $unset: { resetTokenHash: "", resetExpires: "" } },
     );
+    await markSeen(user, { signIn: true });
     setSessionCookie(res, { ...user, sessionVersion }, false);
     res.json(toUser(user));
   }),

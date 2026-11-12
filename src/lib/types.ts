@@ -112,7 +112,11 @@ export interface ActivityEntry {
   id: string;
   userName: string;
   message: string;
+  /** "login" for sign-ins, shown lighter than changes to the site. */
+  kind?: "change" | "login";
   createdAt: string;
+  /** Number of identical entries merged into this line. */
+  count?: number;
 }
 
 export interface AdminUser {

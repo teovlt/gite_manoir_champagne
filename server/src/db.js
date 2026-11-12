@@ -31,6 +31,8 @@ export async function connect() {
     col.events.createIndex({ active: 1, endDate: 1 }),
     col.requests.createIndex({ createdAt: -1 }),
     col.activity.createIndex({ createdAt: -1 }),
+    // The activity log keeps one year: older entries are removed by MongoDB.
+    col.activity.createIndex({ createdAt: 1 }, { expireAfterSeconds: 365 * 24 * 3600 }),
     col.availability.createIndex({ start: 1, end: 1 }),
   ]);
   console.log(`[db] connected to ${db.databaseName}`);
@@ -44,7 +46,27 @@ export async function getSetting(key, fallback) {
 
 export const setSetting = (key, value) => col.settings.updateOne({ _id: key }, { $set: { value } }, { upsert: true });
 
-export const logActivity = (userName, message) => col.activity.insertOne({ userName, message, createdAt: new Date() });
+/** kind "login" marks sign-ins: listed in the feed, but not counted as a change to the site. */
+export const logActivity = (userName, message, kind = "change") =>
+  col.activity.insertOne({ userName, message, kind, createdAt: new Date() });
+
+const SEEN_STEP = 5 * 60 * 1000;
+const VISIT_GAP = 30 * 60 * 1000;
+
+/**
+ * Records that a signed-in user is active. "Remember me" sessions last weeks without asking for the
+ * password again, so coming back after 30 minutes away counts as a new sign-in (date + activity entry).
+ * The conditional update lets parallel requests of one page log a single entry.
+ */
+export async function markSeen(user, { signIn = false } = {}) {
+  const now = new Date();
+  const last = user.lastSeenAt ?? user.lastLoginAt ?? null;
+  if (!signIn && last && now - last < SEEN_STEP) return;
+  const newVisit = signIn || !last || now - last > VISIT_GAP;
+  const filter = signIn ? { _id: user._id } : { _id: user._id, lastSeenAt: user.lastSeenAt ?? { $exists: false } };
+  const { modifiedCount } = await col.users.updateOne(filter, { $set: { lastSeenAt: now, ...(newVisit ? { lastLoginAt: now } : {}) } });
+  if (modifiedCount && newVisit) await logActivity(user.name.split(" ")[0], "a ouvert une session", "login");
+}
 
 /** Idempotent seeding: adds whatever is missing, never overwrites the owners' edits. */
 export async function seed() {

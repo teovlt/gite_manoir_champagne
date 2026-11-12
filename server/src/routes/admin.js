@@ -30,6 +30,25 @@ const requireAdmin = (req, res, next) => (req.user.role === "admin" ? next() : b
 const who = (req) => req.user.name.split(" ")[0];
 const log = (req, message) => logActivity(who(req), message);
 
+/**
+ * Merges repeats into one line ("×3"): the same person doing the same thing within a few hours,
+ * e.g. saving a page several times, or the sign-ins of one day. Entries come newest first.
+ */
+function groupActivity(entries) {
+  const out = [];
+  for (const a of entries) {
+    const prev = out[out.length - 1];
+    const window = a.kind === "login" ? 24 * 3600 * 1000 : 3 * 3600 * 1000;
+    if (prev && prev.userName === a.userName && prev.message === a.message && prev.firstAt - a.createdAt < window) {
+      prev.count += 1;
+      prev.firstAt = a.createdAt;
+      continue;
+    }
+    out.push({ id: String(a._id), userName: a.userName, message: a.message, kind: a.kind ?? "change", createdAt: a.createdAt, firstAt: a.createdAt, count: 1 });
+  }
+  return out.map(({ firstAt: _, ...a }) => a);
+}
+
 const toRequest = (r) => ({ ...r, id: String(r._id), _id: undefined });
 
 // ---------------------------------------------------------------- dashboard
@@ -43,8 +62,8 @@ adminRoutes.get(
       currentBanner(),
       col.requests.countDocuments({ createdAt: { $gte: yearStart } }),
       col.requests.countDocuments({ status: "nouvelle" }),
-      col.activity.find().sort({ createdAt: -1 }).limit(1).next(),
-      col.activity.find().sort({ createdAt: -1 }).limit(8).toArray(),
+      col.activity.find({ kind: { $ne: "login" } }).sort({ createdAt: -1 }).limit(1).next(),
+      col.activity.find().sort({ createdAt: -1 }).limit(60).toArray(),
       col.requests.find().sort({ createdAt: -1 }).limit(6).toArray(),
       col.availability
         .find({ end: { $gt: today() } })
@@ -62,7 +81,7 @@ adminRoutes.get(
         newRequests,
         lastChange: lastActivity ? { at: lastActivity.createdAt, by: lastActivity.userName } : null,
       },
-      activity: activity.map((a) => ({ id: String(a._id), userName: a.userName, message: a.message, createdAt: a.createdAt })),
+      activity: groupActivity(activity).slice(0, 8),
       requests: requests.map(toRequest),
       upcoming: upcoming.map((b) => ({ id: String(b._id), start: b.start, end: b.end, label: b.label, source: b.source })),
       conflicts,
