@@ -478,5 +478,315 @@
       "de": "Saint-Malo"
     },
     "url": "/photos/saint-malo.webp"
+  },
+  {
+    "key": "accueil.aerienne",
+    "section": "accueil",
+    "alt": {
+      "fr": "Vue aérienne du manoir et de son corps de ferme",
+      "en": "Aerial view of the manor and its farmstead",
+      "de": "Luftansicht des Herrenhauses und seines Gutshofs"
+    },
+    "url": "/photos/vue-aerienne.webp"
+  },
+  {
+    "key": "accueil.porche",
+    "section": "accueil",
+    "alt": {
+      "fr": "Le porche classé du XVIIe siècle, entrée du manoir",
+      "en": "The listed 17th-century gateway, entrance to the manor",
+      "de": "Das denkmalgeschützte Portal aus dem 17. Jahrhundert, Eingang des Herrenhauses"
+    },
+    "url": "/photos/pieces/porche-entier.webp"
+  },
+  {
+    "key": "gite.salon-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Le salon sous les poutres",
+      "en": "The living room under the beams",
+      "de": "Der Salon unter den Holzbalken"
+    },
+    "url": "/photos/galerie/salon-3.webp"
+  },
+  {
+    "key": "gite.salon-4",
+    "section": "gite",
+    "alt": {
+      "fr": "Le salon et ses armoires normandes",
+      "en": "The living room and its Normandy wardrobes",
+      "de": "Der Salon mit normannischen Schränken"
+    },
+    "url": "/photos/pieces/salon-4.webp"
+  },
+  {
+    "key": "gite.salon-soiree",
+    "section": "gite",
+    "alt": {
+      "fr": "Soirée au coin du feu",
+      "en": "An evening by the fire",
+      "de": "Ein Abend am Kaminfeuer"
+    },
+    "url": "/photos/galerie/salon-soiree.webp"
+  },
+  {
+    "key": "gite.cuisine-2",
+    "section": "gite",
+    "alt": {
+      "fr": "La cuisine et sa grande table",
+      "en": "The kitchen and its large table",
+      "de": "Die Küche mit großem Tisch"
+    },
+    "url": "/photos/galerie/cuisine-2.webp"
+  },
+  {
+    "key": "gite.cuisine-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Le coin cuisine",
+      "en": "The cooking area",
+      "de": "Der Kochbereich"
+    },
+    "url": "/photos/pieces/cuisine-3.webp"
+  },
+  {
+    "key": "gite.cuisine-4",
+    "section": "gite",
+    "alt": {
+      "fr": "La cuisine ouverte sur le salon",
+      "en": "The kitchen opening onto the living room",
+      "de": "Die zum Salon offene Küche"
+    },
+    "url": "/photos/pieces/cuisine-4.webp"
+  },
+  {
+    "key": "gite.serenite-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Sérénité",
+      "en": "Sérénité bedroom",
+      "de": "Zimmer Sérénité"
+    },
+    "url": "/photos/pieces/serenite-2.webp"
+  },
+  {
+    "key": "gite.serenite-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Sérénité",
+      "en": "Sérénité bedroom",
+      "de": "Zimmer Sérénité"
+    },
+    "url": "/photos/pieces/serenite-3.webp"
+  },
+  {
+    "key": "gite.serenite-sdb",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle d'eau de la chambre Sérénité, douche hydromassante",
+      "en": "Sérénité shower room with massage shower",
+      "de": "Duschbad des Zimmers Sérénité mit Massagedusche"
+    },
+    "url": "/photos/pieces/serenite-sdb.webp"
+  },
+  {
+    "key": "gite.serenite-sdb-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle d'eau de la chambre Sérénité",
+      "en": "Sérénité shower room",
+      "de": "Duschbad des Zimmers Sérénité"
+    },
+    "url": "/photos/pieces/serenite-sdb-2.webp"
+  },
+  {
+    "key": "gite.bateau-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Bateau",
+      "en": "Bateau bedroom",
+      "de": "Zimmer Bateau"
+    },
+    "url": "/photos/pieces/bateau-3.webp"
+  },
+  {
+    "key": "gite.bateau-sdb",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle de bain de la chambre Bateau, vasque en verre",
+      "en": "Bateau bathroom with glass basin",
+      "de": "Bad des Zimmers Bateau mit Glaswaschbecken"
+    },
+    "url": "/photos/galerie/salle-de-bain-bateau.webp"
+  },
+  {
+    "key": "gite.bateau-sdb-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle de bain de la chambre Bateau, douche hydromassante",
+      "en": "Bateau bathroom with massage shower",
+      "de": "Bad des Zimmers Bateau mit Massagedusche"
+    },
+    "url": "/photos/pieces/bateau-sdb-2.webp"
+  },
+  {
+    "key": "gite.bateau-sdb-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle de bain de la chambre Bateau",
+      "en": "Bateau bathroom",
+      "de": "Bad des Zimmers Bateau"
+    },
+    "url": "/photos/pieces/bateau-sdb-3.webp"
+  },
+  {
+    "key": "gite.familiale-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Familiale",
+      "en": "Family bedroom",
+      "de": "Familienzimmer"
+    },
+    "url": "/photos/galerie/chambre-serenite-3.webp"
+  },
+  {
+    "key": "gite.familiale-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Familiale et son armoire",
+      "en": "Family bedroom and its wardrobe",
+      "de": "Familienzimmer mit Kleiderschrank"
+    },
+    "url": "/photos/pieces/familiale-3.webp"
+  },
+  {
+    "key": "gite.familiale-4",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Familiale et la verrière de la salle d'eau",
+      "en": "Family bedroom and the glazed shower room",
+      "de": "Familienzimmer und verglastes Duschbad"
+    },
+    "url": "/photos/pieces/familiale-4.webp"
+  },
+  {
+    "key": "gite.suite-sdb",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle d'eau de la suite Familiale & Cabine",
+      "en": "Shower room of the Family & Cabine suite",
+      "de": "Duschbad der Suite Familienzimmer & Cabine"
+    },
+    "url": "/photos/galerie/salle-d-eau-2.webp"
+  },
+  {
+    "key": "gite.cabine-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Cabine",
+      "en": "Cabine bedroom",
+      "de": "Zimmer Cabine"
+    },
+    "url": "/photos/galerie/chambre-familiale-2.webp"
+  },
+  {
+    "key": "gite.cabine-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Cabine, lits superposés",
+      "en": "Cabine bedroom, bunk beds",
+      "de": "Zimmer Cabine, Etagenbett"
+    },
+    "url": "/photos/pieces/cabine-3.webp"
+  },
+  {
+    "key": "gite.cabine-4",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre Cabine",
+      "en": "Cabine bedroom",
+      "de": "Zimmer Cabine"
+    },
+    "url": "/photos/pieces/cabine-4.webp"
+  },
+  {
+    "key": "gite.marquise-3",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre La Marquise",
+      "en": "La Marquise bedroom",
+      "de": "Zimmer La Marquise"
+    },
+    "url": "/photos/galerie/chambre-marquise-3.webp"
+  },
+  {
+    "key": "gite.marquise-4",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre La Marquise",
+      "en": "La Marquise bedroom",
+      "de": "Zimmer La Marquise"
+    },
+    "url": "/photos/galerie/chambre-marquise-4.webp"
+  },
+  {
+    "key": "gite.marquise-5",
+    "section": "gite",
+    "alt": {
+      "fr": "Chambre La Marquise et son armoire normande",
+      "en": "La Marquise bedroom and its Normandy wardrobe",
+      "de": "Zimmer La Marquise mit normannischem Schrank"
+    },
+    "url": "/photos/pieces/marquise-5.webp"
+  },
+  {
+    "key": "gite.marquise-sdb",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle de bain de La Marquise, douche hydromassante",
+      "en": "La Marquise bathroom with massage shower",
+      "de": "Bad des Zimmers La Marquise mit Massagedusche"
+    },
+    "url": "/photos/pieces/marquise-sdb.webp"
+  },
+  {
+    "key": "gite.marquise-sdb-2",
+    "section": "gite",
+    "alt": {
+      "fr": "Salle de bain de La Marquise, vasque en verre",
+      "en": "La Marquise bathroom with glass basin",
+      "de": "Bad des Zimmers La Marquise mit Glaswaschbecken"
+    },
+    "url": "/photos/pieces/marquise-sdb-2.webp"
+  },
+  {
+    "key": "jardins.jeux-toboggan",
+    "section": "jardins",
+    "alt": {
+      "fr": "Toboggan et portique",
+      "en": "Slide and swings",
+      "de": "Rutsche und Schaukel"
+    },
+    "url": "/photos/pieces/jeux-toboggan.webp"
+  },
+  {
+    "key": "jardins.jeux-trampoline",
+    "section": "jardins",
+    "alt": {
+      "fr": "Trampoline",
+      "en": "Trampoline",
+      "de": "Trampolin"
+    },
+    "url": null
+  },
+  {
+    "key": "jardins.jeux-ping-pong",
+    "section": "jardins",
+    "alt": {
+      "fr": "Table de ping-pong",
+      "en": "Table tennis",
+      "de": "Tischtennisplatte"
+    },
+    "url": null
   }
 ]

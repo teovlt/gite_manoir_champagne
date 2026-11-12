@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/site/page-hero";
 import { Accent } from "@/components/site/ornaments";
 import { Reveal } from "@/components/site/reveal";
+import { SitePhoto } from "@/components/site/site-photo";
 import { AvailabilityCalendar } from "@/components/site/availability-calendar";
 import { TextAreaField, contactUrl, fieldInputClass, validateBooking } from "@/components/site/form-controls";
 import { DateRangeField, GuestFields } from "@/components/site/booking-fields";
@@ -79,6 +80,8 @@ export function Tarifs() {
   const text = usePageText("tarifs");
   const { pricing } = useSiteData().data;
   const blocks = useAvailability();
+  const spaPrices = pricing.extras.filter((x) => x.id.startsWith("spa"));
+  const extras = pricing.extras.filter((x) => !x.id.startsWith("spa"));
   const [preset, setPreset] = useState({ arrivee: "", depart: "" });
   usePageMeta();
 
@@ -157,16 +160,38 @@ export function Tarifs() {
         </div>
       </section>
 
+      {spaPrices.length > 0 && (
+        <section id="spa" className="px-gutter scroll-mt-24 pb-16">
+          <Reveal className="mx-auto flex max-w-[1100px] flex-wrap items-center gap-x-10 gap-y-6 rounded-[18px] bg-forest p-[clamp(20px,4vw,36px)] text-cream">
+            <SitePhoto
+              slot="jardins.spa"
+              zoomable
+              gallery={["jardins.spa", "jardins.pavillon-spa"]}
+              className="aspect-[4/3] flex-[1_1_260px] rounded-[14px]"
+            />
+            <div className="flex-[2_1_360px]">
+              <h2 className="mb-2 font-serif text-[26px] font-medium">{t("tarifs.spaTitle")}</h2>
+              <p className="mb-5 text-[15px] leading-relaxed text-cream/85">{t("tarifs.spaText")}</p>
+              <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-2.5">
+                {spaPrices.map((x) => (
+                  <li key={x.id} className="flex items-baseline justify-between gap-3 rounded-xl bg-cream/[0.08] px-4 py-3">
+                    <span className="text-[14px] text-cream/90">{t(`tarifs.spaDurations.${x.id}`, { defaultValue: tr(x.label) })}</span>
+                    <strong className="font-serif text-xl font-semibold">{formatPrice(x.price, lang)}</strong>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        </section>
+      )}
+
       <section className="px-gutter bg-sand pb-20 pt-12">
         <Reveal className="mx-auto grid max-w-[1100px] grid-cols-[repeat(auto-fit,minmax(min(300px,100%),1fr))] gap-10">
           <div>
             <h2 className="mb-4 font-serif text-[22px] font-medium">{t("tarifs.extras")}</h2>
             <ul className="flex flex-col gap-2.5 text-sm text-ink-soft">
-              {pricing.extras.map((x, i) => (
-                <li
-                  key={x.id}
-                  className={cn("flex justify-between gap-3", i < pricing.extras.length - 1 && "border-b border-line-strong pb-2")}
-                >
+              {extras.map((x, i) => (
+                <li key={x.id} className={cn("flex justify-between gap-3", i < extras.length - 1 && "border-b border-line-strong pb-2")}>
                   <span>{tr(x.label)}</span>
                   <strong className="text-right">
                     {formatPrice(x.price, lang)}

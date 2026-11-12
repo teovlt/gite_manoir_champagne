@@ -19,10 +19,14 @@ export const lines = (text: string) =>
     .map((l) => l.trim())
     .filter(Boolean);
 
-export const formatPrice = (value: number, lang: Lang = "fr") =>
-  lang === "en"
-    ? `€${new Intl.NumberFormat("en-GB", { maximumFractionDigits: 2 }).format(value)}`
-    : `${new Intl.NumberFormat(intlLocale[lang], { maximumFractionDigits: 2 }).format(value)} €`;
+/** Whole euros stay whole ("130 €"), cents always show two digits ("1,10 €"). */
+export const formatPrice = (value: number, lang: Lang = "fr") => {
+  const digits = Number.isInteger(value) ? 0 : 2;
+  const opts = { minimumFractionDigits: digits, maximumFractionDigits: digits };
+  return lang === "en"
+    ? `€${new Intl.NumberFormat("en-GB", opts).format(value)}`
+    : `${new Intl.NumberFormat(intlLocale[lang], opts).format(value)} €`;
+};
 
 export const parseDate = (iso: string) => new Date(`${iso}T12:00:00`);
 

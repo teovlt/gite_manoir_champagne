@@ -1,5 +1,7 @@
-import { ArrowUpRight, Bike, Footprints, Gauge, PawPrint, Sailboat, Trees } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, Bike, MapPinned, Footprints, Gauge, PawPrint, Sailboat, Trees } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/site/page-hero";
 import { Accent, SectionTitle } from "@/components/site/ornaments";
 import { PhotoGrid, SitePhoto } from "@/components/site/site-photo";
@@ -22,6 +24,52 @@ const sightSlots = [
   "region.saint-vaast",
 ];
 type Item = { title: string; text: string };
+
+/** The owners' Google My Maps "Lieux de visite", from their former site. */
+const visitMapId = "1b7Vrl9IzvFYCGiSvjMtvUf8NYKWH5zU";
+
+/** Loads Google's iframe only on click, so visitors aren't tracked by just opening the page. */
+function VisitMap() {
+  const { t } = useTranslation();
+  const [shown, setShown] = useState(false);
+  const viewer = `https://www.google.com/maps/d/viewer?mid=${visitMapId}`;
+  return (
+    <div>
+      <div className="relative h-[clamp(320px,60vh,520px)] overflow-hidden rounded-[18px] border border-line bg-moss-light">
+        {shown ? (
+          <iframe
+            src={`https://www.google.com/maps/d/embed?mid=${visitMapId}&ehbc=2E312F`}
+            title={t("region.mapTitle")}
+            className="absolute inset-0 h-full w-full border-0"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center">
+            <span
+              className="flex size-14 items-center justify-center rounded-full bg-cream text-moss shadow-[0_6px_16px_rgba(43,42,37,0.12)]"
+              aria-hidden="true"
+            >
+              <MapPinned className="size-7" strokeWidth={1.6} />
+            </span>
+            <Button type="button" variant="clay" size="pillMd" onClick={() => setShown(true)}>
+              {t("region.mapLoad")}
+            </Button>
+            <p className="max-w-[420px] text-[13px] text-umber">{t("region.mapNotice")}</p>
+          </div>
+        )}
+      </div>
+      <a
+        href={viewer}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold uppercase tracking-[1px] text-clay hover:text-rust"
+      >
+        {t("region.mapOpen")} <ArrowUpRight className="size-3.5" aria-hidden="true" />
+      </a>
+    </div>
+  );
+}
 
 /** Same order as region.activityList in the locales: sailing, hiking, cycling, karting, nature park, zoo. */
 const activityIcons = [Sailboat, Footprints, Bike, Gauge, Trees, PawPrint];
@@ -150,6 +198,16 @@ export function Region() {
               />
             </Reveal>
           )}
+        </div>
+      </section>
+
+      <section id="carte" className="px-gutter scroll-mt-24 pb-16 pt-4">
+        <div className="mx-auto max-w-[1200px]">
+          <Reveal>
+            <h2 className="mb-3 font-serif text-[26px] font-medium">{t("region.mapTitle")}</h2>
+            <p className="mb-7 max-w-[640px] text-umber">{t("region.mapText")}</p>
+          </Reveal>
+          <VisitMap />
         </div>
       </section>
 

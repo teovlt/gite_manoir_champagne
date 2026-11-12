@@ -136,8 +136,8 @@
         { "value": "104", "label": "jets massants" },
         { "value": "100 %", "label": "privatif" }
       ],
-      "price": "En option, dès",
-      "priceUnit": "le week-end",
+      "pricesTitle": "En option, selon la durée du séjour",
+      "allPrices": "Tous les tarifs",
       "cta": "Réserver avec le spa",
       "more": "Découvrir le spa"
     }
@@ -151,17 +151,28 @@
     "roomList": [
       { "name": "Chambre Sérénité", "tag": "Rez-de-chaussée · accès PMR", "text": "1 lit 160×200. Salle d'eau avec douche hydromassante grand format à siège intégré, lavabo, WC." },
       { "name": "Chambre Bateau", "tag": "Étage · thème marin", "text": "2 lits 90×190, 1 lit superposé 90×190, 1 lit tiroir 90×190. Salle de bain avec vasque en verre et douche hydromassante, WC." },
-      { "name": "Chambre Familiale", "tag": "Étage · suite familiale", "text": "1 lit 160×200. Forme une suite avec la chambre Cabine, avec qui elle partage sa salle de bain et son WC." },
+      { "name": "Chambre Familiale", "tag": "Étage · suite familiale", "text": "1 lit 160×200. Forme une suite avec la chambre Cabine, avec qui elle partage sa salle de bain et son WC. Lit parapluie pour bébé disponible." },
       { "name": "Chambre Cabine", "tag": "Étage · suite familiale", "text": "1 lit superposé 90×190 et 1 lit tiroir 90×190 : le coin des enfants, juste à côté de la chambre Familiale." },
       { "name": "Chambre La Marquise", "tag": "Étage", "text": "2 lits 90×200. Armoire de style normand. Salle de bain avec vasque en verre, douche hydromassante grand format, WC." }
     ],
     "gallery": "Galerie",
+    "bath": "Salle de bain",
+    "photos": "{{count}} photos",
+    "seePhotos": "Voir les photos — {{name}}",
     "plans": "Plans du gîte"
   },
   "jardins": {
     "eyebrow": "Extérieurs",
     "option": "En option",
-    "spaPrices": "Voir les tarifs du spa"
+    "spaPrices": "Voir les tarifs du spa",
+    "gamesTitle": "Les jeux des enfants",
+    "gamesText": "Toboggan, portique, trampoline et table de ping-pong : de quoi occuper les plus jeunes (et les grands) dans le jardin clos, en toute tranquillité.",
+    "welcomeTitle": "Motards et cavaliers bienvenus",
+    "bikersTitle": "Motards",
+    "bikersText": "Nous accueillons également les motards, sur demande auprès des propriétaires et avec des conditions particulières.",
+    "ridersTitle": "Cavaliers",
+    "ridersText": "Venez avec vos chevaux : jusqu'à 5 ou 6 chevaux mis au pré ensemble, pour un supplément de {{price}} par cheval et par jour, sous la responsabilité de leurs propriétaires.",
+    "askOwners": "Contacter les propriétaires"
   },
   "tarifs": {
     "eyebrow": "Réservation",
@@ -174,6 +185,9 @@
     "duration": "Durée",
     "price": "Tarif selon saison",
     "range": "{{low}} à {{high}}",
+    "spaDurations": { "spa": "Week-end 2 nuits", "spa-3-nuits": "Week-end 3 nuits ou mid-week", "spa-semaine": "Semaine (7 nuits)", "spa-2-semaines": "2 semaines (14 nuits)" },
+    "spaTitle": "Option spa",
+    "spaText": "Le jacuzzi 7 places et ses 104 jets, rien qu'à vous, à réserver avec votre séjour.",
     "extras": "Suppléments & options",
     "terms": "Modalités",
     "askTitle": "Demander la disponibilité",
@@ -205,6 +219,11 @@
     "malo": { "title": "Saint-Malo", "text": "La cité corsaire, en Ille-et-Vilaine." },
     "illustration": "Illustration",
     "officialSite": "Site officiel",
+    "mapTitle": "La carte touristique du manoir",
+    "mapText": "Les lieux de visite autour du manoir, réunis par Loïc et Maryline sur une carte interactive.",
+    "mapLoad": "Afficher la carte",
+    "mapNotice": "La carte est hébergée par Google Maps, qui la charge seulement si vous cliquez.",
+    "mapOpen": "Ouvrir la carte en grand",
     "islands": "Les îles Anglo-Normandes",
     "activities": "Activités sportives & nature",
     "activityList": [

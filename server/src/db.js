@@ -141,6 +141,12 @@ export async function seed() {
   for (const [key, value] of Object.entries(defaults)) {
     await col.settings.updateOne({ _id: key }, { $setOnInsert: { value } }, { upsert: true });
   }
+  // 2027 price list: new seasons, mid-week in 4 nights, spa per stay length, horses. The admin screen
+  // only edits prices, so the new grid replaces the stored one once.
+  if (!(await getSetting("pricing2027", false))) {
+    await setSetting("pricing", defaults.pricing);
+    await setSetting("pricing2027", true);
+  }
 
   if ((await col.users.countDocuments()) === 0) {
     const { email, password, name } = config.admin;

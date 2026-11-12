@@ -235,21 +235,28 @@ const PortraitIllustration = ({ className, label }: { className?: string; label:
 function SpaFeature() {
   const { t } = useTranslation();
   const lang = useLang();
+  const tr = useTr();
   const l = useLocalePath();
   const { data } = useSiteData();
-  const spa = data.pricing.extras.find((x) => x.id === "spa");
+  const spaPrices = data.pricing.extras.filter((x) => x.id.startsWith("spa"));
   const points = t("home.spa.points") as unknown as { value: string; label: string }[];
+  const spaSlots = ["jardins.spa", "jardins.pavillon-spa"];
 
   return (
-    <section className="px-gutter relative overflow-hidden bg-ink py-24 text-cream">
-      <div className="pointer-events-none absolute -right-40 -top-40 size-[520px] rounded-full bg-clay/15 blur-3xl" aria-hidden="true" />
+    <section className="px-gutter relative overflow-hidden bg-forest py-24 text-cream">
+      <div className="pointer-events-none absolute -right-40 -top-40 size-[520px] rounded-full bg-sage/20 blur-3xl" aria-hidden="true" />
       <div className="relative mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-16 gap-y-12">
         <Reveal className="relative flex-[1_1_460px] pb-16 pr-10 sm:pb-20 sm:pr-16">
-          <SitePhoto slot="jardins.spa" zoomable className="aspect-[4/3] w-full rounded-[16px] shadow-[0_24px_60px_rgba(0,0,0,0.45)]" />
+          <SitePhoto
+            slot="jardins.spa"
+            zoomable
+            gallery={spaSlots}
+            className="aspect-[4/3] w-full rounded-[16px] shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+          />
           <SitePhoto
             slot="jardins.pavillon-spa"
             zoomable
-            className="absolute bottom-0 right-0 aspect-[4/3] w-[48%] rounded-[14px] border-4 border-ink shadow-[0_16px_40px_rgba(0,0,0,0.5)]"
+            className="absolute bottom-0 right-0 aspect-[4/3] w-[48%] rounded-[14px] border-4 border-forest shadow-[0_16px_40px_rgba(0,0,0,0.5)]"
           />
         </Reveal>
         <Reveal delay={120} className="flex-[1_1_380px]">
@@ -266,18 +273,25 @@ function SpaFeature() {
               </div>
             ))}
           </dl>
-          {spa && (
-            <p className="mb-6 text-[15px] text-cream/85">
-              {t("home.spa.price")} <strong className="font-serif text-xl font-semibold text-cream">{formatPrice(spa.price, lang)}</strong>{" "}
-              {t("home.spa.priceUnit")}
-            </p>
+          {spaPrices.length > 0 && (
+            <div className="mb-8">
+              <p className="mb-3 text-[13px] font-semibold uppercase tracking-[1px] text-wheat-light">{t("home.spa.pricesTitle")}</p>
+              <ul className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-2.5">
+                {spaPrices.map((x) => (
+                  <li key={x.id} className="flex items-baseline justify-between gap-3 rounded-xl bg-cream/[0.08] px-4 py-3">
+                    <span className="text-[14px] text-cream/90">{t(`tarifs.spaDurations.${x.id}`, { defaultValue: tr(x.label) })}</span>
+                    <strong className="font-serif text-xl font-semibold text-cream">{formatPrice(x.price, lang)}</strong>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
           <div className="flex flex-wrap gap-4">
             <Button asChild variant="clay" size="pillMd">
               <Link to={l("/contact")}>{t("home.spa.cta")}</Link>
             </Button>
             <Button asChild variant="ghostLight" size="pillMd">
-              <Link to={l("/jardins-spa")}>{t("home.spa.more")}</Link>
+              <Link to={l("/tarifs#spa")}>{t("home.spa.allPrices")}</Link>
             </Button>
           </div>
         </Reveal>
@@ -361,27 +375,9 @@ export function Home() {
             <p>{text("welcomeP2")}</p>
           </div>
         </Reveal>
-      </section>
-
-      <SpaFeature />
-
-      <section className="px-gutter py-20">
-        <Reveal className="mx-auto flex max-w-[1100px] flex-wrap-reverse items-center gap-14">
-          <SitePhoto
-            slot="accueil.portrait"
-            className="aspect-square max-w-[320px] flex-[1_1_280px] rounded-[14px] border border-khaki"
-            fallback={
-              <PortraitIllustration
-                label={t("home.ownersIllustration")}
-                className="aspect-square max-w-[320px] flex-[1_1_280px] rounded-[14px] border border-khaki"
-              />
-            }
-          />
-          <div className="flex-[1_1_380px]">
-            <Eyebrow>{t("home.ownersEyebrow")}</Eyebrow>
-            <h2 className="mb-4 mt-3.5 font-serif text-[clamp(26px,3.2vw,34px)] font-medium leading-tight">{text("ownersTitle")}</h2>
-            <p className="text-base leading-[1.75] text-ink-soft">{text("ownersText")}</p>
-          </div>
+        <Reveal className="mx-auto mt-12 grid max-w-[1100px] grid-cols-1 gap-5 sm:h-[clamp(300px,34vw,420px)] sm:grid-cols-[2fr_3fr]">
+          <SitePhoto slot="accueil.porche" zoomable className="aspect-[4/3] w-full rounded-[14px] sm:aspect-auto sm:h-full" />
+          <SitePhoto slot="accueil.aerienne" zoomable className="aspect-[4/3] w-full rounded-[14px] sm:aspect-auto sm:h-full" />
         </Reveal>
       </section>
 
@@ -414,6 +410,28 @@ export function Home() {
             ))}
           </div>
         </div>
+      </section>
+
+      <SpaFeature />
+
+      <section className="px-gutter py-20">
+        <Reveal className="mx-auto flex max-w-[1100px] flex-wrap-reverse items-center gap-14">
+          <SitePhoto
+            slot="accueil.portrait"
+            className="aspect-square max-w-[320px] flex-[1_1_280px] rounded-[14px] border border-khaki"
+            fallback={
+              <PortraitIllustration
+                label={t("home.ownersIllustration")}
+                className="aspect-square max-w-[320px] flex-[1_1_280px] rounded-[14px] border border-khaki"
+              />
+            }
+          />
+          <div className="flex-[1_1_380px]">
+            <Eyebrow>{t("home.ownersEyebrow")}</Eyebrow>
+            <h2 className="mb-4 mt-3.5 font-serif text-[clamp(26px,3.2vw,34px)] font-medium leading-tight">{text("ownersTitle")}</h2>
+            <p className="text-base leading-[1.75] text-ink-soft">{text("ownersText")}</p>
+          </div>
+        </Reveal>
       </section>
 
       <section className="px-gutter py-24">

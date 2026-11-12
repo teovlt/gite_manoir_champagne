@@ -136,8 +136,8 @@
         { "value": "104", "label": "massage jets" },
         { "value": "100%", "label": "private" }
       ],
-      "price": "Optional, from",
-      "priceUnit": "per weekend",
+      "pricesTitle": "Optional, depending on the length of your stay",
+      "allPrices": "All prices",
       "cta": "Book with the spa",
       "more": "Discover the spa"
     }
@@ -151,17 +151,28 @@
     "roomList": [
       { "name": "Sérénité bedroom", "tag": "Ground floor · step-free access", "text": "1 bed 160×200. Shower room with a large hydromassage shower with built-in seat, washbasin, WC." },
       { "name": "Bateau bedroom", "tag": "First floor · seaside theme", "text": "2 beds 90×190, 1 bunk bed 90×190, 1 pull-out bed 90×190. Bathroom with glass basin and hydromassage shower, WC." },
-      { "name": "Family bedroom", "tag": "First floor · family suite", "text": "1 bed 160×200. Forms a suite with the Cabine bedroom, sharing its bathroom and WC." },
+      { "name": "Family bedroom", "tag": "First floor · family suite", "text": "1 bed 160×200. Forms a suite with the Cabine bedroom, sharing its bathroom and WC. Travel cot available for babies." },
       { "name": "Cabine bedroom", "tag": "First floor · family suite", "text": "1 bunk bed 90×190 and 1 pull-out bed 90×190: the children's corner, right next to the Family bedroom." },
       { "name": "La Marquise bedroom", "tag": "First floor", "text": "2 beds 90×200. Normandy-style wardrobe. Bathroom with glass basin, large hydromassage shower, WC." }
     ],
     "gallery": "Gallery",
+    "bath": "Bathroom",
+    "photos": "{{count}} photos",
+    "seePhotos": "See the photos — {{name}}",
     "plans": "Floor plans"
   },
   "jardins": {
     "eyebrow": "Outdoors",
     "option": "Optional extra",
-    "spaPrices": "See spa prices"
+    "spaPrices": "See spa prices",
+    "gamesTitle": "Games for the children",
+    "gamesText": "Slide, swings, trampoline and table tennis: plenty to keep the youngest (and the not so young) busy in the safe, walled garden.",
+    "welcomeTitle": "Bikers and riders welcome",
+    "bikersTitle": "Bikers",
+    "bikersText": "We also welcome motorcyclists, on request to the owners and under specific conditions.",
+    "ridersTitle": "Riders",
+    "ridersText": "Bring your horses: up to 5 or 6 horses grazing together in the paddock, for {{price}} per horse per day, under their owners' responsibility.",
+    "askOwners": "Contact the owners"
   },
   "tarifs": {
     "eyebrow": "Booking",
@@ -174,6 +185,9 @@
     "duration": "Dates",
     "price": "Price by season",
     "range": "{{low}} to {{high}}",
+    "spaDurations": { "spa": "2-night weekend", "spa-3-nuits": "3-night weekend or midweek", "spa-semaine": "Week (7 nights)", "spa-2-semaines": "2 weeks (14 nights)" },
+    "spaTitle": "Spa option",
+    "spaText": "The 7-seat hot tub and its 104 jets, all to yourselves, to book with your stay.",
     "extras": "Extras & options",
     "terms": "Terms",
     "askTitle": "Request availability",
@@ -205,6 +219,11 @@
     "malo": { "title": "Saint-Malo", "text": "The walled corsair city in Brittany." },
     "illustration": "Illustration",
     "officialSite": "Official website",
+    "mapTitle": "The manor's tourist map",
+    "mapText": "The places to visit around the manor, gathered by Loïc and Maryline on an interactive map.",
+    "mapLoad": "Show the map",
+    "mapNotice": "The map is hosted by Google Maps, which only loads it if you click.",
+    "mapOpen": "Open the full map",
     "islands": "The Channel Islands",
     "activities": "Sports & nature",
     "activityList": [

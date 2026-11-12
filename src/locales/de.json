@@ -136,8 +136,8 @@
         { "value": "104", "label": "Massagedüsen" },
         { "value": "100 %", "label": "privat" }
       ],
-      "price": "Optional, ab",
-      "priceUnit": "pro Wochenende",
+      "pricesTitle": "Optional, je nach Aufenthaltsdauer",
+      "allPrices": "Alle Preise",
       "cta": "Mit Whirlpool buchen",
       "more": "Den Whirlpool entdecken"
     }
@@ -151,17 +151,28 @@
     "roomList": [
       { "name": "Zimmer Sérénité", "tag": "Erdgeschoss · barrierefrei", "text": "1 Bett 160×200. Duschbad mit großer Hydromassage-Dusche mit integriertem Sitz, Waschbecken, WC." },
       { "name": "Zimmer Bateau", "tag": "Obergeschoss · maritimes Thema", "text": "2 Betten 90×190, 1 Etagenbett 90×190, 1 Ausziehbett 90×190. Bad mit Glaswaschbecken und Hydromassage-Dusche, WC." },
-      { "name": "Familienzimmer", "tag": "Obergeschoss · Familiensuite", "text": "1 Bett 160×200. Bildet eine Suite mit dem Zimmer Cabine und teilt sich mit ihm Bad und WC." },
+      { "name": "Familienzimmer", "tag": "Obergeschoss · Familiensuite", "text": "1 Bett 160×200. Bildet eine Suite mit dem Zimmer Cabine und teilt sich mit ihm Bad und WC. Reisebett für Babys verfügbar." },
       { "name": "Zimmer Cabine", "tag": "Obergeschoss · Familiensuite", "text": "1 Etagenbett 90×190 und 1 Ausziehbett 90×190: die Kinderecke, direkt neben dem Familienzimmer." },
       { "name": "Zimmer La Marquise", "tag": "Obergeschoss", "text": "2 Betten 90×200. Normannischer Schrank. Bad mit Glaswaschbecken, großer Hydromassage-Dusche, WC." }
     ],
     "gallery": "Galerie",
+    "bath": "Badezimmer",
+    "photos": "{{count}} Fotos",
+    "seePhotos": "Fotos ansehen — {{name}}",
     "plans": "Grundrisse"
   },
   "jardins": {
     "eyebrow": "Draußen",
     "option": "Optional",
-    "spaPrices": "Whirlpool-Preise ansehen"
+    "spaPrices": "Whirlpool-Preise ansehen",
+    "gamesTitle": "Spiele für die Kinder",
+    "gamesText": "Rutsche, Schaukel, Trampolin und Tischtennisplatte: genug Beschäftigung für die Kleinen (und die Großen) im sicher umfriedeten Garten.",
+    "welcomeTitle": "Motorradfahrer und Reiter willkommen",
+    "bikersTitle": "Motorradfahrer",
+    "bikersText": "Wir empfangen auch Motorradfahrer, auf Anfrage bei den Eigentümern und zu besonderen Bedingungen.",
+    "ridersTitle": "Reiter",
+    "ridersText": "Bringen Sie Ihre Pferde mit: bis zu 5 oder 6 Pferde gemeinsam auf der Weide, für {{price}} pro Pferd und Tag, unter der Verantwortung ihrer Besitzer.",
+    "askOwners": "Die Eigentümer kontaktieren"
   },
   "tarifs": {
     "eyebrow": "Buchung",
@@ -174,6 +185,9 @@
     "duration": "Zeitraum",
     "price": "Preis je nach Saison",
     "range": "{{low}} bis {{high}}",
+    "spaDurations": { "spa": "Wochenende 2 Nächte", "spa-3-nuits": "Wochenende 3 Nächte oder unter der Woche", "spa-semaine": "Woche (7 Nächte)", "spa-2-semaines": "2 Wochen (14 Nächte)" },
+    "spaTitle": "Whirlpool-Option",
+    "spaText": "Der Whirlpool für 7 Personen mit 104 Düsen, ganz für Sie allein, zusammen mit Ihrem Aufenthalt buchbar.",
     "extras": "Zusatzleistungen & Optionen",
     "terms": "Bedingungen",
     "askTitle": "Verfügbarkeit anfragen",
@@ -205,6 +219,11 @@
     "malo": { "title": "Saint-Malo", "text": "Die Korsarenstadt in der Bretagne." },
     "illustration": "Illustration",
     "officialSite": "Offizielle Website",
+    "mapTitle": "Die Ausflugskarte des Herrenhauses",
+    "mapText": "Die Ausflugsziele rund um das Herrenhaus, von Loïc und Maryline auf einer interaktiven Karte gesammelt.",
+    "mapLoad": "Karte anzeigen",
+    "mapNotice": "Die Karte wird von Google Maps bereitgestellt und erst nach Ihrem Klick geladen.",
+    "mapOpen": "Karte groß öffnen",
     "islands": "Die Kanalinseln",
     "activities": "Sport & Natur",
     "activityList": [

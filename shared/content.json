@@ -45,9 +45,9 @@
               "label": "Titre de section",
               "type": "text",
               "value": {
-                "fr": "Une maison de famille au cœur du Cotentin",
-                "en": "A family home in the heart of the Cotentin",
-                "de": "Ein Familienhaus im Herzen des Cotentin"
+                "fr": "Un manoir de famille au cœur du Cotentin",
+                "en": "A family manor in the heart of the Cotentin",
+                "de": "Ein Familienherrenhaus im Herzen des Cotentin"
               }
             },
             {
@@ -55,9 +55,9 @@
               "label": "Paragraphe 1",
               "type": "textarea",
               "value": {
-                "fr": "Au centre de la Manche, à Millières, le Manoir de la Champagne ouvre ses portes dans un cadre verdoyant et paisible. Entre pierres anciennes et confort actuel, la maison accueille cousinades, anniversaires et week-ends entre amis, à deux pas du Mont-Saint-Michel et des plages du Débarquement.",
-                "en": "In the heart of the Manche, in Millières, the Manoir de la Champagne welcomes you in green, peaceful surroundings. Combining old stone with modern comfort, the house is ideal for family reunions, birthdays and weekends with friends, within easy reach of Mont-Saint-Michel and the D-Day beaches.",
-                "de": "Mitten im Département Manche, in Millières, öffnet das Manoir de la Champagne seine Türen in einer grünen, ruhigen Umgebung. Zwischen altem Gemäuer und modernem Komfort empfängt das Haus Familientreffen, Geburtstage und Wochenenden mit Freunden – ganz in der Nähe des Mont-Saint-Michel und der Landungsstrände."
+                "fr": "Un remarquable porche classé marque l'entrée du Manoir de la Champagne : un corps de ferme du XVIIe siècle, entièrement fermé autour de sa cour, au centre de la Manche, à Millières. Classé meublé de tourisme 3 étoiles, ce grand gîte de 180 m², très confortable et très bien équipé, marie le charme des vieilles pierres au confort d'aujourd'hui.",
+                "en": "A remarkable listed gateway marks the entrance to the Manoir de la Champagne: a 17th-century farmstead, fully enclosed around its courtyard, in the heart of the Manche at Millières. Rated a 3-star furnished holiday rental, this large, very comfortable and well-equipped 180 m² house blends the charm of old stone with today's comfort.",
+                "de": "Ein bemerkenswertes, denkmalgeschütztes Portal markiert den Eingang des Manoir de la Champagne: ein Gutshof aus dem 17. Jahrhundert, rund um seinen Hof vollständig geschlossen, mitten im Département Manche in Millières. Das als 3-Sterne-Ferienunterkunft klassifizierte, sehr komfortable und bestens ausgestattete Haus mit 180 m² verbindet den Charme alter Steine mit heutigem Komfort."
               }
             },
             {
@@ -65,9 +65,9 @@
               "label": "Paragraphe 2",
               "type": "textarea",
               "value": {
-                "fr": "Ici, on redécouvre le temps de la campagne : la traite, les veaux dans les prés, et les après-midi qui s'étirent au bord de l'étang.",
-                "en": "Here you rediscover the pace of the countryside: milking time, calves in the meadows and long afternoons by the pond.",
-                "de": "Hier entdecken Sie den Rhythmus des Landlebens wieder: das Melken, die Kälber auf der Weide und lange Nachmittage am Teich."
+                "fr": "Cousinades, anniversaires ou week-ends entre amis : chaque détail a été pensé pour votre bien-être, dans un cadre paisible, propice au calme et à l'évasion. Ici, on redécouvre le temps de la campagne — la traite, les veaux dans les prés, les après-midi qui s'étirent au bord de l'étang —, à deux pas du Mont-Saint-Michel et des plages du Débarquement.",
+                "en": "Family reunions, birthdays or weekends with friends: every detail has been designed for your well-being, in peaceful surroundings made for calm and escape. Here you rediscover the pace of the countryside — milking time, calves in the meadows, long afternoons by the pond — within easy reach of Mont-Saint-Michel and the D-Day beaches.",
+                "de": "Familientreffen, Geburtstage oder Wochenenden mit Freunden: Jedes Detail ist auf Ihr Wohlbefinden ausgerichtet, in einer friedlichen Umgebung voller Ruhe und Erholung. Hier entdecken Sie den Rhythmus des Landlebens wieder – das Melken, die Kälber auf der Weide, lange Nachmittage am Teich – ganz in der Nähe des Mont-Saint-Michel und der Landungsstrände."
               }
             }
           ]
@@ -165,9 +165,9 @@
               "label": "Équipements cuisine (un par ligne)",
               "type": "textarea",
               "value": {
-                "fr": "Four & plaque vitrocéramique 4 feux\nHotte aspirante\nMicro-ondes\nLave-vaisselle\nLave-linge séchant\nGrand réfrigérateur-congélateur\nGrille-pain & bouilloire\nCafetière\nChaise haute bébé\n2 appareils à raclette\nGrand faitout",
-                "en": "Oven & 4-zone ceramic hob\nExtractor hood\nMicrowave\nDishwasher\nWasher-dryer\nLarge fridge-freezer\nToaster & kettle\nCoffee maker\nBaby high chair\n2 raclette sets\nLarge stockpot",
-                "de": "Backofen & 4-Zonen-Glaskeramikkochfeld\nDunstabzugshaube\nMikrowelle\nGeschirrspüler\nWaschtrockner\nGroßer Kühl-Gefrierschrank\nToaster & Wasserkocher\nKaffeemaschine\nBaby-Hochstuhl\n2 Raclette-Geräte\nGroßer Suppentopf"
+                "fr": "Four & plaque vitrocéramique 4 feux\nHotte aspirante\nMicro-ondes\nLave-vaisselle\nLave-linge\nGrand réfrigérateur-congélateur\nGrille-pain & bouilloire\nCafetière & Dolce Gusto à dosettes\nChaise haute bébé\n2 appareils à raclette\nGrand faitout\nPlancha",
+                "en": "Oven & 4-zone ceramic hob\nExtractor hood\nMicrowave\nDishwasher\nWashing machine\nLarge fridge-freezer\nToaster & kettle\nCoffee maker & Dolce Gusto pod machine\nBaby high chair\n2 raclette sets\nLarge stockpot\nPlancha griddle",
+                "de": "Backofen & 4-Zonen-Glaskeramikkochfeld\nDunstabzugshaube\nMikrowelle\nGeschirrspüler\nWaschmaschine\nGroßer Kühl-Gefrierschrank\nToaster & Wasserkocher\nKaffeemaschine & Dolce-Gusto-Kapselmaschine\nBaby-Hochstuhl\n2 Raclette-Geräte\nGroßer Suppentopf\nPlancha-Grillplatte"
               }
             }
           ]
@@ -180,9 +180,9 @@
               "label": "Introduction",
               "type": "text",
               "value": {
-                "fr": "5 chambres, dont 4 avec sanitaires privatifs — pour dormir à 12, parfois 14.",
-                "en": "5 bedrooms, 4 of them with private bathrooms — sleeping 12, sometimes 14.",
-                "de": "5 Schlafzimmer, davon 4 mit eigenem Bad – Platz für 12, manchmal 14 Personen."
+                "fr": "5 chambres, dont 4 avec sanitaires privatifs, pour dormir à 12, parfois 14. Chaque chambre a ses volets électriques, pour les grasses matinées comme pour les siestes.",
+                "en": "5 bedrooms, 4 of them with private bathrooms, sleeping 12, sometimes 14. Every bedroom has electric shutters, for lie-ins and afternoon naps alike.",
+                "de": "5 Schlafzimmer, davon 4 mit eigenem Bad, für 12, manchmal 14 Personen. Jedes Zimmer hat elektrische Rollläden – für langes Ausschlafen ebenso wie für den Mittagsschlaf."
               }
             },
             {
@@ -298,9 +298,9 @@
               "label": "Arrivée / départ (une ligne par formule)",
               "type": "textarea",
               "value": {
-                "fr": "Semaine : samedi 16h au samedi suivant 10h\nWeek-end : vendredi 16h au dimanche 18h\nMid-week : lundi 16h au vendredi suivant 10h",
-                "en": "Week: Saturday 4 pm to the following Saturday 10 am\nWeekend: Friday 4 pm to Sunday 6 pm\nMidweek: Monday 4 pm to Friday 10 am",
-                "de": "Woche: Samstag 16 Uhr bis folgenden Samstag 10 Uhr\nWochenende: Freitag 16 Uhr bis Sonntag 18 Uhr\nUnter der Woche: Montag 16 Uhr bis Freitag 10 Uhr"
+                "fr": "Semaine : samedi 16h au samedi suivant 10h\nWeek-end : vendredi 16h au dimanche 18h\nMid-week (4 nuits) : lundi 16h au vendredi 10h",
+                "en": "Week: Saturday 4 pm to the following Saturday 10 am\nWeekend: Friday 4 pm to Sunday 6 pm\nMidweek (4 nights): Monday 4 pm to Friday 10 am",
+                "de": "Woche: Samstag 16 Uhr bis zum folgenden Samstag 10 Uhr\nWochenende: Freitag 16 Uhr bis Sonntag 18 Uhr\nUnter der Woche (4 Nächte): Montag 16 Uhr bis Freitag 10 Uhr"
               }
             },
             {
@@ -318,9 +318,9 @@
               "label": "Note sous la grille",
               "type": "text",
               "value": {
-                "fr": "Tarifs pour l'ensemble de la location, jusqu'à 12 personnes. [Calendrier détaillé des saisons à confirmer avec les propriétaires]",
-                "en": "Prices for the whole property, up to 12 guests. [Detailed season calendar to be confirmed with the owners]",
-                "de": "Preise für das gesamte Haus, bis zu 12 Personen. [Detaillierter Saisonkalender wird noch bestätigt]"
+                "fr": "Tarifs 2027 pour l'ensemble de la location, jusqu'à 12 personnes, de la basse à la haute saison. Week-ends de Pâques, du 1er mai, du 8 mai, de l'Ascension et de la Pentecôte : 3 nuits minimum.",
+                "en": "2027 rates for the whole house, up to 12 guests, from low to high season. Easter, 1 May, 8 May, Ascension and Whitsun weekends: 3 nights minimum.",
+                "de": "Preise 2027 für das gesamte Haus, bis 12 Personen, von der Neben- bis zur Hochsaison. Wochenenden an Ostern, am 1. Mai, am 8. Mai, an Christi Himmelfahrt und an Pfingsten: mindestens 3 Nächte."
               }
             },
             {
@@ -328,9 +328,9 @@
               "label": "Modalités (une par ligne)",
               "type": "textarea",
               "value": {
-                "fr": "Acompte de 30 % à la réservation, solde 1 mois avant l'arrivée.\nCaution de 350 €, restituée après l'état des lieux.\nChèques-vacances et carte bancaire acceptés.\nLes animaux ne sont pas acceptés.\nAssurance annulation proposée (Mondial Assistance ou Europ Assistance).",
-                "en": "30% deposit on booking, balance due 1 month before arrival.\n€350 security deposit, returned after the check-out inspection.\nHoliday vouchers (chèques-vacances) and bank cards accepted.\nPets are not allowed.\nCancellation insurance available (Mondial Assistance or Europ Assistance).",
-                "de": "30 % Anzahlung bei Buchung, Restzahlung 1 Monat vor Anreise.\nKaution von 350 €, Rückerstattung nach der Endabnahme.\nUrlaubsschecks (chèques-vacances) und Bankkarten werden akzeptiert.\nHaustiere sind nicht erlaubt.\nReiserücktrittsversicherung möglich (Mondial Assistance oder Europ Assistance)."
+                "fr": "Acompte de 30 % à la réservation, solde 1 mois avant l'arrivée.\nCaution de 350 €, restituée après l'état des lieux.\nChèques-vacances et carte bancaire acceptés.\nLes animaux ne sont pas acceptés dans le gîte ; les chevaux des cavaliers sont accueillis au pré (voir suppléments).\nMotards bienvenus, sur demande auprès des propriétaires (conditions particulières).\nAssurance annulation proposée (Mondial Assistance ou Europ Assistance).",
+                "en": "30% deposit on booking, balance due 1 month before arrival.\n€350 security deposit, returned after the check-out inspection.\nHoliday vouchers (chèques-vacances) and bank cards accepted.\nPets are not allowed in the house; riders' horses are welcome in the paddock (see extras).\nBikers welcome, on request to the owners (specific conditions apply).\nCancellation insurance available (Mondial Assistance or Europ Assistance).",
+                "de": "30 % Anzahlung bei Buchung, Restzahlung 1 Monat vor Anreise.\nKaution von 350 €, Rückerstattung nach der Endabnahme.\nUrlaubsschecks (chèques-vacances) und Bankkarten werden akzeptiert.\nHaustiere sind im Haus nicht erlaubt; die Pferde von Reitern sind auf der Weide willkommen (siehe Zusatzleistungen).\nMotorradfahrer willkommen, auf Anfrage bei den Eigentümern (besondere Bedingungen).\nReiserücktrittsversicherung möglich (Mondial Assistance oder Europ Assistance)."
               }
             }
           ]

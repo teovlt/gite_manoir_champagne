@@ -2,80 +2,84 @@
   "formulas": [
     {
       "id": "semaine",
-      "name": { "fr": "Semaine", "en": "Week", "de": "Woche" },
-      "duration": { "fr": "Samedi 16h → samedi suivant 10h", "en": "Saturday 4 pm → following Saturday 10 am", "de": "Samstag 16 Uhr → folgender Samstag 10 Uhr" },
-      "low": 760,
-      "high": 1360
+      "name": {"fr": "Semaine", "en": "Week", "de": "Woche"},
+      "duration": {"fr": "Samedi 16h → samedi suivant 10h", "en": "Saturday 4 pm → following Saturday 10 am", "de": "Samstag 16 Uhr → folgender Samstag 10 Uhr"},
+      "low": 780,
+      "high": 1380
     },
     {
       "id": "weekend-2",
-      "name": { "fr": "Week-end · 2 nuits", "en": "Weekend · 2 nights", "de": "Wochenende · 2 Nächte" },
-      "duration": { "fr": "Vendredi 16h → dimanche 18h", "en": "Friday 4 pm → Sunday 6 pm", "de": "Freitag 16 Uhr → Sonntag 18 Uhr" },
-      "low": 360,
-      "high": 460
+      "name": {"fr": "Week-end · 2 nuits", "en": "Weekend · 2 nights", "de": "Wochenende · 2 Nächte"},
+      "duration": {"fr": "Vendredi 16h → dimanche 18h", "en": "Friday 4 pm → Sunday 6 pm", "de": "Freitag 16 Uhr → Sonntag 18 Uhr"},
+      "low": 380,
+      "high": 480
     },
     {
       "id": "weekend-3",
-      "name": { "fr": "Week-end · 3 nuits", "en": "Weekend · 3 nights", "de": "Wochenende · 3 Nächte" },
-      "duration": { "fr": "Vendredi 16h → lundi (pont)", "en": "Friday 4 pm → Monday (bank holiday)", "de": "Freitag 16 Uhr → Montag (Brückentag)" },
-      "low": 540,
-      "high": 960
+      "name": {"fr": "Week-end · 3 nuits", "en": "Weekend · 3 nights", "de": "Wochenende · 3 Nächte"},
+      "duration": {"fr": "Vendredi 16h → lundi (pont)", "en": "Friday 4 pm → Monday (bank holiday)", "de": "Freitag 16 Uhr → Montag (Brückentag)"},
+      "low": 580,
+      "high": 980
     },
     {
       "id": "midweek",
-      "name": { "fr": "Mid-week · 5 nuits", "en": "Midweek · 5 nights", "de": "Unter der Woche · 5 Nächte" },
-      "duration": { "fr": "Lundi 16h → vendredi suivant 10h", "en": "Monday 4 pm → Friday 10 am", "de": "Montag 16 Uhr → Freitag 10 Uhr" },
-      "low": 600,
-      "high": 700
+      "name": {"fr": "Mid-week · 4 nuits", "en": "Midweek · 4 nights", "de": "Unter der Woche · 4 Nächte"},
+      "duration": {"fr": "Lundi 16h → vendredi 10h", "en": "Monday 4 pm → Friday 10 am", "de": "Montag 16 Uhr → Freitag 10 Uhr"},
+      "low": 680,
+      "high": 780
     }
   ],
   "seasons": [
     {
       "id": "basse",
-      "name": { "fr": "Basse saison", "en": "Low season", "de": "Nebensaison" },
+      "name": {"fr": "Basse saison", "en": "Low season", "de": "Nebensaison"},
       "periods": {
-        "fr": "Février, avril, mai, juin, septembre, octobre",
-        "en": "February, April, May, June, September, October",
-        "de": "Februar, April, Mai, Juni, September, Oktober"
+        "fr": "Du 2 janvier au 25 mars et du 31 octobre au 17 décembre",
+        "en": "2 January to 25 March and 31 October to 17 December",
+        "de": "2. Januar bis 25. März und 31. Oktober bis 17. Dezember"
       }
     },
     {
       "id": "moyenne",
-      "name": { "fr": "Moyenne saison", "en": "Mid season", "de": "Zwischensaison" },
+      "name": {"fr": "Moyenne saison", "en": "Mid season", "de": "Zwischensaison"},
       "periods": {
-        "fr": "Vacances de la Toussaint (7 nuits min.)",
-        "en": "All Saints' school holidays (7 nights min.)",
-        "de": "Herbstferien zu Allerheiligen (mind. 7 Nächte)"
+        "fr": "Du 26 mars au 2 juillet et du 28 août au 30 octobre. 7 nuits minimum pendant les vacances scolaires",
+        "en": "26 March to 2 July and 28 August to 30 October. 7 nights minimum during school holidays",
+        "de": "26. März bis 2. Juli und 28. August bis 30. Oktober. Mindestens 7 Nächte in den Schulferien"
       }
     },
     {
       "id": "haute",
-      "name": { "fr": "Haute saison", "en": "High season", "de": "Hochsaison" },
+      "name": {"fr": "Haute saison", "en": "High season", "de": "Hochsaison"},
       "periods": {
-        "fr": "Noël & Jour de l'an (3 nuits min.)",
-        "en": "Christmas & New Year (3 nights min.)",
-        "de": "Weihnachten & Neujahr (mind. 3 Nächte)"
+        "fr": "Du 3 juillet au 27 août, 7 nuits minimum",
+        "en": "3 July to 27 August, 7 nights minimum",
+        "de": "3. Juli bis 27. August, mindestens 7 Nächte"
       }
     },
     {
-      "id": "tres-haute",
-      "name": { "fr": "Très haute saison", "en": "Peak season", "de": "Hauptsaison" },
+      "id": "noel",
+      "name": {"fr": "Noël & Jour de l'an", "en": "Christmas & New Year", "de": "Weihnachten & Neujahr"},
       "periods": {
-        "fr": "Vacances scolaires d'été (7 nuits min.)",
-        "en": "Summer school holidays (7 nights min.)",
-        "de": "Sommerferien (mind. 7 Nächte)"
+        "fr": "3 nuits minimum : 980 € les 3 nuits ou 1 380 € la semaine",
+        "en": "3 nights minimum: €980 for 3 nights or €1,380 for the week",
+        "de": "Mindestens 3 Nächte: 980 € für 3 Nächte oder 1.380 € pro Woche"
       }
     }
   ],
   "extras": [
-    { "id": "menage", "label": { "fr": "Forfait ménage (obligatoire)", "en": "Cleaning fee (mandatory)", "de": "Endreinigung (obligatorisch)" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 95 },
-    { "id": "taxe", "label": { "fr": "Taxe de séjour", "en": "Tourist tax", "de": "Kurtaxe" }, "unit": { "fr": "/ nuit / adulte", "en": "/ night / adult", "de": "/ Nacht / Erwachsener" }, "price": 1 },
-    { "id": "personne-sup", "label": { "fr": "Personne au-delà de 12", "en": "Each guest beyond 12", "de": "Jede Person ab der 13." }, "unit": { "fr": "/ nuit / pers.", "en": "/ night / person", "de": "/ Nacht / Person" }, "price": 15 },
-    { "id": "chauffage-semaine", "label": { "fr": "Forfait chauffage (semaine)", "en": "Heating (week)", "de": "Heizpauschale (Woche)" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 85 },
-    { "id": "chauffage-weekend", "label": { "fr": "Forfait chauffage (week-end)", "en": "Heating (weekend)", "de": "Heizpauschale (Wochenende)" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 40 },
-    { "id": "draps", "label": { "fr": "Location de draps", "en": "Bed linen hire", "de": "Bettwäsche" }, "unit": { "fr": "/ personne", "en": "/ person", "de": "/ Person" }, "price": 10 },
-    { "id": "serviettes", "label": { "fr": "Location de serviettes", "en": "Towel hire", "de": "Handtücher" }, "unit": { "fr": "/ personne", "en": "/ person", "de": "/ Person" }, "price": 5 },
-    { "id": "spa", "label": { "fr": "Spa extérieur (week-end)", "en": "Outdoor spa (weekend)", "de": "Außen-Whirlpool (Wochenende)" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 130 },
-    { "id": "borne", "label": { "fr": "Branchement véhicule électrique", "en": "Electric vehicle charging", "de": "Ladeanschluss für Elektroauto" }, "unit": { "fr": "", "en": "", "de": "" }, "price": 15 }
+    {"id": "menage", "label": {"fr": "Forfait ménage (obligatoire)", "en": "Cleaning fee (mandatory)", "de": "Endreinigung (obligatorisch)"}, "unit": {"fr": "", "en": "", "de": ""}, "price": 95},
+    {"id": "taxe", "label": {"fr": "Taxe de séjour", "en": "Tourist tax", "de": "Kurtaxe"}, "unit": {"fr": "/ nuit / adulte", "en": "/ night / adult", "de": "/ Nacht / Erwachsener"}, "price": 1.1},
+    {"id": "personne-sup", "label": {"fr": "Personne au-delà de 12", "en": "Each guest beyond 12", "de": "Jede Person ab der 13."}, "unit": {"fr": "/ nuit / pers.", "en": "/ night / person", "de": "/ Nacht / Person"}, "price": 15},
+    {"id": "chauffage-semaine", "label": {"fr": "Forfait chauffage (semaine)", "en": "Heating (week)", "de": "Heizpauschale (Woche)"}, "unit": {"fr": "", "en": "", "de": ""}, "price": 85},
+    {"id": "chauffage-weekend", "label": {"fr": "Forfait chauffage (week-end)", "en": "Heating (weekend)", "de": "Heizpauschale (Wochenende)"}, "unit": {"fr": "", "en": "", "de": ""}, "price": 40},
+    {"id": "draps", "label": {"fr": "Location de draps", "en": "Bed linen hire", "de": "Bettwäsche"}, "unit": {"fr": "/ personne", "en": "/ person", "de": "/ Person"}, "price": 10},
+    {"id": "serviettes", "label": {"fr": "Location de serviettes", "en": "Towel hire", "de": "Handtücher"}, "unit": {"fr": "/ personne", "en": "/ person", "de": "/ Person"}, "price": 5},
+    {"id": "spa", "label": {"fr": "Spa · week-end 2 nuits", "en": "Spa · 2-night weekend", "de": "Whirlpool · Wochenende 2 Nächte"}, "unit": {"fr": "", "en": "", "de": ""}, "price": 130},
+    {"id": "spa-3-nuits", "label": {"fr": "Spa · week-end 3 nuits ou mid-week", "en": "Spa · 3-night weekend or midweek", "de": "Whirlpool · Wochenende 3 Nächte oder unter der Woche"}, "unit": {"fr": "", "en": "", "de": ""}, "price": 155},
+    {"id": "spa-semaine", "label": {"fr": "Spa · semaine (7 nuits)", "en": "Spa · week (7 nights)", "de": "Whirlpool · Woche (7 Nächte)"}, "unit": {"fr": "", "en": "", "de": ""}, "price": 200},
+    {"id": "spa-2-semaines", "label": {"fr": "Spa · 2 semaines (14 nuits)", "en": "Spa · 2 weeks (14 nights)", "de": "Whirlpool · 2 Wochen (14 Nächte)"}, "unit": {"fr": "", "en": "", "de": ""}, "price": 350},
+    {"id": "cheval", "label": {"fr": "Cheval au pré (cavaliers)", "en": "Horse in the paddock (riders)", "de": "Pferd auf der Weide (Reiter)"}, "unit": {"fr": "/ cheval / jour", "en": "/ horse / day", "de": "/ Pferd / Tag"}, "price": 15},
+    {"id": "borne", "label": {"fr": "Branchement véhicule électrique", "en": "Electric vehicle charging", "de": "Ladeanschluss für Elektroauto"}, "unit": {"fr": "", "en": "", "de": ""}, "price": 15}
   ]
 }

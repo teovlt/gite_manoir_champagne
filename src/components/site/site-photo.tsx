@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Images } from "lucide-react";
 import { useSiteData } from "@/providers/site-data-provider";
 import { useTr } from "@/lib/locale";
 import type { Photo } from "@/lib/types";
@@ -15,8 +16,20 @@ interface SitePhotoProps {
   contain?: boolean;
   /** Opens the photo full screen on click. */
   zoomable?: boolean;
+  /** Other slots of the same room: the lightbox then browses them all, starting with this photo. */
+  gallery?: string[];
   /** Rendered when the slot has no image yet. Defaults to a labelled placeholder. */
   fallback?: React.ReactNode;
+}
+
+/** Filled photos of the given slots, ready for the lightbox. */
+export function useSlotImages(slots: string[]) {
+  const { data } = useSiteData();
+  const tr = useTr();
+  return slots
+    .map((s) => data.photos.find((p) => p.key === s))
+    .filter((p): p is Photo & { url: string } => Boolean(p?.url))
+    .map((p) => ({ url: p.url, alt: tr(p.alt) }));
 }
 
 const Placeholder = ({ label, className }: { label: string; className?: string }) => (
@@ -26,13 +39,14 @@ const Placeholder = ({ label, className }: { label: string; className?: string }
 );
 
 /** An image slot editable from the admin "Photos & médias" screen. */
-export function SitePhoto({ slot, className, imgClassName, contain, zoomable, fallback }: SitePhotoProps) {
+export function SitePhoto({ slot, className, imgClassName, contain, zoomable, gallery = [], fallback }: SitePhotoProps) {
   const { data } = useSiteData();
   const tr = useTr();
   const { t } = useTranslation();
   const lightbox = useLightbox();
   const photo = data.photos.find((p) => p.key === slot);
   const alt = tr(photo?.alt);
+  const images = useSlotImages([slot, ...gallery.filter((s) => s !== slot)]);
 
   if (!photo?.url) return fallback ?? <Placeholder label={alt || slot} className={className} />;
 
@@ -52,11 +66,17 @@ export function SitePhoto({ slot, className, imgClassName, contain, zoomable, fa
   ) : (
     <button
       type="button"
-      onClick={() => lightbox.open([{ url: photo.url!, alt }], 0)}
-      className={cn("zoom-frame block cursor-zoom-in overflow-hidden", credited ? "h-full w-full" : className)}
+      onClick={() => lightbox.open(images, 0)}
+      className={cn("zoom-frame relative block cursor-zoom-in overflow-hidden", credited ? "h-full w-full" : className)}
       aria-label={t("lightbox.open", { alt })}
     >
       {img}
+      {images.length > 1 && (
+        <span className="pointer-events-none absolute bottom-3 left-3 flex items-center gap-1.5 rounded-full bg-ink/60 px-3 py-1.5 text-[12px] font-semibold text-cream backdrop-blur-sm">
+          <Images className="size-3.5" aria-hidden="true" />
+          {t("gite.photos", { count: images.length })}
+        </span>
+      )}
     </button>
   );
   if (!credited) return frame;
