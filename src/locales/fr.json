@@ -244,11 +244,27 @@
     "seeAll": "Voir tous les avis sur Google",
     "visited": "Séjour en {{date}}",
     "visitedYear": "Séjour en {{date}}",
-    "translated": "Traduit du français",
     "readMore": "Lire la suite",
-    "readLess": "Réduire",
-    "fromGoogle": "Avis Google",
-    "all": "Lire aussi les avis sur Abritel ↗"
+    "onAbritel": "sur Abritel",
+    "seeAbritel": "Voir les avis sur Abritel",
+    "anonymous": "Voyageur vérifié",
+    "close": "Fermer",
+    "total": "{{count}} avis, sur Google et Abritel",
+    "hint": "Survolez une carte pour mettre en pause, cliquez sur « Lire la suite » pour l'avis complet.",
+    "translatedFrom": { "fr": "Traduit du français", "en": "Traduit de l'anglais", "de": "Traduit de l'allemand", "nl": "Traduit du néerlandais" },
+    "themes": {
+      "eyebrow": "Au fil des avis",
+      "title": "Ce qui revient le plus",
+      "lead": "Choisissez un thème pour ne faire défiler que les avis qui en parlent.",
+      "all": "Tous les avis",
+      "count": "cité dans {{count}} avis",
+      "welcome": "L'accueil de Maryline",
+      "farm": "La ferme & le lait frais",
+      "spa": "Le jacuzzi",
+      "calm": "Le calme",
+      "family": "En famille, entre amis",
+      "teurgoule": "La teurgoule maison"
+    }
   },
   "contact": {
     "eyebrow": "Nous écrire",

@@ -11,7 +11,8 @@ import { Reveal } from "@/components/site/reveal";
 import { ManorMap } from "@/components/site/lazy-map";
 import { contactUrl, validateBooking } from "@/components/site/form-controls";
 import { DateRangeField, GuestFields, useCheapestFormula } from "@/components/site/booking-fields";
-import { GoogleG, ReviewerAvatar, Stars, formatRating } from "@/components/site/reviews";
+import { GoogleG, Stars, formatRating } from "@/components/site/reviews";
+import { AbritelMark, ReviewMarquee, mergeReviews, reviewStats } from "@/components/site/review-wall";
 import googleReviews from "@shared/google-reviews.json";
 import { useAvailability, useExtraPhotos, usePageText, usePhoto, useSiteData } from "@/providers/site-data-provider";
 import { usePageMeta } from "@/lib/use-page-meta";
@@ -159,56 +160,47 @@ function HomeReviews() {
   const tr = useTr();
   const l = useLocalePath();
   const text = usePageText("accueil");
-  // The three most recent reviews; long ones are clamped to six lines.
-  const picks = [...googleReviews.reviews].sort((a, b) => (b.visited ?? "").localeCompare(a.visited ?? "")).slice(0, 3);
+  const { google, abritel } = reviewStats;
+  // A single slim row of the shorter reviews: the full wall lives on the reviews page.
+  const picks = mergeReviews().filter((r) => tr(r.text).length < 260);
 
   return (
-    <section className="px-gutter bg-sand py-20">
-      <div className="mx-auto max-w-[1200px]">
-        <Reveal className="mx-auto mb-12 max-w-[800px] text-center">
-          <span className="font-serif text-5xl leading-none text-clay" aria-hidden="true">
-            “
-          </span>
-          <p className="mb-6 mt-2 font-serif text-[22px] italic leading-normal">{text("quote")}</p>
+    <section className="bg-sand py-16">
+      <Reveal className="px-gutter mx-auto mb-8 flex max-w-[1200px] flex-wrap items-end justify-between gap-x-10 gap-y-5">
+        <div className="max-w-[620px]">
+          <p className="font-serif text-[22px] italic leading-normal">
+            <span className="mr-1 font-serif text-[34px] leading-none text-clay" aria-hidden="true">
+              “
+            </span>
+            {text("quote")}
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 text-[13px] text-umber">
           <a
-            href={googleReviews.url}
+            href={google.url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full border border-line-strong bg-cream px-5 py-2.5 text-[13px] text-umber transition-shadow hover:text-ink hover:shadow-[0_8px_20px_rgba(43,42,37,0.1)]"
+            className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-cream px-4 py-2 transition-shadow hover:text-ink hover:shadow-[0_8px_20px_rgba(43,42,37,0.1)]"
           >
-            <GoogleG className="size-5" />
-            <strong className="font-serif text-xl font-medium text-ink">{formatRating(googleReviews.rating, lang)}</strong>
-            <Stars value={googleReviews.rating} className="text-[15px]" />
-            <span>
-              {t("avis.reviewCount", { count: googleReviews.count })} {t("avis.onGoogle")}
-            </span>
+            <GoogleG className="size-4" />
+            <strong className="font-serif text-[17px] font-medium text-ink">{formatRating(google.rating, lang)}</strong>
+            <span>· {t("avis.reviewCount", { count: google.count })}</span>
           </a>
-        </Reveal>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-6">
-          {picks.map((r, i) => (
-            <Reveal
-              key={r.author}
-              as="figure"
-              delay={i * 90}
-              className="lift flex flex-col gap-4 rounded-[18px] border border-line bg-cream p-6 shadow-[0_2px_10px_rgba(43,42,37,0.04)]"
-            >
-              <Stars value={r.rating} className="text-[14px]" />
-              <blockquote className="font-serif text-[16px] leading-[1.6] text-ink">
-                <p className="line-clamp-6">{tr(r.text)}</p>
-              </blockquote>
-              <figcaption className="mt-auto flex items-center gap-3 border-t border-line pt-4">
-                <ReviewerAvatar name={r.author} className="size-9 text-[15px]" />
-                <span className="text-[14px] font-semibold">{r.author}</span>
-                <GoogleG className="ml-auto size-4" />
-              </figcaption>
-            </Reveal>
-          ))}
+          <Link
+            to={l("/avis")}
+            className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-cream px-4 py-2 transition-shadow hover:text-ink hover:shadow-[0_8px_20px_rgba(43,42,37,0.1)]"
+          >
+            <AbritelMark />
+            <strong className="font-serif text-[17px] font-medium text-ink">{abritel.rating}/10</strong>
+            <span>· {t("avis.reviewCount", { count: abritel.count })}</span>
+          </Link>
         </div>
-        <div className="mt-10 text-center">
-          <Button asChild variant="clay" size="pillMd">
-            <Link to={l("/avis")}>{t("home.readReviews")}</Link>
-          </Button>
-        </div>
+      </Reveal>
+      <ReviewMarquee reviews={picks} compact secondsPerCard={6} />
+      <div className="mt-8 text-center">
+        <Button asChild variant="clay" size="pillMd">
+          <Link to={l("/avis")}>{t("home.readReviews")}</Link>
+        </Button>
       </div>
     </section>
   );

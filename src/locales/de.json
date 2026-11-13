@@ -244,11 +244,27 @@
     "seeAll": "Alle Bewertungen auf Google ansehen",
     "visited": "Aufenthalt im {{date}}",
     "visitedYear": "Aufenthalt {{date}}",
-    "translated": "Aus dem Französischen übersetzt",
     "readMore": "Weiterlesen",
-    "readLess": "Weniger anzeigen",
-    "fromGoogle": "Google-Bewertung",
-    "all": "Auch unsere Bewertungen auf Abritel lesen ↗"
+    "onAbritel": "auf Abritel",
+    "seeAbritel": "Bewertungen auf Abritel ansehen",
+    "anonymous": "Verifizierter Gast",
+    "close": "Schließen",
+    "total": "{{count}} Bewertungen auf Google und Abritel",
+    "hint": "Fahren Sie über eine Karte, um anzuhalten, und klicken Sie auf „Weiterlesen“ für die ganze Bewertung.",
+    "translatedFrom": { "fr": "Aus dem Französischen übersetzt", "en": "Aus dem Englischen übersetzt", "de": "Aus dem Deutschen übersetzt", "nl": "Aus dem Niederländischen übersetzt" },
+    "themes": {
+      "eyebrow": "Bewertung für Bewertung",
+      "title": "Was am häufigsten erwähnt wird",
+      "lead": "Wählen Sie ein Thema, um nur die Bewertungen zu sehen, die davon erzählen.",
+      "all": "Alle Bewertungen",
+      "count": "in {{count}} Bewertungen",
+      "welcome": "Marylines Empfang",
+      "farm": "Der Hof & frische Milch",
+      "spa": "Der Whirlpool",
+      "calm": "Die Ruhe",
+      "family": "Mit Familie & Freunden",
+      "teurgoule": "Hausgemachte Teurgoule"
+    }
   },
   "contact": {
     "eyebrow": "Schreiben Sie uns",

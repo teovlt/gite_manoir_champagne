@@ -244,11 +244,27 @@
     "seeAll": "See all reviews on Google",
     "visited": "Stayed in {{date}}",
     "visitedYear": "Stayed in {{date}}",
-    "translated": "Translated from French",
     "readMore": "Read more",
-    "readLess": "Show less",
-    "fromGoogle": "Google review",
-    "all": "Also read our reviews on Abritel ↗"
+    "onAbritel": "on Abritel",
+    "seeAbritel": "See the reviews on Abritel",
+    "anonymous": "Verified guest",
+    "close": "Close",
+    "total": "{{count}} reviews, on Google and Abritel",
+    "hint": "Hover over a card to pause, click “Read more” for the full review.",
+    "translatedFrom": { "fr": "Translated from French", "en": "Translated from English", "de": "Translated from German", "nl": "Translated from Dutch" },
+    "themes": {
+      "eyebrow": "Review by review",
+      "title": "What comes up most",
+      "lead": "Pick a theme to scroll only through the reviews that mention it.",
+      "all": "All reviews",
+      "count": "in {{count}} reviews",
+      "welcome": "Maryline's welcome",
+      "farm": "The farm & fresh milk",
+      "spa": "The hot tub",
+      "calm": "Peace and quiet",
+      "family": "Family & friends",
+      "teurgoule": "Homemade teurgoule"
+    }
   },
   "contact": {
     "eyebrow": "Write to us",

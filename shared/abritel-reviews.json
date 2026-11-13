@@ -1,0 +1,504 @@
+{
+  "rating": 10,
+  "count": 39,
+  "url": "https://www.expedia.fr/Millieres-Hotel-MANOIR-DE-LA-CHAMPAGNE-Gite-12pers-With-SPA-7-Places.h33471248.Description-Hotel",
+  "reviews": [
+    {
+      "author": "Dominique M.",
+      "rating": 5,
+      "visited": "2026-09",
+      "lang": "fr",
+      "text": {
+        "fr": "Excellent, confortable, agréable, convivial… à recommander…",
+        "en": "Excellent, comfortable, pleasant, friendly… highly recommended…",
+        "de": "Ausgezeichnet, komfortabel, angenehm, gesellig… sehr zu empfehlen…"
+      }
+    },
+    {
+      "author": "Pierre G.",
+      "rating": 5,
+      "visited": "2026-07",
+      "lang": "fr",
+      "text": {
+        "fr": "Maryline nous a parfaitement accueillis dans son gîte très bien équipé, très joli, agréable et confortable, et bien placé dans la région. Merci pour ce super séjour !",
+        "en": "Maryline gave us a perfect welcome to her very well-equipped house: very pretty, pleasant and comfortable, and well located for the region. Thank you for a great stay!",
+        "de": "Maryline hat uns in ihrem sehr gut ausgestatteten Ferienhaus perfekt empfangen: sehr hübsch, angenehm und komfortabel und gut gelegen. Danke für den tollen Aufenthalt!"
+      }
+    },
+    {
+      "author": "Catherine et Christian A.",
+      "rating": 5,
+      "visited": "2025-12",
+      "lang": "fr",
+      "text": {
+        "fr": "Un séjour dans un cadre magnifique : dehors et à l'intérieur ! Maryline tellement proche de ses hôtes ! Nous avons adoré !",
+        "en": "A stay in magnificent surroundings, outside and in! Maryline is so close to her guests! We loved it!",
+        "de": "Ein Aufenthalt in herrlicher Umgebung, draußen wie drinnen! Maryline ist ihren Gästen so nah! Wir waren begeistert!"
+      }
+    },
+    {
+      "author": "Bettina K.",
+      "rating": 5,
+      "visited": "2025-08",
+      "lang": "de",
+      "text": {
+        "fr": "Communication très aimable et fiable avec l'hôtesse. Un cadre idyllique et absolument adapté aux familles.",
+        "en": "Very friendly and reliable communication with the host. An idyllic setting, absolutely family-friendly.",
+        "de": "Sehr freundliche und zuverlässige Kommunikation mit der Gastgeberin. Absolut familienfreundliches und idyllisches Umfeld."
+      }
+    },
+    {
+      "author": "Tobias v.",
+      "rating": 5,
+      "visited": "2025-10",
+      "lang": "nl",
+      "text": {
+        "fr": "Une magnifique maison de vacances ancienne à la campagne, en Normandie, avec beaucoup à faire et tous les commerces à proximité. Maryline est une hôtesse formidable, la maison est confortable et la cheminée parfait le tout.",
+        "en": "A beautiful old holiday home in the Normandy countryside, with plenty to do and every amenity nearby. Maryline is a wonderful host, the house is comfortable and the open fire completes it all.",
+        "de": "Ein wunderschönes altes Ferienhaus auf dem Land in der Normandie, mit viel Programm und allen Einkaufsmöglichkeiten in der Nähe. Maryline ist eine großartige Gastgeberin, das Haus ist gemütlich und der Kamin macht es perfekt."
+      }
+    },
+    {
+      "author": "Christine H.",
+      "rating": 5,
+      "visited": "2025-05",
+      "lang": "fr",
+      "title": { "fr": "Séjour entre amis", "en": "A stay with friends", "de": "Aufenthalt unter Freunden" },
+      "text": {
+        "fr": "Très bon séjour. Hébergement spacieux et bien équipé. Le calme de la campagne près de la mer. Accueil très chaleureux et bienveillant. Un grand merci à notre hôte.",
+        "en": "A very good stay. Spacious, well-equipped accommodation. The peace of the countryside close to the sea. A very warm and caring welcome. Many thanks to our host.",
+        "de": "Ein sehr schöner Aufenthalt. Geräumige, gut ausgestattete Unterkunft. Ländliche Ruhe nahe am Meer. Ein sehr herzlicher und fürsorglicher Empfang. Vielen Dank an unsere Gastgeberin."
+      }
+    },
+    {
+      "author": "Matthew W.",
+      "rating": 5,
+      "visited": "2025-08",
+      "lang": "en",
+      "text": {
+        "fr": "Du début à la fin, la propriétaire a été formidable. Très bonne communication, et l'arrivée s'est faite sans le moindre accroc. La maison et le terrain sont tout simplement superbes. Tout le séjour a été reposant et paisible. Cuisine bien équipée, lits et salon confortables. Les petits-déjeuners et les repas dehors sur la grande terrasse, avec le coin barbecue déjà installé, étaient parfaits. C'est le meilleur endroit où nous ayons séjourné en France. Merci encore.",
+        "en": "From start to finish the owner was amazing. Great communication and when we arrived check in was seamless. The house and grounds are nothing but amazing. The whole stay was relaxing and peaceful. Well equipped kitchen and comfortable beds and lounge. Breakfast and outdoor dining on the large patio was perfect with a BBQ area already set up. This is the best place we have stayed in France. Thank you again.",
+        "de": "Von Anfang bis Ende war die Gastgeberin großartig. Tolle Kommunikation, und der Check-in bei der Ankunft lief reibungslos. Haus und Grundstück sind einfach fantastisch. Der ganze Aufenthalt war erholsam und friedlich. Gut ausgestattete Küche, bequeme Betten und Wohnzimmer. Frühstück und Essen draußen auf der großen Terrasse mit dem bereits eingerichteten Grillplatz waren perfekt. Die beste Unterkunft, die wir in Frankreich hatten. Nochmals vielen Dank."
+      }
+    },
+    {
+      "author": "Michael S.",
+      "rating": 5,
+      "visited": "2025-06",
+      "lang": "de",
+      "text": {
+        "fr": "Une maison magnifique, très spacieuse, chaque chambre avec sa propre salle de bain, un grand jardin. Maryline et sa famille sont des hôtes très gentils et serviables, on se sent toujours le bienvenu. En prime, du lait frais des nombreuses vaches de la ferme, et sur demande une visite très intéressante de l'exploitation. La maison est idéale pour découvrir en voiture les environs et leurs nombreux sites. Nous y avons passé plus de deux très belles semaines.",
+        "en": "A beautiful, very spacious house, every bedroom with its own bathroom, a generous garden. Maryline and her family are very kind and helpful hosts; you always feel welcome. As a bonus there is fresh milk from the farm's many cows, and on request a very interesting farm tour. The house is ideal for exploring the area and its many sights by car. We spent more than two lovely weeks here.",
+        "de": "Ein wunderschönes Haus, sehr geräumig. Jedes Zimmer mit separatem Bad. Großzügiger Garten. Maryline und ihre Familie sind sehr nette und hilfsbereite Gastgeber, man fühlt sich jederzeit willkommen. Als Zugabe gibt es frische Milch von den zahlreichen Rindern des Hofes. Auf Wunsch gibt es eine sehr interessante Bauernhofführung. Das Haus eignet sich ideal, um mit dem eigenen Auto die Umgebung und die zahlreichen Sehenswürdigkeiten zu besichtigen. Wir haben hier mehr als 2 sehr schöne Wochen verbracht."
+      }
+    },
+    {
+      "author": "Irma d.",
+      "rating": 5,
+      "visited": "2025-04",
+      "lang": "nl",
+      "title": { "fr": "Un lieu de séjour parfait", "en": "A perfect place to stay", "de": "Ein perfekter Aufenthaltsort" },
+      "text": {
+        "fr": "Nous avons passé une semaine délicieuse. Une maison agréable, spacieuse et propre. Les environs sont beaux aussi. Vraiment à recommander !",
+        "en": "We had a wonderful week. A lovely, spacious and clean house. The surroundings are beautiful too. Highly recommended!",
+        "de": "Wir hatten eine herrliche Woche. Ein schönes, geräumiges und sauberes Haus. Auch die Umgebung ist schön. Wirklich empfehlenswert!"
+      }
+    },
+    {
+      "author": "Claudia T.",
+      "rating": 5,
+      "visited": "2024-10",
+      "lang": "en",
+      "title": { "fr": "Excellent", "en": "Excellent", "de": "Ausgezeichnet" },
+      "text": {
+        "fr": "La maison était magnifique et les chambres excellentes. Maryline a été une hôtesse merveilleuse, nous nous sommes sentis vraiment bienvenus. Nous avons adoré la région et tous les endroits fantastiques que nous avons visités.",
+        "en": "The house was beautiful and the rooms were excellent. Maryline was a wonderful host, making us feel very welcome. We loved the local area and enjoyed all the fantastic places that we visited.",
+        "de": "Das Haus war wunderschön und die Zimmer ausgezeichnet. Maryline war eine wunderbare Gastgeberin, wir haben uns sehr willkommen gefühlt. Wir haben die Gegend geliebt und all die fantastischen Orte genossen, die wir besucht haben."
+      }
+    },
+    {
+      "author": "Jutta M.",
+      "rating": 5,
+      "visited": "2024-10",
+      "lang": "de",
+      "title": { "fr": "Super vacances en famille !", "en": "Great family holiday!", "de": "Super Familienurlaub!" },
+      "text": {
+        "fr": "Notre hôtesse Maryline nous a accueillis très chaleureusement ! Nous avons eu chaque jour du lait frais de ses propres vaches, et elle nous a même apporté une teurgoule maison ! La maison est vraiment merveilleuse, et surtout bien chauffée. Dans le jardin, une petite maison abrite un jacuzzi, dont nous avons profité tous les jours.",
+        "en": "Our host Maryline gave us a very warm welcome! We got fresh milk from her own cows every day, and she even brought us a homemade rice pudding! The house is truly wonderful, and above all warm. In the garden there is a little house with a hot tub, which we enjoyed every day.",
+        "de": "Die Gastgeberin Maryline hat uns sehr herzlich empfangen! Wir haben jeden Tag frische Milch von den eigenen Kühen bekommen, außerdem hat sie uns einen selbstgebackenen Reispudding gebracht! Das Haus ist wirklich wunderbar, vor allen Dingen auch warm. Im Garten gibt es ein Haus mit einem Whirlpool. Den haben wir auch täglich sehr genossen."
+      }
+    },
+    {
+      "author": "Kevin B.",
+      "rating": 4,
+      "visited": "2024-10",
+      "lang": "en",
+      "title": { "fr": "Un super gîte", "en": "Great property", "de": "Tolle Unterkunft" },
+      "text": {
+        "fr": "Un charmant gîte et une propriétaire très accueillante et serviable (merci Maryline). Bien situé, parfait pour notre court séjour de détente, et très bien équipé. Comme dans les autres avis… une teurgoule maison vraiment fantastique et délicieuse offerte par Maryline. Nous reviendrons peut-être.",
+        "en": "A lovely gîte with a very welcoming and helpful owner (Maryline, thank you). A good location, perfect for our relaxed short break and very well equipped. As other reviews say… truly fantastic and delicious homemade rice pudding as a gift from Maryline. We may return.",
+        "de": "Ein reizendes Ferienhaus mit einer sehr herzlichen und hilfsbereiten Besitzerin (danke, Maryline). Gute Lage, perfekt für unseren erholsamen Kurzurlaub und sehr gut ausgestattet. Wie in anderen Bewertungen… ein wirklich fantastischer, köstlicher selbstgemachter Reispudding als Geschenk von Maryline. Vielleicht kommen wir wieder."
+      }
+    },
+    {
+      "author": "Lawrence A.",
+      "rating": 5,
+      "visited": "2024-09",
+      "lang": "en",
+      "title": {
+        "fr": "Un point de chute idéal pour visiter la Normandie",
+        "en": "A great location from which to visit Normandy",
+        "de": "Ein idealer Ausgangspunkt für die Normandie"
+      },
+      "text": {
+        "fr": "Une belle aventure vous attend. Maryline et son mari entretiennent cette maison depuis plus de 30 ans. Venez en famille. Je ne dirai jamais assez de bien de cette perle cachée, et j'ai hâte d'y revenir avec d'autres. L'un d'entre nous a eu un souci de santé nécessitant une ordonnance : Maryline l'a reçue, imprimée, puis a appelé la pharmacie du coin pour que nous puissions récupérer le médicament. Mille mercis, Maryline !",
+        "en": "You're in for a great adventure. Maryline and her husband have been working on this home for the last 30+ years. Bring the family. I can't say enough good things about this hidden gem. I look forward to bringing others with me when I return. We had a medical issue requiring a prescription for one of our group. We worked with Maryline and had a prescription sent to her, which she printed, and then she called the local pharmacy to help us pick up the medication. Many thanks, Maryline!",
+        "de": "Ein großartiges Abenteuer erwartet Sie. Maryline und ihr Mann pflegen dieses Haus seit über 30 Jahren. Bringen Sie die Familie mit. Ich kann gar nicht genug Gutes über dieses versteckte Juwel sagen und freue mich darauf, mit anderen wiederzukommen. Einer aus unserer Gruppe brauchte wegen eines gesundheitlichen Problems ein Rezept: Maryline hat es empfangen, ausgedruckt und dann die Apotheke vor Ort angerufen, damit wir das Medikament abholen konnten. Tausend Dank, Maryline!"
+      }
+    },
+    {
+      "author": "Ruud S.",
+      "rating": 5,
+      "visited": "2024-08",
+      "lang": "nl",
+      "title": {
+        "fr": "Une maison délicieuse et une hôtesse sympathique",
+        "en": "A lovely house and a friendly host",
+        "de": "Herrliches Haus und sympathische Gastgeberin"
+      },
+      "text": {
+        "fr": "Nous avons profité de l'espace, de tout le confort disponible et des magnifiques environs. Maryline est une hôtesse particulièrement agréable : elle nous a accueillis chaleureusement et nous a donné de précieux conseils pour explorer le Cotentin.",
+        "en": "We enjoyed the space, all the comforts on hand and the beautiful surroundings. Maryline is a particularly pleasant host: she welcomed us warmly and gave us handy tips for exploring the Cotentin.",
+        "de": "Wir haben den Platz, allen vorhandenen Komfort und die wunderschöne Umgebung genossen. Maryline ist eine besonders angenehme Gastgeberin: Sie hat uns herzlich empfangen und uns nützliche Tipps für die Erkundung des Cotentin gegeben."
+      }
+    },
+    {
+      "author": "Sarah W.",
+      "rating": 5,
+      "visited": "2024-07",
+      "lang": "en",
+      "title": { "fr": "Paisible et pittoresque", "en": "Peaceful and picturesque", "de": "Friedlich und malerisch" },
+      "text": {
+        "fr": "Nous avons vraiment apprécié notre séjour au Manoir de la Champagne. Il était facile à trouver et Maryline a été adorable, vraiment serviable. Nous avons adoré la visite de la ferme, la teurgoule et les livraisons régulières de lait. La maison se trouve dans un coin de Normandie superbe et tranquille, à quelques minutes en voiture de la plage et de Périers, où l'on trouve tous les commerces. Nous avons profité du jacuzzi et observé la faune autour de l'étang au fond du jardin. Parfait pour une réunion de famille.",
+        "en": "We really enjoyed our time at Manoir de la Champagne. It was easy to find and Maryline was lovely, really helpful, and we loved the farm tour, rice pudding and regular milk deliveries. The house is in a beautiful and tranquil part of Normandy. It is a short drive to the beach and to Périers, where there are local amenities. We enjoyed the hot tub and watching the local wildlife around the lake at the end of the garden. Perfect for a family get-together.",
+        "de": "Wir haben unsere Zeit im Manoir de la Champagne sehr genossen. Es war leicht zu finden, und Maryline war reizend und sehr hilfsbereit. Wir liebten die Hofführung, den Reispudding und die regelmäßigen Milchlieferungen. Das Haus liegt in einem schönen, ruhigen Teil der Normandie, nur eine kurze Fahrt vom Strand und von Périers mit seinen Geschäften entfernt. Wir genossen den Whirlpool und beobachteten die Tiere am Teich am Ende des Gartens. Perfekt für ein Familientreffen."
+      }
+    },
+    {
+      "author": "Rosalie G.",
+      "rating": 5,
+      "visited": "2024-04",
+      "lang": "fr",
+      "title": {
+        "fr": "Séjour au Manoir de la Champagne",
+        "en": "Our stay at the Manoir de la Champagne",
+        "de": "Aufenthalt im Manoir de la Champagne"
+      },
+      "text": {
+        "fr": "Un séjour extraordinaire. Propreté dans toutes les pièces, rien à redire. Le jacuzzi impeccable. Les propriétaires toujours disponibles et très sympas, la visite de leur domaine et du lait frais tous les jours. Une belle terrasse, un étang et la visite du chat Spirou. Je vous recommande de séjourner dans cet endroit magnifique, très calme, en pleine campagne. On se réjouit de revenir dans ce lieu superbe. Rosalie et toute l'équipe du Jura suisse",
+        "en": "An extraordinary stay. Every room spotless, nothing to fault. The hot tub immaculate. The owners always available and very friendly, a tour of their farm and fresh milk every day. A lovely terrace, a pond and visits from Spirou the cat. I recommend staying in this magnificent, very quiet place deep in the countryside. We look forward to coming back to this superb spot. Rosalie and the whole team from the Swiss Jura",
+        "de": "Ein außergewöhnlicher Aufenthalt. Sauberkeit in allen Räumen, nichts auszusetzen. Der Whirlpool tadellos. Die Besitzer immer erreichbar und sehr nett, eine Führung über ihren Hof und jeden Tag frische Milch. Eine schöne Terrasse, ein Teich und Besuch vom Kater Spirou. Ich empfehle Ihnen einen Aufenthalt an diesem herrlichen, sehr ruhigen Ort mitten auf dem Land. Wir freuen uns darauf, an diesen wunderbaren Ort zurückzukehren. Rosalie und das ganze Team aus dem Schweizer Jura"
+      }
+    },
+    {
+      "author": "Andre N.",
+      "rating": 5,
+      "visited": "2021-10",
+      "lang": "de",
+      "title": { "fr": "Des vacances géniales", "en": "A great holiday", "de": "Toller Urlaub" },
+      "text": {
+        "fr": "Un lieu génial et des propriétaires super gentils ! Ils sont passionnés par leur ferme et ont tout montré à nos enfants !",
+        "en": "A great place and super friendly owners! They are passionate about their farm and showed our children everything!",
+        "de": "Tolles Objekt und super nette Vermieter! Sie brennen für ihre Farm und haben unseren Kindern alles gezeigt!"
+      }
+    },
+    {
+      "author": "AYA A.",
+      "rating": 5,
+      "visited": "2021-08",
+      "lang": "fr",
+      "title": { "fr": "Super séjour en famille", "en": "A great family stay", "de": "Toller Familienurlaub" },
+      "text": {
+        "fr": "Très belle maison avec un agréable jardin. Maison confortable et bien équipée. Hôte très chaleureuse et de bon conseil. Belle visite de la ferme. Nous avons passé un très bon séjour.",
+        "en": "A very beautiful house with a pleasant garden. Comfortable and well equipped. A very warm host with good advice. A lovely farm tour. We had a really good stay.",
+        "de": "Sehr schönes Haus mit angenehmem Garten. Gemütlich und gut ausgestattet. Sehr herzliche Gastgeberin mit guten Tipps. Schöne Hofführung. Wir hatten einen sehr schönen Aufenthalt."
+      }
+    },
+    {
+      "author": "Céline L.",
+      "rating": 5,
+      "visited": "2021-07",
+      "lang": "fr",
+      "title": { "fr": "Accueil 5 étoiles", "en": "A five-star welcome", "de": "Fünf-Sterne-Empfang" },
+      "text": {
+        "fr": "Maryline nous a très bien accueillis et a été très arrangeante pour l'installation de la literie. Le gîte était au-delà de nos attentes : site exceptionnel et intérieur très bien meublé et cosy.",
+        "en": "Maryline welcomed us very warmly and was most accommodating about setting up the bedding. The house exceeded our expectations: an exceptional site and a cosy, very nicely furnished interior.",
+        "de": "Maryline hat uns sehr herzlich empfangen und war beim Herrichten der Betten sehr entgegenkommend. Das Ferienhaus hat unsere Erwartungen übertroffen: ein außergewöhnlicher Ort und ein sehr schön eingerichtetes, gemütliches Interieur."
+      }
+    },
+    {
+      "author": "Thomas J.",
+      "rating": 5,
+      "visited": "2021-07",
+      "lang": "en",
+      "title": { "fr": "De belles vacances en Normandie", "en": "Great vacation in Normandy", "de": "Schöner Urlaub in der Normandie" },
+      "text": {
+        "fr": "Maryline et son mari nous ont réservé un accueil très chaleureux sur leur ferme. La maison est spacieuse et joliment décorée, avec une grande cuisine. Nous avons passé de bons moments dans le jacuzzi. Lits confortables. Il y a des poissons dans l'étang : apportez votre canne à pêche. De beaux chats et des oiseaux. La visite de la ferme était passionnante et nous a beaucoup appris sur la traite automatisée. Le lait est délicieux. Maryline connaît tout ce qu'il y a à faire et à voir dans le Cotentin : aucun jour d'ennui.",
+        "en": "Maryline and her husband gave us a very warm welcome on their farm. The house is spacious and nicely decorated. Big kitchen. We had a nice time in the jacuzzi. Comfortable beds. There are fish in the pond, so bring your fishing rod. Beautiful cats and birds. We had a very interesting farm tour and learned a lot about modern automatic milk production. The milk is delicious. Maryline knows everything there is to do and see on the Cotentin peninsula: no dull day.",
+        "de": "Maryline und ihr Mann haben uns auf ihrem Hof sehr herzlich empfangen. Das Haus ist geräumig und schön eingerichtet, mit großer Küche. Wir hatten eine schöne Zeit im Whirlpool. Bequeme Betten. Im Teich gibt es Fische, also Angel mitbringen. Schöne Katzen und Vögel. Die Hofführung war sehr interessant, wir haben viel über das moderne automatische Melken gelernt. Die Milch ist köstlich. Maryline kennt alles, was es auf der Halbinsel Cotentin zu tun und zu sehen gibt: kein langweiliger Tag."
+      }
+    },
+    {
+      "author": "Alexandra M.",
+      "rating": 5,
+      "visited": "2019-08",
+      "lang": "de",
+      "title": { "fr": "Un très beau séjour", "en": "A wonderful stay", "de": "Sehr schöner Aufenthalt" },
+      "text": {
+        "fr": "Nous y étions cet été et avons été conquis par ce domaine unique. Grâce notamment à l'accueil très aimable des propriétaires, qui habitent juste à côté, nous avons passé un moment formidable ! Merci encore à Maryline et à sa famille pour la visite de leur exploitation laitière, câlins aux veaux compris, et pour le lait frais chaque jour. La maison offrait de la place pour nous neuf et ne laissait rien à désirer. Situation idyllique et très calme. Bons lits et belles chambres, toutes avec leur propre salle de bain : un vrai plus ! Le jacuzzi, logé dans un petit pavillon, était propre et très relaxant. L'étang derrière le jardin (l'un de nous y a pêché avec passion), la table de ping-pong et la place pour jouer au foot nous ont occupés quand le temps était moins beau. De belles excursions aux alentours, la plage de Pirou à une dizaine de minutes. En somme, des vacances géniales !",
+        "en": "We were there this summer and were delighted by this unique estate. Not least thanks to the very kind care of the owners, who live right next door, we had a great time! Thanks again to Maryline and her family for the tour of their dairy farm, calf-stroking included, and for fresh milk every day. The house had room for all nine of us and left nothing to be desired. A very idyllic, quiet location. Good beds and lovely rooms, all with their own bathroom: a big plus! The hot tub, housed in a little pool house, was clean and very relaxing. The pond behind the garden (one of us fished in it devotedly), the table-tennis table and room to play football kept us busy when the weather was so-so. Lovely places to visit nearby, with the beach at Pirou about 10 minutes away. All in all, a great holiday!",
+        "de": "Wir waren diesen Sommer dort und waren sehr angetan von diesem einzigartigen Anwesen. Nicht zuletzt durch die sehr nette Betreuung durch die Vermieter, die direkt nebenan wohnen, hatten wir eine tolle Zeit! Vielen Dank nochmal an Maryline und ihre Familie, die uns eine Führung durch ihren Milchbetrieb gegeben haben, Kälbchen streicheln inbegriffen, und jeden Tag frische Milch! Das Haus bot Platz für uns 9 und ließ nichts zu wünschen übrig. Sehr idyllisch und ruhig gelegen. Gute Betten und schöne Zimmer, alle mit eigenem Bad: auch ein großer Pluspunkt! Der Whirlpool war sehr entspannend, sauber und in einem kleinen Poolhaus untergebracht. Auch der See hinterm Garten (einer von uns hat darin mit Hingabe geangelt), Tischtennisplatte und Platz zum Fußballspielen haben uns die Zeit vertrieben, wenn das Wetter eher mäßig war! Schöne Ziele in der Umgebung, der Strand in Pirou ca. 10 Minuten entfernt. Alles in allem ein toller Urlaub!"
+      }
+    },
+    {
+      "author": "Martin Ipsen P.",
+      "rating": 5,
+      "visited": "2019-07",
+      "lang": "en",
+      "title": {
+        "fr": "Un très bel endroit, à bonne distance des grands sites",
+        "en": "Very nice place with fine travelling distances to major sights",
+        "de": "Sehr schöner Ort, gut gelegen für die großen Sehenswürdigkeiten"
+      },
+      "text": {
+        "fr": "Un endroit formidable, avec beaucoup de chambres et d'espace, dehors aussi. Une vue très reposante depuis le jardin sur le petit étang et les vaches dans les prés. Facile de visiter le Mont-Saint-Michel, les plages du Débarquement et d'autres sites. Périers, la ville voisine, offre tous les commerces nécessaires. Si vous le souhaitez, vous pouvez profiter d'un grand spa, en option. Les hôtes sont très aimables et ravis de rendre service. Nous recommandons vivement.",
+        "en": "This is a great place to stay, plenty of rooms and space, also outdoors. Very relaxing views from the garden to the little lake and the cows in the fields. Easy to visit Mont-Saint-Michel, the landing beaches and other sights. The neighbouring town, Périers, has all the necessary shopping. If you like, you can use a large spa at added cost. The hosts are very friendly and very happy to help. A clear recommendation from us.",
+        "de": "Ein toller Ort mit vielen Zimmern und viel Platz, auch draußen. Sehr erholsamer Blick aus dem Garten auf den kleinen Teich und die Kühe auf den Weiden. Mont-Saint-Michel, die Landungsstrände und andere Sehenswürdigkeiten sind leicht zu erreichen. Im Nachbarort Périers gibt es alle nötigen Einkaufsmöglichkeiten. Auf Wunsch kann man gegen Aufpreis einen großen Spa nutzen. Die Gastgeber sind sehr freundlich und helfen gern. Eine klare Empfehlung von uns."
+      }
+    },
+    {
+      "author": "Christine F.",
+      "rating": 5,
+      "visited": "2019-06",
+      "lang": "en",
+      "title": { "fr": "Pour les 75 ans du Débarquement", "en": "75th Anniversary Stay", "de": "Aufenthalt zum 75. Jahrestag" },
+      "text": {
+        "fr": "Nous n'aurions pas pu être plus heureux de notre séjour. Ce voyage comptait énormément pour nous, trois familles dont les maris sont tous parachutistes de la 82e Airborne, deux d'entre eux participant à un saut historique au-dessus de la Manche sur Sannerville pour le 75e anniversaire du Débarquement. Nous ne pouvions rêver meilleure hospitalité, ni plus bel endroit pour finir nos journées sur les lieux de mémoire. Les enfants ont adoré courir dans le jardin et jouer sur le toboggan et les balançoires. Tout le monde a aimé les vaches, la visite de la ferme et le lait frais ! Nous recommandons vivement. Les hôtes ont été fantastiques et toujours disponibles. Nous reviendrons sans faute pour plus longtemps !",
+        "en": "We could not have been happier with our visit. It was such an important trip for us as 3 families, our husbands all 82nd Airborne paratroopers, 2 doing a historic cross-channel jump into Sannerville on the 75th anniversary of D-Day. We could not have asked for better hospitality and a lovely place to end our days of touring the memories of the area. The children loved running around and playing in the yard and on the equipment (slide and swings). Everyone enjoyed the cows, and the farm tour and fresh milk! We would highly recommend staying here. The hosts were fantastic and always available for questions and assistance if we needed anything. We will absolutely be back for a longer stay!",
+        "de": "Wir hätten mit unserem Aufenthalt nicht glücklicher sein können. Die Reise war für uns sehr wichtig: drei Familien, unsere Männer alle Fallschirmjäger der 82nd Airborne, zwei davon bei einem historischen Sprung über den Ärmelkanal nach Sannerville zum 75. Jahrestag des D-Day. Eine bessere Gastfreundschaft und einen schöneren Ort, um unsere Tage auf den Spuren der Erinnerung ausklingen zu lassen, hätten wir uns nicht wünschen können. Die Kinder liebten es, im Garten herumzutoben und auf Rutsche und Schaukeln zu spielen. Alle mochten die Kühe, die Hofführung und die frische Milch! Wir können es nur empfehlen. Die Gastgeber waren fantastisch und immer für uns da. Wir kommen ganz sicher für länger wieder!"
+      }
+    },
+    {
+      "author": "Voyageur vérifié",
+      "anonymous": true,
+      "rating": 5,
+      "visited": "2018-01",
+      "lang": "fr",
+      "title": {
+        "fr": "Gîte très confortable et très bien équipé",
+        "en": "A very comfortable, very well-equipped gîte",
+        "de": "Sehr komfortables, sehr gut ausgestattetes Ferienhaus"
+      },
+      "text": {
+        "fr": "Accueil très chaleureux. Cerise sur le gâteau, le jacuzzi ! Propriétaires à votre écoute. Visite de la ferme passionnante. Du lait frais tous les jours. Au moindre problème, très forte réactivité. Des chambres avec salles de bain individuelles. De l'espace. Du calme. Et bien sûr le jacuzzi apprécié par tous. Que du positif.",
+        "en": "A very warm welcome. The icing on the cake: the hot tub! Owners who listen to you. A fascinating farm tour. Fresh milk every day. The slightest problem is dealt with straight away. Bedrooms with their own bathrooms. Space. Peace and quiet. And of course the hot tub, which everyone loved. Nothing but positives.",
+        "de": "Sehr herzlicher Empfang. Das i-Tüpfelchen: der Whirlpool! Besitzer, die ein offenes Ohr haben. Spannende Hofführung. Jeden Tag frische Milch. Beim kleinsten Problem sofortige Reaktion. Zimmer mit eigenem Bad. Platz. Ruhe. Und natürlich der Whirlpool, den alle genossen haben. Nur Positives."
+      }
+    },
+    {
+      "author": "Marie-Jo D.",
+      "rating": 4,
+      "visited": "2016-08",
+      "lang": "fr",
+      "title": { "fr": "Tout était impeccable", "en": "Everything was spotless", "de": "Alles war tadellos" },
+      "text": {
+        "fr": "La maison était de toute beauté.",
+        "en": "The house was simply beautiful.",
+        "de": "Das Haus war wunderschön."
+      }
+    },
+    {
+      "author": "Dee D.",
+      "rating": 5,
+      "visited": "2015-07",
+      "lang": "en",
+      "title": { "fr": "Merveilleux ! Parfait !", "en": "Wonderful! Perfect!", "de": "Wunderbar! Perfekt!" },
+      "text": {
+        "fr": "Une perle ! Un endroit fabuleux pour explorer la presqu'île : le Mont-Saint-Michel, les plages du Débarquement, le cimetière et le musée américains, la tapisserie de Bayeux et bien plus encore. Et aussi pour simplement se reposer et profiter du calme de la campagne : cette location était parfaite et Maryline merveilleusement aimable et arrangeante. La maison est formidable. Hélas, nous n'avions que quatre jours pleins. Nous reviendrons sans hésiter (du moins nous l'espérons !).",
+        "en": "A gem! A fabulous spot to explore the peninsula: Mont-Saint-Michel, the landing beaches and the US military cemetery and museum, the Bayeux Tapestry, and so much more. Also just to relax and enjoy the peace and quiet of the country. This rental was perfect and Maryline was fabulously gracious and accommodating. The house is wonderful. Unfortunately we only had four full days there. We would definitely return (and hope to!).",
+        "de": "Ein Juwel! Ein fabelhafter Ort, um die Halbinsel zu erkunden: Mont-Saint-Michel, die Landungsstrände, der amerikanische Soldatenfriedhof und das Museum, der Teppich von Bayeux und vieles mehr. Und einfach, um sich zu erholen und die Ruhe auf dem Land zu genießen: Diese Unterkunft war perfekt und Maryline wunderbar liebenswürdig und entgegenkommend. Das Haus ist herrlich. Leider hatten wir nur vier volle Tage. Wir würden auf jeden Fall wiederkommen (und hoffen darauf!)."
+      }
+    },
+    {
+      "author": "Richard W.",
+      "rating": 5,
+      "visited": "2014-07",
+      "lang": "en",
+      "title": {
+        "fr": "Mieux que tout ce que nous avions imaginé !",
+        "en": "Better than we could have imagined!",
+        "de": "Besser, als wir es uns vorstellen konnten!"
+      },
+      "text": {
+        "fr": "Notre fille a trouvé cette maison sur HomeAway et nous l'avons réservée. À l'approche du départ, nous nous demandions avec inquiétude si elle pouvait vraiment être aussi bien qu'elle en avait l'air. Arrivés un dimanche soir, ma femme et moi avons été accueillis par Marie, la fille des propriétaires (eux-mêmes étaient en vacances en Thaïlande), qui nous a invités chez eux, où nous avons rencontré ses frères jumeaux et ses grands-parents autour d'un verre de cidre. Nous avons ensuite découvert « notre » maison pour la semaine : une belle et grande demeure de quatre chambres, chacune avec sa salle de bain. Une fois installés, notre fille s'est exclamée : « C'est bien mieux que ce que j'imaginais ! » Et c'était vrai. Calme, paisible, loin de tout. Chaque jour, certains d'entre nous allaient à vélo jusqu'au village de Millières, et nous avons exploré la Normandie. Ce voyage comptait beaucoup pour moi : mon père y avait été parachuté le 6 juin 1944. Nous avons visité Sainte-Mère-Église, où il a atterri, Omaha Beach et le Mont-Saint-Michel, tous facilement accessibles. Et chaque soir, nous rentrions dans cette oasis de détente. Un soir, Marie nous a apporté un immense saladier de teurgoule préparée par sa grand-mère, Thérèse : de quoi nourrir trente personnes, mais nos six adultes et trois enfants en sont venus à bout sans problème ! Je ne dirai jamais assez de bien de cette maison et de ses propriétaires. Nous étions tristes de partir et espérons bien revenir un jour !",
+        "en": "Our daughter found this home on HomeAway and we booked it. As the time grew near, we wondered and worried: could it really be as nice as it seems? My wife and I arrived on Sunday evening and were met by the owners' daughter (the owners were on vacation in Thailand), Marie, who invited us in to their side of the house, where we met her twin brothers and her grandparents. We sat down and shared some cider. We finally went to 'our' home for the week and found a beautiful large home with 4 bedrooms, each with its own bathroom. The seven others in our party also arrived. After we had settled in and looked around, our daughter exclaimed \"This is way better than I could have imagined!\". And it was. It was quiet and peaceful. You felt you were away from everything! Each day some of us rode bikes to nearby Millières, a small village. And we explored Normandy. This trip was special for me, since my Dad had visited by parachute on June 6th 1944. We visited Sainte-Mère-Église where he landed, as well as Omaha Beach and Mont-Saint-Michel, each within easy reach. But each night we came home to this relaxing oasis. And one evening, Marie brought us a huge bowl of rice pudding prepared by her grandmother, Thérèse. There seemed to be enough for 30 people, but the 6 adults and 3 kids had no problem eating it all! I can't say enough good things about this home and the owners. We hated to leave and hopefully, someday they'll let us return!",
+        "de": "Unsere Tochter hat dieses Haus auf HomeAway gefunden, und wir haben es gebucht. Je näher die Reise rückte, desto mehr fragten wir uns: Kann es wirklich so schön sein, wie es aussieht? Meine Frau und ich kamen an einem Sonntagabend an und wurden von Marie, der Tochter der Besitzer (die selbst in Thailand im Urlaub waren), empfangen. Sie lud uns in ihren Teil des Hauses ein, wo wir ihre Zwillingsbrüder und Großeltern kennenlernten und gemeinsam Cidre tranken. Dann bezogen wir „unser“ Haus für die Woche: ein schönes, großes Haus mit 4 Schlafzimmern, jedes mit eigenem Bad. Als wir uns eingerichtet hatten, rief unsere Tochter: „Das ist viel besser, als ich es mir vorgestellt habe!“ Und so war es. Ruhig und friedlich, weit weg von allem. Jeden Tag fuhren einige von uns mit dem Rad ins nahe Dorf Millières, und wir erkundeten die Normandie. Diese Reise war etwas Besonderes für mich, denn mein Vater war am 6. Juni 1944 hier mit dem Fallschirm gelandet. Wir besuchten Sainte-Mère-Église, wo er landete, sowie Omaha Beach und den Mont-Saint-Michel, alles gut erreichbar. Und jeden Abend kehrten wir in diese Oase der Erholung zurück. Eines Abends brachte uns Marie eine riesige Schüssel Reispudding, den ihre Großmutter Thérèse zubereitet hatte: genug für 30 Personen, aber unsere 6 Erwachsenen und 3 Kinder haben ihn problemlos verputzt! Ich kann gar nicht genug Gutes über dieses Haus und seine Besitzer sagen. Wir sind nur ungern abgereist und hoffen, eines Tages wiederzukommen!"
+      }
+    },
+    {
+      "author": "Philip B.",
+      "rating": 4,
+      "visited": "2014-05",
+      "lang": "fr",
+      "title": { "fr": "Charmant", "en": "Charming", "de": "Charmant" },
+      "text": {
+        "fr": "Nous avons vraiment aimé et apprécié le gîte. La cuisine est bien équipée. Le gîte est bien entretenu et propre. Chaque chambre a une salle d'eau (quel luxe). Le jacuzzi est formidable. Le manoir est calme. Les propriétaires sont très gentils, ils nous ont donné de bons conseils. À Périers, il y a un grand Carrefour et une excellente pizzeria.",
+        "en": "We really liked and enjoyed the gîte. The kitchen is well equipped. The house is well kept and clean. Every bedroom has its own shower room (what luxury). The hot tub is wonderful. The manor is quiet. The owners are very kind and gave us good advice. In Périers there is a big supermarket and an excellent pizzeria.",
+        "de": "Das Ferienhaus hat uns sehr gefallen. Die Küche ist gut ausgestattet. Das Haus ist gepflegt und sauber. Jedes Zimmer hat ein eigenes Duschbad (welch ein Luxus). Der Whirlpool ist großartig. Das Herrenhaus ist ruhig. Die Besitzer sind sehr nett und haben uns gute Tipps gegeben. In Périers gibt es einen großen Supermarkt und eine ausgezeichnete Pizzeria."
+      }
+    },
+    {
+      "author": "Mary C.",
+      "rating": 5,
+      "visited": "2014-02",
+      "lang": "fr",
+      "title": { "fr": "Tout était parfait", "en": "Everything was perfect", "de": "Alles war perfekt" },
+      "text": {
+        "fr": "Nous avons organisé l'anniversaire surprise de mon oncle dans ce gîte le temps d'un week-end. Les propriétaires se sont vraiment mis en quatre pour nous satisfaire. Ils nous ont même prêté leur table de salle à manger et des chaises, car nous étions nombreux à dîner. Et Maryline nous a offert une teurgoule faite maison. Un délice ! Ils ont su être présents pour répondre à toutes nos demandes tout en nous laissant notre intimité. Le gîte est magnifique, la vue superbe, la propreté irréprochable. C'est encore plus beau que sur les photos. Nous avons même été à la pêche. N'hésitez pas à réserver, vous ne pourrez qu'être conquis, tant par le lieu que par les propriétaires. Un grand merci à vous.",
+        "en": "We organised my uncle's surprise birthday party at this gîte over a weekend. The owners really bent over backwards for us. They even lent us their dining table and chairs, as there were so many of us at dinner. And Maryline gave us a homemade teurgoule, a local rice pudding. Delicious! They were there for every request while still leaving us our privacy. The house is magnificent, the view superb, the cleanliness faultless. It's even more beautiful than in the photos. We even went fishing. Don't hesitate to book: you can only be won over, by the place and by the owners alike. A big thank you.",
+        "de": "Wir haben in diesem Ferienhaus an einem Wochenende die Überraschungsparty zum Geburtstag meines Onkels gefeiert. Die Besitzer haben sich wirklich ein Bein ausgerissen. Sie haben uns sogar ihren Esstisch und Stühle geliehen, weil wir so viele zum Abendessen waren. Und Maryline hat uns eine selbstgemachte Teurgoule geschenkt, einen regionalen Reispudding. Köstlich! Sie waren für alle Wünsche da und haben uns trotzdem unsere Privatsphäre gelassen. Das Haus ist herrlich, die Aussicht wunderbar, die Sauberkeit tadellos. Es ist noch schöner als auf den Fotos. Wir waren sogar angeln. Zögern Sie nicht zu buchen: Der Ort und die Besitzer werden Sie begeistern. Ganz herzlichen Dank."
+      }
+    },
+    {
+      "author": "Voyageur vérifié",
+      "anonymous": true,
+      "rating": 5,
+      "visited": "2013-08",
+      "lang": "fr",
+      "title": {
+        "fr": "Encore plus merveilleux que sur le net",
+        "en": "Even more wonderful than online",
+        "de": "Noch wunderbarer als im Internet"
+      },
+      "text": {
+        "fr": "Un séjour de charme par excellence, avec des hôtes inoubliables. Nous attendons avec impatience notre prochain séjour… Un endroit à ne pas manquer pour se retrouver entre amis ou en famille et faire revivre tous les moments de bonheur de notre jeunesse. La ferme est aussi un endroit merveilleux, que nous avons découvert sous un temps radieux, aussi bien côté météo que côté cœur.",
+        "en": "A charming stay par excellence, with unforgettable hosts. We can't wait for our next stay… A place not to be missed for getting together with friends or family and reliving all the happy moments of our youth. The farm is a wonderful place too, which we discovered in radiant weather, both in the sky and in our hearts.",
+        "de": "Ein Aufenthalt voller Charme, mit unvergesslichen Gastgebern. Wir freuen uns schon auf das nächste Mal… Ein Ort, den man nicht verpassen sollte, um mit Freunden oder Familie zusammenzukommen und all die glücklichen Momente der Jugend wieder aufleben zu lassen. Auch der Bauernhof ist ein wunderbarer Ort, den wir bei strahlendem Wetter entdeckt haben, am Himmel wie im Herzen."
+      }
+    },
+    {
+      "author": "Voyageur vérifié",
+      "anonymous": true,
+      "rating": 5,
+      "visited": "2013-08",
+      "lang": "en",
+      "title": { "fr": "Un endroit magnifique !", "en": "Beautiful place!", "de": "Ein wunderschöner Ort!" },
+      "text": {
+        "fr": "Une belle maison française avec beaucoup de chambres et des gens très aimables. Les propriétaires sont agriculteurs, il y a des vaches et des poules à voir dans ce bel endroit. De nombreux sites touristiques sont à visiter, car il est idéalement situé, près de la côte normande…",
+        "en": "It is a beautiful French house with a lot of rooms, very friendly people. The owners are farmers, and there are cows and chickens to see at this beautiful location. There are many tourist sites to visit from here, as it has a central location near the Normandy coast…",
+        "de": "Ein schönes französisches Haus mit vielen Zimmern und sehr freundlichen Menschen. Die Besitzer sind Landwirte, und an diesem schönen Ort gibt es Kühe und Hühner zu sehen. Von hier aus kann man viele Sehenswürdigkeiten besuchen, denn es liegt zentral nahe der normannischen Küste…"
+      }
+    },
+    {
+      "author": "Hans Ulrich K.",
+      "rating": 5,
+      "visited": "2012-04",
+      "lang": "en",
+      "title": { "fr": "Un emplacement parfait", "en": "Perfect location", "de": "Perfekte Lage" },
+      "text": {
+        "fr": "Pendant nos vacances de Pâques 2012, nous avons passé dix jours en Normandie dans ce bel endroit. La maison se trouve dans une campagne très calme et paisible, à Millières. C'est un excellent point de départ pour de nombreuses visites en Normandie : les plages sont à 10-15 minutes seulement et le grand supermarché le plus proche à 5 minutes. Le grand jardin est agréable et adapté aux enfants, et la terrasse avec barbecue est assez grande pour une grande table et quatre transats. Derrière le mur du jardin, un petit étang permet de pêcher. La maison est bien équipée, chaque pièce est joliment aménagée et colorée, et à quatre adultes et quatre grands enfants, nous nous y sommes sentis très bien. Maryline, la propriétaire, qui vit avec sa famille dans l'autre partie du manoir, est très aimable et toujours serviable.",
+        "en": "During our Easter holidays 2012 we spent 10 days in Normandy at this beautiful place. The house is located in a very quiet and peaceful countryside area of Millières. It is a very good starting point for a lot of sightseeing in Normandy: the beaches are only 10-15 minutes away and the next big supermarket only 5 minutes. The big garden is nice and suitable for children, and the terrace with barbecue has enough space for a big table and four sunbeds. Separated by a wall, there is a small pond behind the garden where fishing is possible. The house is well equipped, every room is arranged very nicely and colourfully, and with 4 adults and 4 grown-up kids we felt very comfortable. Also Maryline, the owner, living with her family in the other part of the manor, is very friendly and always helpful.",
+        "de": "In unseren Osterferien 2012 haben wir 10 Tage an diesem schönen Ort in der Normandie verbracht. Das Haus liegt in einer sehr ruhigen und friedlichen ländlichen Gegend von Millières. Es ist ein sehr guter Ausgangspunkt für viele Ausflüge in der Normandie: Zu den Stränden sind es nur 10–15 Minuten, zum nächsten großen Supermarkt nur 5 Minuten. Der große Garten ist schön und kindgerecht, und die Terrasse mit Grill bietet genug Platz für einen großen Tisch und vier Liegen. Hinter einer Mauer liegt ein kleiner Teich, in dem man angeln kann. Das Haus ist gut ausgestattet, jedes Zimmer ist sehr schön und farbenfroh eingerichtet, und mit 4 Erwachsenen und 4 großen Kindern haben wir uns sehr wohlgefühlt. Auch Maryline, die Besitzerin, die mit ihrer Familie im anderen Teil des Herrenhauses wohnt, ist sehr freundlich und immer hilfsbereit."
+      }
+    },
+    {
+      "author": "Voyageur vérifié",
+      "anonymous": true,
+      "rating": 5,
+      "visited": "2011-07",
+      "lang": "en",
+      "title": {
+        "fr": "Une super maison, des gens super, des vacances super !",
+        "en": "Great house, great people, great vacation!",
+        "de": "Tolles Haus, tolle Menschen, toller Urlaub!"
+      },
+      "text": {
+        "fr": "Avec le recul, nos vacances normandes de juillet nous semblent parfaites. Nous nous attendions à une belle grande maison, et le manoir s'est révélé MERVEILLEUX : très propre, avec beaucoup d'espace pour nous tous (4 adultes et 4 enfants de 3 à 10 ans). Dès le premier instant, nous avons été éblouis par le beau jardin, les belles pièces du manoir et le calme du paysage. Les propriétaires sont très gentils et nous ont fait faire le tour ! Ils nous ont donné plein d'informations sur la région, qui offre beaucoup d'activités : paysages impressionnants, belles plages, commerces et sites historiques. Toutes les pièces sont joliment meublées, avec de superbes couleurs. La cuisine est assez grande et il ne nous a rien manqué, et sinon Maryline nous dépannait toujours (cidre, lait frais, vinaigre…). Nos enfants étaient ravis et se sont beaucoup amusés dehors, dans le jardin et autour de la maison avec tous les animaux. En somme, des vacances parfaites grâce à ce superbe manoir et à la formidable famille Courteille. Merci beaucoup !",
+        "en": "Looking back at our Normandy vacation this July, it all seems so perfect and wonderful. We expected a nice big house, and the truth was that the manor was WONDERFUL: very clean, with a lot of space for all of us (4 adults and 4 children from 3 to 10 years). From the first moment we were blown away by the beautiful garden, the beautiful rooms of the manor and the quiet landscape. The landlords are very nice and friendly and showed us around! They provided us with plenty of up-to-date information about the region, which offers a lot of recreational activities: impressive scenery, beautiful beaches, shopping and historic sites. All the rooms are very nicely furnished and have wonderful colours. The kitchen is big enough and we did not miss a thing, and if we did, Maryline always helped (with cider, fresh milk, vinegar…). Our children were very happy and had a lot of fun outside in the garden and around the house with all the animals. All in all we had a perfect vacation thanks to the superb manor and the great Courteille family. Thank you very much!",
+        "de": "Rückblickend war unser Normandie-Urlaub im Juli einfach perfekt und wunderbar. Wir hatten ein schönes großes Haus erwartet, und tatsächlich war das Herrenhaus WUNDERBAR: sehr sauber und mit viel Platz für uns alle (4 Erwachsene und 4 Kinder von 3 bis 10 Jahren). Vom ersten Moment an waren wir begeistert vom schönen Garten, den schönen Räumen und der ruhigen Landschaft. Die Vermieter sind sehr nett und freundlich und haben uns alles gezeigt! Sie gaben uns viele aktuelle Informationen über die Region, die viel zu bieten hat: beeindruckende Landschaften, schöne Strände, Einkaufsmöglichkeiten und historische Stätten. Alle Räume sind sehr schön eingerichtet und haben wunderbare Farben. Die Küche ist groß genug, uns hat nichts gefehlt, und wenn doch, hat Maryline immer ausgeholfen (mit Cidre, frischer Milch, Essig…). Unsere Kinder waren sehr glücklich und hatten viel Spaß draußen im Garten und rund ums Haus mit all den Tieren. Alles in allem ein perfekter Urlaub dank des herrlichen Herrenhauses und der großartigen Familie Courteille. Vielen Dank!"
+      }
+    },
+    {
+      "author": "Voyageur vérifié",
+      "anonymous": true,
+      "rating": 5,
+      "visited": "2011-08",
+      "lang": "fr",
+      "title": { "fr": "Le paradis des enfants", "en": "A paradise for children", "de": "Ein Paradies für Kinder" },
+      "text": {
+        "fr": "Ce gîte est très confortable, il est propre, chacun a son espace. Nous aimons le louer pour réunir nos enfants et nos petits-enfants. Les enfants sont rois, ils peuvent jouer en toute sécurité. Ils ont découvert le monde de la ferme avec émerveillement : mon petit-fils de 3 ans nous parle tous les jours de son séjour à « la ferme de Maryline ». Nous vous recommandons cette location pour des vacances en famille.",
+        "en": "This gîte is very comfortable and clean, and everyone has their own space. We love renting it to bring our children and grandchildren together. The children are kings here and can play in complete safety. They discovered farm life with wonder: my 3-year-old grandson talks about his stay at \"Maryline's farm\" every day. We recommend this rental for family holidays.",
+        "de": "Dieses Ferienhaus ist sehr komfortabel und sauber, jeder hat seinen eigenen Bereich. Wir mieten es gern, um unsere Kinder und Enkelkinder zusammenzubringen. Die Kinder sind hier Könige und können ganz sicher spielen. Sie haben das Leben auf dem Bauernhof mit großem Staunen entdeckt: Mein 3-jähriger Enkel erzählt uns jeden Tag von seinem Aufenthalt auf „Marylines Bauernhof“. Wir empfehlen diese Unterkunft für Familienurlaube."
+      }
+    },
+    {
+      "author": "Voyageur vérifié",
+      "anonymous": true,
+      "rating": 5,
+      "visited": "2010-03",
+      "lang": "fr",
+      "title": {
+        "fr": "Un gîte superbe dans un cadre superbe",
+        "en": "A superb gîte in a superb setting",
+        "de": "Ein herrliches Ferienhaus in herrlicher Umgebung"
+      },
+      "text": {
+        "fr": "Bonjour à toute la famille, ce petit mot pour vous remercier encore une fois de votre accueil la semaine dernière. Tout a été très agréable : votre présence discrète, vos conseils avisés, la gentillesse et la disponibilité de toute votre famille, sans oublier bien évidemment la teurgoule ! Et bien sûr le logement, parfait pour deux familles : vaste, permettant le respect de l'intimité, convivial, super bien équipé, chaud (notamment avec la cheminée !). Bref, que du bonheur ! Nous avons découvert une Normandie magnifique, dans le froid mais aussi sous le soleil, mariant des paysages superbes, un patrimoine de qualité, de très belles demeures et des plages que l'on a envie de parcourir. J'espère que nous aurons l'occasion de revenir. En attendant, je fais de la pub autour de moi !",
+        "en": "Hello to the whole family, just a short note to thank you once again for your welcome last week. Everything was lovely: your discreet presence, your wise advice, the kindness and availability of your whole family, not forgetting, of course, the teurgoule! And the house itself, perfect for two families: vast, with room for privacy, convivial, superbly equipped and warm (especially with the fireplace!). In short, pure happiness! We discovered a magnificent Normandy, in the cold but in the sunshine too, with superb landscapes, fine heritage, beautiful old houses and beaches you just want to walk along. I hope we'll have the chance to come back. In the meantime, I'm telling everyone about you!",
+        "de": "Hallo an die ganze Familie, ein paar Zeilen, um uns noch einmal für den Empfang letzte Woche zu bedanken. Alles war sehr angenehm: Ihre diskrete Anwesenheit, Ihre guten Ratschläge, die Freundlichkeit und Hilfsbereitschaft der ganzen Familie und natürlich die Teurgoule! Und die Unterkunft, perfekt für zwei Familien: geräumig, mit Rückzugsmöglichkeiten, gesellig, super ausgestattet und warm (vor allem dank des Kamins!). Kurz: reines Glück! Wir haben eine herrliche Normandie entdeckt, in der Kälte, aber auch in der Sonne, mit wunderbaren Landschaften, reichem Kulturerbe, schönen Herrenhäusern und Stränden, die zum Spazieren einladen. Ich hoffe, wir kommen wieder. Bis dahin mache ich fleißig Werbung für Sie!"
+      }
+    },
+    {
+      "author": "Voyageur vérifié",
+      "anonymous": true,
+      "rating": 5,
+      "visited": "2010-03",
+      "lang": "fr",
+      "title": { "fr": "Un gîte de rêve !", "en": "A dream gîte!", "de": "Ein Traum-Ferienhaus!" },
+      "text": {
+        "fr": "Description et itinéraire de la location très précis. Location impeccable. Le propriétaire nous a remis un programme de visites de la région. Nous recommandons ce gîte sans hésitation. Très agréable terrasse et vaste jardin. Visite des plages du Débarquement, Sainte-Mère-Église, Saint-Vaast-la-Hougue, Gatteville-le-Phare, Port-Racine, Cherbourg (Cité de la Mer), le Nez de Jobourg, le cap de la Hague, le Mont-Saint-Michel, Villedieu-les-Poêles, Coutances. Visite de l'exploitation laitière, initiation à la traite… Pots d'accueil et de départ très chaleureux avec toute la famille des propriétaires, qui ont été très disponibles et aux petits soins pour nous.",
+        "en": "A very precise description of the rental and directions. Spotless accommodation. The owner gave us a programme of visits around the region. We recommend this gîte without hesitation. A very pleasant terrace and a vast garden. We visited the D-Day beaches, Sainte-Mère-Église, Saint-Vaast-la-Hougue, Gatteville lighthouse, Port-Racine, Cherbourg (Cité de la Mer), the Nez de Jobourg, Cap de la Hague, Mont-Saint-Michel, Villedieu-les-Poêles and Coutances. A tour of the dairy farm and a go at milking… Very warm welcome and farewell drinks with the owners' whole family, who were always available and took great care of us.",
+        "de": "Sehr genaue Beschreibung der Unterkunft und Anfahrt. Tadellose Unterkunft. Der Besitzer hat uns ein Ausflugsprogramm für die Region gegeben. Wir empfehlen dieses Ferienhaus ohne Zögern. Sehr schöne Terrasse und großer Garten. Besucht haben wir die Landungsstrände, Sainte-Mère-Église, Saint-Vaast-la-Hougue, den Leuchtturm von Gatteville, Port-Racine, Cherbourg (Cité de la Mer), den Nez de Jobourg, das Cap de la Hague, den Mont-Saint-Michel, Villedieu-les-Poêles und Coutances. Besichtigung des Milchbetriebs, Einführung ins Melken… Sehr herzliche Begrüßungs- und Abschiedsumtrünke mit der ganzen Familie der Besitzer, die immer für uns da waren und sich rührend um uns gekümmert haben."
+      }
+    },
+    {
+      "author": "Ulrike M.",
+      "rating": 5,
+      "visited": "2009-07",
+      "lang": "fr",
+      "title": { "fr": "Un manoir de rêve !", "en": "A dream manor!", "de": "Ein Traum-Herrenhaus!" },
+      "text": {
+        "fr": "Grand manoir magnifique et très propre, accueil chaleureux, paysage splendide, belles plages désertes et beaucoup de possibilités de visites culturelles. À refaire !",
+        "en": "A large, magnificent and very clean manor, a warm welcome, splendid scenery, beautiful empty beaches and plenty of cultural visits. We'll be back!",
+        "de": "Großes, herrliches und sehr sauberes Herrenhaus, herzlicher Empfang, prächtige Landschaft, schöne menschenleere Strände und viele kulturelle Ausflugsmöglichkeiten. Gern wieder!"
+      }
+    },
+    {
+      "author": "Voyageur vérifié",
+      "anonymous": true,
+      "rating": 5,
+      "visited": "2008-05",
+      "lang": "fr",
+      "title": {
+        "fr": "Location très confortable, vacances réussies",
+        "en": "A very comfortable rental, a successful holiday",
+        "de": "Sehr komfortable Unterkunft, gelungener Urlaub"
+      },
+      "text": {
+        "fr": "Accueil extra : les propriétaires sont charmants ! Le gîte offre un très grand confort. La Normandie n'ayant pas failli à sa réputation de « région où les vaches paissent sous la pluie », cela n'a pas été un problème pour nous tant nous nous sentions bien dans cette belle demeure au décor chaleureux, aux volumes confortables (nous étions 6 adultes et 2 enfants en bas âge). N'allez pas penser qu'il pleut sans cesse, non : nous avons pu partir à la découverte de cette très belle région qu'est la Basse-Normandie, et le gîte est très bien situé géographiquement.",
+        "en": "A superb welcome: the owners are charming! The house is extremely comfortable. Normandy lived up to its reputation as \"the region where cows graze in the rain\", but that was no problem at all, we felt so good in this beautiful house with its warm decor and generous space (we were 6 adults and 2 toddlers). Don't think it rains all the time, though: we were able to explore this lovely region of Lower Normandy, and the house is very well placed for it.",
+        "de": "Großartiger Empfang: Die Besitzer sind reizend! Das Ferienhaus bietet sehr viel Komfort. Die Normandie wurde ihrem Ruf als „Region, in der die Kühe im Regen grasen“ gerecht, doch das war kein Problem, so wohl fühlten wir uns in diesem schönen Haus mit warmer Einrichtung und großzügigen Räumen (wir waren 6 Erwachsene und 2 Kleinkinder). Glauben Sie aber nicht, dass es ständig regnet: Wir konnten die schöne Region Niedernormandie erkunden, und das Haus ist geografisch sehr gut gelegen."
+      }
+    }
+  ]
+}

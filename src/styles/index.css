@@ -221,6 +221,51 @@
   }
 }
 
+/* Review marquee: two copies of the cards, the track slides by one copy. Edges fade into the section. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+/* The reviews sit on a softly dotted board, like guestbook pages pinned up. */
+.review-board {
+  background-color: var(--color-sand);
+  background-image: radial-gradient(rgba(138, 131, 104, 0.16) 1px, transparent 1.2px);
+  background-size: 18px 18px;
+}
+
+.review-rows {
+  animation: review-rows-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes review-rows-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-duration, 120s) linear infinite;
+}
+
+.marquee-reverse {
+  animation-direction: reverse;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-float {
     animation: none;
@@ -235,6 +280,21 @@
   }
   .scroll-hint {
     animation: none;
+  }
+  .marquee {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    mask-image: none;
+  }
+  .marquee-track,
+  .review-rows {
+    animation: none;
+  }
+  .marquee-track > [inert] {
+    display: none;
+  }
+  .marquee-group > * {
+    scroll-snap-align: start;
   }
   .zoom-frame img,
   .lift {
