@@ -9,6 +9,8 @@ export const client = new MongoClient(config.mongoUri);
 /** Collections, set by connect(). */
 export const col = {};
 export let uploads;
+/** Safety copies taken before a restore (GridFS), listed in the developer space. */
+export let restorePoints;
 
 const readShared = (file) => JSON.parse(fs.readFileSync(path.join(config.sharedDir, file), "utf8"));
 export const contentSchema = readShared("content.json");
@@ -16,10 +18,11 @@ export const contentSchema = readShared("content.json");
 export async function connect() {
   await client.connect();
   const db = client.db(config.mongoDb);
-  for (const name of ["users", "content", "settings", "photos", "events", "requests", "activity", "availability"]) {
+  for (const name of ["users", "content", "settings", "photos", "events", "requests", "activity", "availability", "sessions", "logins", "backups"]) {
     col[name] = db.collection(name);
   }
   uploads = new GridFSBucket(db, { bucketName: "uploads" });
+  restorePoints = new GridFSBucket(db, { bucketName: "restorepoints" });
 
   await Promise.all([
     col.users.createIndex({ email: 1 }, { unique: true }),
@@ -34,6 +37,13 @@ export async function connect() {
     // The activity log keeps one year: older entries are removed by MongoDB.
     col.activity.createIndex({ createdAt: 1 }, { expireAfterSeconds: 365 * 24 * 3600 }),
     col.availability.createIndex({ start: 1, end: 1 }),
+    // Signed-in sessions (listed and revoked from the developer space) disappear when they expire.
+    col.sessions.createIndex({ uid: 1 }),
+    col.sessions.createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 }),
+    // Sign-in attempts, successful or not, kept 6 months.
+    col.logins.createIndex({ at: -1 }),
+    col.logins.createIndex({ at: 1 }, { expireAfterSeconds: 182 * 24 * 3600 }),
+    col.backups.createIndex({ at: -1 }),
   ]);
   console.log(`[db] connected to ${db.databaseName}`);
   return db;

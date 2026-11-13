@@ -54,6 +54,16 @@ export const config = {
         to: env.NOTIFY_EMAIL,
       }
     : null,
+  /** Daily database backup e-mailed to BACKUP_DB_MAIL (needs Resend). */
+  backup: env.BACKUP_DB_MAIL
+    ? {
+        to: env.BACKUP_DB_MAIL,
+        /** Hour (Paris time) after which the daily backup is sent. */
+        hour: Number(env.BACKUP_HOUR ?? 3),
+        /** Name in the subject « [backup_<name>] … ». Defaults to the first part of PUBLIC_URL's host. */
+        name: env.BACKUP_NAME || undefined,
+      }
+    : null,
 };
 
 export const LANGS = ["fr", "en", "de"];

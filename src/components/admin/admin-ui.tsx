@@ -198,6 +198,62 @@ export const AdminIcon = {
       <path d="M4 21a8 8 0 0 1 16 0" />
     </>
   ),
+  code: (
+    <>
+      <path d="M8 7l-5 5 5 5M16 7l5 5-5 5" />
+      <path d="M13.5 4l-3 16" />
+    </>
+  ),
+  alert: (
+    <>
+      <path d="M10.3 3.9 2.4 17.5A2 2 0 0 0 4.1 20.5h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
+      <path d="M12 9v4M12 17h.01" />
+    </>
+  ),
+  database: (
+    <>
+      <ellipse cx="12" cy="5" rx="8" ry="3" />
+      <path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
+      <path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" />
+    </>
+  ),
+  shield: (
+    <>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 12l2 2 4-4" />
+    </>
+  ),
+  terminal: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M7 9l3 3-3 3M13 15h4" />
+    </>
+  ),
+  download: (
+    <>
+      <path d="M12 3v12" />
+      <path d="M7 10l5 5 5-5" />
+      <path d="M4 21h16" />
+    </>
+  ),
+  refresh: (
+    <>
+      <path d="M21 12a9 9 0 1 1-2.6-6.4L21 8" />
+      <path d="M21 3v5h-5" />
+    </>
+  ),
+  power: (
+    <>
+      <path d="M12 2v10" />
+      <path d="M18.4 6.6a9 9 0 1 1-12.8 0" />
+    </>
+  ),
+  key: (
+    <>
+      <circle cx="7.5" cy="15.5" r="4.5" />
+      <path d="M10.7 12.3 21 2M17 6l3 3M14 9l2 2" />
+    </>
+  ),
 };
 
 export const Icon = ({ name, size = 18, strokeWidth = 1.6, className }: { name: keyof typeof AdminIcon; size?: number; strokeWidth?: number; className?: string }) => (

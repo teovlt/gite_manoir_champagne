@@ -7,14 +7,16 @@ import { useAuth } from "@/providers/auth-provider";
 import { api } from "@/lib/api";
 import { formatRelative, initials } from "@/lib/format";
 import type { AdminUser } from "@/lib/types";
+import { isAdmin, isDeveloper, roleLabels } from "@/lib/roles";
 import { useConfirm } from "@/components/admin/confirm-dialog";
 
-const roleLabels = { admin: "Administrateur", editor: "Éditeur" } as const;
 const emptyDraft = { name: "", email: "", role: "editor" as AdminUser["role"], password: "" };
 
 interface EditorProps {
   user: AdminUser;
   isMe: boolean;
+  /** The signed-in user is a developer: can give the developer role. */
+  canGrantDev: boolean;
   mailEnabled: boolean;
   onSaved: (u: AdminUser) => void;
   onClose: () => void;
@@ -22,7 +24,7 @@ interface EditorProps {
 }
 
 /** Everything an administrator can change on an account. */
-function UserEditor({ user, isMe, mailEnabled, onSaved, onClose, onRemove }: EditorProps) {
+function UserEditor({ user, isMe, canGrantDev, mailEnabled, onSaved, onClose, onRemove }: EditorProps) {
   const [form, setForm] = useState({ name: user.name, email: user.email, role: user.role, password: "" });
   const [busy, setBusy] = useState<"save" | "link" | null>(null);
   const id = (k: string) => `edit-${user.id}-${k}`;
@@ -77,6 +79,7 @@ function UserEditor({ user, isMe, mailEnabled, onSaved, onClose, onRemove }: Edi
           onChange={(e) => setForm({ ...form, role: e.target.value as AdminUser["role"] })}
           className={adminInputClass}
         >
+          {canGrantDev && <option value="developer">Développeur</option>}
           <option value="admin">Administrateur</option>
           <option value="editor">Éditeur</option>
         </select>
@@ -127,6 +130,7 @@ export function AdminUsers() {
   const [mailEnabled, setMailEnabled] = useState(false);
   const [draft, setDraft] = useState(emptyDraft);
   const [saving, setSaving] = useState(false);
+  const allowed = isAdmin(me);
 
   const load = useCallback(async () => {
     try {
@@ -136,15 +140,16 @@ export function AdminUsers() {
     }
   }, []);
   useEffect(() => {
-    if (me?.role !== "admin") return;
+    if (!allowed) return;
     load();
     api
       .get<{ enabled: boolean }>("/api/admin/mail-status")
       .then((r) => setMailEnabled(r.enabled))
       .catch(() => {});
-  }, [load, me?.role]);
+  }, [load, allowed]);
 
-  if (me?.role !== "admin") return <Navigate to="/admin" replace />;
+  if (!allowed || !me) return <Navigate to="/admin" replace />;
+  const meDev = isDeveloper(me);
 
   const create = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -197,7 +202,15 @@ export function AdminUsers() {
                   </p>
                   {u.pendingEmail && <p className="text-[13px] text-rust">Nouvelle adresse à confirmer : {u.pendingEmail}</p>}
                 </div>
-                <StatusBadge tone={u.role === "admin" ? "sage" : "muted"}>{roleLabels[u.role]}</StatusBadge>
+                {u.disabled && <StatusBadge tone="wheat">Suspendu</StatusBadge>}
+                <StatusBadge tone={u.role === "editor" ? "muted" : "sage"} className={u.role === "developer" ? "bg-ink text-cream" : undefined}>
+                  {roleLabels[u.role]}
+                </StatusBadge>
+                {isDeveloper(u) && !meDev ? (
+                  <span className="text-[12.5px] text-stone" title="Seul un développeur peut modifier ce compte.">
+                    Géré par le développeur
+                  </span>
+                ) : (
                 <button
                   type="button"
                   onClick={() => setEditing(editing === u.id ? null : u.id)}
@@ -207,12 +220,14 @@ export function AdminUsers() {
                   <Icon name="edit" size={14} />
                   Modifier
                 </button>
+                )}
               </div>
               {editing === u.id && (
                 <UserEditor
                   key={u.id + u.email + u.name + u.role}
                   user={u}
                   isMe={u.id === me.id}
+                  canGrantDev={meDev}
                   mailEnabled={mailEnabled}
                   onSaved={saved}
                   onClose={() => setEditing(null)}
@@ -224,7 +239,8 @@ export function AdminUsers() {
         </AdminCard>
         <p className="mt-3 text-[13px] leading-relaxed text-stone">
           <strong>Administrateur</strong> : accès complet, y compris la gestion des comptes et des modèles d'e-mails. <strong>Éditeur</strong> : textes, photos,
-          événements, tarifs, calendrier et demandes. Chacun peut modifier son nom, son e-mail et son mot de passe dans{" "}
+          événements, tarifs, calendrier et demandes. <strong>Développeur</strong> : tout ce que fait un administrateur, plus l'espace technique (sauvegardes,
+          connexions, maintenance) ; ses actions apparaissent dans l'activité du tableau de bord. Chacun peut modifier son nom, son e-mail et son mot de passe dans{" "}
           <Link to="/admin/compte" className="font-semibold text-clay">
             Mon compte
           </Link>
@@ -248,6 +264,7 @@ export function AdminUsers() {
             <select id="u-role" value={draft.role} onChange={(e) => setDraft({ ...draft, role: e.target.value as AdminUser["role"] })} className={adminInputClass}>
               <option value="editor">Éditeur</option>
               <option value="admin">Administrateur</option>
+              {meDev && <option value="developer">Développeur</option>}
             </select>
           </div>
           <div className="flex flex-col gap-1.5">

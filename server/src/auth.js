@@ -30,9 +30,9 @@ const sign = (data) => crypto.createHmac("sha256", config.sessionSecret).update(
  * The token carries a "session version" (sv): changing a password bumps it,
  * which invalidates every other open session of that user.
  */
-function createToken(user, ttl) {
+function createToken(user, ttl, sid) {
   const payload = Buffer.from(
-    JSON.stringify({ uid: String(user._id), sv: user.sessionVersion ?? 0, exp: Math.floor(Date.now() / 1000) + ttl }),
+    JSON.stringify({ uid: String(user._id), sv: user.sessionVersion ?? 0, sid, exp: Math.floor(Date.now() / 1000) + ttl }),
   ).toString("base64url");
   return `${payload}.${sign(payload)}`;
 }
@@ -60,9 +60,12 @@ const parseCookies = (header = "") =>
       .map(([k, ...v]) => [k, decodeURIComponent(v.join("="))]),
   );
 
-export function setSessionCookie(res, user, remember) {
-  const ttl = remember ? LONG_SESSION : SHORT_SESSION;
-  res.cookie(COOKIE, createToken(user, ttl), {
+export const sessionTtl = (remember) => (remember ? LONG_SESSION : SHORT_SESSION);
+
+/** sid names the session stored in MongoDB (sessions collection), so that it can be listed and revoked. */
+export function setSessionCookie(res, user, remember, sid) {
+  const ttl = sessionTtl(remember);
+  res.cookie(COOKIE, createToken(user, ttl, sid), {
     httpOnly: true,
     sameSite: "lax",
     secure: config.cookieSecure,

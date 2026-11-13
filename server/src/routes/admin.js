@@ -2,19 +2,21 @@ import crypto from "node:crypto";
 import express from "express";
 import { config, LANGS } from "../config.js";
 import { col, contentSchema, getSetting, logActivity, setSetting } from "../db.js";
-import { hashPassword, rateLimit, setSessionCookie, sha256, verifyPassword } from "../auth.js";
+import { hashPassword, rateLimit, sha256, verifyPassword } from "../auth.js";
 import { removeImage, storeImage, upload } from "../files.js";
 import { exportToken, exportUrl, findConflicts, ignoreConflict, syncIcal } from "../ical.js";
 import { mailEnabled, send, sendEmailChange, sendInvitation } from "../mail.js";
 import { BODY_MAX, MAIL_TEMPLATES, SUBJECT_MAX, listTemplates, renderMail, sampleVars, saveTemplate } from "../mail-templates.js";
-import { MIN_PASSWORD, sendResetLink, sessionUser } from "./auth.js";
+import { MIN_PASSWORD, isAdmin, isDeveloper, sendResetLink, sessionUser, startSession } from "./auth.js";
+import { devRoutes } from "./dev.js";
 import { currentBanner, contentOverrides } from "./public.js";
 import { bad, h, isDate, isEmail, isSafeLink, oid, overlapQuery, str, toEvent, toPhoto, toUser, today, translated } from "./helpers.js";
 
 export const adminRoutes = express.Router();
 
 const SECTIONS = ["accueil", "gite", "jardins", "region"];
-const ROLES = ["admin", "editor"];
+const ROLES = ["admin", "editor", "developer"];
+export const ROLE_LABELS = { admin: "administrateur", editor: "éditeur", developer: "développeur" };
 const REQUEST_STATUSES = ["nouvelle", "repondue", "confirmee", "refusee"];
 
 adminRoutes.use(
@@ -26,7 +28,35 @@ adminRoutes.use(
   }),
 );
 
-const requireAdmin = (req, res, next) => (req.user.role === "admin" ? next() : bad(res, "Réservé aux administrateurs.", 403));
+// "readonly" access (developer space › Accès): everyone but developers can look, nobody else can change anything.
+adminRoutes.use(
+  h(async (req, res, next) => {
+    if (req.method === "GET" || isDeveloper(req.user) || (await getSetting("adminAccess", "normal")) !== "readonly") return next();
+    bad(res, "L'administration est en lecture seule le temps d'une maintenance technique.", 423);
+  }),
+);
+
+adminRoutes.use("/dev", devRoutes);
+
+/** Banner of the admin layout: tells everyone when the site or the administration is restricted. */
+adminRoutes.get(
+  "/system-status",
+  h(async (_req, res) => {
+    const [maintenance, adminAccess] = await Promise.all([getSetting("maintenance", { enabled: false }), getSetting("adminAccess", "normal")]);
+    res.json({ maintenance: { enabled: Boolean(maintenance.enabled), until: maintenance.until ?? null }, adminAccess });
+  }),
+);
+
+const requireAdmin = (req, res, next) => (isAdmin(req.user) ? next() : bad(res, "Réservé aux administrateurs.", 403));
+/** Developer accounts are only managed by developers. */
+const canManage = (req, user) => isDeveloper(req.user) || !isDeveloper(user);
+const roleAllowed = (req, role) => ROLES.includes(role) && (role !== "developer" || isDeveloper(req.user));
+
+/** New session for this browser after its own password changed (the old one died with the session version). */
+async function renewSession(req, res, user) {
+  if (req.sessionId) await col.sessions.deleteOne({ _id: req.sessionId });
+  await startSession(req, res, user, false);
+}
 const who = (req) => req.user.name.split(" ")[0];
 const log = (req, message) => logActivity(who(req), message);
 
@@ -578,7 +608,7 @@ adminRoutes.put(
       set.sessionVersion = (me.sessionVersion ?? 0) + 1;
     }
     const user = await updateUser(me, set, unset);
-    if (set.sessionVersion) setSessionCookie(res, user, false); // keep this browser signed in
+    if (set.sessionVersion) await renewSession(req, res, user); // keep this browser signed in
     if (set.email) await log(req, "a changé son adresse e-mail de connexion");
     res.json({ ...toUser(user), emailPending });
   }),
@@ -612,7 +642,7 @@ adminRoutes.post(
   h(async (req, res) => {
     const email = str(req.body?.email, 200).toLowerCase();
     const name = str(req.body?.name, 80);
-    const role = ROLES.includes(req.body?.role) ? req.body.role : "editor";
+    const role = roleAllowed(req, req.body?.role) ? req.body.role : "editor";
     const password = typeof req.body?.password === "string" ? req.body.password : "";
     if (!isEmail(email) || !name) return bad(res, "Nom et e-mail valides requis.");
     if (password && tooShort(password)) return bad(res, pwdError);
@@ -629,7 +659,7 @@ adminRoutes.post(
     }
     const { insertedId } = await col.users.insertOne(doc);
     if (token) sendInvitation(doc, token, req.user.name).catch((err) => console.error("[mail]", err.message));
-    await log(req, `a créé le compte de ${name} (${role === "admin" ? "administrateur" : "éditeur"})`);
+    await log(req, `a créé le compte de ${name} (${ROLE_LABELS[role]})`);
     res.status(201).json(toUser({ ...doc, _id: insertedId }));
   }),
 );
@@ -640,6 +670,7 @@ adminRoutes.patch(
   h(async (req, res) => {
     const user = await col.users.findOne({ _id: oid(req.params.id) });
     if (!user) return bad(res, "Compte introuvable.", 404);
+    if (!canManage(req, user)) return bad(res, "Ce compte développeur ne peut être modifié que par un développeur.", 403);
     const set = {};
     const unset = {};
     const changes = [];
@@ -658,11 +689,11 @@ adminRoutes.patch(
         changes.push("e-mail");
       }
     }
-    if (ROLES.includes(req.body?.role) && req.body.role !== user.role) {
+    if (roleAllowed(req, req.body?.role) && req.body.role !== user.role) {
       if (user.role === "admin" && (await col.users.countDocuments({ role: "admin" })) <= 1)
         return bad(res, "Il faut garder au moins un administrateur.");
       set.role = req.body.role;
-      changes.push(`rôle ${req.body.role === "admin" ? "administrateur" : "éditeur"}`);
+      changes.push(`rôle ${ROLE_LABELS[req.body.role]}`);
     }
     if (req.body?.password) {
       if (tooShort(req.body.password)) return bad(res, pwdError);
@@ -674,7 +705,7 @@ adminRoutes.patch(
     if (!changes.length) return res.json(toUser(user));
     const updated = await updateUser(user, set, unset);
     // Changing one's own password here must not sign this browser out.
-    if (String(user._id) === String(req.user._id) && set.sessionVersion) setSessionCookie(res, updated, false);
+    if (String(user._id) === String(req.user._id) && set.sessionVersion) await renewSession(req, res, updated);
     await log(req, `a modifié le compte de ${updated.name} (${changes.join(", ")})`);
     res.json(toUser(updated));
   }),
@@ -688,6 +719,7 @@ adminRoutes.post(
     if (!mailEnabled) return bad(res, mailOff);
     const user = await col.users.findOne({ _id: oid(req.params.id) });
     if (!user) return bad(res, "Compte introuvable.", 404);
+    if (!canManage(req, user)) return bad(res, "Ce compte développeur ne peut être modifié que par un développeur.", 403);
     if (user.passwordHash) await sendResetLink(user);
     else {
       const token = crypto.randomBytes(32).toString("base64url");
@@ -706,9 +738,11 @@ adminRoutes.delete(
     const user = await col.users.findOne({ _id: oid(req.params.id) });
     if (!user) return bad(res, "Compte introuvable.", 404);
     if (String(user._id) === String(req.user._id)) return bad(res, "Vous ne pouvez pas supprimer votre propre compte.");
+    if (!canManage(req, user)) return bad(res, "Ce compte développeur ne peut être supprimé que par un développeur.", 403);
     if (user.role === "admin" && (await col.users.countDocuments({ role: "admin" })) <= 1)
       return bad(res, "Il faut garder au moins un administrateur.");
     await col.users.deleteOne({ _id: user._id });
+    await col.sessions.deleteMany({ uid: user._id });
     await log(req, `a supprimé le compte de ${user.name}`);
     res.json({ ok: true });
   }),

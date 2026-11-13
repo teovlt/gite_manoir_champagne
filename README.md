@@ -36,8 +36,9 @@ SEO : titres, descriptions et images de partage par page et par langue dans `sha
 | Bannière & événements | Événements traduits, aperçu dans chaque langue |
 | Tarifs | Prix, saisons (par langue), suppléments, historique des changements |
 | Coordonnées & carte | Téléphone, adresse, lien Abritel, position GPS (recherche d'adresse ou clic sur la carte) |
-| Utilisateurs | Comptes **administrateur** / **éditeur** : l'admin modifie nom, e-mail, rôle et mot de passe de chacun, envoie un lien de réinitialisation ou renvoie une invitation |
+| Utilisateurs | Comptes **développeur** / **administrateur** / **éditeur** : l'admin modifie nom, e-mail, rôle et mot de passe de chacun, envoie un lien de réinitialisation ou renvoie une invitation (les comptes développeur ne sont modifiables que par un développeur) |
 | Modèles d'e-mails | Objet et texte de chaque e-mail envoyé (variables `{{nom}}`…, aperçu, envoi de test, retour au texte d'origine), accusé de réception en FR / EN / DE |
+| Espace développeur | Réservé au rôle **développeur** (voir plus bas) : état du serveur et de la base, sessions et journal des connexions, sauvegardes et restauration, maintenance, accès de secours, journal du serveur |
 | Mon compte | Nom, e-mail (confirmé par un lien envoyé à la nouvelle adresse), mot de passe actuel → nouveau, ou lien de réinitialisation par e-mail |
 
 ## Développement
@@ -118,6 +119,27 @@ Le premier compte vient de `ADMIN_EMAIL` / `ADMIN_PASSWORD`. Les suivants se cr�
 docker compose exec site node src/create-user.js maryline@example.fr "nouveau-mot-de-passe" "Maryline Courteille"
 ```
 
+Le même script crée le premier compte **développeur** (rôle en 4ᵉ argument ; sans lui, un compte existant garde son rôle). Il réactive aussi un compte suspendu :
+
+```bash
+docker compose exec site node src/create-user.js moi@example.fr "un-mot-de-passe-long" "Prénom Nom" developer
+```
+
+### Espace développeur
+
+Le rôle **développeur** est au-dessus d'administrateur : il fait tout ce que fait un administrateur et a en plus **Admin › Espace développeur**. Ses actions sensibles (maintenance, restauration, suspension…) apparaissent dans l'activité du tableau de bord, comme celles des autres.
+
+| Onglet | Contenu |
+| --- | --- |
+| Vue d'ensemble | Serveur (uptime, Node, mémoire, charge), base (hôte sans identifiants, version, ping, taille par collection), variables d'environnement (les secrets : présence seulement), diagnostic (comptes actifs, photos sans fichier, e-mails, sauvegarde…), e-mail de test, synchro iCal immédiate |
+| Maintenance & accès | **Mode maintenance** : page d'attente FR / EN / DE (statut 503, `Retry-After`, message et heure de retour), formulaire de contact fermé, les personnes connectées voient toujours le site, aperçu via `/?maintenance=preview`. **Accès admin** : normal, lecture seule (aucune modification hors développeurs) ou réservé aux développeurs (les autres sont déconnectés). **Déconnecter tout le monde** |
+| Connexions | Sessions ouvertes (compte, appareil, IP, dernière activité, expiration) avec fermeture une à une ; journal des connexions réussies et refusées (6 mois), recherche par e-mail / IP, adresses aux échecs répétés |
+| Comptes | Suspendre / réactiver, déconnecter partout, **lien de réinitialisation affiché à l'écran** (24 h, à transmettre par SMS quand la boîte mail est perdue ou que les e-mails ne partent pas) |
+| Sauvegardes | Télécharger (données, photos, tout), envoyer par e-mail, **restaurer un fichier** (aperçu collection par collection avant de confirmer, comptes actuels gardés par défaut), points de restauration (pris automatiquement avant chaque restauration, 10 gardés), historique |
+| Journal serveur | Les 800 dernières lignes du serveur, en direct, filtrables |
+
+Les sessions sont enregistrées dans MongoDB (collection `sessions`) : c'est ce qui permet de les lister et de les fermer. Les sessions ouvertes avant cette version n'y figurent pas ; « Déconnecter tout le monde » les ferme aussi. Le mode maintenance ne s'applique qu'au site servi par le serveur Node (production), pas au serveur de développement Vite.
+
 ### E-mails
 
 Avec [Resend](https://resend.com) (`RESEND_API_KEY`, `MAIL_FROM` sur un domaine vérifié, `NOTIFY_EMAIL`) :
@@ -131,7 +153,34 @@ Sans clé Resend, les demandes restent consultables dans l'admin et les comptes 
 
 ### Sauvegardes
 
-Tout est dans MongoDB (y compris les photos, collection `uploads.*`) :
+Tout est dans MongoDB (y compris les photos, collection `uploads.*`). Avec `BACKUP_DB_MAIL` (et Resend configuré), le site s'envoie lui-même une sauvegarde :
+
+- **chaque nuit** après 3 h (`BACKUP_HOUR`) : un e-mail « `[backup_manoir-champagne] Données du 2026-11-13` » avec en pièce jointe toutes les collections (textes, tarifs, comptes, demandes, calendrier…) en `.json.gz` — quelques dizaines de Ko ;
+- **chaque lundi** (et à la toute première sauvegarde) : les photos en plus, dans des e-mails séparés de 20 Mo maximum (« Photos du … (1/3) »…).
+
+La date de la dernière sauvegarde est gardée en base : un redémarrage n'en saute ni n'en double aucune, et un serveur arrêté à 3 h rattrape à son retour. En cas d'erreur (visible dans les logs `[backup]`), 3 essais par jour maximum.
+
+**Ranger les e-mails dans un libellé Gmail** : l'expéditeur ne peut pas poser de libellé, c'est un filtre côté Gmail qui le fait. Utiliser une adresse « + » :
+
+1. `BACKUP_DB_MAIL=votre.adresse+backup_manoir-champagne@gmail.com` (Gmail la livre à `votre.adresse@gmail.com`) ;
+2. Gmail › Paramètres › Filtres › Créer un filtre, **À** : `votre.adresse+backup_manoir-champagne@gmail.com` › *Ignorer la boîte de réception*, *Appliquer le libellé* `backup_manoir-champagne`.
+
+Les e-mails contiennent les données des clients et les empreintes (pas les mots de passe) des comptes : à envoyer sur une boîte personnelle protégée par la double authentification.
+
+Envoyer une sauvegarde tout de suite (pour tester) :
+
+```bash
+docker compose exec site node src/backup-now.js --photos
+```
+
+Restaurer : depuis **Admin › Espace développeur › Sauvegardes** (glisser le fichier, vérifier l'aperçu, confirmer), ou en ligne de commande. Le fichier « données » remplace les collections qu'il contient, sauf les comptes (option `--with-users` pour les remettre aussi) ; les fichiers « photos » ajoutent ou remplacent les photos sans supprimer les autres. Les sessions, le journal des connexions et l'état de maintenance ne sont jamais écrasés, et un point de restauration des données actuelles est pris juste avant :
+
+```bash
+docker compose cp manoir-champagne-2026-11-13-donnees.json.gz site:/tmp/
+docker compose exec site node src/restore.js /tmp/manoir-champagne-2026-11-13-donnees.json.gz
+```
+
+Ou, avec les outils MongoDB sur un poste :
 
 ```bash
 mongodump --uri "$MONGODB_URI" --archive=manoir-$(date +%F).gz --gzip

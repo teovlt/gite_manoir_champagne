@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import express from "express";
-import { col, logActivity, markSeen } from "../db.js";
-import { clearSessionCookie, hashPassword, rateLimit, readSession, setSessionCookie, sha256, verifyPassword } from "../auth.js";
+import { col, getSetting, logActivity, markSeen } from "../db.js";
+import { clearSessionCookie, hashPassword, rateLimit, readSession, sessionTtl, setSessionCookie, sha256, verifyPassword } from "../auth.js";
 import { mailEnabled, sendPasswordReset } from "../mail.js";
 import { bad, h, oid, str, toUser } from "./helpers.js";
 
@@ -9,12 +9,58 @@ export const authRoutes = express.Router();
 
 export const MIN_PASSWORD = 10;
 
-/** Loads the signed-in user (or null) — sessions die when the password changes. */
+export const ROLE_RANK = { editor: 1, admin: 2, developer: 3 };
+/** Administrators and developers (who can do everything an administrator can). */
+export const isAdmin = (user) => (ROLE_RANK[user?.role] ?? 0) >= ROLE_RANK.admin;
+export const isDeveloper = (user) => user?.role === "developer";
+
+const SESSION_TOUCH = 5 * 60 * 1000;
+
+/** Short description of the browser, for the sessions and sign-in lists. */
+export const clientInfo = (req) => ({ ip: req.ip, ua: str(req.headers["user-agent"], 400) });
+
+/** Opens a session: stored in MongoDB (listed, revocable) and signed in the cookie. */
+export async function startSession(req, res, user, remember) {
+  const sid = crypto.randomBytes(18).toString("base64url");
+  const now = new Date();
+  await col.sessions.insertOne({
+    _id: sid,
+    uid: user._id,
+    sv: user.sessionVersion ?? 0,
+    remember: Boolean(remember),
+    ...clientInfo(req),
+    createdAt: now,
+    lastSeenAt: now,
+    expiresAt: new Date(now.getTime() + sessionTtl(remember) * 1000),
+  });
+  setSessionCookie(res, user, remember, sid);
+}
+
+export const recordLogin = (req, { email, user, ok, reason }) =>
+  col.logins
+    .insertOne({ at: new Date(), email, uid: user?._id ?? null, name: user?.name ?? null, ok, reason, ...clientInfo(req) })
+    .catch((err) => console.error("[auth] login log:", err.message));
+
+/**
+ * "devOnly" access (developer space › Accès) closes the administration to everyone but developers,
+ * e.g. while an account that was taken over is being dealt with.
+ */
+const accessClosed = async (user) => !isDeveloper(user) && (await getSetting("adminAccess", "normal")) === "devOnly";
+
+/** Loads the signed-in user (or null) — sessions die when the password changes or when they are revoked. */
 export async function sessionUser(req) {
   const session = readSession(req);
   if (!session) return null;
   const user = await col.users.findOne({ _id: oid(session.uid) });
-  if (!user || !user.passwordHash || (user.sessionVersion ?? 0) !== session.sv) return null;
+  if (!user || !user.passwordHash || user.disabled || (user.sessionVersion ?? 0) !== session.sv) return null;
+  if (session.sid) {
+    const stored = await col.sessions.findOne({ _id: session.sid });
+    if (!stored || String(stored.uid) !== String(user._id)) return null;
+    if (Date.now() - stored.lastSeenAt > SESSION_TOUCH || stored.ip !== req.ip)
+      await col.sessions.updateOne({ _id: stored._id }, { $set: { lastSeenAt: new Date(), ip: req.ip } }).catch(() => {});
+    req.sessionId = stored._id;
+  }
+  if (await accessClosed(user)) return null;
   // Tracking must never lock someone out.
   await markSeen(user).catch((err) => console.error("[auth] last seen:", err.message));
   return user;
@@ -27,17 +73,34 @@ authRoutes.post(
     const email = str(req.body?.email, 200).toLowerCase();
     const password = typeof req.body?.password === "string" ? req.body.password : "";
     const user = await col.users.findOne({ email });
-    if (!user || !(await verifyPassword(password, user.passwordHash))) return bad(res, "E-mail ou mot de passe incorrect.", 401);
+    if (!user || !(await verifyPassword(password, user.passwordHash))) {
+      await recordLogin(req, { email, user, ok: false, reason: user ? "password" : "unknown" });
+      return bad(res, "E-mail ou mot de passe incorrect.", 401);
+    }
+    if (user.disabled) {
+      await recordLogin(req, { email, user, ok: false, reason: "disabled" });
+      return bad(res, "Ce compte est suspendu. Contactez le développeur du site.", 403);
+    }
+    if (await accessClosed(user)) {
+      await recordLogin(req, { email, user, ok: false, reason: "closed" });
+      return bad(res, "L'administration est momentanément fermée pour maintenance technique.", 503);
+    }
+    await recordLogin(req, { email, user, ok: true, reason: "password" });
     await markSeen(user, { signIn: true });
-    setSessionCookie(res, user, Boolean(req.body?.remember));
+    await startSession(req, res, user, Boolean(req.body?.remember));
     res.json(toUser(user));
   }),
 );
 
-authRoutes.post("/logout", (_req, res) => {
-  clearSessionCookie(res);
-  res.json({ ok: true });
-});
+authRoutes.post(
+  "/logout",
+  h(async (req, res) => {
+    const sid = readSession(req)?.sid;
+    if (sid) await col.sessions.deleteOne({ _id: sid });
+    clearSessionCookie(res);
+    res.json({ ok: true });
+  }),
+);
 
 authRoutes.get(
   "/me",
@@ -82,8 +145,9 @@ authRoutes.post(
       { _id: user._id },
       { $set: { passwordHash: await hashPassword(password), sessionVersion }, $unset: { resetTokenHash: "", resetExpires: "" } },
     );
+    await recordLogin(req, { email: user.email, user, ok: true, reason: "reset" });
     await markSeen(user, { signIn: true });
-    setSessionCookie(res, { ...user, sessionVersion }, false);
+    await startSession(req, res, { ...user, sessionVersion }, false);
     res.json(toUser(user));
   }),
 );

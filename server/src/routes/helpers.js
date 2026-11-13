@@ -44,5 +44,6 @@ export const toUser = (u) => ({
   createdAt: u.createdAt,
   lastLoginAt: u.lastLoginAt ?? null,
   pending: !u.passwordHash,
+  disabled: Boolean(u.disabled),
   pendingEmail: u.pendingEmail && u.emailExpires > new Date() ? u.pendingEmail : null,
 });

@@ -31,6 +31,7 @@ const AdminSettings = lazy(() => import("@/pages/admin/Settings").then((m) => ({
 const AdminUsers = lazy(() => import("@/pages/admin/Users").then((m) => ({ default: m.AdminUsers })));
 const AdminMailTemplates = lazy(() => import("@/pages/admin/MailTemplates").then((m) => ({ default: m.AdminMailTemplates })));
 const AdminConfirmEmail = lazy(() => import("@/pages/admin/ConfirmEmail").then((m) => ({ default: m.AdminConfirmEmail })));
+const AdminDev = lazy(() => import("@/pages/admin/Dev").then((m) => ({ default: m.AdminDev })));
 const AdminAccount = lazy(() => import("@/pages/admin/Account").then((m) => ({ default: m.AdminAccount })));
 
 const AdminRoot = () => (
@@ -85,6 +86,7 @@ export const Router = () => (
         <Route path="utilisateurs" element={<AdminUsers />} />
         <Route path="emails" element={<AdminMailTemplates />} />
         <Route path="compte" element={<AdminAccount />} />
+        <Route path="dev" element={<AdminDev />} />
       </Route>
     </Route>
 

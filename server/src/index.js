@@ -1,15 +1,19 @@
+import "./logs.js";
 import fs from "node:fs";
 import path from "node:path";
 import express from "express";
 import multer from "multer";
 import { config, LANGS } from "./config.js";
-import { client, connect, contentSchema, seed } from "./db.js";
+import { client, connect, contentSchema, getSetting, seed } from "./db.js";
 import { serveImage } from "./files.js";
 import { renderPage } from "./seo.js";
+import { maintenancePage, maintenanceState } from "./maintenance.js";
 import { startIcalSync } from "./ical.js";
+import { startBackups } from "./backup.js";
 import { publicRoutes } from "./routes/public.js";
 import { authRoutes } from "./routes/auth.js";
 import { adminRoutes } from "./routes/admin.js";
+import { sessionUser } from "./routes/auth.js";
 import { bad } from "./routes/helpers.js";
 
 /** Keeps retrying instead of crashing, so a slow or misconfigured database shows up clearly in the logs. */
@@ -36,6 +40,7 @@ async function connectWithRetry() {
 await connectWithRetry();
 await seed();
 startIcalSync();
+startBackups();
 
 const app = express();
 app.disable("x-powered-by");
@@ -58,8 +63,24 @@ app.get("/healthz", async (_req, res) => {
   }
 });
 
+/** Maintenance (developer space): visitors get the maintenance page, signed-in staff still see the site. */
+async function inMaintenanceFor(req) {
+  const state = await maintenanceState();
+  if (!state?.enabled) return null;
+  if (req.query?.maintenance === "preview") return state;
+  return (await sessionUser(req).catch(() => null)) ? null : state;
+}
+
 const api = express.Router();
 api.use(express.json({ limit: "300kb" }));
+// Booking requests are refused while the site is in maintenance (the form cannot be reached anyway).
+api.post(
+  "/requests",
+  (req, res, next) =>
+    inMaintenanceFor(req)
+      .then((state) => (state ? res.status(503).json({ error: "maintenance" }) : next()))
+      .catch(next),
+);
 api.use(publicRoutes);
 api.use("/auth", authRoutes);
 api.use("/admin", adminRoutes);
@@ -100,7 +121,16 @@ if (fs.existsSync(config.staticDir)) {
   app.use(express.static(config.staticDir, { index: false, maxAge: "1d" }));
   const indexHtml = fs.readFileSync(path.join(config.staticDir, "index.html"), "utf8");
   // SPA fallback: every other route renders the React app, with that page's meta tags (and a 404 status if unknown).
-  app.get(/^(?!\/api\/|\/uploads\/).*/, (req, res, next) => {
+  app.get(/^(?!\/api\/|\/uploads\/).*/, async (req, res, next) => {
+    if (!req.path.startsWith("/admin")) {
+      const state = await inMaintenanceFor(req).catch(() => null);
+      if (state) {
+        const lang = /^\/(en|de)(\/|$)/.exec(req.path)?.[1] ?? "fr";
+        res.setHeader("Cache-Control", "no-store");
+        res.setHeader("Retry-After", "3600");
+        return res.status(503).type("html").send(maintenancePage(state, lang, await getSetting("site", contentSchema.settings)));
+      }
+    }
     renderPage(indexHtml, req.path)
       .then(({ status, html }) => {
         res.setHeader("Cache-Control", "no-cache");

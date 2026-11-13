@@ -16,6 +16,7 @@ import {
 import { useConfirm } from "@/components/admin/confirm-dialog";
 import { useAuth } from "@/providers/auth-provider";
 import { api } from "@/lib/api";
+import { isAdmin } from "@/lib/roles";
 import type { MailTemplate } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -74,8 +75,9 @@ export function AdminMailTemplates() {
   const subjectRef = useRef<HTMLInputElement>(null);
   const lastField = useRef<"subject" | "body">("body");
 
+  const allowed = isAdmin(user);
   useEffect(() => {
-    if (user?.role !== "admin") return;
+    if (!allowed) return;
     api
       .get<Listing>("/api/admin/mail-templates")
       .then((d) => {
@@ -83,7 +85,7 @@ export function AdminMailTemplates() {
         setSelected((s) => s || d.templates[0]?.id || "");
       })
       .catch((e) => toast.error(e.message));
-  }, [user?.role]);
+  }, [allowed]);
 
   const tpl = data?.templates.find((t) => t.id === selected);
   const saved = tpl ? current(tpl, lang) : null;
@@ -115,7 +117,7 @@ export function AdminMailTemplates() {
     return [...new Set(used.filter((k) => !known.has(k)))];
   }, [tpl, draft]);
 
-  if (user?.role !== "admin") return <Navigate to="/admin" replace />;
+  if (!allowed) return <Navigate to="/admin" replace />;
   if (!data || !tpl) return <div className="text-sm text-stone">Chargement…</div>;
 
   const discardOk = async () =>

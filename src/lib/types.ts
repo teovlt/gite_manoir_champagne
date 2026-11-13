@@ -119,14 +119,19 @@ export interface ActivityEntry {
   count?: number;
 }
 
+/** Developer is above administrator: everything an administrator does, plus the developer space. */
+export type UserRole = "editor" | "admin" | "developer";
+
 export interface AdminUser {
   id: string;
   email: string;
   name: string;
-  role: "admin" | "editor";
+  role: UserRole;
   createdAt: string;
   lastLoginAt: string | null;
   pending: boolean;
+  /** Suspended from the developer space: cannot sign in. */
+  disabled?: boolean;
   /** New address waiting for confirmation through the link sent to it. */
   pendingEmail: string | null;
 }
