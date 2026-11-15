@@ -304,7 +304,20 @@
     "sitemap": "Plan du site",
     "eyebrow": "Informations",
     "sitemapPages": "Pages du site",
-    "sitemapLanguages": "Autres langues"
+    "sitemapLanguages": "Autres langues",
+    "sitemapIntro": "Toutes les pages du site, pour trouver rapidement ce que vous cherchez.",
+    "groups": { "discover": "Découvrir", "stay": "Préparer son séjour", "info": "Informations" },
+    "pageDesc": {
+      "home": "Le manoir en un coup d'œil et la vérification des disponibilités.",
+      "gite": "Les pièces, les chambres et les équipements de la maison.",
+      "jardins": "Le jardin, le jacuzzi, l'étang et les espaces extérieurs.",
+      "region": "La Manche autour du gîte : plages, villages et sorties.",
+      "tarifs": "Les prix par saison, les suppléments et le calendrier.",
+      "avis": "Ce qu'en disent nos hôtes.",
+      "contact": "Une question ou une demande de réservation, et l'accès au gîte.",
+      "mentions": "Les informations sur l'éditeur et l'hébergement du site.",
+      "privacy": "Comment nous utilisons vos données."
+    }
   },
   "notFound": {
     "title": "Page introuvable",

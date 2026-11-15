@@ -304,7 +304,20 @@
     "sitemap": "Sitemap",
     "eyebrow": "Information",
     "sitemapPages": "Pages",
-    "sitemapLanguages": "Other languages"
+    "sitemapLanguages": "Other languages",
+    "sitemapIntro": "Every page of the site, so you can quickly find what you are looking for.",
+    "groups": { "discover": "Discover", "stay": "Plan your stay", "info": "Information" },
+    "pageDesc": {
+      "home": "The manor at a glance, and an availability check.",
+      "gite": "The rooms, bedrooms and facilities of the house.",
+      "jardins": "The garden, the hot tub, the pond and the outdoor spaces.",
+      "region": "The Manche around the house: beaches, villages and outings.",
+      "tarifs": "Prices by season, extras and the availability calendar.",
+      "avis": "What our guests say.",
+      "contact": "Questions, booking requests and how to get here.",
+      "mentions": "Information about the publisher and hosting of the site.",
+      "privacy": "How we use your data."
+    }
   },
   "notFound": {
     "title": "Page not found",

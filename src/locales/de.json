@@ -304,7 +304,20 @@
     "sitemap": "Sitemap",
     "eyebrow": "Informationen",
     "sitemapPages": "Seiten",
-    "sitemapLanguages": "Weitere Sprachen"
+    "sitemapLanguages": "Weitere Sprachen",
+    "sitemapIntro": "Alle Seiten der Website auf einen Blick.",
+    "groups": { "discover": "Entdecken", "stay": "Aufenthalt planen", "info": "Informationen" },
+    "pageDesc": {
+      "home": "Das Herrenhaus auf einen Blick und die Verfügbarkeitsprüfung.",
+      "gite": "Räume, Schlafzimmer und Ausstattung des Hauses.",
+      "jardins": "Garten, Whirlpool, Teich und Außenbereiche.",
+      "region": "Die Manche rund um das Haus: Strände, Dörfer und Ausflüge.",
+      "tarifs": "Preise nach Saison, Zusatzleistungen und Belegungskalender.",
+      "avis": "Was unsere Gäste sagen.",
+      "contact": "Fragen, Buchungsanfragen und Anreise.",
+      "mentions": "Angaben zum Herausgeber und Hosting der Website.",
+      "privacy": "Wie wir Ihre Daten verwenden."
+    }
   },
   "notFound": {
     "title": "Seite nicht gefunden",
